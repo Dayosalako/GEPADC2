@@ -95,7 +95,7 @@
             <a href="about.html" onclick="toggleMobileNav()">Mission</a>
             <a href="protection.html" onclick="toggleMobileNav()">Impact</a>
             <a href="volunteer.html" onclick="toggleMobileNav()">Join</a>
-            <a href="contact.html" onclick="toggleMobileNav()">Contacts</a>
+            <a href="contact.html" onclick="toggleMobileNav()">HQ</a>
         </div>
     </nav>
 
@@ -134,8 +134,8 @@
                 <div class="marquee-item italic">British Council</div>
                 <div class="marquee-item italic">Plan International</div>
                 <div class="marquee-item italic">European Union</div>
+                <div class="marquee-item italic">WPHF</div>
                 <div class="marquee-item italic">International Alert</div>
-                <div class="marquee-item italic">VSO</div>
             </div>
         </div>
     </section>
@@ -282,9 +282,9 @@
                 </div>
                 <div>
                     <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
-                    <p class="text-gray-400 text-sm mb-4">No 1, Cardinal Ekandem Street, off 32 Crescent, Gwarinpa, Abuja.</p>
+                    <p class="text-gray-400 text-sm mb-4">No 1, Cardinal Ekandem Street, Gwarinpa Estate, FCT, Abuja.</p>
                     <p class="text-gray-400 text-sm break-all font-bold">podonli@gepadc.org</p>
-                    <p class="text-gray-400 text-xs mt-2">+234 807 454 9359</p>
+                    <p class="text-gray-400 text-[10px] mt-2">+234 807 454 9359</p>
                 </div>
                 <div>
                     <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Updates</h4>
@@ -343,6 +343,7 @@
         function toggleModal() { document.getElementById('donateModal').classList.toggle('hidden'); }
         function closeNewsModal() { document.getElementById('newsModal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
+        // COUNTER SYSTEM
         const startCounters = () => {
             document.querySelectorAll('.counter').forEach(counter => {
                 const target = +counter.getAttribute('data-target');
