@@ -3,168 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEPaDC | Contact</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Contact HQ | GEPaDC</title>
     <link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
+        :root { --brand-green: #2D5A27; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1a1a1a; }
+        .font-heading { font-family: 'Montserrat', sans-serif; }
+        
+        /* Dropdown Logic */
+        .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 220px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-top: 3px solid var(--brand-green); z-index: 50; }
+        .dropdown-item { padding: 12px 20px; display: block; font-size: 11px; color: #4b5563; border-bottom: 1px solid #f3f4f6; transition: all 0.3s; text-transform: uppercase; font-weight: 700; tracking-widest; }
+        .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 25px; }
+    </style>
 </head>
-<body class="bg-white text-gray-900 font-sans">
+<body>
 
-    <nav class="flex justify-between items-center py-4 px-6 md:px-10 border-b sticky top-0 bg-white z-50 shadow-sm">
-    <div class="text-3xl font-black text-green-600 tracking-tighter">GEPaDC</div>
-    <div class="hidden lg:flex space-x-8 font-bold text-sm uppercase">
-        <a href="index.html" class="hover:text-green-600 transition">Home</a>
-        <a href="about.html" class="hover:text-green-600 transition">About Us</a>
-        <a href="programs.html" class="hover:text-green-600 transition">Our Work</a>
-        <a href="volunteer.html" class="hover:text-green-600 transition">Volunteer</a>
-        <a href="contact.html" class="hover:text-green-600 transition">Contact</a>
+    <div class="bg-white text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase border-b border-gray-100">
+        <div id="liveDate"></div>
+        <div class="flex gap-4">
+            <span class="text-[#2D5A27]">HQ Status: Operational</span>
+            <span id="liveTime"></span>
+        </div>
     </div>
-    <button onclick="toggleModal()" class="bg-green-600 text-white px-8 py-3 font-black text-sm uppercase hover:bg-black transition">Donate</button>
-</nav>
 
-    <section class="py-20 px-6 md:px-10 container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-            <div>
-                <h1 class="text-5xl font-black mb-6 uppercase italic">Get in Touch</h1>
-                <p class="text-xl text-gray-600 mb-10">We would love to hear from you. Whether you want to volunteer, partner, or donate.</p>
-                
-                <div class="space-y-8">
-                    <div class="flex items-center gap-4">
-                        <i class="fa fa-envelope text-green-600"></i>
-                        <p class="font-bold">podonli@gepadc.org</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <i class="fa fa-phone text-green-600"></i>
-                        <p class="font-bold">+234 80 7454 9359</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <i class="fa fa-map-marker-alt text-green-600"></i>
-                        <p class="font-bold">Maiduguri, Borno State, Nigeria</p>
-                    </div>
+    <nav class="flex justify-between items-center py-4 px-6 md:px-10 sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Logo" class="h-10 w-auto">
+            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic">GEPaDC</div>
+        </div>
+
+        <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
+            <a href="index.html" class="hover:text-[#2D5A27] transition">Home</a>
+            
+            <div class="dropdown relative">
+                <button class="hover:text-[#2D5A27] transition flex items-center gap-1">Mission <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="about.html" class="dropdown-item">Who We Are</a>
+                    <a href="team.html" class="dropdown-item">Leadership</a>
+                    <a href="strategy.html" class="dropdown-item">Strategy 2030</a>
                 </div>
             </div>
 
-            <div class="bg-gray-100 p-8 md:p-12">
-                <form id="contactForm" class="space-y-6">
-                    <input type="text" id="cName" placeholder="Your Name" requigreen class="w-full border-b-2 border-gray-300 bg-transparent py-3 outline-none focus:border-green-600 transition">
-                    <input type="email" id="cEmail" placeholder="Your Email" requigreen class="w-full border-b-2 border-gray-300 bg-transparent py-3 outline-none focus:border-green-600 transition">
-                    <textarea id="cMsg" placeholder="Message Details" class="w-full border-b-2 border-gray-300 bg-transparent py-3 outline-none focus:border-green-600 transition h-32"></textarea>
-                    <button type="submit" id="contactSubmitBtn" class="bg-black text-white w-full py-4 font-black uppercase tracking-widest hover:bg-green-600 transition">Send Message</button>
-                    <p id="contactMsg" class="hidden text-green-600 font-bold text-center italic mt-2">Message Sent Successfully!</p>
+            <div class="dropdown relative">
+                <button class="hover:text-[#2D5A27] transition flex items-center gap-1">Impact <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="protection.html" class="dropdown-item">Protection & WASH</a>
+                    <a href="peacebuilding.html" class="dropdown-item">Peace & Security</a>
+                    <a href="empowerment.html" class="dropdown-item">Economic Empowerment</a>
+                </div>
+            </div>
+
+            <a href="volunteer.html" class="hover:text-[#2D5A27] transition">Join</a>
+            <a href="contact.html" class="text-[#2D5A27]">HQ</a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button onclick="toggleModal()" class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic shadow-lg hover:bg-black transition">Donate</button>
+        </div>
+    </nav>
+
+    <section class="py-24 container mx-auto px-6 md:px-10">
+        <div class="grid lg:grid-cols-2 gap-20">
+            <div data-aos="fade-right">
+                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Institutional Presence</h2>
+                <h1 class="text-5xl md:text-7xl font-black italic font-heading uppercase mb-8 leading-tight">Get in <br><span class="text-gray-300">Touch.</span></h1>
+                <p class="text-gray-500 text-lg max-w-md mb-12 leading-relaxed">
+                    For institutional partnerships, field operations, or media inquiries, please use the secure channel below. Our response team is active 24/7.
+                </p>
+                
+                <div class="space-y-10">
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 bg-gray-50 flex items-center justify-center text-[#2D5A27] rounded-full border border-gray-100">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Global HQ</p>
+                            <p class="font-bold">Gwarinpa Estate, FCT, Abuja, Nigeria</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 bg-gray-50 flex items-center justify-center text-[#2D5A27] rounded-full border border-gray-100">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Institutional Email</p>
+                            <p class="font-bold">podonli@gepadc.org</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 bg-gray-50 flex items-center justify-center text-[#2D5A27] rounded-full border border-gray-100">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">24/7 Dispatch</p>
+                            <p class="font-bold">+234 (0) 814 197 0095</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-8 md:p-12 border border-gray-100" data-aos="fade-left">
+                <form class="space-y-8">
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-[#2D5A27]">Inquiry Type</label>
+                        <select class="w-full bg-transparent border-b-2 border-gray-200 py-3 outline-none focus:border-[#2D5A27] font-bold text-sm">
+                            <option>Institutional Partnership</option>
+                            <option>Media & Press</option>
+                            <option>Volunteer Application</option>
+                            <option>General Support</option>
+                        </select>
+                    </div>
+                    <input type="text" placeholder="Full Identity" class="w-full bg-transparent border-b-2 border-gray-200 py-4 outline-none focus:border-[#2D5A27] text-sm">
+                    <input type="email" placeholder="Official Email Address" class="w-full bg-transparent border-b-2 border-gray-200 py-4 outline-none focus:border-[#2D5A27] text-sm">
+                    <textarea placeholder="Message Details..." rows="4" class="w-full bg-transparent border-b-2 border-gray-200 py-4 outline-none focus:border-[#2D5A27] text-sm"></textarea>
+                    
+                    <button class="w-full bg-black text-white py-5 font-black uppercase text-[10px] tracking-widest hover:bg-[#2D5A27] transition flex items-center justify-center gap-3">
+                        Send Dispatch <i class="fas fa-paper-plane text-[10px]"></i>
+                    </button>
                 </form>
             </div>
         </div>
     </section>
 
-   <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10 font-sans">
-    <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
-            
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto grayscale brightness-200">
-                    <span class="text-2xl font-heading text-white tracking-tighter italic">GEPaDC</span>
+    <section class="py-24 border-t border-gray-100 bg-white">
+        <div class="container mx-auto px-6 md:px-10">
+            <h3 class="font-black uppercase text-[#2D5A27] text-[10px] tracking-[0.4em] mb-12">State Operations Centres</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="border-l-2 border-gray-100 pl-6 py-4">
+                    <h4 class="font-black text-xs uppercase mb-2">Borno</h4>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">No 7 Nguru Street Polo close, Old GRA</p>
                 </div>
-                <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
-                    Leading the frontier of gender-based justice and humanitarian protection in Western Africa. An institution built on the principles of equity, dignity, and sustainable peace.
-                </p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all"><i class="fab fa-instagram"></i></a>
+                <div class="border-l-2 border-gray-100 pl-6 py-4">
+                    <h4 class="font-black text-xs uppercase mb-2">Adamawa</h4>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">Coper Lane, Zone 3, Jimeta, Yola</p>
+                </div>
+                <div class="border-l-2 border-gray-100 pl-6 py-4">
+                    <h4 class="font-black text-xs uppercase mb-2">Sokoto</h4>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">No 1 Abuja Road, GRA, Sokoto</p>
+                </div>
+                <div class="border-l-2 border-gray-100 pl-6 py-4">
+                    <h4 class="font-black text-xs uppercase mb-2">Yobe</h4>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">Maisandari Beside Damaturu PHC</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-green-600 pl-4">Programmatic Sectors</h4>
-                <ul class="space-y-4 text-gray-500 text-[11px] font-bold uppercase tracking-widest">
-                    <li><a href="programs.html" class="hover:text-green-600 transition">Protection & WASH</a></li>
-                    <li><a href="programs.html" class="hover:text-green-600 transition">Peacebuilding & Security</a></li>
-                    <li><a href="programs.html" class="hover:text-green-600 transition">Economic Empowerment</a></li>
-                    <li><a href="archive.html" class="hover:text-green-600 transition">Institutional Archive</a></li>
-                    <li><a href="volunteer.html" class="hover:text-green-600 transition">Field Operations</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-green-600 pl-4">Global HQ</h4>
-                <ul class="space-y-6 text-gray-400 text-sm">
-                    <li class="flex gap-4">
-                        <i class="fas fa-map-marker-alt text-green-600 mt-1"></i>
-                        <span>No. 12 Justice Avenue,<br>Maiduguri, Borno State, Nigeria</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-envelope text-green-600 mt-1"></i>
-                        <span class="break-all">institutional.response@gepadc.org</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-phone-alt text-green-600 mt-1"></i>
-                        <span>+234 (0) 800 GEPaDC HQ</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-green-600 pl-4">Newsletter</h4>
-                <p class="text-gray-500 text-xs mb-6">Receive high-impact dispatches and quarterly reports.</p>
-                <form class="relative">
-                    <input type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-green-600 transition">
-                    <button class="absolute right-2 top-2 bottom-2 bg-green-600 px-4 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-green-600 transition">Join</button>
-                </form>
-                <div class="mt-8 pt-8 border-t border-white/5">
-                    <p class="text-[10px] text-gray-600 uppercase font-black tracking-widest leading-relaxed">
-                        Registration: CAC IT/39885<br>
-                        DUNS: 55-667-8892
+    <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10 font-sans">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+                <div class="space-y-8">
+                    <div class="flex items-center gap-4">
+                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto grayscale brightness-200">
+                        <span class="text-2xl font-heading text-white tracking-tighter italic">GEPaDC</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
+                        Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on principles of equity and dignity.
                     </p>
+                    <div class="flex gap-4">
+                        <a href="https://web.facebook.com/GEPaDC.Nig" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/GEPaDC" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">State Operations</h4>
+                    <ul class="space-y-4 text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-relaxed">
+                        <li><span class="text-white">Adamawa:</span> Coper Lane, Zone 3, Jimeta, Yola</li>
+                        <li><span class="text-white">Borno:</span> No 7 Nguru Street Polo close, Old GRA</li>
+                        <li><span class="text-white">Kaduna:</span> Sir Patrick Yakowa Street, Karji</li>
+                        <li><span class="text-white">Sokoto:</span> No 1 Abuja Road, GRA, Sokoto</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
+                    <ul class="space-y-6 text-gray-400 text-sm">
+                        <li class="flex gap-4"><i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i><span>Gwarinpa Estate, FCT, Abuja.</span></li>
+                        <li class="flex gap-4"><i class="fas fa-envelope text-[#2D5A27] mt-1"></i><span>podonli@gepadc.org</span></li>
+                        <li class="flex gap-4"><i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i><span>+234 (0) 814 197 0095</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Institutional Updates</h4>
+                    <p class="text-gray-500 text-[10px] mb-6 uppercase font-bold tracking-widest">Join our quarterly impact dispatch.</p>
+                    <form class="relative">
+                        <input type="email" placeholder="Institutional Email" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-xs text-white focus:outline-none focus:border-[#2D5A27]">
+                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-[9px] font-black uppercase text-white">Join</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                <p class="text-[9px] font-black uppercase tracking-widest text-gray-600">© 2026 GEPaDC. CAC IT/39885</p>
+                <div class="flex items-center gap-6">
+                    <div class="text-right">
+                        <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Directed by</p>
+                        <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
+                    </div>
+                    <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic">Z</div>
                 </div>
             </div>
         </div>
+    </footer>
 
-        <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex gap-8 text-[9px] font-black uppercase tracking-widest text-gray-600">
-                <a href="#" class="hover:text-white transition">Privacy Protocol</a>
-                <a href="#" class="hover:text-white transition">Terms of Engagement</a>
-                <a href="#" class="hover:text-white transition">Cookie Policy</a>
-            </div>
-            <div class="flex items-center gap-6">
-                <div class="text-right">
-                    <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Directed by</p>
-                    <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
-                </div>
-                <div class="w-12 h-12 bg-green-600 text-white flex items-center justify-center font-black text-xl italic shadow-2xl">Z</div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<div id="donateModal" class="fixed inset-0 bg-black bg-opacity-95 z-[100] hidden flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-4xl flex flex-col md:flex-row shadow-2xl relative overflow-y-auto max-h-[90vh]">
-        <button onclick="toggleModal()" class="absolute top-4 right-4 text-3xl font-bold z-10">&times;</button>
-        <div class="bg-green-600 text-white p-8 md:p-12 md:w-1/2">
-            <h2 class="text-3xl font-black mb-6 uppercase italic">Bank Details</h2>
-            <div class="space-y-6 text-sm">
-                <div><p class="opacity-70 text-xs font-bold uppercase">Bank Name</p><p class="font-black">Global Charity Bank</p></div>
-                <div><p class="opacity-70 text-xs font-bold uppercase">Account Number</p><p class="font-black text-2xl tracking-widest">0123456789</p></div>
-                <div><p class="opacity-70 text-xs font-bold uppercase">Account Name</p><p class="font-black">GEPaDC Official</p></div>
-            </div>
-        </div>
-        <div class="p-8 md:p-12 md:w-1/2">
-            <form id="donorForm" class="space-y-4">
-                <h3 class="font-black text-xl mb-4 border-b-2 border-black inline-block uppercase">Notify Us</h3>
-                <input type="text" id="donorName" placeholder="Full Name" requigreen class="w-full border-b-2 py-3 outline-none focus:border-green-600 transition">
-                <input type="number" id="donorAmount" placeholder="Amount (₦)" requigreen class="w-full border-b-2 py-3 outline-none focus:border-green-600 transition">
-                <input type="text" id="donorRef" placeholder="Transfer Ref" class="w-full border-b-2 py-3 outline-none focus:border-green-600 transition">
-                <button type="submit" id="donorSubmitBtn" class="w-full bg-black text-white py-4 font-black uppercase tracking-widest hover:bg-green-600 transition">Confirm Payment</button>
-                <p id="donorMsg" class="hidden text-green-600 text-center font-bold italic mt-2">Notification Sent!</p>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-    <script src="script.js"></script>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const dateEl = document.getElementById('liveDate');
+            const timeEl = document.getElementById('liveTime');
+            if(dateEl) dateEl.innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
+            if(timeEl) timeEl.innerText = now.toLocaleTimeString('en-GB', { hour12: false });
+        }
+        setInterval(updateTime, 1000); 
+        updateTime();
+    </script>
 </body>
-
 </html>
-
