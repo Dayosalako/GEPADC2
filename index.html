@@ -15,14 +15,15 @@
         body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0a0a0a; color: white; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
         
-        /* Mobile-First Typography Fix */
+        /* Mobile-First Typography */
         .hero-title { font-size: clamp(3rem, 10vw, 9rem); line-height: 0.9; }
         .section-title { font-size: clamp(2rem, 6vw, 5rem); }
 
+        /* Partner Marquee Animation */
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .marquee-container { overflow: hidden; white-space: nowrap; display: flex; }
-        .marquee-content { display: flex; animation: scroll 30s linear infinite; }
-        .marquee-item { flex: 0 0 auto; padding: 0 3rem; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 900; color: rgba(255,255,255,0.1); text-transform: uppercase; font-family: 'Montserrat', sans-serif; }
+        .marquee-content { display: flex; animation: scroll 35s linear infinite; }
+        .marquee-item { flex: 0 0 auto; padding: 0 3rem; font-size: clamp(1.2rem, 3vw, 2.2rem); font-weight: 900; color: rgba(255,255,255,0.1); text-transform: uppercase; font-family: 'Montserrat', sans-serif; }
         
         .hero-overlay { background: linear-gradient(75deg, rgba(0,0,0,1) 35%, rgba(0,0,0,0.3) 100%); }
         .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
@@ -55,7 +56,6 @@
 
         <div class="flex items-center gap-4">
             <button onclick="toggleModal()" class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic shadow-lg hover:bg-black transition">Donate</button>
-            
             <button onclick="toggleMobileNav()" class="lg:hidden text-[#2D5A27] text-2xl focus:outline-none p-1">
                 <i id="navIcon" class="fas fa-bars"></i>
             </button>
@@ -63,7 +63,6 @@
 
         <div id="mobileNav" class="fixed inset-0 bg-white z-[150] hidden flex-col items-center justify-center space-y-8 text-xl font-black uppercase tracking-widest transition-all duration-300 lg:hidden text-black">
             <button onclick="toggleMobileNav()" class="absolute top-6 right-6 text-4xl text-[#2D5A27]">&times;</button>
-            
             <a href="index.html" onclick="toggleMobileNav()" class="text-[#2D5A27]">Home</a>
             <a href="about.html" onclick="toggleMobileNav()" class="hover:text-[#2D5A27]">Mission</a>
             <a href="programs.html" onclick="toggleMobileNav()" class="hover:text-[#2D5A27]">Impact</a>
@@ -99,22 +98,17 @@
                 <div class="marquee-item italic">Save the Children</div>
                 <div class="marquee-item italic">UNICEF</div>
                 <div class="marquee-item italic">World Bank</div>
-                <div class="marquee-item italic">USAID</div>
-                <div class="marquee-item italic">UN Women</div>
-                <div class="marquee-item italic">Save the Children International</div>
                 <div class="marquee-item italic">GIZ</div>
                 <div class="marquee-item italic">UNDP/DGD</div>
-                <div class="marquee-item italic">NSRP/British Council</div>
-                <div class="marquee-item italic">Managing Conflict in Nigeria (EU/British Council)</div>
+                <div class="marquee-item italic">British Council</div>
                 <div class="marquee-item italic">Plan International</div>
-                <div class="marquee-item italic">DFID ProsPINE</div>
-                <div class="marquee-item italic">ECHO 4</div>
-                <div class="marquee-item italic">SC Norway</div>
-                <div class="marquee-item italic">NJR</div>
                 <div class="marquee-item italic">EU Consortium</div>
-                <div class="marquee-item italic">ECW MYRP</div>
-                <div class="marquee-item italic">Italian Grant</div>
                 <div class="marquee-item italic">UNFPA</div>
+                <div class="marquee-item italic">ECHO</div>
+                <div class="marquee-item italic">USAID</div>
+                <div class="marquee-item italic">UN Women</div>
+                <div class="marquee-item italic">Save the Children</div>
+                <div class="marquee-item italic">UNICEF</div>
             </div>
         </div>
     </section>
@@ -152,28 +146,28 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="group relative overflow-hidden aspect-square bg-gray-900 border border-white/5" data-aos="fade-up">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Field Work">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                     <a href="https://www.instagram.com/gepadc/" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 text-center text-white">
                         <i class="fab fa-instagram text-2xl mb-2"></i>
                         <span class="text-[10px] font-black uppercase tracking-widest">Instagram</span>
                     </a>
                 </div>
                 <div class="group relative overflow-hidden aspect-[4/5] md:row-span-2 bg-gray-900 border border-white/5" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Community Outreach">
+                    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                     <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 text-center text-white">
                         <i class="fab fa-facebook-f text-2xl mb-2"></i>
                         <span class="text-[10px] font-black uppercase tracking-widest">Facebook Feed</span>
                     </a>
                 </div>
                 <div class="group relative overflow-hidden aspect-video md:col-span-2 bg-gray-900 border border-white/5" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1524069290683-0457abfe42c3?q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Mission Video">
+                    <img src="https://images.unsplash.com/photo-1524069290683-0457abfe42c3?q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                     <a href="https://www.youtube.com/@gepadc370" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 text-center text-white">
                         <i class="fab fa-youtube text-2xl mb-2"></i>
                         <span class="text-[10px] font-black uppercase tracking-widest">Watch Our Work</span>
                     </a>
                 </div>
                 <div class="group relative overflow-hidden aspect-square bg-gray-900 border border-white/5" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Advocacy Updates">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                     <a href="https://twitter.com/GEPaDC" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 text-center text-white">
                         <i class="fab fa-x-twitter text-2xl mb-2"></i>
                         <span class="text-[10px] font-black uppercase tracking-widest">X Updates</span>
@@ -195,11 +189,8 @@
                         Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on principles of equity and dignity.
                     </p>
                     <div class="flex flex-wrap gap-3">
-                        <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
-                        <a href="https://ng.linkedin.com/company/gepadcnig" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.youtube.com/@gepadc370" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-youtube"></i></a>
+                        <a href="https://web.facebook.com/GEPaDC.Nig" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/GEPaDC" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
                     </div>
                 </div>
 
@@ -217,18 +208,9 @@
                 <div>
                     <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
                     <ul class="space-y-6 text-gray-400 text-sm">
-                        <li class="flex gap-4">
-                            <i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i>
-                            <span>No 1, Cardinal Ekandem Street, 32 Crescent, Gwarinpa Estate, FCT, Abuja.</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <i class="fas fa-envelope text-[#2D5A27] mt-1"></i>
-                            <span class="break-all">podonli@gepadc.org</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i>
-                            <span>+234 (0) 814 197 0095</span>
-                        </li>
+                        <li class="flex gap-4"><i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i><span>Gwarinpa Estate, FCT, Abuja.</span></li>
+                        <li class="flex gap-4"><i class="fas fa-envelope text-[#2D5A27] mt-1"></i><span>podonli@gepadc.org</span></li>
+                        <li class="flex gap-4"><i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i><span>+234 (0) 814 197 0095</span></li>
                     </ul>
                 </div>
 
@@ -240,24 +222,20 @@
                         <li><a href="programs.html" class="hover:text-[#2D5A27] transition">Economic Empowerment</a></li>
                     </ul>
                     <form class="relative">
-                        <input type="email" placeholder="Institutional Email" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-xs text-white focus:outline-none focus:border-[#2D5A27] transition">
-                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-[9px] font-black uppercase tracking-widest hover:bg-white hover:text-[#2D5A27] transition text-white">Join</button>
+                        <input type="email" placeholder="Institutional Email" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-xs text-white focus:outline-none focus:border-[#2D5A27]">
+                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-[9px] font-black uppercase text-white">Join</button>
                     </form>
                 </div>
             </div>
 
             <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex gap-8 text-[9px] font-black uppercase tracking-widest text-gray-600">
-                    <a href="#" class="hover:text-white transition">Privacy Protocol</a>
-                    <a href="#" class="hover:text-white transition">Terms of Engagement</a>
-                    <p>© 2026 GEPaDC. CAC IT/39885</p>
-                </div>
+                <p class="text-[9px] font-black uppercase tracking-widest text-gray-600">© 2026 GEPaDC. CAC IT/39885</p>
                 <div class="flex items-center gap-6">
                     <div class="text-right">
                         <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Directed by</p>
                         <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
                     </div>
-                    <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic shadow-2xl">Z</div>
+                    <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic">Z</div>
                 </div>
             </div>
         </div>
@@ -269,37 +247,27 @@
                 <div>
                     <h2 class="text-5xl font-black italic font-heading mb-8 uppercase">Secure <br>Giving.</h2>
                     <div class="space-y-6 uppercase tracking-widest">
-                        <div><p class="text-[9px] opacity-60 font-black">Account No.</p><p class="text-3xl font-black italic">0123456789</p></div>
-                        <div><p class="text-[9px] opacity-60 font-black">Account Name.</p><p class="text-3xl font-black italic">GEPaDC Nigeria</p></div>
-                        <div><p class="text-[9px] opacity-60 font-black">Bank Name.</p><p class="text-3xl font-black italic">GTBank</p></div>
+                        <div><p class="text-[9px] opacity-60">Account No.</p><p class="text-3xl font-black italic">0123456789</p></div>
+                        <div><p class="text-[9px] opacity-60">Bank Name.</p><p class="text-3xl font-black italic">GTBank</p></div>
                     </div>
                 </div>
-                <button onclick="toggleModal()" class="text-left font-black text-[10px] uppercase border-b border-white pb-1 inline-block w-fit">Cancel</button>
+                <button onclick="toggleModal()" class="text-left font-black text-[10px] uppercase border-b border-white pb-1 w-fit">Cancel</button>
             </div>
             <div class="p-12 md:w-1/2 overflow-y-auto">
                 <form id="donorForm" class="space-y-8">
-                    <input type="text" id="donorName" placeholder="Full Identity" required class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] transition text-lg font-heading">
-                    <input type="number" id="donorAmount" placeholder="Amount (NGN)" required class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] transition text-lg">
-                    <button type="submit" class="w-full bg-black text-white py-5 font-black uppercase text-[10px] tracking-widest hover:bg-[#2D5A27] transition">Confirm Contribution</button>
+                    <input type="text" placeholder="Full Identity" required class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] text-lg font-heading">
+                    <input type="number" placeholder="Amount (NGN)" required class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] text-lg">
+                    <button type="submit" class="w-full bg-black text-white py-5 font-black uppercase text-[10px] tracking-widest hover:bg-[#2D5A27] transition">Confirm</button>
                 </form>
             </div>
-        </div>
-    </div>
-
-    <div id="newsModal" class="fixed inset-0 bg-black/95 z-[200] hidden flex items-center justify-center p-4 backdrop-blur-md">
-        <div class="bg-white text-black w-full max-w-4xl max-h-[90vh] overflow-y-auto relative">
-            <button onclick="closeNewsModal()" class="sticky top-0 float-right m-4 text-3xl font-light hover:text-[#2D5A27] transition z-50">×</button>
-            <div id="newsFullContent" class="p-8 md:p-16"></div>
         </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
     <script>
-        // Initialize Animations
         AOS.init();
 
-        // System Clock & Date
         function updateTime() {
             const now = new Date();
             const dateEl = document.getElementById('liveDate');
@@ -310,7 +278,6 @@
         setInterval(updateTime, 1000); 
         updateTime();
 
-        // Mobile Menu Toggle Logic
         function toggleMobileNav() {
             const mobileNav = document.getElementById('mobileNav');
             const navIcon = document.getElementById('navIcon');
@@ -325,6 +292,11 @@
                 navIcon.className = "fas fa-bars";
                 document.body.style.overflow = 'auto';
             }
+        }
+
+        function toggleModal() {
+            const modal = document.getElementById('donateModal');
+            modal.classList.toggle('hidden');
         }
     </script>
 </body>
