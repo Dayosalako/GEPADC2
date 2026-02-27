@@ -7,17 +7,21 @@
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
         :root { --brand-green: #2D5A27; }
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1a1a1a; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1a1a1a; overflow-x: hidden; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
         
-        /* Dropdown Logic */
         .dropdown:hover .dropdown-menu { display: block; }
         .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 220px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-top: 3px solid var(--brand-green); z-index: 50; }
-        .dropdown-item { padding: 12px 20px; display: block; font-size: 11px; color: #4b5563; border-bottom: 1px solid #f3f4f6; transition: all 0.3s; text-transform: uppercase; font-weight: 700; tracking-widest; }
+        .dropdown-item { padding: 12px 20px; display: block; font-size: 11px; color: #4b5563; border-bottom: 1px solid #f3f4f6; transition: all 0.3s; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; }
         .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 25px; }
+        
+        .ticker-wrap { background: #000; color: #fff; padding: 10px 0; overflow: hidden; }
+        .ticker { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
     </style>
 </head>
 <body>
@@ -25,7 +29,7 @@
     <div class="bg-white text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase border-b border-gray-100">
         <div id="liveDate"></div>
         <div class="flex gap-4">
-            <span class="text-[#2D5A27]">HQ Status: Operational</span>
+            <span class="text-[#2D5A27]">Registry: CAC/IT/39885</span>
             <span id="liveTime"></span>
         </div>
     </div>
@@ -38,32 +42,27 @@
 
         <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
             <a href="index.html" class="hover:text-[#2D5A27] transition">Home</a>
-            
             <div class="dropdown relative">
-                <button class="hover:text-[#2D5A27] transition flex items-center gap-1">Mission <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <button class="hover:text-[#2D5A27] transition flex items-center gap-1 uppercase">Mission <i class="fas fa-chevron-down text-[8px]"></i></button>
                 <div class="dropdown-menu">
                     <a href="about.html" class="dropdown-item">Who We Are</a>
                     <a href="team.html" class="dropdown-item">Leadership</a>
                     <a href="strategy.html" class="dropdown-item">Strategy 2030</a>
                 </div>
             </div>
-
             <div class="dropdown relative">
-                <button class="hover:text-[#2D5A27] transition flex items-center gap-1">Impact <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <button class="hover:text-[#2D5A27] transition flex items-center gap-1 uppercase">Impact <i class="fas fa-chevron-down text-[8px]"></i></button>
                 <div class="dropdown-menu">
                     <a href="protection.html" class="dropdown-item">Protection & WASH</a>
                     <a href="peacebuilding.html" class="dropdown-item">Peace & Security</a>
                     <a href="empowerment.html" class="dropdown-item">Economic Empowerment</a>
                 </div>
             </div>
-
-            <a href="volunteer.html" class="hover:text-[#2D5A27] transition">Join</a>
-            <a href="contact.html" class="text-[#2D5A27]">HQ</a>
+            <a href="volunteer.html" class="hover:text-[#2D5A27] transition uppercase">Join</a>
+            <a href="contact.html" class="text-[#2D5A27] uppercase">HQ</a>
         </div>
 
-        <div class="flex items-center gap-4">
-            <button onclick="toggleModal()" class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic shadow-lg hover:bg-black transition">Donate</button>
-        </div>
+        <button class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic shadow-lg hover:bg-black transition">Donate</button>
     </nav>
 
     <section class="py-24 container mx-auto px-6 md:px-10">
@@ -72,7 +71,7 @@
                 <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Institutional Presence</h2>
                 <h1 class="text-5xl md:text-7xl font-black italic font-heading uppercase mb-8 leading-tight">Get in <br><span class="text-gray-300">Touch.</span></h1>
                 <p class="text-gray-500 text-lg max-w-md mb-12 leading-relaxed">
-                    For institutional partnerships, field operations, or media inquiries, please use the secure channel below. Our response team is active 24/7.
+                    Connecting our global partners to our frontline operations. Use the secure channels below for formal inquiries and coordination.
                 </p>
                 
                 <div class="space-y-10">
@@ -81,8 +80,8 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Global HQ</p>
-                            <p class="font-bold">Gwarinpa Estate, FCT, Abuja, Nigeria</p>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Global HQ (Abuja)</p>
+                            <p class="font-bold">No 1 Cardinal Ekandem Street, 32 Crescent, Gwarinpa, Abuja.</p>
                         </div>
                     </div>
                     <div class="flex gap-6">
@@ -90,8 +89,8 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Institutional Email</p>
-                            <p class="font-bold">podonli@gepadc.org</p>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Direct Liaison</p>
+                            <p class="font-bold">podonli@gepadc.org | podonli@yahoo.co.uk</p>
                         </div>
                     </div>
                     <div class="flex gap-6">
@@ -99,8 +98,8 @@
                             <i class="fas fa-phone-alt"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">24/7 Dispatch</p>
-                            <p class="font-bold">+234 (0) 814 197 0095</p>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">24/7 Field Operations</p>
+                            <p class="font-bold">+234 807 454 9359 | +234 814 197 0095</p>
                         </div>
                     </div>
                 </div>
@@ -109,20 +108,20 @@
             <div class="bg-gray-50 p-8 md:p-12 border border-gray-100" data-aos="fade-left">
                 <form class="space-y-8">
                     <div class="space-y-2">
-                        <label class="text-[9px] font-black uppercase tracking-widest text-[#2D5A27]">Inquiry Type</label>
+                        <label class="text-[9px] font-black uppercase tracking-widest text-[#2D5A27]">Operational Inquiry</label>
                         <select class="w-full bg-transparent border-b-2 border-gray-200 py-3 outline-none focus:border-[#2D5A27] font-bold text-sm">
                             <option>Institutional Partnership</option>
-                            <option>Media & Press</option>
-                            <option>Volunteer Application</option>
-                            <option>General Support</option>
+                            <option>Field Implementation</option>
+                            <option>Protection/GBV Case Referral</option>
+                            <option>Media & Governance</option>
                         </select>
                     </div>
-                    <input type="text" placeholder="Full Identity" class="w-full bg-transparent border-b-2 border-gray-200 py-4 outline-none focus:border-[#2D5A27] text-sm">
+                    <input type="text" placeholder="Full Identity / Organization" class="w-full bg-transparent border-b-2 border-gray-200 py-4 outline-none focus:border-[#2D5A27] text-sm">
                     <input type="email" placeholder="Official Email Address" class="w-full bg-transparent border-b-2 border-gray-200 py-4 outline-none focus:border-[#2D5A27] text-sm">
-                    <textarea placeholder="Message Details..." rows="4" class="w-full bg-transparent border-b-2 border-gray-200 py-4 outline-none focus:border-[#2D5A27] text-sm"></textarea>
+                    <textarea placeholder="Mission statement or inquiry details..." rows="4" class="w-full bg-transparent border-b-2 border-gray-200 py-4 outline-none focus:border-[#2D5A27] text-sm"></textarea>
                     
                     <button class="w-full bg-black text-white py-5 font-black uppercase text-[10px] tracking-widest hover:bg-[#2D5A27] transition flex items-center justify-center gap-3">
-                        Send Dispatch <i class="fas fa-paper-plane text-[10px]"></i>
+                        Transmit Dispatch <i class="fas fa-paper-plane text-[10px]"></i>
                     </button>
                 </form>
             </div>
@@ -131,97 +130,91 @@
 
     <section class="py-24 border-t border-gray-100 bg-white">
         <div class="container mx-auto px-6 md:px-10">
-            <h3 class="font-black uppercase text-[#2D5A27] text-[10px] tracking-[0.4em] mb-12">State Operations Centres</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="border-l-2 border-gray-100 pl-6 py-4">
-                    <h4 class="font-black text-xs uppercase mb-2">Borno</h4>
-                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">No 7 Nguru Street Polo close, Old GRA</p>
+            <h3 class="font-black uppercase text-[#2D5A27] text-[10px] tracking-[0.4em] mb-12">State Operations & Field Hubs</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                <div class="border-l-2 border-[#2D5A27] pl-6 py-4 bg-gray-50">
+                    <h4 class="font-black text-xs uppercase mb-2">Borno (NE)</h4>
+                    <p class="text-[10px] text-gray-500 leading-relaxed uppercase">No 7 Nguru Street, Polo Close, Old GRA, Maiduguri</p>
                 </div>
                 <div class="border-l-2 border-gray-100 pl-6 py-4">
                     <h4 class="font-black text-xs uppercase mb-2">Adamawa</h4>
-                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">Coper Lane, Zone 3, Jimeta, Yola</p>
-                </div>
-                <div class="border-l-2 border-gray-100 pl-6 py-4">
-                    <h4 class="font-black text-xs uppercase mb-2">Sokoto</h4>
-                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">No 1 Abuja Road, GRA, Sokoto</p>
+                    <p class="text-[10px] text-gray-500 leading-relaxed uppercase">Corpers Lane, Zone 3, Jimeta, Yola</p>
                 </div>
                 <div class="border-l-2 border-gray-100 pl-6 py-4">
                     <h4 class="font-black text-xs uppercase mb-2">Yobe</h4>
-                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">Maisandari Beside Damaturu PHC</p>
+                    <p class="text-[10px] text-gray-500 leading-relaxed uppercase">Maisandari Beside Damaturu PHC, Damaturu</p>
+                </div>
+                <div class="border-l-2 border-gray-100 pl-6 py-4">
+                    <h4 class="font-black text-xs uppercase mb-2">Kaduna</h4>
+                    <p class="text-[10px] text-gray-500 leading-relaxed uppercase">Sir Patrick Yakowa Street, Karji, Kaduna</p>
+                </div>
+                <div class="border-l-2 border-gray-100 pl-6 py-4">
+                    <h4 class="font-black text-xs uppercase mb-2">Sokoto (NW)</h4>
+                    <p class="text-[10px] text-gray-500 leading-relaxed uppercase">No 1 Abuja Road, GRA, Sokoto</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10 font-sans">
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="mx-8 font-black text-[10px] uppercase italic tracking-widest"><i class="fas fa-satellite mr-2"></i> FIELD OPS ACTIVE: PULKA HUB</span>
+            <span class="mx-8 font-black text-[10px] uppercase italic tracking-widest"><i class="fas fa-satellite mr-2"></i> FIELD OPS ACTIVE: GWOZA HUB</span>
+            <span class="mx-8 font-black text-[10px] uppercase italic tracking-widest"><i class="fas fa-satellite mr-2"></i> FIELD OPS ACTIVE: DAMBOA HUB</span>
+            <span class="mx-8 font-black text-[10px] uppercase italic tracking-widest"><i class="fas fa-satellite mr-2"></i> FIELD OPS ACTIVE: ASKIRA UBA</span>
+        </div>
+    </div>
+
+    <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10">
         <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-16 mb-24">
                 <div class="space-y-8">
                     <div class="flex items-center gap-4">
-                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto grayscale brightness-200">
+                        <img src="logo.png" alt="Logo" class="h-12 w-auto grayscale brightness-200">
                         <span class="text-2xl font-heading text-white tracking-tighter italic">GEPaDC</span>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
-                        Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on principles of equity and dignity.
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Leading gender-based justice and humanitarian protection across Nigeria. Established 2008.
                     </p>
-                    <div class="flex gap-4">
-                        <a href="https://web.facebook.com/GEPaDC.Nig" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/GEPaDC" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                    </div>
                 </div>
-
-                <div>
-                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">State Operations</h4>
-                    <ul class="space-y-4 text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-relaxed">
-                        <li><span class="text-white">Adamawa:</span> Coper Lane, Zone 3, Jimeta, Yola</li>
-                        <li><span class="text-white">Borno:</span> No 7 Nguru Street Polo close, Old GRA</li>
-                        <li><span class="text-white">Kaduna:</span> Sir Patrick Yakowa Street, Karji</li>
-                        <li><span class="text-white">Sokoto:</span> No 1 Abuja Road, GRA, Sokoto</li>
+                <div class="lg:col-span-2 grid grid-cols-2 gap-8 text-[10px] uppercase font-bold tracking-widest text-gray-500">
+                    <ul class="space-y-4">
+                        <li class="text-white mb-2 underline decoration-[#2D5A27]">Sectors</li>
+                        <li><a href="protection.html" class="hover:text-white transition">Protection & WASH</a></li>
+                        <li><a href="peacebuilding.html" class="hover:text-white transition">Peace & Security</a></li>
+                        <li><a href="empowerment.html" class="hover:text-white transition">Economic Agency</a></li>
+                    </ul>
+                    <ul class="space-y-4">
+                        <li class="text-white mb-2 underline decoration-[#2D5A27]">Regional</li>
+                        <li>Maiduguri Office</li>
+                        <li>Damaturu Office</li>
+                        <li>Yola Office</li>
                     </ul>
                 </div>
-
                 <div>
-                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
-                    <ul class="space-y-6 text-gray-400 text-sm">
-                        <li class="flex gap-4"><i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i><span>Gwarinpa Estate, FCT, Abuja.</span></li>
-                        <li class="flex gap-4"><i class="fas fa-envelope text-[#2D5A27] mt-1"></i><span>podonli@gepadc.org</span></li>
-                        <li class="flex gap-4"><i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i><span>+234 (0) 814 197 0095</span></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Institutional Updates</h4>
-                    <p class="text-gray-500 text-[10px] mb-6 uppercase font-bold tracking-widest">Join our quarterly impact dispatch.</p>
+                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8 border-l-2 border-[#2D5A27] pl-4">Join Dispatch</h4>
                     <form class="relative">
-                        <input type="email" placeholder="Institutional Email" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-xs text-white focus:outline-none focus:border-[#2D5A27]">
+                        <input type="email" placeholder="Institutional Email" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-xs text-white outline-none">
                         <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-[9px] font-black uppercase text-white">Join</button>
                     </form>
                 </div>
             </div>
-
-            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-                <p class="text-[9px] font-black uppercase tracking-widest text-gray-600">© 2026 GEPaDC. CAC IT/39885</p>
-                <div class="flex items-center gap-6">
-                    <div class="text-right">
-                        <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Directed by</p>
-                        <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
-                    </div>
-                    <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic">Z</div>
-                </div>
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] font-black uppercase tracking-widest text-gray-600">
+                <p>© 2026 GEPaDC. CAC IT/39885</p>
+                <p>Directed by Zion Netcom Solutions Limited</p>
             </div>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init();
         function updateTime() {
             const now = new Date();
-            const dateEl = document.getElementById('liveDate');
-            const timeEl = document.getElementById('liveTime');
-            if(dateEl) dateEl.innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
-            if(timeEl) timeEl.innerText = now.toLocaleTimeString('en-GB', { hour12: false });
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false });
         }
-        setInterval(updateTime, 1000); 
-        updateTime();
+        setInterval(updateTime, 1000); updateTime();
     </script>
 </body>
 </html>
