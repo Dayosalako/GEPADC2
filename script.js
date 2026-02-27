@@ -57,6 +57,8 @@ function openNewsModal(index) {
     const news = newsData[index];
     const container = document.getElementById('newsFullContent');
     const modal = document.getElementById('newsModal');
+    
+    if(!container || !modal) return;
 
     container.innerHTML = `
         <p class="text-[#2D5A27] font-black tracking-[.3em] uppercase text-xs mb-4">${news.date}</p>
@@ -70,7 +72,7 @@ function openNewsModal(index) {
             </div>
             <div class="mt-16 pt-10 border-t border-gray-100 flex justify-between items-center">
                 <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">GEPaDC Global Dispatch</p>
-                <button onclick="toggleModal(); closeNewsModal();" class="bg-black text-white px-8 py-4 font-black text-[10px] uppercase tracking-widest hover:bg-[#2D5A27] transition">Donate to this cause</button>
+                <button onclick="closeNewsModal(); toggleModal();" class="bg-black text-white px-8 py-4 font-black text-[10px] uppercase tracking-widest hover:bg-[#2D5A27] transition">Donate to this cause</button>
             </div>
         </div>
     `;
@@ -80,8 +82,11 @@ function openNewsModal(index) {
 }
 
 function closeNewsModal() {
-    document.getElementById('newsModal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
+    const modal = document.getElementById('newsModal');
+    if(modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
 }
 
 // 5. MODAL CONTROL
@@ -147,16 +152,23 @@ document.addEventListener('DOMContentLoaded', () => {
     displayNews();
     initLiveSystem();
 
-    document.getElementById('donorForm')?.addEventListener('submit', e => {
-        e.preventDefault();
-        submitToSheet({
-            type: "DONATION",
-            name: document.getElementById('donorName').value,
-            amount: document.getElementById('donorAmount').value,
-            reference: document.getElementById('donorRef').value,
-            timestamp: new Date().toISOString()
-        }, 'donorMsg', 'donorForm', 'donorSubmitBtn');
-    });
+    // Listen for Donation Form
+    const donorForm = document.getElementById('donorForm');
+    if (donorForm) {
+        donorForm.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            // Collect IDs dynamically to ensure they match HTML
+            const btn = donorForm.querySelector('button[type="submit"]');
+            if(!btn.id) btn.id = "donorSubmitBtn"; // Fallback ID
+
+            submitToSheet({
+                type: "DONATION",
+                name: document.getElementById('donorName').value,
+                amount: document.getElementById('donorAmount').value,
+                reference: document.getElementById('donorRef') ? document.getElementById('donorRef').value : "N/A",
+                timestamp: new Date().toISOString()
+            }, 'donorMsg', 'donorForm', btn.id);
+        });
+    }
 });
-
-
