@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leadership | GEPaDC</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
+        :root { --brand-green: #2D5A27; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0a0a0a; color: white; }
+        .font-heading { font-family: 'Montserrat', sans-serif; }
+        
+        .hero-title { font-size: clamp(2.5rem, 8vw, 7rem); line-height: 0.9; }
+        .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
+        
+        /* Nav Styles */
+        .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu { 
+            display: none; position: absolute; top: 100%; left: 0; 
+            background: white; min-width: 240px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+            border-top: 3px solid var(--brand-green); z-index: 50; 
+        }
+        .dropdown-item { 
+            padding: 14px 20px; display: block; font-size: 10px; color: #1a1a1a; 
+            border-bottom: 1px solid #f3f4f6; transition: all 0.3s; 
+            text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; 
+        }
+        .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
+
+        .team-card { position: relative; overflow: hidden; filter: grayscale(100%); transition: all 0.5s ease; border: 1px solid rgba(255,255,255,0.1); }
+        .team-card:hover { filter: grayscale(0%); border-color: var(--brand-green); }
+        .team-info { background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
+    </style>
+</head>
+<body>
+
+    <div class="bg-white text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase">
+        <div id="liveDate"></div>
+        <div class="flex gap-4">
+            <span class="text-[#2D5A27]">Governance: Board Active</span>
+            <span id="liveTime"></span>
+        </div>
+    </div>
+
+    <nav class="flex justify-between items-center py-4 px-6 md:px-10 sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Logo" class="h-10 w-auto">
+            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic">GEPaDC</div>
+        </div>
+
+        <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
+            <a href="index.html" class="hover:text-[#2D5A27] transition">Home</a>
+            <div class="dropdown relative">
+                <button class="flex items-center gap-1 text-[#2D5A27] uppercase">Mission <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="about.html" class="dropdown-item">Who We Are</a>
+                    <a href="team.html" class="dropdown-item">Leadership</a>
+                    <a href="strategy.html" class="dropdown-item">Strategy 2030</a>
+                </div>
+            </div>
+            <div class="dropdown relative">
+                <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Impact <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="protection.html" class="dropdown-item">Protection & WASH</a>
+                    <a href="peacebuilding.html" class="dropdown-item">Peace & Security</a>
+                    <a href="empowerment.html" class="dropdown-item">Economic Empowerment</a>
+                </div>
+            </div>
+            <a href="volunteer.html" class="hover:text-[#2D5A27] transition">Join</a>
+            <a href="contact.html" class="hover:text-[#2D5A27] transition">Contacts</a>
+        </div>
+
+        <button onclick="toggleModal()" class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic">Donate</button>
+    </nav>
+
+    <section class="py-24 bg-[#0a0a0a] border-b border-white/5">
+        <div class="container mx-auto px-6 md:px-10">
+            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4" data-aos="fade-right">Governance</h2>
+            <h1 class="hero-title font-black italic uppercase font-heading mb-12" data-aos="fade-up">
+                Our <br> <span class="text-outline">Board &</span> <br> <span class="text-white">Leadership.</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl leading-relaxed font-light" data-aos="fade-up" data-aos-delay="100">
+                Driven by a commitment to transparency and accountability, our board oversees GEPaDC’s mission to ensure gender equality and protection for all. [cite: 20-22]
+            </p>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white text-black">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="mb-16">
+                <h3 class="text-4xl font-black italic uppercase font-heading">Board of <br> Trustees</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group" data-aos="fade-up">
+                    <div class="h-[450px] bg-gray-100 mb-6 team-card">
+                        <img src="chair.jpg" alt="Dr. Abiola" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-8 team-info">
+                            <span class="text-[#2D5A27] font-black text-[9px] uppercase tracking-widest">Chairperson</span>
+                            <h4 class="text-white text-xl font-black uppercase italic mt-1">Dr. Abiola Akiyode Afolabi</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-[450px] bg-gray-100 mb-6 team-card">
+                        <img src="vice-chair.jpg" alt="Dr. Ejiro" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-8 team-info">
+                            <span class="text-[#2D5A27] font-black text-[9px] uppercase tracking-widest">Vice Chair</span>
+                            <h4 class="text-white text-xl font-black uppercase italic mt-1">Dr. Ejiro Otive-Igbuzor</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-[450px] bg-gray-100 mb-6 team-card">
+                        <img src="treasurer.jpg" alt="Dr. Lydia" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-8 team-info">
+                            <span class="text-[#2D5A27] font-black text-[9px] uppercase tracking-widest">Board Treasurer</span>
+                            <h4 class="text-white text-xl font-black uppercase italic mt-1">Dr. Lydia Umar</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up">
+                    <div class="h-[450px] bg-gray-100 mb-6 team-card">
+                        <img src="dev.jpg" alt="Prof Umaru" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-8 team-info">
+                            <span class="text-[#2D5A27] font-black text-[9px] uppercase tracking-widest">Board Development</span>
+                            <h4 class="text-white text-xl font-black uppercase italic mt-1">Professor Umaru Pate</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-[450px] bg-gray-100 mb-6 team-card">
+                        <img src="ed.jpg" alt="Prof Patricia" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 w-full p-8 team-info">
+                            <span class="text-[#2D5A27] font-black text-[9px] uppercase tracking-widest">Executive Director / Board Secretary</span>
+                            <h4 class="text-white text-xl font-black uppercase italic mt-1">Professor Patricia O. Donli</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-[#0a0a0a]">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+                <div class="md:w-1/3">
+                    <h3 class="text-4xl font-black italic uppercase font-heading mb-6">Management <br> Units</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Our internal operations are governed by rigorous HR, Finance, and Procurement policies to ensure maximum impact in the field. [cite: 31-34]
+                    </p>
+                </div>
+                <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-8 border border-white/10 hover:bg-[#2D5A27]/5 transition">
+                        <h5 class="text-[#2D5A27] font-black text-[10px] uppercase mb-2">Programs</h5>
+                        <p class="text-white text-lg font-bold">Programs Director & Managers</p>
+                    </div>
+                    <div class="p-8 border border-white/10 hover:bg-[#2D5A27]/5 transition">
+                        <h5 class="text-[#2D5A27] font-black text-[10px] uppercase mb-2">Accountability</h5>
+                        <p class="text-white text-lg font-bold">Director M&E & CRM Officers</p>
+                    </div>
+                    <div class="p-8 border border-white/10 hover:bg-[#2D5A27]/5 transition">
+                        <h5 class="text-[#2D5A27] font-black text-[10px] uppercase mb-2">Finance</h5>
+                        <p class="text-white text-lg font-bold">Director Finance & Assistants</p>
+                    </div>
+                    <div class="p-8 border border-white/10 hover:bg-[#2D5A27]/5 transition">
+                        <h5 class="text-[#2D5A27] font-black text-[10px] uppercase mb-2">Logistics</h5>
+                        <p class="text-white text-lg font-bold">P&L Manager & Officers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10">
+        <div class="container mx-auto text-center">
+            <img src="logo.png" alt="Logo" class="h-16 w-auto mx-auto mb-8 grayscale brightness-200">
+            <p class="text-gray-500 text-[10px] uppercase font-black tracking-[0.5em] mb-8">Humanity Over Conflict</p>
+            <div class="flex justify-center gap-8 mb-16">
+                <a href="https://web.facebook.com/GEPaDC.Nig" class="text-white hover:text-[#2D5A27]"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/GEPaDC" class="text-white hover:text-[#2D5A27]"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://ng.linkedin.com/company/gepadcnig" class="text-white hover:text-[#2D5A27]"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p class="text-[9px] font-black uppercase tracking-widest text-gray-700">© 2026 GEPaDC. CAC IT/39885</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false });
+        }
+        setInterval(updateTime, 1000); updateTime();
+    </script>
+</body>
+</html>
