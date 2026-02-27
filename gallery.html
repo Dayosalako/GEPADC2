@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Vault | GEPaDC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; }
+        .font-heading { font-family: 'Montserrat', sans-serif; }
+        
+        /* Masonry Grid Setup */
+        .grid-item { width: 33.333%; padding: 12px; }
+        @media (max-width: 1024px) { .grid-item { width: 50%; } }
+        @media (max-width: 640px) { .grid-item { width: 100%; } }
+
+        /* Navigation & Filters */
+        .filter-btn { transition: all 0.3s ease; border-bottom: 2px solid transparent; padding-bottom: 4px; }
+        .filter-btn.active { color: #2D5A27; border-color: #2D5A27; }
+        
+        /* Premium Hover States */
+        .media-container { position: relative; overflow: hidden; background: #111; }
+        .media-container img { transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease; filter: grayscale(100%); }
+        .media-container:hover img { transform: scale(1.05); filter: grayscale(0%); }
+        
+        .play-indicator {
+            width: 50px; h-50px; background: #2D5A27; border-radius: 50%;
+            display: flex; items-center; justify-content: center;
+            position: absolute; top: 20px; right: 20px; opacity: 0; transform: translateY(-10px);
+            transition: all 0.4s ease;
+        }
+        .media-container:hover .play-indicator { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="pb-20">
+
+    <nav class="py-8 px-10 flex justify-between items-center border-b border-white/5 sticky top-0 bg-black/80 backdrop-blur-lg z-[100]">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-[#2D5A27] flex items-center justify-center font-black italic">G</div>
+            <a href="index.html" class="font-heading text-xl font-black italic uppercase tracking-tighter">GEPaDC</a>
+        </div>
+        <div class="flex gap-8 items-center">
+            <a href="archive.html" class="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-white transition">Timeline</a>
+            <a href="index.html" class="px-5 py-2 border border-[#2D5A27] text-[#2D5A27] text-[9px] font-black uppercase tracking-widest hover:bg-[#2D5A27] hover:text-white transition">Exit</a>
+        </div>
+    </nav>
+
+    <header class="pt-24 pb-12 px-10 max-w-7xl mx-auto">
+        <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Evidence of Impact</span>
+        <h1 class="text-7xl md:text-9xl font-heading font-black italic uppercase leading-[0.85] mb-16">Visual <br>Vault.</h1>
+        
+        <div id="filters" class="flex flex-wrap gap-x-10 gap-y-6 font-black text-[10px] uppercase tracking-[0.2em] cursor-pointer text-gray-500">
+            <div class="filter-btn active" data-filter="*">All Records</div>
+            <div class="filter-btn" data-filter=".video">Video Dispatches</div>
+            <div class="filter-btn" data-filter=".protection">Protection</div>
+            <div class="filter-btn" data-filter=".wash">WASH</div>
+            <div class="filter-btn" data-filter=".peace">Peacebuilding</div>
+        </div>
+    </header>
+
+    <div class="px-6 max-w-[1800px] mx-auto">
+        <div class="grid-container">
+            
+            <div class="grid-item video protection">
+                <a href="media/videos/powerr_impact.mp4" class="glightbox media-container group block">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c" class="w-full">
+                    <div class="play-indicator shadow-xl">
+                        <i class="fas fa-play text-white text-xs ml-1"></i>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <p class="text-[8px] font-black uppercase tracking-widest text-[#2D5A27] mb-1">Video Dispatch</p>
+                        <h4 class="font-bold uppercase italic text-sm">POWERR Project Impact</h4>
+                    </div>
+                </a>
+            </div>
+
+            <div class="grid-item wash">
+                <a href="media/photos/wash_site_1.jpg" class="glightbox media-container group block">
+                    <img src="https://images.unsplash.com/photo-1547591028-a764003d356c" class="w-full">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-expand text-2xl"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="grid-item video peace">
+                <a href="media/videos/peace_summit.mp4" class="glightbox media-container group block">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac" class="w-full">
+                    <div class="play-indicator shadow-xl">
+                        <i class="fas fa-play text-white text-xs ml-1"></i>
+                    </div>
+                    <div class="absolute bottom-6 left-6">
+                        <p class="text-[8px] font-black uppercase tracking-widest text-[#2D5A27] mb-1">Video Documentary</p>
+                        <h4 class="font-bold uppercase italic text-sm">Women for Peace Forum</h4>
+                    </div>
+                </a>
+            </div>
+
+            </div>
+    </div>
+
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+
+    <script>
+        // Initialize Isotope
+        var iso = new Isotope('.grid-container', {
+            itemSelector: '.grid-item',
+            percentPosition: true,
+            masonry: { columnWidth: '.grid-item' },
+            transitionDuration: '0.6s'
+        });
+
+        // Filtering
+        document.querySelector('#filters').addEventListener('click', function(e) {
+            if (!e.target.classList.contains('filter-btn')) return;
+            iso.arrange({ filter: e.target.getAttribute('data-filter') });
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+        });
+
+        // Lightbox - Crucial for Video Playing
+        const lightbox = GLightbox({
+            selector: '.glightbox',
+            touchNavigation: true,
+            loop: true,
+            zoomable: true,
+            autoplayVideos: true, // Auto-plays when opened
+            plyr: {
+                config: {
+                    muted: false,
+                    hideControls: false
+                }
+            }
+        });
+
+        // Ensure layout is correct after images load
+        window.addEventListener('load', () => iso.layout());
+    </script>
+</body>
+</html>
