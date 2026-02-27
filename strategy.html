@@ -3,36 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Strategy | GEPaDC</title>
+    <title>Strategy 2030 | GEPaDC</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: white; color: #1a1a1a; }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
+        :root { --brand-green: #2D5A27; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0a0a0a; color: white; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
+        
+        .hero-title { font-size: clamp(2.5rem, 8vw, 7rem); line-height: 0.9; }
+        .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
+        
+        /* Nav Styles */
+        .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu { 
+            display: none; position: absolute; top: 100%; left: 0; 
+            background: white; min-width: 240px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+            border-top: 3px solid var(--brand-green); z-index: 50; 
+        }
+        .dropdown-item { 
+            padding: 14px 20px; display: block; font-size: 10px; color: #1a1a1a; 
+            border-bottom: 1px solid #f3f4f6; transition: all 0.3s; 
+            text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; 
+        }
+        .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
+
+        .phase-card { border-left: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; }
+        .phase-card:hover { border-left: 1px solid var(--brand-green); background: rgba(45, 90, 39, 0.05); }
     </style>
 </head>
 <body>
-    <section class="py-24 container mx-auto px-6">
-        <h1 class="text-6xl font-black italic font-heading uppercase mb-12">Institutional <br><span class="text-[#2D5A27]">Strategy 2030</span></h1>
-        <div class="grid md:grid-cols-2 gap-16">
-            <div class="space-y-8">
-                <p class="text-xl leading-relaxed text-gray-600 font-medium">Our 2024-2030 roadmap focuses on shifting from immediate humanitarian aid to long-term institutional resilience in conflict-affected zones.</p>
-                <div class="border-l-4 border-[#2D5A27] pl-8 py-4 bg-gray-50">
-                    <h3 class="font-black uppercase text-xs tracking-widest mb-2">Pillar 01</h3>
-                    <p class="font-bold text-lg">Gender-Transformative Peacebuilding</p>
-                </div>
-                <div class="border-l-4 border-[#2D5A27] pl-8 py-4 bg-gray-50">
-                    <h3 class="font-black uppercase text-xs tracking-widest mb-2">Pillar 02</h3>
-                    <p class="font-bold text-lg">Integrated Protection & WASH Systems</p>
+
+    <div class="bg-white text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase">
+        <div id="liveDate"></div>
+        <div class="flex gap-4">
+            <span class="text-[#2D5A27]">Strategy: Roadmap Active</span>
+            <span id="liveTime"></span>
+        </div>
+    </div>
+
+    <nav class="flex justify-between items-center py-4 px-6 md:px-10 sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Logo" class="h-10 w-auto">
+            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic">GEPaDC</div>
+        </div>
+
+        <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
+            <a href="index.html" class="hover:text-[#2D5A27] transition">Home</a>
+            <div class="dropdown relative">
+                <button class="flex items-center gap-1 text-[#2D5A27] uppercase">Mission <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="about.html" class="dropdown-item">Who We Are</a>
+                    <a href="team.html" class="dropdown-item">Leadership</a>
+                    <a href="strategy.html" class="dropdown-item">Strategy 2030</a>
                 </div>
             </div>
-            <div class="bg-[#2D5A27] p-12 text-white">
-                <h2 class="text-3xl font-black italic mb-6">The Goal</h2>
-                <p class="text-sm leading-loose opacity-80">To empower over 1 million women and girls across West Africa with the tools for leadership, safety, and economic independence by the end of the decade.</p>
+            <div class="dropdown relative">
+                <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Impact <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="protection.html" class="dropdown-item">Protection & WASH</a>
+                    <a href="peacebuilding.html" class="dropdown-item">Peace & Security</a>
+                    <a href="empowerment.html" class="dropdown-item">Economic Empowerment</a>
+                </div>
+            </div>
+            <a href="volunteer.html" class="hover:text-[#2D5A27] transition">Join</a>
+            <a href="contact.html" class="hover:text-[#2D5A27] transition">Contacts</a>
+        </div>
+
+        <button onclick="toggleModal()" class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic">Donate</button>
+    </nav>
+
+    <section class="py-24 bg-[#0a0a0a] border-b border-white/5">
+        <div class="container mx-auto px-6 md:px-10">
+            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4" data-aos="fade-right">Vision Blueprint</h2>
+            <h1 class="hero-title font-black italic uppercase font-heading mb-12" data-aos="fade-up">
+                Strategy <br> <span class="text-outline">Twenty</span> <br> <span class="text-white">Thirty.</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl leading-relaxed font-light" data-aos="fade-up" data-aos-delay="100">
+                From emergency intervention to institutional permanence. Our 2030 roadmap is designed to weave gender equality and peacebuilding into the very fabric of Nigerian governance.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white text-black">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="mb-16">
+                <h3 class="text-4xl font-black italic uppercase font-heading">Strategic <br> Framework</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b-2 border-black text-[10px] uppercase tracking-widest font-black">
+                            <th class="py-6 px-4">Pillar</th>
+                            <th class="py-6 px-4">Priority Focus</th>
+                            <th class="py-6 px-4">2030 Target</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm font-medium">
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="py-8 px-4 font-black uppercase text-[#2D5A27]">Governance</td>
+                            <td class="py-8 px-4">Gender-responsive policy reform & state-level advocacy.</td>
+                            <td class="py-8 px-4 italic">Protection laws active in all 36 states.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="py-8 px-4 font-black uppercase text-[#2D5A27]">Infrastructure</td>
+                            <td class="py-8 px-4">WASH Resilience & Climate-smart sanitation facilities.</td>
+                            <td class="py-8 px-4 italic">500+ solar-powered water points in camps.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="py-8 px-4 font-black uppercase text-[#2D5A27]">Human Capital</td>
+                            <td class="py-8 px-4">Vocational scaling & financial literacy for survivors.</td>
+                            <td class="py-8 px-4 italic">100,000 women trained in trade skills.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                            <td class="py-8 px-4 font-black uppercase text-[#2D5A27]">Security</td>
+                            <td class="py-8 px-4">Community-led mediation & peace-building units.</td>
+                            <td class="py-8 px-4 italic">40% reduction in local conflict incidents.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
-    </body>
+    <section class="py-24 bg-[#050505]">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/10">
+                <div class="phase-card p-12 bg-[#050505]" data-aos="fade-up">
+                    <span class="text-[#2D5A27] font-black text-5xl italic font-heading">01</span>
+                    <h4 class="text-white font-black uppercase tracking-widest mt-6 mb-4">Phase One: Data</h4>
+                    <p class="text-gray-500 text-xs leading-loose">2025 - 2026. Focused on mapping protection gaps in underserved border regions and digitizing field reporting.</p>
+                </div>
+                <div class="phase-card p-12 bg-[#050505]" data-aos="fade-up" data-aos-delay="100">
+                    <span class="text-[#2D5A27] font-black text-5xl italic font-heading">02</span>
+                    <h4 class="text-white font-black uppercase tracking-widest mt-6 mb-4">Phase Two: Scale</h4>
+                    <p class="text-gray-500 text-xs leading-loose">2027 - 2028. Scaling our Field Expert network and establishing the GEPaDC Regional Training Hub in Abuja.</p>
+                </div>
+                <div class="phase-card p-12 bg-[#050505]" data-aos="fade-up" data-aos-delay="200">
+                    <span class="text-[#2D5A27] font-black text-5xl italic font-heading">03</span>
+                    <h4 class="text-white font-black uppercase tracking-widest mt-6 mb-4">Phase Three: Legacy</h4>
+                    <p class="text-gray-500 text-xs leading-loose">2029 - 2030. Full handover of community-led initiatives to local governance and publishing the Decade of Impact paper.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10">
+        <div class="container mx-auto text-center">
+            <img src="logo.png" alt="Logo" class="h-16 w-auto mx-auto mb-8 grayscale brightness-200">
+            <p class="text-gray-500 text-[10px] uppercase font-black tracking-[0.5em] mb-8">Humanity Over Conflict</p>
+            <div class="flex justify-center gap-8 mb-16">
+                <a href="https://web.facebook.com/GEPaDC.Nig" class="text-white hover:text-[#2D5A27]"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/GEPaDC" class="text-white hover:text-[#2D5A27]"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://ng.linkedin.com/company/gepadcnig" class="text-white hover:text-[#2D5A27]"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p class="text-[9px] font-black uppercase tracking-widest text-gray-700">© 2026 GEPaDC. CAC IT/39885</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false });
+        }
+        setInterval(updateTime, 1000); updateTime();
+    </script>
+</body>
 </html>
