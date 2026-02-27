@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace & Security | GEPaDC</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
+        :root { --brand-green: #2D5A27; }
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: white; }
+        .font-heading { font-family: 'Montserrat', sans-serif; }
+        .hero-title { font-size: clamp(2.5rem, 8vw, 7rem); line-height: 0.9; }
+        .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
+        
+        /* Navigation (Standardized) */
+        .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 240px; border-top: 3px solid var(--brand-green); z-index: 50; }
+        .dropdown-item { padding: 14px 20px; display: block; font-size: 10px; color: #1a1a1a; text-transform: uppercase; font-weight: 900; border-bottom: 1px solid #f3f4f6; }
+
+        .peace-card { border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; }
+        .peace-card:hover { border-color: var(--brand-green); background: rgba(45, 90, 39, 0.05); }
+    </style>
+</head>
+<body>
+
+    <div class="bg-white text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase">
+        <div id="liveDate"></div>
+        <div class="flex gap-4">
+            <span class="text-[#2D5A27]">Sector: Peace & Security</span>
+            <span id="liveTime"></span>
+        </div>
+    </div>
+
+    <nav class="flex justify-between items-center py-4 px-6 md:px-10 sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Logo" class="h-10 w-auto">
+            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic">GEPaDC</div>
+        </div>
+        <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
+            <a href="index.html" class="hover:text-[#2D5A27]">Home</a>
+            <div class="dropdown relative">
+                <button class="text-[#2D5A27]">Mission <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="about.html" class="dropdown-item">Who We Are</a>
+                    <a href="team.html" class="dropdown-item">Leadership</a>
+                    <a href="strategy.html" class="dropdown-item">Strategy 2030</a>
+                </div>
+            </div>
+            <div class="dropdown relative">
+                <button class="hover:text-[#2D5A27]">Impact <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="protection.html" class="dropdown-item">Protection & WASH</a>
+                    <a href="peacebuilding.html" class="dropdown-item">Peace & Security</a>
+                    <a href="empowerment.html" class="dropdown-item">Economic Empowerment</a>
+                </div>
+            </div>
+            <a href="volunteer.html" class="hover:text-[#2D5A27]">Join</a>
+            <a href="contact.html" class="hover:text-[#2D5A27]">Contacts</a>
+        </div>
+        <button class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic">Donate</button>
+    </nav>
+
+    <section class="py-24 border-b border-white/5">
+        <div class="container mx-auto px-6">
+            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4" data-aos="fade-right">Conflict Transformation</h2>
+            <h1 class="hero-title font-black italic uppercase font-heading mb-12" data-aos="fade-up">
+                Building <br> <span class="text-outline">Resilient</span> <br> <span class="text-white">Peace.</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl font-light" data-aos="fade-up">
+                Fostering a society where dialogue replaces discord and every voice—regardless of gender or ability—is central to the peace process. [cite: 13, 110]
+            </p>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white text-black">
+        <div class="container mx-auto px-6">
+            <div class="mb-16">
+                <h3 class="text-4xl font-black italic uppercase font-heading">Flagship <br> Initiatives</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="p-10 border-2 border-black" data-aos="fade-up">
+                    <h4 class="text-2xl font-black uppercase italic mb-4">Hadin Kan Mu, Karfin Mu</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                        "Our Unity, Our Strength." A community-driven initiative focused on social cohesion and collective resilience in the face of conflict. 
+                    </p>
+                    <span class="text-[9px] font-black uppercase tracking-widest bg-black text-white px-3 py-1">Conflict Mediation</span>
+                </div>
+                <div class="p-10 border-2 border-black" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="text-2xl font-black uppercase italic mb-4">Gender & Peace Academy</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                        A specialized program for youth to develop leadership, mediation, and advocacy skills for local peace-building. 
+                    </p>
+                    <span class="text-[9px] font-black uppercase tracking-widest bg-[#2D5A27] text-white px-3 py-1">Youth Leadership</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-[#050505]">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-20">
+                <h3 class="text-3xl font-black italic uppercase font-heading mb-6">The GEPaDC Approach</h3>
+                <p class="text-gray-500">Integrating human rights and survivor-centered methodologies into traditional peace processes. [cite: 48-49]</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10">
+                <div class="peace-card p-12 bg-[#050505]">
+                    <i class="fas fa-gavel text-3xl text-[#2D5A27] mb-6"></i>
+                    <h5 class="text-white font-black uppercase tracking-widest mb-4">Policy Reform</h5>
+                    <p class="text-xs text-gray-500 leading-loose">Advocating for gender-sensitive constitutional reviews and state-level action plans. </p>
+                </div>
+                <div class="peace-card p-12 bg-[#050505]">
+                    <i class="fas fa-users text-3xl text-[#2D5A27] mb-6"></i>
+                    <h5 class="text-white font-black uppercase tracking-widest mb-4">Inclusive Dialogue</h5>
+                    <p class="text-xs text-gray-500 leading-loose">Ensuring IDPs and marginalized groups have a seat at the mediation table. </p>
+                </div>
+                <div class="peace-card p-12 bg-[#050505]">
+                    <i class="fas fa-shield-alt text-3xl text-[#2D5A27] mb-6"></i>
+                    <h5 class="text-white font-black uppercase tracking-widest mb-4">WPS Agenda</h5>
+                    <p class="text-xs text-gray-500 leading-loose">Promoting the Women, Peace, and Security (WPS) framework at all levels of governance. [cite: 40]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 border-t border-white/10">
+        <div class="container mx-auto text-center">
+            <img src="logo.png" alt="Logo" class="h-16 w-auto mx-auto mb-8 grayscale brightness-200">
+            <p class="text-[9px] font-black uppercase tracking-widest text-gray-700">© 2026 GEPaDC. CAC IT/39885</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false });
+        }
+        setInterval(updateTime, 1000); updateTime();
+    </script>
+</body>
+</html>
