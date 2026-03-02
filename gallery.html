@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Media Vault | GEPaDC</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; overflow-x: hidden; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
         
         /* Masonry Grid Setup */
@@ -17,34 +18,60 @@
         @media (max-width: 1024px) { .grid-item { width: 50%; } }
         @media (max-width: 640px) { .grid-item { width: 100%; } }
 
-        /* Navigation & Filters */
-        .filter-btn { transition: all 0.3s ease; border-bottom: 2px solid transparent; padding-bottom: 4px; }
-        .filter-btn.active { color: #2D5A27; border-color: #2D5A27; }
-        
-        /* Premium Hover States */
-        .media-container { position: relative; overflow: hidden; background: #111; }
-        .media-container img { transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease; filter: grayscale(100%); }
+        /* Navigation Dropdown */
+        .dropdown:hover .dropdown-menu { display: block; opacity: 1; transform: translateY(0); }
+        .dropdown-menu { 
+            display: none; position: absolute; top: 100%; left: 0; 
+            background: white; min-width: 220px; border-top: 3px solid #2D5A27;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); padding: 1rem 0; z-index: 50;
+        }
+        .dropdown-item { 
+            display: block; padding: 0.75rem 1.5rem; font-size: 9px; 
+            text-transform: uppercase; font-weight: 900; color: #1a1a1a; transition: all 0.2s;
+        }
+        .dropdown-item:hover { background: #f9f9f9; color: #2D5A27; padding-left: 2rem; }
+
+        /* Media Card Styling */
+        .media-container { position: relative; overflow: hidden; background: #111; border: 1px solid rgba(255,255,255,0.05); }
+        .media-container img { transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease; filter: grayscale(100%); width: 100%; height: auto; display: block; }
         .media-container:hover img { transform: scale(1.05); filter: grayscale(0%); }
         
-        .play-indicator {
-            width: 50px; h-50px; background: #2D5A27; border-radius: 50%;
-            display: flex; items-center; justify-content: center;
-            position: absolute; top: 20px; right: 20px; opacity: 0; transform: translateY(-10px);
-            transition: all 0.4s ease;
-        }
-        .media-container:hover .play-indicator { opacity: 1; transform: translateY(0); }
+        .filter-btn { transition: all 0.3s ease; border-bottom: 2px solid transparent; padding-bottom: 4px; cursor: pointer; }
+        .filter-btn.active { color: #2D5A27; border-color: #2D5A27; }
     </style>
 </head>
-<body class="pb-20">
+<body>
 
-    <nav class="py-8 px-10 flex justify-between items-center border-b border-white/5 sticky top-0 bg-black/80 backdrop-blur-lg z-[100]">
+    <nav class="flex justify-between items-center py-5 px-6 md:px-10 sticky top-0 bg-white/95 backdrop-blur-md z-[100] border-b border-gray-100">
         <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-[#2D5A27] flex items-center justify-center font-black italic">G</div>
-            <a href="index.html" class="font-heading text-xl font-black italic uppercase tracking-tighter">GEPaDC</a>
+            <img src="logo.png" alt="Logo" class="h-10 w-auto">
+            <div class="text-2xl font-heading text-[#2D5A27] tracking-tighter italic font-black">GEPaDC</div>
         </div>
-        <div class="flex gap-8 items-center">
-            <a href="archive.html" class="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-white transition">Timeline</a>
-            <a href="index.html" class="px-5 py-2 border border-[#2D5A27] text-[#2D5A27] text-[9px] font-black uppercase tracking-widest hover:bg-[#2D5A27] hover:text-white transition">Exit</a>
+        
+        <div class="hidden lg:flex space-x-8 font-black text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]">
+            <a href="index.html" class="hover:text-[#2D5A27] transition">Home</a>
+            <div class="dropdown relative">
+                <button class="hover:text-[#2D5A27]">Mission <i class="fas fa-chevron-down text-[8px] ml-1"></i></button>
+                <div class="dropdown-menu">
+                    <a href="about.html" class="dropdown-item">Institutional Profile</a>
+                    <a href="team.html" class="dropdown-item">Leadership</a>
+                    <a href="strategy.html" class="dropdown-item">Strategy 2030</a>
+                </div>
+            </div>
+            <div class="dropdown relative">
+                <button class="text-[#2D5A27]">Impact Sectors <i class="fas fa-chevron-down text-[8px] ml-1"></i></button>
+                <div class="dropdown-menu">
+                    <a href="protection.html" class="dropdown-item">Protection & WASH</a>
+                    <a href="peacebuilding.html" class="dropdown-item">Peace & Security</a>
+                    <a href="empowerment.html" class="dropdown-item">Economic Empowerment</a>
+                </div>
+            </div>
+            <a href="volunteer.html" class="hover:text-[#2D5A27] transition">Join Us</a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button onclick="toggleModal()" class="hidden md:block px-8 py-3 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic hover:bg-black transition-all">Donate</button>
+            <button class="lg:hidden text-2xl text-black"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
 
@@ -52,284 +79,250 @@
         <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Evidence of Impact</span>
         <h1 class="text-7xl md:text-9xl font-heading font-black italic uppercase leading-[0.85] mb-16">Visual <br>Vault.</h1>
         
-        <div id="filters" class="flex flex-wrap gap-x-10 gap-y-6 font-black text-[10px] uppercase tracking-[0.2em] cursor-pointer text-gray-500">
+        <div id="filters" class="flex flex-wrap gap-x-10 gap-y-6 font-black text-[10px] uppercase tracking-[0.2em] text-gray-500">
             <div class="filter-btn active" data-filter="*">All Records</div>
-            <div class="filter-btn" data-filter=".video">Video Dispatches</div>
             <div class="filter-btn" data-filter=".protection">Protection</div>
             <div class="filter-btn" data-filter=".wash">WASH</div>
             <div class="filter-btn" data-filter=".peace">Peacebuilding</div>
+            <div class="filter-btn" data-filter=".empowerment">Empowerment</div>
         </div>
     </header>
 
-    <div class="px-6 max-w-[1800px] mx-auto">
+    <div class="px-6 max-w-[1800px] mx-auto min-h-screen">
         <div class="grid-container">
             
-            <div class="grid-item video protection">
-                <a href="media/videos/powerr_impact.mp4" class="glightbox media-container group block">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c" class="w-full">
-                    <div class="play-indicator shadow-xl">
-                        <i class="fas fa-play text-white text-xs ml-1"></i>
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <p class="text-[8px] font-black uppercase tracking-widest text-[#2D5A27] mb-1">Video Dispatch</p>
-                        <h4 class="font-bold uppercase italic text-sm">POWERR Project Impact</h4>
-                    </div>
-                </a>
+            <div class="grid-item protection">
+                <a href="media/photos/GEPADC (1).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (1).jpg" alt="Impact"></a>
+            </div>
+            <div class="grid-item protection">
+                <a href="media/photos/GEPADC (2).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (2).jpg" alt="Impact"></a>
+            </div>
+            <div class="grid-item protection">
+                <a href="media/photos/GEPADC (7).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (7).jpg" alt="Impact"></a>
+            </div>
+            <div class="grid-item protection">
+                <a href="media/photos/GEPADC (8).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (8).jpg" alt="Impact"></a>
+            </div>
+
+            <div class="grid-item wash">
+                <a href="media/photos/GEPADC (3).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (3).jpg" alt="WASH Project"></a>
+            </div>
+            <div class="grid-item wash">
+                <a href="media/photos/GEPADC (4).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (4).jpg" alt="WASH Project"></a>
+            </div>
+            <div class="grid-item wash">
+                <a href="media/photos/GEPADC (9).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (9).jpg" alt="Impact"></a>
+            </div>
+            <div class="grid-item wash">
+                <a href="media/photos/GEPADC (10).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (10).jpg" alt="Impact"></a>
+            </div>
+
+            <div class="grid-item empowerment">
+                <a href="media/photos/GEPADC (1).jpeg" class="glightbox media-container block"><img src="media/photos/GEPADC (1).jpeg" alt="Livelihoods"></a>
+            </div>
+            <div class="grid-item empowerment">
+                <a href="media/photos/GEPADC (2).jpeg" class="glightbox media-container block"><img src="media/photos/GEPADC (2).jpeg" alt="Training"></a>
+            </div>
+            <div class="grid-item empowerment">
+                <a href="media/photos/GEPADC (3).jpeg" class="glightbox media-container block"><img src="media/photos/GEPADC (3).jpeg" alt="Economic Support"></a>
+            </div>
+            <div class="grid-item empowerment">
+                <a href="media/photos/GEPADC (4).jpeg" class="glightbox media-container block"><img src="media/photos/GEPADC (4).jpeg" alt="Empowerment"></a>
+            </div>
+            <div class="grid-item empowerment">
+                <a href="media/photos/GEPADC (11).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (11).jpg" alt="Empowerment"></a>
+            </div>
+
+            <div class="grid-item peace">
+                <a href="media/photos/GEPADC (5).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (5).jpg" alt="Peace Mission"></a>
+            </div>
+            <div class="grid-item peace">
+                <a href="media/photos/GEPADC (6).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (6).jpg" alt="Community Dialogue"></a>
+            </div>
+            <div class="grid-item peace">
+                <a href="media/photos/GEPADC (12).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (12).jpg" alt="Dialogue"></a>
+            </div>
+            <div class="grid-item peace">
+                <a href="media/photos/GEPADC (13).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (13).jpg" alt="Dialogue"></a>
+            </div>
+            <div class="grid-item peace">
+                <a href="media/photos/GEPADC (14).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (14).jpg" alt="Impact"></a>
             </div>
 
             <div class="grid-item protection">
-    <a href="media/photos/506710526_122094637460921525_1576638883189222930_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/506710526_122094637460921525_1576638883189222930_n.jpg" class="w-full">
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <i class="fas fa-expand text-2xl"></i>
-        </div>
-    </a>
-</div>
-
-<div class="grid-item protection">
-    <a href="media/photos/639448948_18097677431497639_8083367465177998355_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/639448948_18097677431497639_8083367465177998355_n.jpg" class="w-full">
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <i class="fas fa-expand text-2xl"></i>
-        </div>
-    </a>
-</div>
-
-<div class="grid-item protection">
-    <a href="media/photos/639452244_18097677449497639_2023382205867884380_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/639452244_18097677449497639_2023382205867884380_n.jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item wash">
-    <a href="media/photos/download.jpg" class="glightbox media-container group block">
-        <img src="media/photos/download.jpg" class="w-full">
-        <div class="absolute bottom-4 left-4">
-            <p class="text-[8px] font-black uppercase tracking-widest text-[#2D5A27]">WASH Program</p>
-        </div>
-    </a>
-</div>
-
-<div class="grid-item wash">
-    <a href="media/photos/download (1).jpg" class="glightbox media-container group block">
-        <img src="media/photos/download (1).jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item peace">
-    <a href="media/photos/images.jpg" class="glightbox media-container group block">
-        <img src="media/photos/images.jpg" class="w-full">
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <i class="fas fa-eye text-2xl"></i>
-        </div>
-    </a>
-</div>
-
-<div class="grid-item peace">
-    <a href="media/photos/download (2).jpg" class="glightbox media-container group block">
-        <img src="media/photos/download (2).jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item protection">
-    <a href="media/photos/639482109_18097677440497639_1542211507172549178_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/639482109_18097677440497639_1542211507172549178_n.jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item wash">
-    <a href="media/photos/download (3).jpg" class="glightbox media-container group block">
-        <img src="media/photos/download (3).jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item peace">
-    <a href="media/photos/download (4).jpg" class="glightbox media-container group block">
-        <img src="media/photos/download (4).jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item protection">
-    <a href="media/photos/641250190_18098369141497639_2850604459882787164_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/641250190_18098369141497639_2850604459882787164_n.jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item wash">
-    <a href="media/photos/download (5).jpg" class="glightbox media-container group block">
-        <img src="media/photos/download (5).jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item peace">
-    <a href="media/photos/download (6).jpg" class="glightbox media-container group block">
-        <img src="media/photos/download (6).jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item protection">
-    <a href="media/photos/641253816_18098369150497639_8983940825625670613_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/641253816_18098369150497639_8983940825625670613_n.jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item protection">
-    <a href="media/photos/643007038_18098369123497639_2421915203110595813_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/643007038_18098369123497639_2421915203110595813_n.jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item protection">
-    <a href="media/photos/643093619_18098369084497639_7019774442776129948_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/643093619_18098369084497639_7019774442776129948_n.jpg" class="w-full">
-    </a>
-</div>
-
-<div class="grid-item protection">
-    <a href="media/photos/643205525_18098369093497639_3520339052410542865_n.jpg" class="glightbox media-container group block">
-        <img src="media/photos/643205525_18098369093497639_3520339052410542865_n.jpg" class="w-full">
-    </a>
-</div>
-
-            <div class="grid-item video peace">
-                <a href="media/videos/peace_summit.mp4" class="glightbox media-container group block">
-                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac" class="w-full">
-                    <div class="play-indicator shadow-xl">
-                        <i class="fas fa-play text-white text-xs ml-1"></i>
-                    </div>
-                    <div class="absolute bottom-6 left-6">
-                        <p class="text-[8px] font-black uppercase tracking-widest text-[#2D5A27] mb-1">Video Documentary</p>
-                        <h4 class="font-bold uppercase italic text-sm">Women for Peace Forum</h4>
-                    </div>
-                </a>
+                <a href="media/photos/GEPADC (15).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (15).jpg" alt="Impact"></a>
+            </div>
+            <div class="grid-item wash">
+                <a href="media/photos/GEPADC (16).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (16).jpg" alt="Impact"></a>
+            </div>
+            <div class="grid-item empowerment">
+                <a href="media/photos/GEPADC (17).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (17).jpg" alt="Impact"></a>
+            </div>
+            <div class="grid-item protection">
+                <a href="media/photos/GEPADC (18).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (18).jpg" alt="Impact"></a>
+            </div>
+            <div class="grid-item peace">
+                <a href="media/photos/GEPADC (19).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (19).jpg" alt="Impact"></a>
             </div>
 
-            </div>
+        </div>
     </div>
- <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10 font-sans">
-    <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
-            
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto grayscale brightness-200">
-                    <span class="text-2xl font-heading text-white tracking-tighter italic">GEPaDC</span>
-                </div>
-                <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
-                    Leading the frontier of gender-based justice and humanitarian protection in Western Africa. An institution built on the principles of equity, dignity, and sustainable peace.
-                </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.youtube.com/@gepadc370" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
 
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8 border-l-2 border-[#2D5A27] pl-4">State Operations</h4>
-                <ul class="space-y-3 text-gray-400 text-[10px] leading-relaxed uppercase tracking-wider mb-8">
-                    <li><span class="text-white font-bold block">Adamawa:</span> Coper Lane, Zone 3, Jimeta, Yola</li>
-                    <li><span class="text-white font-bold block">Borno:</span> No 7 Nguru Street Polo close, Old GRA Maiduguri</li>
-                    <li><span class="text-white font-bold block">Kaduna:</span> Sir Patrick Yakowa Street, Karji, Kaduna</li>
-                    <li><span class="text-white font-bold block">Sokoto:</span> No 1 Abuja Road, GRA, Sokoto</li>
-                    <li><span class="text-white font-bold block">Yobe:</span> Maisandari Beside Damaturu PHC</li>
-                </ul>
-                </div>
-
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
-                <ul class="space-y-6 text-gray-400 text-sm">
-                    <li class="flex gap-4">
-                        <i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i>
-                        <span>No 1, Cardinal Ekandem Street,<br>32 Crescent, Gwarinpa Estate, FCT, Abuja.</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-envelope text-[#2D5A27] mt-1"></i>
-                        <span class="break-all">institutional.response@gepadc.org</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i>
-                        <span>+234 (0) 814 197 0095</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-globe text-[#2D5A27] mt-1"></i>
-                        <span>www.gepadc.org</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Newsletter</h4>
-                <form class="relative mb-8">
-                    <input type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#2D5A27] transition">
-                    <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-[#2D5A27] transition">Join</button>
-                </form>
-                <div class="pt-8 border-t border-white/5">
-                    <p class="text-[10px] text-gray-600 uppercase font-black tracking-widest leading-relaxed">
-                        CAC Registration: IT/39885<br>
-                        DUNS: 55-667-8892<br>
-                        Est. 2008
+   <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
+                        <span class="text-3xl font-heading font-black tracking-tighter italic">GEPaDC</span>
+                    </div>
+                    <p class="text-gray-300 text-xs font-medium leading-relaxed max-w-xs">
+                        Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
                     </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Field Operations</h4>
+                    <ul class="space-y-5 text-[10px] uppercase font-black tracking-widest">
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Borno State (Field HQ)</span>
+                                <p class="text-gray-500 font-bold lowercase tracking-normal">No 7 Nguru Street Polo close, Old GRA Maiduguri</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-location-dot text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Adamawa State</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Coper Lane, Zone 3, Jimeta, Yola</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Kaduna / Sokoto</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Sir Patrick Yakowa St. • No 1 Abuja Road, GRA</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-earth-africa text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Yobe State</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Maisandari Beside Damaturu PHC</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <i class="fas fa-building text-[#2D5A27] text-lg"></i>
+                            <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <i class="fas fa-envelope-open-text text-[#2D5A27] text-lg"></i>
+                            <span class="text-white font-black text-xs lowercase">institutional.response@gepadc.org</span>
+                        </li>
+                        <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+                            <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
+                            <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
+                                <i class="fas fa-headset text-xl"></i>
+                                <span>0800-GEPADC-HQ</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
+                    <form class="relative mb-8">
+                        <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-4 px-6 text-[10px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
+                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-6 text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+                    </form>
+                    <div class="grid grid-cols-1 gap-2 text-[9px] text-gray-500 font-black uppercase tracking-[0.2em]">
+                        <div class="flex justify-between border-b border-white/5 pb-2"><span>Registry</span> <span class="text-white">IT/39885</span></div>
+                        <div class="flex justify-between border-b border-white/5 pb-2"><span>Established</span> <span class="text-white">2008</span></div>
+                        <div class="flex justify-between"><span>DUNS No.</span> <span class="text-white">55-667-8892</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
+                    <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
+                    <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>                    
+                </div>
+                
+                <div class="flex items-center gap-5">
+                    <div class="text-right">
+                        <p class="text-gray-500 text-[8px] uppercase font-black tracking-widest">Architected & Managed by</p>
+                        <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+                    </div>
+                    <div class="w-12 h-12 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+                        <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
+                    </div>
                 </div>
             </div>
         </div>
-
-<div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex gap-8 text-[9px] font-black uppercase tracking-widest text-gray-600">
-              <a href="privacy.html"class="hover:text-white transition">Privacy Protocol</a>
-              <a href="terms.html" class="hover:text-white transition">Terms of Engagement</a>
-              <a href="cookies.html" class="hover:text-white transition">Cookie Policy</a>                    
-            </div>
-            <div class="flex items-center gap-6">
-                <div class="text-right">
-                    <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Designed and Managed by</p>
-                    <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
+    </footer>
+    <div id="donateModal" class="hidden fixed inset-0 z-[300] flex items-center justify-center px-6">
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="toggleModal()"></div>
+        <div class="bg-white w-full max-w-xl relative z-10 p-10 border-t-8 border-[#2D5A27]">
+            <button onclick="toggleModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black transition"><i class="fas fa-times text-xl"></i></button>
+            <h2 class="text-3xl font-heading font-black italic uppercase text-black mb-8 text-center">Support Our Mission</h2>
+            <div class="space-y-4">
+                <div class="bg-gray-50 p-6 border-l-4 border-[#2D5A27]">
+                    <p class="text-[9px] font-black uppercase text-gray-500 mb-2">NGN Account (Zenith Bank)</p>
+                    <p class="text-2xl font-black text-black">1015632292</p>
                 </div>
-                <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic shadow-2xl">Z</div>
             </div>
         </div>
     </div>
-    </footer>
+
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
 
     <script>
-        // Initialize Isotope
-        var iso = new Isotope('.grid-container', {
-            itemSelector: '.grid-item',
-            percentPosition: true,
-            masonry: { columnWidth: '.grid-item' },
-            transitionDuration: '0.6s'
+        // Initialize Isotope after images are loaded
+        var grid = document.querySelector('.grid-container');
+        var iso;
+        
+        window.addEventListener('load', function() {
+            iso = new Isotope(grid, {
+                itemSelector: '.grid-item',
+                layoutMode: 'masonry'
+            });
         });
 
-        // Filtering
+        // Filter Logic
         document.querySelector('#filters').addEventListener('click', function(e) {
             if (!e.target.classList.contains('filter-btn')) return;
-            iso.arrange({ filter: e.target.getAttribute('data-filter') });
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            var filterValue = e.target.getAttribute('data-filter');
+            iso.arrange({ filter: filterValue });
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             e.target.classList.add('active');
         });
 
-        // Lightbox - Crucial for Video Playing
-        const lightbox = GLightbox({
-            selector: '.glightbox',
-            touchNavigation: true,
-            loop: true,
-            zoomable: true,
-            autoplayVideos: true, // Auto-plays when opened
-            plyr: {
-                config: {
-                    muted: false,
-                    hideControls: false
-                }
-            }
-        });
+        // Lightbox
+        const lightbox = GLightbox({ selector: '.glightbox' });
 
-        // Ensure layout is correct after images load
-        window.addEventListener('load', () => iso.layout());
+        // Modal
+        function toggleModal() {
+            const modal = document.getElementById('donateModal');
+            modal.classList.toggle('hidden');
+        }
     </script>
 </body>
 </html>
