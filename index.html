@@ -12,18 +12,28 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
         :root { --brand-green: #2D5A27; }
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0a0a0a; color: white; }
+        
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #ffffff; color: #1a1a1a; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
         
         .hero-title { font-size: clamp(3rem, 10vw, 9rem); line-height: 0.9; }
-        .section-title { font-size: clamp(2rem, 6vw, 5rem); }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee-container { overflow: hidden; white-space: nowrap; display: flex; }
+        .marquee-container { overflow: hidden; white-space: nowrap; display: flex; padding: 2rem 0; background: #fff; }
         .marquee-content { display: flex; animation: scroll 30s linear infinite; }
-        .marquee-item { flex: 0 0 auto; padding: 0 3rem; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 900; color: rgba(255,255,255,0.1); text-transform: uppercase; font-family: 'Montserrat', sans-serif; }
         
-        .hero-overlay { background: linear-gradient(75deg, rgba(0,0,0,1) 35%, rgba(0,0,0,0.3) 100%); }
+        .marquee-item { 
+            flex: 0 0 auto; 
+            padding: 0 4rem; 
+            font-size: clamp(1.2rem, 3vw, 2rem); 
+            font-weight: 900; 
+            color: rgba(0,0,0,0.4); 
+            text-transform: uppercase; 
+            font-family: 'Montserrat', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .marquee-container:hover .marquee-item { color: rgba(45, 90, 39, 0.6); }
         .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
         .nav-logo { height: 40px; width: auto; object-fit: contain; }
 
@@ -39,14 +49,47 @@
             text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; 
         }
         .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
+
+        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.5s ease-in-out; background-size: cover; background-position: center; z-index: 5; }
+        .slide.active { opacity: 1; }
         
-        .pillar-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .pillar-card:hover { background-color: #111; border-color: var(--brand-green); }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(75deg, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.3) 100%); pointer-events: none; z-index: 10; }
+
+        .pillar-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f3f4f6; }
+        .pillar-card:hover { background-color: #f9fafb; border-color: var(--brand-green); transform: translateY(-5px); }
+
+        /* Premium Modal Styles */
+#donateModal {
+    backdrop-filter: blur(8px);
+    transition: all 0.4s ease-in-out;
+}
+
+.modal-content-wrapper {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.giving-input {
+    border-color: #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.giving-input:focus {
+    border-color: #2D5A27;
+    padding-left: 1rem;
+}
+
+.trust-badge {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
     </style>
 </head>
 <body>
 
-    <div class="bg-white text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase">
+    <div class="bg-gray-50 text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase border-b border-gray-100">
         <div id="liveDate"></div>
         <div class="flex gap-4">
             <span class="text-[#2D5A27]">HQ Status: Operational</span>
@@ -89,7 +132,7 @@
             </button>
         </div>
 
-        <div id="mobileNav" class="fixed inset-0 bg-white z-[150] hidden flex-col items-center justify-center space-y-8 text-xl font-black uppercase tracking-widest transition-all duration-300 lg:hidden text-black">
+        <div id="mobileNav" class="fixed inset-0 bg-white z-[150] hidden flex-col items-center justify-center space-y-8 text-xl font-black uppercase tracking-widest text-black">
             <button onclick="toggleMobileNav()" class="absolute top-6 right-6 text-4xl text-[#2D5A27]">&times;</button>
             <a href="index.html" onclick="toggleMobileNav()" class="text-[#2D5A27]">Home</a>
             <a href="about.html" onclick="toggleMobileNav()">Mission</a>
@@ -99,29 +142,25 @@
         </div>
     </nav>
 
-    <section class="relative h-[85vh] md:h-screen flex items-center overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070" class="w-full h-full object-cover grayscale-[20%]">
-            <div class="absolute inset-0 hero-overlay"></div>
+    <section class="relative h-[85vh] md:h-screen flex items-center overflow-hidden bg-black">
+        <div class="absolute inset-0 z-0" id="hero-slideshow">
+            <div class="hero-overlay"></div>
         </div>
-        <div class="relative z-10 container mx-auto px-6 md:px-10">
+        <div class="relative z-20 container mx-auto px-6 md:px-10">
             <div data-aos="fade-up">
                 <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">CAC/IT/39885 • Est. 2008</h2>
-                <h1 class="hero-title font-black italic mb-6 uppercase tracking-tighter font-heading">
+                <h1 class="hero-title font-black italic mb-6 uppercase tracking-tighter font-heading text-white leading-none">
                     Humanity <br> <span class="text-outline">Over</span> <br> <span class="text-[#2D5A27]">Conflict.</span>
                 </h1>
-                <p class="text-gray-400 text-xs md:text-lg max-w-xl mb-10 font-light leading-relaxed">
+                <p class="text-gray-300 text-xs md:text-lg max-w-xl mb-10 font-light leading-relaxed">
                     Working for gender equality, empowerment of women and girls, peace, and sustainable development across conflict-affected populations in Nigeria.
                 </p>
-                <div class="flex flex-wrap gap-4">
-                    <button onclick="toggleModal()" class="bg-white text-black px-8 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-[#2D5A27] hover:text-white transition">Get Involved</button>
-                    <a href="about.html" class="bg-transparent border border-white/30 text-white px-10 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-white/10 transition">The Mission</a>
-                </div>
+                <button onclick="toggleModal()" class="bg-[#2D5A27] text-white px-8 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition shadow-xl">Get Involved Now</button>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-[#050505] border-y border-white/5">
+    <section class="py-12 bg-white border-y border-gray-100">
         <div class="marquee-container">
             <div class="marquee-content">
                 <div class="marquee-item italic">USAID</div>
@@ -140,162 +179,210 @@
         </div>
     </section>
 
-    <section class="py-24 bg-[#0a0a0a] border-b border-white/5">
+    <section class="py-24 bg-white border-t border-gray-100">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="mb-20" data-aos="fade-right">
+                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Our DNA</h2>
+                <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black leading-none">
+                    Core Values.
+                </h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="value-card pl-6 py-4" data-aos="fade-up">
+                    <div class="text-[#2D5A27] font-black text-[10px] mb-4 tracking-widest uppercase">01. Responsibility</div>
+                    <h4 class="font-black uppercase text-xl md:text-2xl italic font-heading mb-4 text-black">Integrity</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        We maintain the highest ethical standards in every mission. Our commitment to transparency ensures that every resource is directed toward the protection of those we serve.
+                    </p>
+                </div>
+
+                <div class="value-card pl-6 py-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-[#2D5A27] font-black text-[10px] mb-4 tracking-widest uppercase">02. Equality</div>
+                    <h4 class="font-black uppercase text-xl md:text-2xl italic font-heading mb-4 text-black">Inclusivity</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        We believe in a world where gender is not a barrier to safety. Our programs are designed to uplift the most marginalized voices in conflict-affected communities.
+                    </p>
+                </div>
+
+                <div class="value-card pl-6 py-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-[#2D5A27] font-black text-[10px] mb-4 tracking-widest uppercase">03. Sustainability</div>
+                    <h4 class="font-black uppercase text-xl md:text-2xl italic font-heading mb-4 text-black">Resilience</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        We don't just provide temporary aid; we build sustainable systems. We empower local populations to lead their own development and peacebuilding efforts.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 border-t border-gray-50 pt-12">
+                 <div class="value-card pl-6 py-4" data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="font-black uppercase text-lg italic font-heading mb-2 text-black">Accountability</h4>
+                    <p class="text-gray-500 text-xs leading-relaxed">Holding ourselves and our partners to measurable impact and results-driven humanitarian action.</p>
+                </div>
+                <div class="value-card pl-6 py-4" data-aos="fade-up" data-aos-delay="400">
+                    <h4 class="font-black uppercase text-lg italic font-heading mb-2 text-black">Professionalism</h4>
+                    <p class="text-gray-500 text-xs leading-relaxed">Delivering excellence in field operations through rigorous training and adherence to international standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white border-b border-gray-100">
         <div class="container mx-auto px-6 md:px-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
+                <div data-aos="fade-right">
                     <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Our Methodology</h2>
-                    <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-white leading-none mb-8">Structural <br> Foundations.</h3>
-                    <p class="text-gray-400 max-w-md text-sm leading-loose">We operate at the intersection of immediate humanitarian relief and long-term policy reform to create a safer Nigeria for women and children.</p>
+                    <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black leading-none mb-8">Structural <br> Foundations.</h3>
+                    <p class="text-gray-600 max-w-md text-sm leading-loose">
+                        We operate at the intersection of immediate humanitarian relief and long-term policy reform. Our approach ensures that while we meet urgent needs today, we are simultaneously building the legal and social frameworks for a sustainable tomorrow.
+                    </p>
+                    <div class="mt-10">
+                        <a href="strategy.html" class="inline-block border-b-2 border-black pb-1 text-[10px] font-black uppercase tracking-widest hover:text-[#2D5A27] transition">View Strategy 2030</a>
+                    </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
-                    <div class="pillar-card bg-[#0a0a0a] p-10" data-aos="fade-up">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-100 border border-gray-100 shadow-2xl">
+                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up">
                         <i class="fas fa-shield-halved text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-white font-black uppercase text-xs tracking-widest mb-4">Rapid Protection</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed">Emergency response for gender-based violence survivors in conflict zones.</p>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Rapid Protection</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed">
+                            Immediate emergency response for GBV survivors in conflict-affected zones, providing clinical care, psychosocial support, and legal aid.
+                        </p>
                     </div>
-                    <div class="pillar-card bg-[#0a0a0a] p-10" data-aos="fade-up" data-aos-delay="100">
+
+                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="100">
                         <i class="fas fa-faucet-drip text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-white font-black uppercase text-xs tracking-widest mb-4">WASH Resilience</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed">Providing clean water and dignified sanitation to displaced communities.</p>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">WASH Resilience</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed">
+                            Ensuring dignified access to clean water and sanitation in IDP camps and host communities to prevent disease and improve safety.
+                        </p>
                     </div>
-                    <div class="pillar-card bg-[#0a0a0a] p-10" data-aos="fade-up" data-aos-delay="200">
+
+                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="200">
                         <i class="fas fa-gavel text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-white font-black uppercase text-xs tracking-widest mb-4">Policy Reform</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed">Advocating for institutional shifts in gender and peacebuilding laws.</p>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Policy Reform</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed">
+                            Collaborating with government institutions to domesticate the VAPP Act and strengthen peace and security legislation across Nigeria.
+                        </p>
                     </div>
-                    <div class="pillar-card bg-[#0a0a0a] p-10" data-aos="fade-up" data-aos-delay="300">
+
+                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="300">
                         <i class="fas fa-users-gear text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-white font-black uppercase text-xs tracking-widest mb-4">Human Capital</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed">Vocational training and economic empowerment for peace-builders.</p>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Human Capital</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed">
+                            Empowering women and youth through vocational skill acquisition, financial literacy, and sustainable livelihood support.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 container mx-auto px-6 md:px-10">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-l border-white/10">
+    <section class="py-24 container mx-auto px-6 md:px-10 bg-white">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-l border-gray-100">
             <div class="pl-6" data-aos="fade-up">
-                <h3 class="text-4xl md:text-6xl font-black italic font-heading">
+                <h3 class="text-4xl md:text-6xl font-black italic font-heading text-black">
                     <span class="counter" data-target="16">0</span><span class="text-[#2D5A27]">+</span>
                 </h3>
-                <p class="text-gray-500 uppercase text-[9px] font-black tracking-widest mt-2">Years of Impact</p>
+                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Years of Impact</p>
             </div>
-            <div class="pl-6 border-l border-white/10" data-aos="fade-up" data-aos-delay="100">
-                <h3 class="text-4xl md:text-6xl font-black italic font-heading">
+            <div class="pl-6 border-l border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-4xl md:text-6xl font-black italic font-heading text-black">
                     <span class="counter" data-target="50">0</span><span class="text-[#2D5A27]">K</span>
                 </h3>
-                <p class="text-gray-500 uppercase text-[9px] font-black tracking-widest mt-2">Lives Empowered</p>
+                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Lives Empowered</p>
             </div>
-            <div class="pl-6 border-l border-white/10" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="text-4xl md:text-6xl font-black italic font-heading">
+            <div class="pl-6 border-l border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-4xl md:text-6xl font-black italic font-heading text-black">
                     <span class="counter" data-target="5">0</span><span class="text-[#2D5A27]">#</span>
                 </h3>
-                <p class="text-gray-500 uppercase text-[9px] font-black tracking-widest mt-2">States Active</p>
+                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">States Active</p>
             </div>
-            <div class="pl-6 border-l border-white/10" data-aos="fade-up" data-aos-delay="300">
-                <h3 class="text-4xl md:text-6xl font-black italic font-heading">
+            <div class="pl-6 border-l border-gray-100" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="text-4xl md:text-6xl font-black italic font-heading text-black">
                     <span class="counter" data-target="100">0</span><span class="text-[#2D5A27]">+</span>
                 </h3>
-                <p class="text-gray-500 uppercase text-[9px] font-black tracking-widest mt-2">Field Experts</p>
+                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Field Experts</p>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-white text-black">
-        <div class="container mx-auto px-6 md:px-10">
-            <div class="mb-16 flex justify-between items-end">
-                <h2 class="text-4xl md:text-6xl font-black italic uppercase font-heading">Global <br> Dispatch</h2>
-                <a href="archive.html" class="text-[9px] font-black border-b-2 border-[#2D5A27] pb-2 uppercase tracking-widest hover:text-[#2D5A27] transition">View Archive</a>
+    <section class="py-24 px-10 border-t border-gray-100 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Live Updates</span>
+                    <h2 class="text-5xl md:text-7xl font-heading font-black italic uppercase leading-none text-black">Field <br>Dispatches.</h2>
+                </div>
+                <a href="archive.html" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-[#2D5A27] pb-2 hover:text-[#2D5A27] transition">View Full Archive</a>
             </div>
-            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-black"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[700px]">
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden bg-gray-100 shadow-md">
+                    <img src="media/photos/GEPADC (19).jpg" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-10 flex flex-col justify-end">
+                        <span class="bg-[#2D5A27] text-white text-[8px] font-black uppercase px-3 py-1 w-max mb-4">Emergency Response</span>
+                        <h3 class="text-3xl font-heading font-black italic uppercase mb-4 text-white">2024 Northeastern <br>Flood Relief</h3>
+                        <p class="text-gray-200 text-xs leading-relaxed max-w-sm mb-6">Strategic deployment of WASH and Protection kits to displaced populations in Borno State.</p>
+                        <a href="archive.html" class="text-[9px] font-black text-white uppercase tracking-widest flex items-center gap-2">Read Mission Report <i class="fas fa-arrow-right text-[#2D5A27]"></i></a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 relative group overflow-hidden">
+                    <img src="media/photos/GEPADC (16).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all">
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end bg-black/40">
+                        <h4 class="text-xl font-heading font-black italic uppercase text-white">Safe Space Initiatives</h4>
+                    </div>
+                </div>
+                <div class="md:col-span-1 relative group overflow-hidden">
+                    <img src="media/photos/GEPADC (12).jpg" class="w-full h-full object-cover grayscale">
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end bg-black/40">
+                        <h4 class="text-sm font-heading font-black italic uppercase text-white">Gatekeeper Training</h4>
+                    </div>
+                </div>
+                <div class="md:col-span-1 relative group overflow-hidden">
+                    <img src="media/photos/GEPADC (5).jpg" class="w-full h-full object-cover grayscale">
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end bg-black/40">
+                        <h4 class="text-sm font-heading font-black italic uppercase text-white">Site Monitoring</h4>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="py-24 px-10 border-t border-white/5">
-    <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div>
-                <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Live Updates</span>
-                <h2 class="text-5xl md:text-7xl font-heading font-black italic uppercase leading-none">Field <br>Dispatches.</h2>
-            </div>
-            <a href="archive.html" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-[#2D5A27] pb-2 hover:text-[#2D5A27] transition">View Full Archive</a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[700px]">
-            
-            <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden bg-gray-900">
-                <img src="media/photos/643093619_18098369084497639_7019774442776129948_n.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-10 flex flex-col justify-end">
-                    <span class="bg-[#2D5A27] text-white text-[8px] font-black uppercase px-3 py-1 w-max mb-4">Emergency Response</span>
-                    <h3 class="text-3xl font-heading font-black italic uppercase mb-4">2024 Northeastern <br>Flood Relief</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed max-w-sm mb-6">Strategic deployment of WASH and Protection kits to displaced populations in Borno State following the recent climate-induced flooding.</p>
-                    <a href="archive.html#year-2024" class="text-[9px] font-black uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
-                        Read Mission Report <i class="fas fa-arrow-right text-[#2D5A27]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="md:col-span-2 relative group overflow-hidden bg-gray-900">
-                <img src="media/photos/639459142_18097677476497639_8632645929459172433_n.jpg" class="w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-all">
-                <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                    <span class="text-[#2D5A27] text-[8px] font-black uppercase tracking-widest mb-2">Protection</span>
-                    <h4 class="text-xl font-heading font-black italic uppercase">Safe Space Initiatives</h4>
-                </div>
-            </div>
-
-            <div class="md:col-span-1 relative group overflow-hidden bg-gray-900">
-                <img src="media/photos/641253816_18098369150497639_8983940825625670613_n.jpg" class="w-full h-full object-cover opacity-50">
-                <div class="absolute inset-0 p-6 flex flex-col justify-end">
-                    <h4 class="text-sm font-heading font-black italic uppercase">Gatekeeper Training</h4>
-                </div>
-            </div>
-
-            <div class="md:col-span-1 relative group overflow-hidden bg-gray-900">
-                <img src="media/photos/download (6).jpg" class="w-full h-full object-cover opacity-50">
-                <div class="absolute inset-0 p-6 flex flex-col justify-end">
-                    <h4 class="text-sm font-heading font-black italic uppercase">Site Monitoring</h4>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-    
-    <section class="py-24 bg-[#050505] border-t border-white/5">
+    <section class="py-24 bg-white border-t border-gray-100">
         <div class="container mx-auto px-6 md:px-10">
             <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
                 <div>
                     <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Operational Pulse</h2>
-                    <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-white">Field <br> Perspectives</h3>
+                    <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black">Field <br> Perspectives</h3>
                 </div>
-                <p class="text-gray-500 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">Real-time updates from our protection missions across Nigeria.</p>
+                <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">Real-time updates from our protection missions across Nigeria.</p>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="group relative overflow-hidden aspect-square bg-gray-900 border border-white/5" data-aos="fade-up">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                <div class="group relative overflow-hidden aspect-square border border-gray-100">
+                    <img src="media/photos/GEPADC (5).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                     <a href="https://www.instagram.com/gepadc/" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
                         <i class="fab fa-instagram text-2xl mb-2"></i>
                         <span class="text-[10px] font-black uppercase tracking-widest">Instagram</span>
                     </a>
                 </div>
-                <div class="group relative overflow-hidden aspect-[4/5] md:row-span-2 bg-gray-900 border border-white/5" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                <div class="group relative overflow-hidden aspect-[4/5] md:row-span-2 border border-gray-100">
+                    <img src="media/photos/GEPADC (2).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                     <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
                         <i class="fab fa-facebook-f text-2xl mb-2"></i>
                         <span class="text-[10px] font-black uppercase tracking-widest">Facebook</span>
                     </a>
                 </div>
-                <div class="group relative overflow-hidden aspect-video md:col-span-2 bg-gray-900 border border-white/5" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1524069290683-0457abfe42c3?q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                <div class="group relative overflow-hidden aspect-video md:col-span-2 border border-gray-100">
+                    <img src="media/photos/GEPADC (17).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                     <a href="https://www.youtube.com/@gepadc370" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
                         <i class="fab fa-youtube text-2xl mb-2"></i>
                         <span class="text-[10px] font-black uppercase tracking-widest">YouTube</span>
                     </a>
                 </div>
-                <div class="group relative overflow-hidden aspect-square bg-gray-900 border border-white/5" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                <div class="group relative overflow-hidden aspect-square border border-gray-100">
+                    <img src="media/photos/GEPADC (1).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                     <a href="https://twitter.com/GEPaDC" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
                         <i class="fab fa-x-twitter text-2xl mb-2"></i>
                         <span class="text-[10px] font-black uppercase tracking-widest">X updates</span>
@@ -305,119 +392,228 @@
         </div>
     </section>
 
-    <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10 font-sans">
-    <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
-            
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto grayscale brightness-200">
-                    <span class="text-2xl font-heading text-white tracking-tighter italic">GEPaDC</span>
-                </div>
-                <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
-                    Leading the frontier of gender-based justice and humanitarian protection in Western Africa. An institution built on the principles of equity, dignity, and sustainable peace.
+    <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/80">
+    <div class="modal-content-wrapper bg-white text-black w-full max-w-5xl flex flex-col md:flex-row min-h-[600px]">
+        
+        <div class="bg-[#2D5A27] p-10 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden">
+            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4">
+                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
+            </div>
+
+            <div class="relative z-10">
+                <button onclick="toggleModal()" class="mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </button>
+                
+                <h2 class="text-5xl font-black italic font-heading mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
+                <p class="text-white/80 text-xs leading-relaxed mb-10 max-w-xs">
+                    Your contribution directly funds protection missions, WASH facilities, and empowerment programs across conflict-affected regions.
                 </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.youtube.com/@gepadc370" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-youtube"></i></a>
+
+                <div class="space-y-8">
+                    <div class="trust-badge p-6 rounded">
+                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Bank Transfer Details</p>
+                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
+                        <p class="text-3xl font-black italic font-heading tracking-tighter">2034098418</p>
+                        <p class="text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
+                    </div>
                 </div>
             </div>
 
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8 border-l-2 border-[#2D5A27] pl-4">State Operations</h4>
-                <ul class="space-y-3 text-gray-400 text-[10px] leading-relaxed uppercase tracking-wider mb-8">
-                    <li><span class="text-white font-bold block">Adamawa:</span> Coper Lane, Zone 3, Jimeta, Yola</li>
-                    <li><span class="text-white font-bold block">Borno:</span> No 7 Nguru Street Polo close, Old GRA Maiduguri</li>
-                    <li><span class="text-white font-bold block">Kaduna:</span> Sir Patrick Yakowa Street, Karji, Kaduna</li>
-                    <li><span class="text-white font-bold block">Sokoto:</span> No 1 Abuja Road, GRA, Sokoto</li>
-                    <li><span class="text-white font-bold block">Yobe:</span> Maisandari Beside Damaturu PHC</li>
-                </ul>
+            <div class="relative z-10 pt-10 border-t border-white/10">
+                <div class="flex items-center gap-4">
+                    <i class="fas fa-shield-check text-2xl text-white/50"></i>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Encrypted & Verified Transaction</p>
                 </div>
+            </div>
+        </div>
 
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
-                <ul class="space-y-6 text-gray-400 text-sm">
-                    <li class="flex gap-4">
-                        <i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i>
-                        <span>No 1, Cardinal Ekandem Street,<br>32 Crescent, Gwarinpa Estate, FCT, Abuja.</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-envelope text-[#2D5A27] mt-1"></i>
-                        <span class="break-all">institutional.response@gepadc.org</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i>
-                        <span>+234 (0) 814 197 0095</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-globe text-[#2D5A27] mt-1"></i>
-                        <span>www.gepadc.org</span>
-                    </li>
-                </ul>
+        <div class="p-10 md:p-16 md:w-7/12 flex flex-col justify-center bg-white">
+            <div class="mb-10">
+                <h3 class="text-2xl font-black uppercase italic font-heading text-black">Pledge Support</h3>
+                <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
             </div>
 
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Newsletter</h4>
-                <form class="relative mb-8">
-                    <input type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#2D5A27] transition">
-                    <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-[#2D5A27] transition">Join</button>
-                </form>
-                <div class="pt-8 border-t border-white/5">
-                    <p class="text-[10px] text-gray-600 uppercase font-black tracking-widest leading-relaxed">
-                        CAC Registration: IT/39885<br>
-                        DUNS: 55-667-8892<br>
-                        Est. 2008
+            <form id="donorForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
+                        <input type="text" placeholder="John Doe" required class="giving-input w-full border-b-2 py-3 outline-none text-sm font-bold">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
+                        <input type="email" placeholder="john@example.com" required class="giving-input w-full border-b-2 py-3 outline-none text-sm font-bold">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
+                    <select class="giving-input w-full border-b-2 py-3 outline-none text-sm font-bold bg-transparent">
+                        <option>General Support</option>
+                        <option>Protection Missions (GBV)</option>
+                        <option>WASH Initiatives</option>
+                        <option>Economic Empowerment</option>
+                    </select>
+                </div>
+
+                <div class="pt-6">
+                    <button type="submit" class="w-full bg-black text-white py-5 font-black uppercase text-[10px] tracking-[0.3em] hover:bg-[#2D5A27] transition-all shadow-xl active:scale-[0.98]">
+                        Confirm My Contribution
+                    </button>
+                    <p class="text-center text-gray-400 text-[8px] mt-6 uppercase font-bold tracking-widest">
+                        By clicking confirm, you acknowledge our <a href="#" class="underline">privacy policy</a>.
                     </p>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+</div>
 
-        <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex gap-8 text-[9px] font-black uppercase tracking-widest text-gray-600">
-              <a href="privacy.html"class="hover:text-white transition">Privacy Protocol</a>
-              <a href="terms.html" class="hover:text-white transition">Terms of Engagement</a>
-              <a href="cookies.html" class="hover:text-white transition">Cookie Policy</a>                    
-            </div>
-            <div class="flex items-center gap-6">
-                <div class="text-right">
-                    <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Designed and Managed by</p>
-                    <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
+   <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
+                        <span class="text-3xl font-heading font-black tracking-tighter italic">GEPaDC</span>
+                    </div>
+                    <p class="text-gray-300 text-xs font-medium leading-relaxed max-w-xs">
+                        Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic shadow-2xl">Z</div>
-            </div>
-        </div>
-    </div>
-    </footer>
-    <div id="donateModal" class="fixed inset-0 bg-black/98 z-[200] hidden flex items-center justify-center p-4">
-        <div class="bg-white text-black w-full max-w-5xl flex flex-col md:flex-row h-[80vh] overflow-hidden">
-            <div class="bg-[#2D5A27] p-12 md:w-1/2 text-white flex flex-col justify-between">
-                <div><h2 class="text-5xl font-black italic font-heading mb-8 uppercase">Secure <br>Giving.</h2><div class="space-y-6 uppercase tracking-widest"><div><p class="text-[9px] opacity-60">Account No.</p><p class="text-3xl font-black italic">0123456789</p></div><div><p class="text-[9px] opacity-60">Account Name.</p><p class="text-2xl font-black italic">GEPaDC Nigeria</p></div><div><p class="text-[9px] opacity-60">Bank Name.</p><p class="text-3xl font-black italic">GTBank</p></div></div></div>
-                <button onclick="toggleModal()" class="text-left font-black text-[10px] uppercase border-b border-white pb-1 inline-block w-fit">Cancel</button>
-            </div>
-            <div class="p-12 md:w-1/2 flex items-center"><form id="donorForm" class="space-y-8 w-full"><input type="text" placeholder="Full Identity" required class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] text-lg"><input type="number" placeholder="Amount (NGN)" required class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] text-lg"><button type="submit" class="w-full bg-black text-white py-5 font-black uppercase text-[10px] tracking-widest">Confirm Contribution</button></form></div>
-        </div>
-    </div>
 
-    <div id="newsModal" class="fixed inset-0 bg-black/95 z-[300] hidden flex items-center justify-center p-4 backdrop-blur-md">
-        <div class="bg-white text-black w-full max-w-4xl max-h-[90vh] overflow-y-auto relative"><button onclick="closeNewsModal()" class="sticky top-0 float-right m-4 text-3xl font-light hover:text-[#2D5A27] transition z-50">×</button><div id="newsFullContent" class="p-8 md:p-16"></div></div>
-    </div>
+                <div>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Field Operations</h4>
+                    <ul class="space-y-5 text-[10px] uppercase font-black tracking-widest">
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Borno State (Field HQ)</span>
+                                <p class="text-gray-500 font-bold lowercase tracking-normal">No 7 Nguru Street Polo close, Old GRA Maiduguri</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-location-dot text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Adamawa State</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Coper Lane, Zone 3, Jimeta, Yola</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Kaduna / Sokoto</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Sir Patrick Yakowa St. • No 1 Abuja Road, GRA</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-earth-africa text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Yobe State</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Maisandari Beside Damaturu PHC</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <i class="fas fa-building text-[#2D5A27] text-lg"></i>
+                            <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <i class="fas fa-envelope-open-text text-[#2D5A27] text-lg"></i>
+                            <span class="text-white font-black text-xs lowercase">institutional.response@gepadc.org</span>
+                        </li>
+                        <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+                            <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
+                            <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
+                                <i class="fas fa-headset text-xl"></i>
+                                <span>0800-GEPADC-HQ</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
+                    <form class="relative mb-8">
+                        <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-4 px-6 text-[10px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
+                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-6 text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+                    </form>
+                    <div class="grid grid-cols-1 gap-2 text-[9px] text-gray-500 font-black uppercase tracking-[0.2em]">
+                        <div class="flex justify-between border-b border-white/5 pb-2"><span>Registry</span> <span class="text-white">IT/39885</span></div>
+                        <div class="flex justify-between border-b border-white/5 pb-2"><span>Established</span> <span class="text-white">2008</span></div>
+                        <div class="flex justify-between"><span>DUNS No.</span> <span class="text-white">55-667-8892</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
+                    <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
+                    <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>                    
+                </div>
+                
+                <div class="flex items-center gap-5">
+                    <div class="text-right">
+                        <p class="text-gray-500 text-[8px] uppercase font-black tracking-widest">Architected & Managed by</p>
+                        <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+                    </div>
+                    <div class="w-12 h-12 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+                        <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
     <script>
-        AOS.init();
-        function updateTime() {
-            const now = new Date();
-            const dateEl = document.getElementById('liveDate');
-            const timeEl = document.getElementById('liveTime');
-            if(dateEl) dateEl.innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
-            if(timeEl) timeEl.innerText = now.toLocaleTimeString('en-GB', { hour12: false });
-        }
-        setInterval(updateTime, 1000); updateTime();
+        AOS.init({ duration: 1000, once: true });
 
+        // LIVE TIME
+        function updateClock() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-US', options);
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-US', { hour12: false }) + ' WAT';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // HERO SLIDESHOW
+        const slides = [
+            'media/photos/GEPADC (1).jpg', 'media/photos/GEPADC (2).jpg', 
+            'media/photos/GEPADC (7).jpg', 'media/photos/GEPADC (17).jpg'
+        ];
+        const container = document.getElementById('hero-slideshow');
+        let currentSlide = 0;
+        slides.forEach((src, index) => {
+            const div = document.createElement('div');
+            div.className = `slide ${index === 0 ? 'active' : ''}`;
+            div.style.backgroundImage = `url('${src}')`;
+            container.appendChild(div);
+        });
+        const slideElements = document.querySelectorAll('.slide');
+        setInterval(() => {
+            slideElements[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slideElements.length;
+            slideElements[currentSlide].classList.add('active');
+        }, 5000);
+
+        // UI HELPERS
         function toggleMobileNav() {
             const mobileNav = document.getElementById('mobileNav');
             const navIcon = document.getElementById('navIcon');
@@ -427,10 +623,11 @@
             document.body.style.overflow = mobileNav.classList.contains('hidden') ? 'auto' : 'hidden';
         }
 
-        function toggleModal() { document.getElementById('donateModal').classList.toggle('hidden'); }
-        function closeNewsModal() { document.getElementById('newsModal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+        function toggleModal() { 
+            document.getElementById('donateModal').classList.toggle('hidden'); 
+        }
 
-        // COUNTER SYSTEM
+        // COUNTER
         const startCounters = () => {
             document.querySelectorAll('.counter').forEach(counter => {
                 const target = +counter.getAttribute('data-target');
@@ -460,7 +657,3 @@
     </script>
 </body>
 </html>
-
-
-
-
