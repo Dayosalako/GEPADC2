@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Archive | GEPaDC Institutional Records</title>
+    <title>Archive | GEPaDC Institutional Records</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="logo.png">
@@ -11,188 +11,190 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; scroll-behavior: smooth; }
+        
+        /* Restored background to white and text to dark gray */
+        body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1a1a1a; scroll-behavior: smooth; }
         .font-heading { font-family: 'Syncopate', sans-serif; }
         
-        /* Timeline Styling */
-        .timeline-link.active { color: #E61E2A; transform: scale(1.2); }
-        .timeline-line { width: 1px; background: rgba(255,255,255,0.1); height: 100%; position: absolute; left: 50%; }
+        /* Timeline Styling - Adjusted for White Background */
+        .timeline-link.active { color: #2D5A27; transform: scale(1.2); }
+        .timeline-line { width: 1px; background: rgba(0,0,0,0.1); height: 100%; position: absolute; left: 50%; }
 
-        /* Custom Scrollbar for Premium Feel */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #E61E2A; }
+        ::-webkit-scrollbar-track { background: #ffffff; }
+        ::-webkit-scrollbar-thumb { background: #2D5A27; }
     </style>
 </head>
 <body>
 
-    <nav class="flex justify-between items-center py-6 px-10 sticky top-0 bg-black/90 backdrop-blur-md z-[100] border-b border-white/10">
-        <div class="text-3xl font-heading text-green-600 tracking-tighter italic">GEPaDC</div>
+    <nav class="flex justify-between items-center py-6 px-10 sticky top-0 bg-white/90 backdrop-blur-md z-[100] border-b border-gray-100">
+        <div class="text-3xl font-heading text-[#2D5A27] tracking-tighter italic">GEPaDC</div>
         <div class="hidden lg:flex space-x-10 font-bold text-[11px] uppercase tracking-[0.2em]">
-            <a href="index.html" class="hover:text-green-600 transition">01. Home</a>
-            <a href="archive.html" class="text-green-600">04. Archive</a>
+            <a href="index.html" class="hover:text-[#2D5A27] transition">01. Home</a>
+            <a href="archive.html" class="text-[#2D5A27]">04. Archive</a>
         </div>
-        <button class="px-8 py-3 bg-green-600 font-black text-xs uppercase italic">Donate Now</button>
+        <button class="px-8 py-3 bg-[#2D5A27] text-white font-black text-xs uppercase italic">Donate Now</button>
     </nav>
 
     <div class="flex">
         <aside class="hidden md:flex flex-col items-center sticky top-32 h-[60vh] px-10 z-50">
             <div class="relative h-full flex flex-col justify-between py-10">
                 <div class="timeline-line"></div>
-                <a href="#year-2026" class="timeline-link active z-10 bg-black py-2 font-black text-xs transition-all">2026</a>
-                <a href="#year-2025" class="timeline-link z-10 bg-black py-2 font-black text-xs transition-all">2025</a>
-                <a href="#year-2024" class="timeline-link z-10 bg-black py-2 font-black text-xs transition-all">2024</a>
-                <a href="#year-2023" class="timeline-link z-10 bg-black py-2 font-black text-xs transition-all">2023</a>
+                <a href="#year-2026" class="timeline-link active z-10 bg-white py-2 font-black text-xs transition-all">2026</a>
+                <a href="#year-2025" class="timeline-link z-10 bg-white py-2 font-black text-xs transition-all">2025</a>
+                <a href="#year-2024" class="timeline-link z-10 bg-white py-2 font-black text-xs transition-all">2024</a>
+                <a href="#year-2023" class="timeline-link z-10 bg-white py-2 font-black text-xs transition-all">2023</a>
             </div>
         </aside>
 
-        <main class="flex-1 border-l border-white/10">
-    <section id="year-2025" class="py-20 px-10">
-        <h2 class="text-[10rem] font-black text-white/5 absolute -mt-20 pointer-events-none">2025</h2>
-        <div class="pt-20">
-            <span class="text-green-600 font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Urgent Dispatch</span>
-            <div class="group relative aspect-[21/9] bg-gray-900 overflow-hidden cursor-pointer rounded-sm" data-aos="fade-up">
-                <img src="media/photos/643093619_18098369084497639_7019774442776129948_n.jpg" class="w-full h-full object-cover opacity-60 transition duration-1000 group-hover:scale-105 group-hover:opacity-100">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-12 flex flex-col justify-end">
-                    <h3 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-4">Northeastern <br><span class="text-green-600">Flood Response.</span></h3>
-                    <p class="text-gray-400 text-sm max-w-xl leading-relaxed mb-6">
-                        In coordination with the Humanitarian Coalition, GEPaDC deployed life-saving WASH and Protection kits across Borno State to mitigate the impact of the 2024-2025 flood disaster.
+        <main class="flex-1 border-l border-gray-100">
+            <section id="year-2025" class="py-20 px-10 relative overflow-hidden">
+                <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2025</h2>
+                <div class="pt-20">
+                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Urgent Dispatch</span>
+                    <div class="group relative aspect-[21/9] bg-gray-100 overflow-hidden cursor-pointer rounded-sm" data-aos="fade-up">
+                        <img src="media/photos/643093619_18098369084497639_7019774442776129948_n.jpg" class="w-full h-full object-cover opacity-90 transition duration-1000 group-hover:scale-105 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-12 flex flex-col justify-end">
+                            <h3 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-4 text-white">Northeastern <br><span class="text-[#2D5A27]">Flood Response.</span></h3>
+                            <p class="text-gray-200 text-sm max-w-xl leading-relaxed mb-6">
+                                In coordination with the Humanitarian Coalition, GEPaDC deployed life-saving WASH and Protection kits across Borno State to mitigate the impact of the 2024-2025 flood disaster.
+                            </p>
+                            <div class="flex gap-4">
+                                <span class="px-4 py-2 border border-white/20 text-[9px] font-black uppercase tracking-widest text-white">WASH Deployment</span>
+                                <span class="px-4 py-2 border border-white/20 text-[9px] font-black uppercase tracking-widest text-white">Child Protection</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="year-2024" class="py-40 px-10 bg-gray-50 relative overflow-hidden">
+                <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2024</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 pt-20">
+                    <div class="space-y-6" data-aos="fade-right">
+                        <div class="aspect-square bg-gray-200 overflow-hidden">
+                            <img src="media/photos/639448948_18097677431497639_8083367465177998355_n.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                        </div>
+                        <div>
+                            <p class="text-[#2D5A27] font-black text-[10px] uppercase tracking-widest mb-2">Protection & Advocacy</p>
+                            <h4 class="text-2xl font-bold uppercase italic">Gatekeeper Engagement</h4>
+                            <p class="text-gray-500 text-xs leading-relaxed mt-4">Capacity building for community leaders in Maiduguri to strengthen SGBV reporting mechanisms.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6" data-aos="fade-left">
+                        <div class="aspect-square bg-gray-200 overflow-hidden">
+                            <img src="media/photos/images.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                        </div>
+                        <div>
+                            <p class="text-[#2D5A27] font-black text-[10px] uppercase tracking-widest mb-2">Women Leadership</p>
+                            <h4 class="text-2xl font-bold uppercase italic">WPS Policy Forum</h4>
+                            <p class="text-gray-500 text-xs leading-relaxed mt-4">Advancing the Women, Peace, and Security agenda through grassroots participation.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="year-2023" class="py-40 px-10 relative overflow-hidden">
+                <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2023</h2>
+                <div class="flex flex-wrap gap-4 pt-20">
+                    <img src="media/photos/download (1).jpg" class="h-40 w-auto opacity-60 hover:opacity-100 transition grayscale hover:grayscale-0">
+                    <img src="media/photos/download (2).jpg" class="h-40 w-auto opacity-60 hover:opacity-100 transition grayscale hover:grayscale-0">
+                    <img src="media/photos/download (3).jpg" class="h-40 w-auto opacity-60 hover:opacity-100 transition grayscale hover:grayscale-0">
+                    <img src="media/photos/download (4).jpg" class="h-40 w-auto opacity-60 hover:opacity-100 transition grayscale hover:grayscale-0">
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10 font-sans">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+                
+                <div class="space-y-8">
+                    <div class="flex items-center gap-4">
+                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto grayscale brightness-200">
+                        <span class="text-2xl font-heading text-white tracking-tighter italic">GEPaDC</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
+                        Leading the frontier of gender-based justice and humanitarian protection in Western Africa. An institution built on the principles of equity, dignity, and sustainable peace.
                     </p>
-                    <div class="flex gap-4">
-                        <span class="px-4 py-2 border border-white/20 text-[9px] font-black uppercase tracking-widest">WASH Deployment</span>
-                        <span class="px-4 py-2 border border-white/20 text-[9px] font-black uppercase tracking-widest">Child Protection</span>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@gepadc370" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8 border-l-2 border-[#2D5A27] pl-4">State Operations</h4>
+                    <ul class="space-y-3 text-gray-400 text-[10px] leading-relaxed uppercase tracking-wider mb-8">
+                        <li><span class="text-white font-bold block">Adamawa:</span> Coper Lane, Zone 3, Jimeta, Yola</li>
+                        <li><span class="text-white font-bold block">Borno:</span> No 7 Nguru Street Polo close, Old GRA Maiduguri</li>
+                        <li><span class="text-white font-bold block">Kaduna:</span> Sir Patrick Yakowa Street, Karji, Kaduna</li>
+                        <li><span class="text-white font-bold block">Sokoto:</span> No 1 Abuja Road, GRA, Sokoto</li>
+                        <li><span class="text-white font-bold block">Yobe:</span> Maisandari Beside Damaturu PHC</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
+                    <ul class="space-y-6 text-gray-400 text-sm">
+                        <li class="flex gap-4">
+                            <i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i>
+                            <span>No 1, Cardinal Ekandem Street,<br>32 Crescent, Gwarinpa Estate, FCT, Abuja.</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <i class="fas fa-envelope text-[#2D5A27] mt-1"></i>
+                            <span class="break-all">institutional.response@gepadc.org</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i>
+                            <span>+234 (0) 814 197 0095</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <i class="fas fa-globe text-[#2D5A27] mt-1"></i>
+                            <span>www.gepadc.org</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Newsletter</h4>
+                    <form class="relative mb-8">
+                        <input type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#2D5A27] transition">
+                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-[#2D5A27] transition text-white">Join</button>
+                    </form>
+                    <div class="pt-8 border-t border-white/5">
+                        <p class="text-[10px] text-gray-600 uppercase font-black tracking-widest leading-relaxed">
+                            CAC Registration: IT/39885<br>
+                            DUNS: 55-667-8892<br>
+                            Est. 2008
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="year-2024" class="py-40 px-10 bg-white/5">
-        <h2 class="text-[10rem] font-black text-white/5 absolute -mt-20 pointer-events-none">2024</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 pt-20">
-            <div class="space-y-6" data-aos="fade-right">
-                <div class="aspect-square bg-gray-900 overflow-hidden">
-                    <img src="media/photos/639448948_18097677431497639_8083367465177998355_n.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex gap-8 text-[9px] font-black uppercase tracking-widest text-gray-600">
+                    <a href="privacy.html" class="hover:text-white transition">Privacy Protocol</a>
+                    <a href="terms.html" class="hover:text-white transition">Terms of Engagement</a>
+                    <a href="cookies.html" class="hover:text-white transition">Cookie Policy</a>                    
                 </div>
-                <div>
-                    <p class="text-green-600 font-black text-[10px] uppercase tracking-widest mb-2">Protection & Advocacy</p>
-                    <h4 class="text-2xl font-bold uppercase italic">Gatekeeper Engagement</h4>
-                    <p class="text-gray-500 text-xs leading-relaxed mt-4">Capacity building for community leaders in Maiduguri to strengthen SGBV reporting mechanisms.</p>
-                </div>
-            </div>
-
-            <div class="space-y-6" data-aos="fade-left">
-                <div class="aspect-square bg-gray-900 overflow-hidden">
-                    <img src="media/photos/images.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
-                </div>
-                <div>
-                    <p class="text-green-600 font-black text-[10px] uppercase tracking-widest mb-2">Women Leadership</p>
-                    <h4 class="text-2xl font-bold uppercase italic">WPS Policy Forum</h4>
-                    <p class="text-gray-500 text-xs leading-relaxed mt-4">Advancing the Women, Peace, and Security agenda through grassroots participation.</p>
+                <div class="flex items-center gap-6">
+                    <div class="text-right">
+                        <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Designed and Managed by</p>
+                        <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
+                    </div>
+                    <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic shadow-2xl">Z</div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section id="year-2023" class="py-40 px-10">
-        <h2 class="text-[10rem] font-black text-white/5 absolute -mt-20 pointer-events-none">2023</h2>
-        <div class="flex flex-wrap gap-4 pt-20">
-            <img src="media/photos/download (1).jpg" class="h-40 w-auto opacity-40 hover:opacity-100 transition grayscale hover:grayscale-0">
-            <img src="media/photos/download (2).jpg" class="h-40 w-auto opacity-40 hover:opacity-100 transition grayscale hover:grayscale-0">
-            <img src="media/photos/download (3).jpg" class="h-40 w-auto opacity-40 hover:opacity-100 transition grayscale hover:grayscale-0">
-            <img src="media/photos/download (4).jpg" class="h-40 w-auto opacity-40 hover:opacity-100 transition grayscale hover:grayscale-0">
-        </div>
-    </section>
-</main>
-    </div>
-
-   <footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10 font-sans">
-    <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
-            
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto grayscale brightness-200">
-                    <span class="text-2xl font-heading text-white tracking-tighter italic">GEPaDC</span>
-                </div>
-                <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
-                    Leading the frontier of gender-based justice and humanitarian protection in Western Africa. An institution built on the principles of equity, dignity, and sustainable peace.
-                </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.youtube.com/@gepadc370" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8 border-l-2 border-[#2D5A27] pl-4">State Operations</h4>
-                <ul class="space-y-3 text-gray-400 text-[10px] leading-relaxed uppercase tracking-wider mb-8">
-                    <li><span class="text-white font-bold block">Adamawa:</span> Coper Lane, Zone 3, Jimeta, Yola</li>
-                    <li><span class="text-white font-bold block">Borno:</span> No 7 Nguru Street Polo close, Old GRA Maiduguri</li>
-                    <li><span class="text-white font-bold block">Kaduna:</span> Sir Patrick Yakowa Street, Karji, Kaduna</li>
-                    <li><span class="text-white font-bold block">Sokoto:</span> No 1 Abuja Road, GRA, Sokoto</li>
-                    <li><span class="text-white font-bold block">Yobe:</span> Maisandari Beside Damaturu PHC</li>
-                </ul>
-                </div>
-
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
-                <ul class="space-y-6 text-gray-400 text-sm">
-                    <li class="flex gap-4">
-                        <i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i>
-                        <span>No 1, Cardinal Ekandem Street,<br>32 Crescent, Gwarinpa Estate, FCT, Abuja.</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-envelope text-[#2D5A27] mt-1"></i>
-                        <span class="break-all">institutional.response@gepadc.org</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i>
-                        <span>+234 (0) 814 197 0095</span>
-                    </li>
-                    <li class="flex gap-4">
-                        <i class="fas fa-globe text-[#2D5A27] mt-1"></i>
-                        <span>www.gepadc.org</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Newsletter</h4>
-                <form class="relative mb-8">
-                    <input type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#2D5A27] transition">
-                    <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-[#2D5A27] transition">Join</button>
-                </form>
-                <div class="pt-8 border-t border-white/5">
-                    <p class="text-[10px] text-gray-600 uppercase font-black tracking-widest leading-relaxed">
-                        CAC Registration: IT/39885<br>
-                        DUNS: 55-667-8892<br>
-                        Est. 2008
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <                    
-  div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex gap-8 text-[9px] font-black uppercase tracking-widest text-gray-600">
-              <a href="privacy.html"class="hover:text-white transition">Privacy Protocol</a>
-              <a href="terms.html" class="hover:text-white transition">Terms of Engagement</a>
-              <a href="cookies.html" class="hover:text-white transition">Cookie Policy</a>                    
-            </div>
-            <div class="flex items-center gap-6">
-                <div class="text-right">
-                    <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Designed and Managed by</p>
-                    <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
-                </div>
-                <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic shadow-2xl">Z</div>
-            </div>
-        </div>
-    </div>
     </footer>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
@@ -219,11 +221,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
