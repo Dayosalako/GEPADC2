@@ -4,99 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie Policy | GEPaDC</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: white; }
+        :root { --brand-green: #2D5A27; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1a1a1a; overflow-x: hidden; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
+        
+        /* Smooth transition for links */
+        a { transition: all 0.3s ease; }
+        
+        .legal-card {
+            border-left: 3px solid var(--brand-green);
+            transition: transform 0.3s ease, border-left-width 0.3s ease;
+        }
+        .legal-card:hover {
+            transform: translateX(10px);
+            border-left-width: 8px;
+            background-color: #f9fafb;
+        }
     </style>
 </head>
 <body>
-    <nav class="py-6 px-10 bg-white flex justify-between items-center border-b border-gray-100">
-        <a href="index.html" class="flex items-center gap-3">
-            <img src="logo.png" alt="Logo" class="h-10 w-auto">
-            <div class="text-2xl font-heading text-[#2D5A27] tracking-tighter italic font-bold">GEPaDC</div>
-        </a>
+
+    <div class="bg-gray-50 text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase border-b border-gray-100">
+        <div id="liveDate">Loading Date...</div>
+        <div class="flex gap-4">
+            <span class="text-[#2D5A27] animate-pulse">● HQ Status: Operational</span>
+            <span id="liveTime">00:00:00 WAT</span>
+        </div>
+    </div>
+
+    <nav class="flex justify-between items-center py-5 px-6 md:px-10 sticky top-0 bg-white/90 backdrop-blur-md shadow-sm z-[100] border-b border-gray-100">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="GEPaDC Logo" class="h-10 md:h-12 w-auto object-contain">
+            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic font-black">GEPaDC</div>
+        </div>
+
+        <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]">
+            <a href="index.html" class="hover:text-[#2D5A27]">Home</a>
+            <a href="about.html" class="hover:text-[#2D5A27]">Mission</a>
+            <a href="protection.html" class="hover:text-[#2D5A27]">Impact</a>
+            <a href="contact.html" class="hover:text-[#2D5A27]">HQ Contacts</a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <a href="index.html#donate" class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic tracking-widest hover:bg-black transition shadow-lg">Support</a>
+        </div>
     </nav>
 
     <main class="py-24 px-6 md:px-10 max-w-4xl mx-auto min-h-[60vh]">
-        <h1 class="text-5xl font-heading font-black italic uppercase mb-12">Cookie <span class="text-[#2D5A27]">Policy.</span></h1>
+        <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Privacy Framework</h2>
+        <h1 class="text-5xl md:text-7xl font-heading font-black italic uppercase mb-12 leading-none">Cookie <br><span class="text-[#2D5A27]">Policy.</span></h1>
         
-        <div class="space-y-12 text-gray-400 text-sm leading-loose">
-            <p>Our digital infrastructure uses cookies to enhance security and understand how visitors engage with our mission. By using our site, you consent to these technical requirements.</p>
+        <div class="space-y-12">
+            <p class="text-gray-600 text-sm md:text-base leading-loose max-w-2xl">
+                Our digital infrastructure utilizes cookies and similar tracking technologies to ensure the integrity of our humanitarian platforms. By engaging with our site, you acknowledge the use of these technical requirements for security and optimization.
+            </p>
             
-            <div class="border-l border-[#2D5A27] pl-6">
-                <h4 class="text-white font-bold uppercase mb-2">Technical Cookies</h4>
-                <p>These are essential for the security of our donation portal and to prevent unauthorized access to restricted personnel areas.</p>
+            <div class="legal-card p-8 bg-gray-50">
+                <h4 class="text-black font-black uppercase text-xs tracking-widest mb-3">01. Essential Security Cookies</h4>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    These are strictly necessary for the operation of our donation portal and encrypted volunteer access points. They prevent cross-site request forgery and ensure your session remains secure during sensitive transactions.
+                </p>
             </div>
 
-            <div class="border-l border-[#2D5A27] pl-6">
-                <h4 class="text-white font-bold uppercase mb-2">Analytical Insights</h4>
-                <p>We use anonymized tools to track which reports are most read. This helps us refine our advocacy efforts and global outreach.</p>
+            <div class="legal-card p-8 bg-gray-50">
+                <h4 class="text-black font-black uppercase text-xs tracking-widest mb-3">02. Analytical Optimization</h4>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    We utilize anonymized analytical data to monitor the reach of our field reports and advocacy campaigns. This allows GEPaDC to refine our communication strategies and ensure our mission reaches the global stakeholders who need to see it most.
+                </p>
+            </div>
+
+            <div class="legal-card p-8 bg-gray-50">
+                <h4 class="text-black font-black uppercase text-xs tracking-widest mb-3">03. Policy Updates</h4>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    This policy is reviewed annually in accordance with international data protection standards. Continued use of our digital resources following any updates constitutes acceptance of revised technical protocols.
+                </p>
             </div>
         </div>
     </main>
-<footer class="bg-[#0a0a0a] pt-24 pb-12 px-6 md:px-10 border-t border-white/10 font-sans mt-20">
+
+    <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
         <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
-                <div class="space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <div class="space-y-6">
                     <div class="flex items-center gap-4">
-                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto grayscale brightness-200">
-                        <span class="text-2xl font-heading text-white tracking-tighter italic">GEPaDC</span>
+                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
+                        <span class="text-3xl font-heading font-black tracking-tighter italic">GEPaDC</span>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs">Leading the frontier of gender-based justice and humanitarian protection in Western Africa. An institution built on the principles of equity, dignity, and sustainable peace.</p>
+                    <p class="text-gray-300 text-xs font-medium leading-relaxed max-w-xs">
+                        Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
+                    </p>
                     <div class="flex flex-wrap gap-3">
-                        <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
+
                 <div>
-                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8 border-l-2 border-[#2D5A27] pl-4">State Operations</h4>
-                    <ul class="space-y-3 text-gray-400 text-[10px] leading-relaxed uppercase tracking-wider mb-8">
-                        <li><span class="text-white font-bold block">Adamawa:</span> Coper Lane, Zone 3, Jimeta, Yola</li>
-                        <li><span class="text-white font-bold block">Borno:</span> No 7 Nguru Street Polo close, Old GRA Maiduguri</li>
-                        <li><span class="text-white font-bold block">Kaduna:</span> Sir Patrick Yakowa Street, Karji, Kaduna</li>
-                        <li><span class="text-white font-bold block">Sokoto:</span> No 1 Abuja Road, GRA, Sokoto</li>
-                        <li><span class="text-white font-bold block">Yobe:</span> Maisandari Beside Damaturu PHC</li>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Field Operations</h4>
+                    <ul class="space-y-5 text-[10px] uppercase font-black tracking-widest">
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Borno State (Field HQ)</span>
+                                <p class="text-gray-500 font-bold lowercase tracking-normal">No 7 Nguru Street Polo close, Old GRA Maiduguri</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-location-dot text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Adamawa State</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Coper Lane, Zone 3, Jimeta, Yola</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Kaduna / Sokoto</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Sir Patrick Yakowa St. • No 1 Abuja Road, GRA</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-earth-africa text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Yobe State</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Maisandari Beside Damaturu PHC</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
+
                 <div>
-                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Global HQ</h4>
-                    <ul class="space-y-6 text-gray-400 text-sm">
-                        <li class="flex gap-4"><i class="fas fa-map-marker-alt text-[#2D5A27] mt-1"></i><span>No 1, Cardinal Ekandem Street,<br>Gwarinpa Estate, FCT, Abuja.</span></li>
-                        <li class="flex gap-4"><i class="fas fa-envelope text-[#2D5A27] mt-1"></i><span class="break-all">institutional.response@gepadc.org</span></li>
-                        <li class="flex gap-4"><i class="fas fa-phone-alt text-[#2D5A27] mt-1"></i><span>+234 (0) 814 197 0095</span></li>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <i class="fas fa-building text-[#2D5A27] text-lg"></i>
+                            <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <i class="fas fa-envelope-open-text text-[#2D5A27] text-lg"></i>
+                            <span class="text-white font-black text-xs lowercase">institutional.response@gepadc.org</span>
+                        </li>
+                        <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+                            <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
+                            <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
+                                <i class="fas fa-headset text-xl"></i>
+                                <span>0800-GEPADC-HQ</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
+
                 <div>
-                    <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-10 border-l-2 border-[#2D5A27] pl-4">Newsletter</h4>
+                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
                     <form class="relative mb-8">
-                        <input type="email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 py-4 px-6 text-sm text-white focus:outline-none focus:border-[#2D5A27] transition">
-                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 text-xs font-black uppercase tracking-widest hover:bg-white hover:text-[#2D5A27] transition">Join</button>
+                        <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-4 px-6 text-[10px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
+                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-6 text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
                     </form>
-                    <div class="pt-8 border-t border-white/5">
-                        <p class="text-[10px] text-gray-600 uppercase font-black tracking-widest leading-relaxed">CAC Registration: IT/39885<br>DUNS: 55-667-8892<br>Est. 2008</p>
+                    <div class="grid grid-cols-1 gap-2 text-[9px] text-gray-500 font-black uppercase tracking-[0.2em]">
+                        <div class="flex justify-between border-b border-white/5 pb-2"><span>Registry</span> <span class="text-white">IT/39885</span></div>
+                        <div class="flex justify-between border-b border-white/5 pb-2"><span>Established</span> <span class="text-white">2008</span></div>
+                        <div class="flex justify-between"><span>DUNS No.</span> <span class="text-white">55-667-8892</span></div>
                     </div>
                 </div>
             </div>
-         <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex gap-8 text-[9px] font-black uppercase tracking-widest text-gray-600">
-              <a href="privacy.html"class="hover:text-white transition">Privacy Protocol</a>
-              <a href="terms.html" class="hover:text-white transition">Terms of Engagement</a>
-              <a href="cookies.html" class="hover:text-white transition">Cookie Policy</a>                    
-            </div>
-            <div class="flex items-center gap-6">
-                <div class="text-right">
-                    <p class="text-gray-500 text-[9px] uppercase tracking-widest font-bold italic">Designed and Managed by</p>
-                    <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Limited</p>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
+                    <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
+                    <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>                    
                 </div>
-                <div class="w-12 h-12 bg-[#2D5A27] text-white flex items-center justify-center font-black text-xl italic shadow-2xl">Z</div>
+                
+                <div class="flex items-center gap-5">
+                    <div class="text-right">
+                        <p class="text-gray-500 text-[8px] uppercase font-black tracking-widest">Architected & Managed by</p>
+                        <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+                    </div>
+                    <div class="w-12 h-12 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+                        <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    </footer>  
-    </body>
+    </footer>
+
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-US', options);
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-US', { hour12: false }) + ' WAT';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
 </html>
