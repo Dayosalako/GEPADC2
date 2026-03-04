@@ -107,6 +107,22 @@
 .no-scroll {
     overflow: hidden;
 }
+
+        @media (max-width: 768px) {
+    /* Adjusts the donate button to fit perfectly next to the logo on mobile */
+    header button[onclick="toggleModal()"] {
+        display: block !important; /* Forces it to stay visible if it was hidden */
+        padding: 8px 16px !important;
+        font-size: 8px !important;
+        letter-spacing: 0.1em !important;
+    }
+
+    /* Prevents the header from getting too tall on mobile */
+    header .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -167,12 +183,15 @@
             <a href="contact.html" class="hover:text-[#2D5A27] transition">Contact Us</a>
         </div>
 
-        <div class="flex items-center gap-4">
-            <button onclick="toggleModal()" class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic shadow-lg hover:bg-black transition">Donate</button>
-            <button onclick="toggleMobileNav()" class="lg:hidden text-[#2D5A27] text-2xl focus:outline-none p-1">
-                <i id="navIcon" class="fas fa-bars"></i>
-            </button>
-        </div>
+        <div class="flex items-center space-x-3 md:space-x-6">
+    <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
+        Donate
+    </button>
+    
+    <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1">
+        <i id="navIcon" class="fas fa-bars"></i>
+    </button>
+</div>
 
        <div id="mobileNav" class="fixed inset-0 bg-white z-[150] hidden flex-col p-8 overflow-y-auto">
     <div class="flex justify-between items-center mb-12">
@@ -685,63 +704,63 @@
         </div>
     </section>
 
-    <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/80">
-    <div class="modal-content-wrapper bg-white text-black w-full max-w-5xl flex flex-col md:flex-row min-h-[600px]">
+    <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto">
         
-        <div class="bg-[#2D5A27] p-10 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden">
-            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4">
+        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
                 <i class="fas fa-hand-holding-heart text-[20rem]"></i>
             </div>
 
             <div class="relative z-10">
-                <button onclick="toggleModal()" class="mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
                     <i class="fas fa-arrow-left"></i> Back to Site
                 </button>
                 
-                <h2 class="text-5xl font-black italic font-heading mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
-                <p class="text-white/80 text-xs leading-relaxed mb-10 max-w-xs">
-                    Your contribution directly funds protection missions, WASH facilities, and empowerment programs across conflict-affected regions.
+                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
+                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
+                    Your contribution directly funds protection missions, WASH facilities, and empowerment programs.
                 </p>
 
-                <div class="space-y-8">
-                    <div class="trust-badge p-6 rounded">
+                <div class="space-y-4 md:space-y-8">
+                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
                         <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Bank Transfer Details</p>
                         <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
-                        <p class="text-3xl font-black italic font-heading tracking-tighter">2034098418</p>
-                        <p class="text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
+                        <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter">2034098418</p>
+                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
                     </div>
                 </div>
             </div>
 
-            <div class="relative z-10 pt-10 border-t border-white/10">
+            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
                 <div class="flex items-center gap-4">
-                    <i class="fas fa-shield-check text-2xl text-white/50"></i>
-                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Encrypted & Verified Transaction</p>
+                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Encrypted & Verified</p>
                 </div>
             </div>
         </div>
 
-        <div class="p-10 md:p-16 md:w-7/12 flex flex-col justify-center bg-white">
-            <div class="mb-10">
-                <h3 class="text-2xl font-black uppercase italic font-heading text-black">Pledge Support</h3>
-                <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
+        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white">
+            <div class="mb-8 md:mb-10">
+                <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
+                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
             </div>
 
             <form id="donorForm" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
-                        <input type="text" placeholder="John Doe" required class="giving-input w-full border-b-2 py-3 outline-none text-sm font-bold">
+                        <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
                     </div>
                     <div class="space-y-2">
                         <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
-                        <input type="email" placeholder="john@example.com" required class="giving-input w-full border-b-2 py-3 outline-none text-sm font-bold">
+                        <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
-                    <select class="giving-input w-full border-b-2 py-3 outline-none text-sm font-bold bg-transparent">
+                    <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
                         <option>General Support</option>
                         <option>Protection Missions (GBV)</option>
                         <option>WASH Initiatives</option>
@@ -760,7 +779,7 @@
             </form>
         </div>
     </div>
-</div>
+</div>  
 
    <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
         <div class="container mx-auto">
@@ -958,3 +977,4 @@
     </script>
 </body>
 </html>
+
