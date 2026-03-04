@@ -11,7 +11,7 @@
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
-        :root { --brand-green: #2D5A27; }
+        :root { --brand-green: #2D5A27; --brand-blue: #1e3a8a; }
         
         body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #ffffff; color: #1a1a1a; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
@@ -40,7 +40,7 @@
         .dropdown:hover .dropdown-menu { display: block; }
         .dropdown-menu { 
             display: none; position: absolute; top: 100%; left: 0; 
-            background: white; min-width: 240px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+            background: white; min-width: 260px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
             border-top: 3px solid var(--brand-green); z-index: 50; 
         }
         .dropdown-item { 
@@ -58,32 +58,54 @@
         .pillar-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f3f4f6; }
         .pillar-card:hover { background-color: #f9fafb; border-color: var(--brand-green); transform: translateY(-5px); }
 
-        /* Premium Modal Styles */
-#donateModal {
-    backdrop-filter: blur(8px);
-    transition: all 0.4s ease-in-out;
+        #donateModal { backdrop-filter: blur(8px); transition: all 0.4s ease-in-out; }
+        .modal-content-wrapper { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border-radius: 4px; overflow: hidden; }
+        .giving-input { border-color: #e5e7eb; transition: all 0.3s ease; }
+        .giving-input:focus { border-color: #2D5A27; padding-left: 1rem; }
+        .trust-badge { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        /* Optimized Mobile Typography & Spacing */
+@media (max-width: 768px) {
+    .hero-title { 
+        font-size: 3.5rem !important; /* Prevents text from being too small or breaking weirdly */
+        line-height: 1;
+    }
+    
+    section {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important; /* Tighter spacing for mobile scrolling */
+    }
+
+    /* Fix for the 5-column grid on mobile */
+    .lg\:grid-cols-5 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    
+    /* Ensure images don't look overly tall on mobile */
+    .h-\[500px\], .h-\[600px\] {
+        height: 350px !important;
+    }
+
+    /* Better padding for the "Core Values" cards on touch screens */
+    .value-card, .group.p-8 {
+        padding: 1.5rem !important;
+    }
 }
 
-.modal-content-wrapper {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
+@media (max-width: 1024px) {
+    #mobileNav.flex {
+        display: flex !important;
+        animation: slideIn 0.3s ease-out;
+    }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* Prevents body scroll when menu is active */
+.no-scroll {
     overflow: hidden;
-}
-
-.giving-input {
-    border-color: #e5e7eb;
-    transition: all 0.3s ease;
-}
-
-.giving-input:focus {
-    border-color: #2D5A27;
-    padding-left: 1rem;
-}
-
-.trust-badge {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
     </style>
 </head>
@@ -100,29 +122,49 @@
     <nav class="flex justify-between items-center py-4 px-6 md:px-10 sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
         <div class="flex items-center gap-3">
             <img src="logo.png" alt="Logo" class="nav-logo">
-            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic">GEPaDC</div>
+            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic font-black uppercase">GEPaDC</div>
         </div>
 
         <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-            <a href="index.html" class="text-[#2D5A27]">Home</a>
             <div class="dropdown relative">
-                <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Mission <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
                 <div class="dropdown-menu">
-                    <a href="about.html" class="dropdown-item">Who We Are</a>
-                    <a href="team.html" class="dropdown-item">Leadership</a>
-                    <a href="strategy.html" class="dropdown-item">Strategy 2030</a>
+                    <a href="#about-snapshot" class="dropdown-item">Who We Are</a>
+                    <a href="#vision-section" class="dropdown-item">Our Vision</a>
+                    <a href="#mission-section" class="dropdown-item">Our Mission</a>
+                    <a href="#dna" class="dropdown-item">Our Values</a>
                 </div>
             </div>
             <div class="dropdown relative">
-                <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Impact <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
                 <div class="dropdown-menu">
-                    <a href="protection.html" class="dropdown-item">Protection & WASH</a>
-                    <a href="peacebuilding.html" class="dropdown-item">Peace & Security</a>
-                    <a href="empowerment.html" class="dropdown-item">Economic Empowerment</a>
+                    <a href="work.html" class="dropdown-item">Program Areas</a>
+                    <a href="team.html#board" class="dropdown-item">Our Board</a>
+                    <a href="team.html" class="dropdown-item">Our Team</a>
+                    <a href="#partners" class="dropdown-item">Our Funders</a>
+                    <a href="#partners" class="dropdown-item">Our Partners</a>
                 </div>
             </div>
-            <a href="volunteer.html" class="hover:text-[#2D5A27] transition">Join</a>
-            <a href="contact.html" class="hover:text-[#2D5A27] transition">Contacts</a>
+            <div class="dropdown relative">
+                <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="protection.html" class="dropdown-item">Humanitarian & Emergency</a>
+                    <a href="empowerment.html" class="dropdown-item">Economic & Food Security</a>
+                    <a href="rights.html" class="dropdown-item">Women & Children’s Rights</a>
+                    <a href="climate.html" class="dropdown-item">Climate Action</a>
+                </div>
+            </div>
+            <div class="dropdown relative">
+                <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
+                <div class="dropdown-menu">
+                    <a href="archive.html" class="dropdown-item">Annual Reports</a>
+                    <a href="archive.html" class="dropdown-item">Fact Sheets</a>
+                    <a href="archive.html" class="dropdown-item">Monthly Reports</a>
+                    <a href="archive.html" class="dropdown-item">Newsletters</a>
+                    <a href="archive.html" class="dropdown-item">Media & Press</a>
+                </div>
+            </div>
+            <a href="contact.html" class="hover:text-[#2D5A27] transition">Contact Us</a>
         </div>
 
         <div class="flex items-center gap-4">
@@ -132,14 +174,54 @@
             </button>
         </div>
 
-        <div id="mobileNav" class="fixed inset-0 bg-white z-[150] hidden flex-col items-center justify-center space-y-8 text-xl font-black uppercase tracking-widest text-black">
-            <button onclick="toggleMobileNav()" class="absolute top-6 right-6 text-4xl text-[#2D5A27]">&times;</button>
-            <a href="index.html" onclick="toggleMobileNav()" class="text-[#2D5A27]">Home</a>
-            <a href="about.html" onclick="toggleMobileNav()">Mission</a>
-            <a href="protection.html" onclick="toggleMobileNav()">Impact</a>
-            <a href="volunteer.html" onclick="toggleMobileNav()">Join</a>
-            <a href="contact.html" onclick="toggleMobileNav()">HQ</a>
+       <div id="mobileNav" class="fixed inset-0 bg-white z-[150] hidden flex-col p-8 overflow-y-auto">
+    <div class="flex justify-between items-center mb-12">
+        <img src="logo.png" alt="Logo" class="h-8">
+        <button onclick="toggleMobileNav()" class="text-4xl text-[#2D5A27]">&times;</button>
+    </div>
+
+    <div class="flex flex-col space-y-6">
+        <div>
+            <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Main</p>
+            <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
+                <a href="index.html" class="text-sm font-black uppercase tracking-widest text-black">Home</a>
+                <a href="#about-snapshot" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Who We Are</a>
+                <a href="#vision-section" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Our Vision</a>
+            </div>
         </div>
+
+        <div>
+            <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Organization</p>
+            <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
+                <a href="work.html" class="text-sm font-black uppercase tracking-widest text-black">About Us</a>
+                <a href="team.html" class="text-[10px] font-bold uppercase text-gray-500">Our Team</a>
+                <a href="#partners" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Our Partners</a>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Our Impact</p>
+            <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
+                <a href="protection.html" class="text-[10px] font-bold uppercase text-gray-500">Humanitarian Response</a>
+                <a href="empowerment.html" class="text-[10px] font-bold uppercase text-gray-500">Economic Security</a>
+                <a href="rights.html" class="text-[10px] font-bold uppercase text-gray-500">Rights & Education</a>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Resources</p>
+            <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
+                <a href="archive.html" class="text-sm font-black uppercase tracking-widest text-black">Reports & Media</a>
+            </div>
+        </div>
+
+        <a href="contact.html" class="text-sm font-black uppercase tracking-widest text-black pt-4">Contact Us</a>
+    </div>
+
+    <div class="mt-auto pt-10">
+        <button onclick="toggleModal(); toggleMobileNav();" class="w-full py-4 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic tracking-widest">Donate Now</button>
+    </div>
+</div>
     </nav>
 
     <section class="relative h-[85vh] md:h-screen flex items-center overflow-hidden bg-black">
@@ -150,17 +232,107 @@
             <div data-aos="fade-up">
                 <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">CAC/IT/39885 • Est. 2008</h2>
                 <h1 class="hero-title font-black italic mb-6 uppercase tracking-tighter font-heading text-white leading-none">
-                    Humanity <br> <span class="text-outline">Over</span> <br> <span class="text-[#2D5A27]">Conflict.</span>
+                    Advancing <br> <span class="text-outline">Gender</span> <br> <span class="text-[#2D5A27]">Equality.</span>
                 </h1>
                 <p class="text-gray-300 text-xs md:text-lg max-w-xl mb-10 font-light leading-relaxed">
-                    Working for gender equality, empowerment of women and girls, peace, and sustainable development across conflict-affected populations in Nigeria.
+                    GEPaDC is dedicated to empowering women and girls, fostering sustainable peace, and driving development across conflict-affected populations in Nigeria.
                 </p>
-                <button onclick="toggleModal()" class="bg-[#2D5A27] text-white px-8 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition shadow-xl">Get Involved Now</button>
+                <div class="flex flex-wrap gap-4">
+                    <a href="about.html" class="bg-white text-black px-8 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-[#2D5A27] hover:text-white transition shadow-xl">Learn More</a>
+                    <button onclick="toggleModal()" class="bg-[#2D5A27] text-white px-8 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition shadow-xl">Partner With Us</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-white border-y border-gray-100">
+    <section id="about-snapshot" class="py-24 bg-white">
+    <div class="container mx-auto px-6 md:px-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <div data-aos="fade-right">
+                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Institutional Profile</h2>
+                <h3 class="text-4xl md:text-5xl font-black italic uppercase font-heading text-black leading-none mb-8">
+                    Founded 2008. <br>Rooted in Resilience.
+                </h3>
+                <p class="text-gray-600 text-sm leading-loose mb-10">
+                    Established in 2008, Gender Equality, Peace and Development Centre (GEPaDC) focuses on the most vulnerable conflict-affected regions of Nigeria. With active offices in Borno, Adamawa, and Yobe, we specialize in high-impact humanitarian response and long-term gender justice.
+                </p>
+                
+                <div class="flex items-center gap-6">
+                    <a href="#vision-section" class="text-[10px] font-black uppercase tracking-widest bg-black text-white px-8 py-4 hover:bg-[#2D5A27] transition">Our Strategy</a>
+                </div>
+            </div>
+
+            <div class="relative" data-aos="zoom-in">
+                <img src="media/photos/GEPADC (7).jpg" class="w-full h-[500px] object-cover rounded shadow-2xl" alt="GEPaDC Impact">
+                <div class="absolute -bottom-6 -left-6 bg-[#2D5A27] p-8 text-white hidden md:block">
+                    <p class="text-3xl font-black italic font-heading">16+</p>
+                    <p class="text-[9px] uppercase font-black tracking-widest">Years of Expertise</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="vision-section" class="py-20 bg-gray-50 border-y border-gray-100">
+    <div class="container mx-auto px-6 md:px-10">
+        <div class="max-w-4xl" data-aos="fade-up">
+            <span class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] block mb-4">The Future We See</span>
+            <h3 class="text-4xl md:text-5xl font-black italic uppercase font-heading text-black mb-6">Our Vision</h3>
+            <p class="text-2xl md:text-3xl font-light text-gray-600 leading-tight italic border-l-8 border-[#2D5A27] pl-8">
+                "A world where every individual, regardless of gender, lives in <span class="text-black font-bold">peace, dignity, and security</span>, with equal access to opportunities."
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="mission-section" class="py-24 bg-white">
+    <div class="container mx-auto px-6 md:px-10">
+        <div class="flex flex-col md:flex-row gap-16 items-center">
+            <div class="md:w-1/2" data-aos="fade-right">
+                <span class="text-[#1e3a8a] font-black tracking-[0.4em] uppercase text-[10px] block mb-4">Our Daily Mandate</span>
+                <h3 class="text-4xl md:text-5xl font-black italic uppercase font-heading text-black mb-8">Our Mission</h3>
+                <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                    To promote gender equality and sustainable peace through evidence-based programming, policy advocacy, and community-led humanitarian response.
+                </p>
+            </div>
+            <div class="md:w-1/2 grid grid-cols-2 gap-4" data-aos="fade-left">
+                <img src="media/photos/GEPADC (1).jpg" class="h-48 w-full object-cover rounded grayscale hover:grayscale-0 transition-all">
+                <div class="bg-[#1e3a8a] h-48 rounded flex items-center justify-center p-6 text-center">
+                    <p class="text-white text-[10px] font-black uppercase tracking-widest leading-loose">Empowering conflict-affected populations since 2008</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="dna" class="py-24 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-6 md:px-10">
+        <h3 class="text-center text-black font-black text-4xl italic uppercase font-heading mb-16">Our Core Values</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="p-8 bg-white shadow-sm border-t-4 border-[#2D5A27]" data-aos="fade-up">
+                <h4 class="font-black text-black uppercase text-xs mb-3">Integrity</h4>
+                <p class="text-gray-500 text-[11px]">Transparency in every humanitarian mission.</p>
+            </div>
+            <div class="p-8 bg-white shadow-sm border-t-4 border-[#2D5A27]" data-aos="fade-up" data-aos-delay="100">
+                <h4 class="font-black text-black uppercase text-xs mb-3">Inclusivity</h4>
+                <p class="text-gray-500 text-[11px]">Leaving no one behind in conflict areas.</p>
+            </div>
+            <div class="p-8 bg-white shadow-sm border-t-4 border-[#2D5A27]" data-aos="fade-up" data-aos-delay="200">
+                <h4 class="font-black text-black uppercase text-xs mb-3">Accountability</h4>
+                <p class="text-gray-500 text-[11px]">Measurable impact for every beneficiary.</p>
+            </div>
+            <div class="p-8 bg-white shadow-sm border-t-4 border-[#2D5A27]" data-aos="fade-up" data-aos-delay="300">
+                <h4 class="font-black text-black uppercase text-xs mb-3">Resilience</h4>
+                <p class="text-gray-500 text-[11px]">Building strength in local communities.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="py-12 bg-white border-y border-gray-100" id="partners">
+        <h4 class="text-center text-gray-400 font-black text-[9px] uppercase tracking-[0.5em] mb-8">Our Funders & Partners</h4>
         <div class="marquee-container">
             <div class="marquee-content">
                 <div class="marquee-item italic">USAID</div>
@@ -178,54 +350,170 @@
             </div>
         </div>
     </section>
-
-    <section class="py-24 bg-white border-t border-gray-100">
-        <div class="container mx-auto px-6 md:px-10">
-            <div class="mb-20" data-aos="fade-right">
-                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Our DNA</h2>
-                <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black leading-none">
-                    Core Values.
-                </h3>
-            </div>
+<section id="about-snapshot" class="py-24 bg-white">
+    <div class="container mx-auto px-6 md:px-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="value-card pl-6 py-4" data-aos="fade-up">
-                    <div class="text-[#2D5A27] font-black text-[10px] mb-4 tracking-widest uppercase">01. Responsibility</div>
-                    <h4 class="font-black uppercase text-xl md:text-2xl italic font-heading mb-4 text-black">Integrity</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        We maintain the highest ethical standards in every mission. Our commitment to transparency ensures that every resource is directed toward the protection of those we serve.
-                    </p>
+            <div data-aos="fade-right">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-12 h-[2px] bg-[#2D5A27]"></span>
+                    <span class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px]">Who We Are</span>
                 </div>
+                
+                <h2 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black leading-none mb-8">
+                    Rooted in <span class="text-[#1e3a8a]">Equality.</span><br>Driven by Peace.
+                </h2>
+                
+                <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-10 max-w-xl">
+                    Founded in 2008, <span class="font-bold text-black">GEPaDC</span> operates at the intersection of gender justice and humanitarian response. Based in Nigeria's conflict-affected regions—with active field offices in <span class="text-[#2D5A27] font-bold">Borno, Adamawa, and Yobe</span>—we provide life-saving protection and sustainable development for women, girls, and vulnerable populations.
+                </p>
 
-                <div class="value-card pl-6 py-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-[#2D5A27] font-black text-[10px] mb-4 tracking-widest uppercase">02. Equality</div>
-                    <h4 class="font-black uppercase text-xl md:text-2xl italic font-heading mb-4 text-black">Inclusivity</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        We believe in a world where gender is not a barrier to safety. Our programs are designed to uplift the most marginalized voices in conflict-affected communities.
-                    </p>
-                </div>
-
-                <div class="value-card pl-6 py-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-[#2D5A27] font-black text-[10px] mb-4 tracking-widest uppercase">03. Sustainability</div>
-                    <h4 class="font-black uppercase text-xl md:text-2xl italic font-heading mb-4 text-black">Resilience</h4>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        We don't just provide temporary aid; we build sustainable systems. We empower local populations to lead their own development and peacebuilding efforts.
-                    </p>
+                <div class="flex items-center gap-6">
+                    <a href="about.html" class="text-[10px] font-black uppercase tracking-[0.3em] bg-black text-white px-8 py-4 hover:bg-[#2D5A27] transition shadow-lg">Our Full Profile</a>
+                    <a href="contact.html" class="text-[10px] font-black uppercase tracking-[0.3em] text-black border-b-2 border-black hover:text-[#2D5A27] hover:border-[#2D5A27] transition pb-1">Partner With Us</a>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 border-t border-gray-50 pt-12">
-                 <div class="value-card pl-6 py-4" data-aos="fade-up" data-aos-delay="300">
-                    <h4 class="font-black uppercase text-lg italic font-heading mb-2 text-black">Accountability</h4>
-                    <p class="text-gray-500 text-xs leading-relaxed">Holding ourselves and our partners to measurable impact and results-driven humanitarian action.</p>
+            <div class="relative" data-aos="fade-left">
+                <div class="relative z-10 rounded-sm overflow-hidden shadow-2xl">
+                    <img src="media/photos/GEPADC (8).jpg" alt="GEPaDC Community Engagement" class="w-full h-[600px] object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    
+                    <div class="absolute bottom-10 left-10 right-10">
+                        <h4 class="text-white font-black text-[10px] uppercase tracking-[0.5em] mb-6 border-b border-white/20 pb-2">Our Core Values</h4>
+                        <div class="flex flex-wrap gap-4 text-white font-black italic text-sm uppercase">
+                            <span class="flex items-center gap-2"><i class="fas fa-check-circle text-[#2D5A27]"></i> Integrity</span>
+                            <span class="flex items-center gap-2"><i class="fas fa-check-circle text-[#2D5A27]"></i> Inclusivity</span>
+                            <span class="flex items-center gap-2"><i class="fas fa-check-circle text-[#2D5A27]"></i> Accountability</span>
+                            <span class="flex items-center gap-2"><i class="fas fa-check-circle text-[#2D5A27]"></i> Resilience</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="value-card pl-6 py-4" data-aos="fade-up" data-aos-delay="400">
-                    <h4 class="font-black uppercase text-lg italic font-heading mb-2 text-black">Professionalism</h4>
-                    <p class="text-gray-500 text-xs leading-relaxed">Delivering excellence in field operations through rigorous training and adherence to international standards.</p>
+                
+                <div class="absolute -top-6 -right-6 bg-[#1e3a8a] text-white p-8 hidden md:block shadow-2xl">
+                    <p class="text-[9px] font-black uppercase tracking-[0.3em] mb-1">Focus Region</p>
+                    <p class="text-xl font-heading font-black italic uppercase">Northeast <br>Nigeria</p>
                 </div>
             </div>
+
         </div>
-    </section>
+    </div>
+</section>
+
+
+
+<section class="py-24 bg-[#f9fafb] border-y border-gray-100">
+    <div class="container mx-auto px-6 md:px-10">
+        
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Tracking Change</h2>
+            <h3 class="text-4xl md:text-5xl font-black italic uppercase font-heading text-black">Our Successes in Numbers</h3>
+            <div class="w-16 h-1 bg-[#2D5A27] mx-auto mt-6"></div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-10">
+            
+            <div class="text-center" data-aos="zoom-in">
+                <i class="fas fa-users text-[#2D5A27] text-2xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="50000">0</span>+</h3>
+                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Beneficiaries Reached</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-map-marked-alt text-[#2D5A27] text-2xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="120">0</span>+</h3>
+                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Communities Served</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-briefcase text-[#2D5A27] text-2xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="35">0</span>+</h3>
+                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Projects Implemented</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-handshake text-[#2D5A27] text-2xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="20">0</span>+</h3>
+                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Strategic Partners</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-venus text-[#1e3a8a] text-2xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="60">0</span>%</h3>
+                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Women & Girls</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+    <section id="dna" class="py-24 bg-white border-t border-gray-100">
+    <div class="container mx-auto px-6 md:px-10">
+        
+        <div class="mb-20 text-center md:text-left" data-aos="fade-right">
+            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Our DNA</h2>
+            <h3 class="text-4xl md:text-7xl font-black italic uppercase font-heading text-black leading-none">
+                The Core <span class="text-[#2D5A27]">Values.</span>
+            </h3>
+            <div class="w-20 h-1 bg-[#2D5A27] mt-8 hidden md:block"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            
+            <div class="group p-8 bg-gray-50 hover:bg-[#2D5A27] transition-all duration-500 rounded-sm" data-aos="fade-up">
+                <div class="text-[#2D5A27] group-hover:text-white/50 font-black text-[10px] mb-6 tracking-widest uppercase italic">01. Integrity</div>
+                <i class="fas fa-shield-alt text-2xl mb-6 text-[#2D5A27] group-hover:text-white transition-colors"></i>
+                <h4 class="font-black uppercase text-xl italic font-heading mb-4 text-black group-hover:text-white">Responsibility</h4>
+                <p class="text-gray-500 group-hover:text-white/80 text-[11px] leading-relaxed">
+                    We maintain the highest ethical standards, ensuring every resource is protected and transparently directed.
+                </p>
+            </div>
+
+            <div class="group p-8 bg-gray-50 hover:bg-[#2D5A27] transition-all duration-500 rounded-sm" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-[#2D5A27] group-hover:text-white/50 font-black text-[10px] mb-6 tracking-widest uppercase italic">02. Equality</div>
+                <i class="fas fa-hand-holding-heart text-2xl mb-6 text-[#2D5A27] group-hover:text-white transition-colors"></i>
+                <h4 class="font-black uppercase text-xl italic font-heading mb-4 text-black group-hover:text-white">Inclusivity</h4>
+                <p class="text-gray-500 group-hover:text-white/80 text-[11px] leading-relaxed">
+                    Uplifting the most marginalized voices. We believe gender should never be a barrier to safety or opportunity.
+                </p>
+            </div>
+
+            <div class="group p-8 bg-gray-50 hover:bg-[#2D5A27] transition-all duration-500 rounded-sm" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-[#2D5A27] group-hover:text-white/50 font-black text-[10px] mb-6 tracking-widest uppercase italic">03. Sustainability</div>
+                <i class="fas fa-seedling text-2xl mb-6 text-[#2D5A27] group-hover:text-white transition-colors"></i>
+                <h4 class="font-black uppercase text-xl italic font-heading mb-4 text-black group-hover:text-white">Resilience</h4>
+                <p class="text-gray-500 group-hover:text-white/80 text-[11px] leading-relaxed">
+                    Building systems, not just aid. We empower local populations to lead their own peace and development.
+                </p>
+            </div>
+
+            <div class="group p-8 bg-gray-50 hover:bg-[#2D5A27] transition-all duration-500 rounded-sm" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-[#2D5A27] group-hover:text-white/50 font-black text-[10px] mb-6 tracking-widest uppercase italic">04. Results</div>
+                <i class="fas fa-chart-line text-2xl mb-6 text-[#2D5A27] group-hover:text-white transition-colors"></i>
+                <h4 class="font-black uppercase text-xl italic font-heading mb-4 text-black group-hover:text-white">Accountability</h4>
+                <p class="text-gray-500 group-hover:text-white/80 text-[11px] leading-relaxed">
+                    Measurable impact. We hold ourselves and our partners to the highest results-driven humanitarian standards.
+                </p>
+            </div>
+
+            <div class="group p-8 bg-gray-50 hover:bg-[#2D5A27] transition-all duration-500 rounded-sm" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-[#2D5A27] group-hover:text-white/50 font-black text-[10px] mb-6 tracking-widest uppercase italic">05. Standards</div>
+                <i class="fas fa-user-tie text-2xl mb-6 text-[#2D5A27] group-hover:text-white transition-colors"></i>
+                <h4 class="font-black uppercase text-xl italic font-heading mb-4 text-black group-hover:text-white">Professionalism</h4>
+                <p class="text-gray-500 group-hover:text-white/80 text-[11px] leading-relaxed">
+                    Delivering excellence through rigorous training and adherence to international humanitarian protocols.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="mt-20 flex justify-center">
+            <a href="about.html" class="group flex items-center gap-4">
+                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-black group-hover:text-[#2D5A27] transition-colors">View our full operational framework</span>
+                <span class="w-12 h-[1px] bg-black group-hover:bg-[#2D5A27] group-hover:w-20 transition-all"></span>
+            </a>
+        </div>
+    </div>
+</section>
 
     <section class="py-24 bg-white border-b border-gray-100">
         <div class="container mx-auto px-6 md:px-10">
@@ -234,7 +522,7 @@
                     <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Our Methodology</h2>
                     <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black leading-none mb-8">Structural <br> Foundations.</h3>
                     <p class="text-gray-600 max-w-md text-sm leading-loose">
-                        We operate at the intersection of immediate humanitarian relief and long-term policy reform. Our approach ensures that while we meet urgent needs today, we are simultaneously building the legal and social frameworks for a sustainable tomorrow.
+                        Our impact spans Humanitarian Relief, Rights Advocacy, Economic Livelihoods, and Climate Action. Each pillar is designed to move from immediate aid to long-term community autonomy.
                     </p>
                     <div class="mt-10">
                         <a href="strategy.html" class="inline-block border-b-2 border-black pb-1 text-[10px] font-black uppercase tracking-widest hover:text-[#2D5A27] transition">View Strategy 2030</a>
@@ -244,65 +532,70 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-100 border border-gray-100 shadow-2xl">
                     <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up">
                         <i class="fas fa-shield-halved text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Rapid Protection</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed">
-                            Immediate emergency response for GBV survivors in conflict-affected zones, providing clinical care, psychosocial support, and legal aid.
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Humanitarian Response</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
+                            Emergency GBV response and legal aid for conflict-affected populations in Northeast Nigeria.
                         </p>
+                        <a href="protection.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
                     </div>
 
                     <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-faucet-drip text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">WASH Resilience</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed">
-                            Ensuring dignified access to clean water and sanitation in IDP camps and host communities to prevent disease and improve safety.
+                        <i class="fas fa-users-gear text-[#2D5A27] text-3xl mb-6"></i>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Economic Livelihood</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
+                            Food security, vocational training, and early recovery for women and youth.
                         </p>
+                        <a href="empowerment.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
                     </div>
 
                     <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-gavel text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Policy Reform</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed">
-                            Collaborating with government institutions to domesticate the VAPP Act and strengthen peace and security legislation across Nigeria.
+                        <i class="fas fa-scale-balanced text-[#2D5A27] text-3xl mb-6"></i>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Rights & Education</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
+                            Protecting the rights of women and children through policy reform and educational access.
                         </p>
+                        <a href="rights.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
                     </div>
 
                     <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fas fa-users-gear text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Human Capital</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed">
-                            Empowering women and youth through vocational skill acquisition, financial literacy, and sustainable livelihood support.
+                        <i class="fas fa-leaf text-[#2D5A27] text-3xl mb-6"></i>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Climate Action</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
+                            Building climate resilience and sustainable agricultural practices in vulnerable communities.
                         </p>
+                        <a href="climate.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 container mx-auto px-6 md:px-10 bg-white">
+    <section class="py-24 container mx-auto px-6 md:px-10 bg-white" id="counters">
+        <h4 class="text-center text-gray-400 font-black text-[9px] uppercase tracking-[0.5em] mb-12">Our Success in Numbers</h4>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-l border-gray-100">
             <div class="pl-6" data-aos="fade-up">
                 <h3 class="text-4xl md:text-6xl font-black italic font-heading text-black">
                     <span class="counter" data-target="16">0</span><span class="text-[#2D5A27]">+</span>
                 </h3>
-                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Years of Impact</p>
+                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Years Active</p>
             </div>
             <div class="pl-6 border-l border-gray-100" data-aos="fade-up" data-aos-delay="100">
                 <h3 class="text-4xl md:text-6xl font-black italic font-heading text-black">
                     <span class="counter" data-target="50">0</span><span class="text-[#2D5A27]">K</span>
                 </h3>
-                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Lives Empowered</p>
+                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Beneficiaries Reached</p>
             </div>
             <div class="pl-6 border-l border-gray-100" data-aos="fade-up" data-aos-delay="200">
                 <h3 class="text-4xl md:text-6xl font-black italic font-heading text-black">
-                    <span class="counter" data-target="5">0</span><span class="text-[#2D5A27]">#</span>
+                    <span class="counter" data-target="120">0</span><span class="text-[#2D5A27]">+</span>
                 </h3>
-                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">States Active</p>
+                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Communities Served</p>
             </div>
             <div class="pl-6 border-l border-gray-100" data-aos="fade-up" data-aos-delay="300">
                 <h3 class="text-4xl md:text-6xl font-black italic font-heading text-black">
-                    <span class="counter" data-target="100">0</span><span class="text-[#2D5A27]">+</span>
+                    <span class="counter" data-target="20">0</span><span class="text-[#2D5A27]">+</span>
                 </h3>
-                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Field Experts</p>
+                <p class="text-gray-400 uppercase text-[9px] font-black tracking-widest mt-2">Global Partners</p>
             </div>
         </div>
     </section>
@@ -311,10 +604,10 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                 <div>
-                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Live Updates</span>
-                    <h2 class="text-5xl md:text-7xl font-heading font-black italic uppercase leading-none text-black">Field Work.</h2>
+                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">News & Field Updates</span>
+                    <h2 class="text-5xl md:text-7xl font-heading font-black italic uppercase leading-none text-black">Recent.</h2>
                 </div>
-                <a href="archive.html" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-[#2D5A27] pb-2 hover:text-[#2D5A27] transition">View Full Archive</a>
+                <a href="archive.html" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-[#2D5A27] pb-2 hover:text-[#2D5A27] transition">View All News</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[700px]">
@@ -530,16 +823,16 @@
                             <i class="fas fa-building text-[#2D5A27] text-lg"></i>
                             <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
                         </li>
-                        <li class="flex gap-4">
-                            <i class="fas fa-envelope-open-text text-[#2D5A27] text-lg"></i>
-                            <span class="text-white font-black text-xs lowercase">institutional.response@gepadc.org</span>
-                        </li>
                         <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
                             <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
                             <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
                                 <i class="fas fa-headset text-xl"></i>
                                 <span>0800-GEPADC-HQ</span>
                             </div>
+                        </li>
+                        <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+                            <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2 text-[#2D5A27]">Safeguarding Reporting</span>
+                            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[10px] uppercase tracking-widest border-b border-white/20">safeguarding@gepadc.org</a>
                         </li>
                     </ul>
                 </div>
@@ -578,7 +871,6 @@
         </div>
     </footer>
 
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
@@ -615,13 +907,22 @@
 
         // UI HELPERS
         function toggleMobileNav() {
-            const mobileNav = document.getElementById('mobileNav');
-            const navIcon = document.getElementById('navIcon');
-            mobileNav.classList.toggle('hidden');
-            mobileNav.classList.toggle('flex');
-            navIcon.className = mobileNav.classList.contains('hidden') ? "fas fa-bars" : "fas fa-times";
-            document.body.style.overflow = mobileNav.classList.contains('hidden') ? 'auto' : 'hidden';
-        }
+    const mobileNav = document.getElementById('mobileNav');
+    const navIcon = document.getElementById('navIcon');
+    
+    mobileNav.classList.toggle('hidden');
+    mobileNav.classList.toggle('flex');
+    
+    // Toggle body scroll
+    document.body.classList.toggle('no-scroll');
+    
+    // Update Icon
+    if (mobileNav.classList.contains('flex')) {
+        navIcon.className = "fas fa-times";
+    } else {
+        navIcon.className = "fas fa-bars";
+    }
+}
 
         function toggleModal() { 
             document.getElementById('donateModal').classList.toggle('hidden'); 
@@ -657,4 +958,3 @@
     </script>
 </body>
 </html>
-
