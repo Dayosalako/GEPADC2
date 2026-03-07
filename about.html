@@ -1,35 +1,96 @@
-<!DOCTYPE html>
+<!DOCTYPE html>                    
+  
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEPaDC | About Us</title>
+    <title>GEPaDC | Gender Equality Peace and Development Centre</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
+        :root { --brand-green: #2D5A27; --brand-blue: #1e3a8a; }
+        
+        /* PURE FIX: No horizontal scrolling space */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            background-color: #ffffff; 
+            color: #1a1a1a; 
+            max-width: 100%;
+        }
         .font-heading { font-family: 'Montserrat', sans-serif; }
-        .tab-active { border-color: #2D5A27; color: #2D5A27; background-color: rgba(45, 90, 39, 0.05); }
+        
+        /* PURE FIX: Remove all focus regions/blue boxes */
+        *:focus { outline: none !important; box-shadow: none !important; }
+
+        .hero-title { font-size: clamp(3rem, 12vw, 8rem); }
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
+            transition: all 0.4s ease;
+        }
+        .text-outline:hover {
+            color: var(--brand-green);
+            -webkit-text-stroke: 1.5px var(--brand-green);
+        }
+
+        /* PURE FIX: Lightened Overlay for the Client */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 10;
+        }
+
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--brand-green);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
     </style>
 </head>
-<body class="bg-white text-gray-900 overflow-x-hidden">
+<body>
 
-    <nav class="flex justify-between items-center py-5 px-6 md:px-10 border-b border-gray-100 sticky top-0 bg-white/90 backdrop-blur-md z-50">
-        <div class="flex items-center gap-3">
-            <img src="logo.png" alt="Logo" class="h-10 w-auto">
-            <div class="text-3xl font-heading font-black text-[#2D5A27] tracking-tighter italic">GEPaDC</div>
+    <nav class="fixed w-full z-50 transition-all duration-500 bg-black/80 backdrop-blur-md py-4">
+        <div class="container mx-auto px-6 md:px-10 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="GEPaDC Logo" class="h-10 md:h-12">
+                <span class="text-white font-black tracking-tighter text-xl hidden md:block">GEPa<span class="text-[#2D5A27]">DC.</span></span>
+            </a>
+            
+            <div class="hidden lg:flex items-center gap-10">
+                <a href="index.html" class="nav-link text-white text-[10px] uppercase font-bold tracking-widest">Home</a>
+                <a href="about.html" class="nav-link text-white/70 text-[10px] uppercase font-bold tracking-widest hover:text-white">About</a>
+                <a href="work.html" class="nav-link text-white/70 text-[10px] uppercase font-bold tracking-widest hover:text-white">Our Work</a>
+                <a href="contact.html" class="nav-link text-white/70 text-[10px] uppercase font-bold tracking-widest hover:text-white">Contact</a>
+                <button onclick="toggleModal()" class="bg-[#2D5A27] text-white px-6 py-3 text-[9px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition">Donate</button>
+            </div>
+
+            <button onclick="toggleMobileNav()" class="lg:hidden text-white text-2xl">
+                <i id="navIcon" class="fas fa-bars"></i>
+            </button>
         </div>
-        <div class="hidden lg:flex space-x-10 font-black text-[11px] uppercase tracking-widest">
-            <a href="index.html" class="hover:text-[#2D5A27] transition">Home</a>
-            <a href="about.html" class="text-[#2D5A27] transition">About Us</a>
-            <a href="programs.html" class="hover:text-[#2D5A27] transition">Our Work</a>
-            <a href="volunteer.html" class="hover:text-[#2D5A27] transition">Volunteer</a>
-            <a href="contact.html" class="hover:text-[#2D5A27] transition">Contact</a>
-        </div>
-        <button onclick="toggleModal()" class="bg-[#2D5A27] text-white px-8 py-3 font-black text-xs uppercase hover:bg-black transition-all transform hover:-translate-y-1">Donate</button>
     </nav>
 
+    <div id="mobileNav" class="fixed inset-0 bg-black z-40 hidden flex-col items-center justify-center gap-8">
+        <a href="index.html" class="text-white text-2xl font-black uppercase italic">Home</a>
+        <a href="about.html" class="text-white/70 text-2xl font-black uppercase italic">About</a>
+        <a href="work.html" class="text-white/70 text-2xl font-black uppercase italic">Our Work</a>
+        <a href="contact.html" class="text-white/70 text-2xl font-black uppercase italic">Contact</a>
+        <button onclick="toggleModal()" class="bg-[#2D5A27] text-white px-10 py-4 font-black uppercase italic">Donate Now</button>
+    </div>
+    
     <section class="relative py-24 px-6 md:px-10 bg-[#fcfcfc]">
         <div class="container mx-auto max-w-6xl">
             <span class="text-[#2D5A27] font-black text-xs uppercase tracking-[0.5em] block mb-4">Established 2008</span>
@@ -114,14 +175,117 @@
         </div>
     </section>
 
-    <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
+    
+<div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
+        
+        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
+                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
+            </div>
+
+            <div class="relative z-10">
+                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </button>
+                
+                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
+                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
+                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
+                </p>
+
+                <div class="space-y-4 md:space-y-8">
+                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
+                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
+                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
+                        
+                        <div class="flex items-center gap-3">
+                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
+                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                                <i class="fas fa-copy text-xs"></i>
+                            </button>
+                        </div>
+                        
+                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
+                <div class="flex items-center gap-4">
+                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
+            
+            <div id="formContent">
+                <div class="mb-8 md:mb-10">
+                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
+                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
+                </div>
+
+                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
+                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
+                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
+                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                            <option>General Support</option>
+                            <option>Protection Missions (GBV)</option>
+                            <option>WASH Initiatives</option>
+                            <option>Economic Empowerment</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
+                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                            Confirm Support
+                        </button>
+                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="successContent" class="hidden text-center">
+                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-check text-3xl"></i>
+                </div>
+                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
+                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
+                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
+                </p>
+                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
+                    Return to Site
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>                      
+  
+
+   <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 
                 <div class="space-y-6">
                     <div class="flex items-center gap-4">
                         <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
-                        <span class="text-3xl font-heading font-black tracking-tighter italic">GEPaDC</span>
+                        <span class="text-3xl font-heading font-black tracking-tighter">GEPaDC</span>
                     </div>
                     <p class="text-gray-300 text-xs font-medium leading-relaxed max-w-xs">
                         Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
@@ -140,29 +304,51 @@
                         <li class="flex gap-4 group">
                             <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
                             <div>
-                                <span class="text-white block">Borno State (Field HQ)</span>
-                                <p class="text-gray-500 font-bold lowercase tracking-normal">No 7 Nguru Street Polo close, Old GRA Maiduguri</p>
+                                <span class="text-white block">Borno State Office, Northeast Zone</span>
+                                <p class="text-gray-500 font-bold lowercase tracking-normal">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
                             </div>
                         </li>
                         <li class="flex gap-4 group">
                             <i class="fas fa-location-dot text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
                             <div>
-                                <span class="text-white block">Adamawa State</span>
-                                <p class="text-gray-400 font-bold lowercase tracking-normal">Coper Lane, Zone 3, Jimeta, Yola</p>
+                                <span class="text-white block">Adamawa State Office, Northeast Zone </span>       
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Coper Lane, Zone 3, Jimeta, Yola, Adamawa State.</p>
                             </div>
                         </li>
                         <li class="flex gap-4 group">
                             <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
                             <div>
-                                <span class="text-white block">Kaduna / Sokoto</span>
-                                <p class="text-gray-400 font-bold lowercase tracking-normal">Sir Patrick Yakowa St. • No 1 Abuja Road, GRA</p>
+                                <span class="text-white block">Kaduna State Office, Northwest Zone</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Sir Patrick Yakowa Street, Karji, Kaduna, Kaduna State</p>
                             </div>
                         </li>
                         <li class="flex gap-4 group">
+                            <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Sokoto Office, Northwest Zone</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">No 1 Abuja Road, GRA, Sokoto State.</p>
+                            </div>
+                        </li>                    
+                      <li class="flex gap-4 group">
+                            <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Kebbi Office, Northwest Zone</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">No.5 Behind Oando bypass, Brini Kebbi, Kebbi State.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Zamfara Office, Northeast Zone</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">UBE, Lala International, Angwan Yerima, Gusau, Zamfara State.</p>
+                            </div>
+                        </li>
+  
+                        <li class="flex gap-4 group">
                             <i class="fas fa-earth-africa text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
                             <div>
-                                <span class="text-white block">Yobe State</span>
-                                <p class="text-gray-400 font-bold lowercase tracking-normal">Maisandari Beside Damaturu PHC</p>
+                                <span class="text-white block">Yobe Office, Northeast Zone</span>
+                                <p class="text-gray-400 font-bold lowercase tracking-normal">Maisandari Beside Damaturu PHC, Yobe State. </p>
                             </div>
                         </li>
                     </ul>
@@ -175,16 +361,16 @@
                             <i class="fas fa-building text-[#2D5A27] text-lg"></i>
                             <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
                         </li>
-                        <li class="flex gap-4">
-                            <i class="fas fa-envelope-open-text text-[#2D5A27] text-lg"></i>
-                            <span class="text-white font-black text-xs lowercase">institutional.response@gepadc.org</span>
-                        </li>
                         <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
                             <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
                             <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
                                 <i class="fas fa-headset text-xl"></i>
-                                <span>0800-GEPADC-HQ</span>
+                                <span>08000004000</span>
                             </div>
+                        </li>
+                        <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+                            <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2 text-[#2D5A27]">Safeguarding Reporting</span>
+                            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[10px] uppercase tracking-widest border-b border-white/20">safeguarding@gepadc.org</a>
                         </li>
                     </ul>
                 </div>
@@ -221,53 +407,146 @@
                 </div>
             </div>
         </div>
-    </footer>
+   </footer>
+    
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <div id="donateModal" class="fixed inset-0 bg-black bg-opacity-95 z-[100] hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-4xl flex flex-col md:flex-row shadow-2xl relative overflow-y-auto max-h-[90vh]">
-            <button onclick="toggleModal()" class="absolute top-4 right-4 text-3xl font-bold z-10">&times;</button>
-            <div class="bg-[#2D5A27] text-white p-8 md:p-12 md:w-1/2">
-                <h2 class="text-3xl font-heading font-black mb-6 uppercase italic">Bank Details</h2>
-                <div class="space-y-6 text-sm">
-                    <div><p class="opacity-70 text-xs font-bold uppercase">Bank Name</p><p class="font-black">Global Charity Bank</p></div>
-                    <div><p class="opacity-70 text-xs font-bold uppercase">Account Number</p><p class="font-black text-2xl tracking-widest">0123456789</p></div>
-                    <div><p class="opacity-70 text-xs font-bold uppercase">Account Name</p><p class="font-black">GEPaDC Official</p></div>
-                </div>
-            </div>
-            <div class="p-8 md:p-12 md:w-1/2">
-                <form id="donorForm" class="space-y-4">
-                    <h3 class="font-black text-xl mb-4 border-b-2 border-black inline-block uppercase">Notify Us</h3>
-                    <input type="text" id="donorName" placeholder="Full Name" required class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] transition">
-                    <input type="number" id="donorAmount" placeholder="Amount (₦)" required class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] transition">
-                    <input type="text" id="donorRef" placeholder="Transfer Ref" class="w-full border-b-2 py-3 outline-none focus:border-[#2D5A27] transition">
-                    <button type="submit" id="donorSubmitBtn" class="w-full bg-black text-white py-4 font-black uppercase tracking-widest hover:bg-[#2D5A27] transition">Confirm Payment</button>
-                    <p id="donorMsg" class="hidden text-green-600 text-center font-bold italic mt-2">Notification Sent!</p>
-                </form>
-            </div>
-        </div>
-    </div>
+<script>
+    // 1. INITIALIZE ANIMATIONS (AOS)
+    AOS.init({
+        duration: 1000,
+        once: true,
+        disable: 'mobile' 
+    });
 
-    <script>
-        function toggleModal() {
-            document.getElementById('donateModal').classList.toggle('hidden');
+    // 2. LIVE TIME & DATE (WAT)
+    function updateClock() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const liveDate = document.getElementById('liveDate');
+        const liveTime = document.getElementById('liveTime');
+        
+        if(liveDate) liveDate.innerText = now.toLocaleDateString('en-US', options);
+        if(liveTime) liveTime.innerText = now.toLocaleTimeString('en-US', { hour12: false }) + ' WAT';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 3. NAVIGATION: Toggle Mobile Menu
+    function toggleMobileNav() {
+        const mobileNav = document.getElementById('mobileNav');
+        const navIcon = document.getElementById('navIcon');
+        
+        if (!mobileNav || !navIcon) return;
+
+        const isHidden = mobileNav.classList.toggle('hidden');
+        mobileNav.classList.toggle('flex');
+        
+        // Update Icon and Body Scroll
+        navIcon.className = isHidden ? "fas fa-bars" : "fas fa-times";
+        document.body.style.overflow = isHidden ? 'auto' : 'hidden';
+    }
+
+    // 4. MODAL: Donation Modal Logic
+    function toggleModal() {
+        const modal = document.getElementById('donateModal');
+        const formContent = document.getElementById('formContent');
+        const successContent = document.getElementById('successContent');
+        const donorForm = document.getElementById('donorForm');
+
+        if (!modal) return;
+
+        modal.classList.toggle('hidden');
+
+        // Reset form if closing
+        if (modal.classList.contains('hidden')) {
+            setTimeout(() => {
+                if(formContent) formContent.classList.remove('hidden');
+                if(successContent) successContent.classList.add('hidden');
+                if(donorForm) donorForm.reset();
+            }, 400);
         }
+    }
 
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.add("hidden");
+    function handleDonation(event) {
+        event.preventDefault();
+        const formContent = document.getElementById('formContent');
+        const successContent = document.getElementById('successContent');
+
+        if(formContent) formContent.classList.add('hidden');
+        if(successContent) successContent.classList.remove('hidden');
+    }
+
+    // 5. UTILITY: Copy to Clipboard
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const copyBtn = document.getElementById('copyBtn');
+            if (!copyBtn) return;
+
+            const originalIcon = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
+            copyBtn.classList.replace('text-white/40', 'text-white');
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalIcon;
+                copyBtn.classList.replace('text-white', 'text-white/40');
+            }, 2000);
+        });
+    }
+
+    // 6. COUNTERS: Animated Statistics
+    const startCounters = () => {
+        document.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const totalFrames = 150; 
+            const increment = target / totalFrames;
+            
+            const update = () => {
+                if(count < target) {
+                    count += increment;
+                    counter.innerText = Math.ceil(count);
+                    setTimeout(update, 35);
+                } else { 
+                    counter.innerText = target; 
+                }
+            };
+            update();
+        });
+    };
+
+    // Intersection Observer for Counters
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                startCounters();
+                observer.unobserve(entry.target);
             }
-            tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("tab-active");
-                tablinks[i].classList.add("text-gray-400", "border-transparent");
-                tablinks[i].classList.remove("text-black");
-            }
-            document.getElementById(tabName).classList.remove("hidden");
-            evt.currentTarget.classList.add("tab-active");
-            evt.currentTarget.classList.remove("text-gray-400", "border-transparent");
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(c => observer.observe(c));
+
+    // 7. TABS: Tab Content Switcher
+    function openTab(evt, tabName) {
+        const tabcontent = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.add("hidden");
         }
-    </script>
+        
+        const tablinks = document.getElementsByClassName("tab-link");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("tab-active", "text-black");
+            tablinks[i].classList.add("text-gray-400", "border-transparent");
+        }
+        
+        const targetTab = document.getElementById(tabName);
+        if(targetTab) targetTab.classList.remove("hidden");
+        
+        evt.currentTarget.classList.add("tab-active", "text-black");
+        evt.currentTarget.classList.remove("text-gray-400", "border-transparent");
+    }
+</script>  
 </body>
 </html>
+
