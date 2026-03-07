@@ -771,36 +771,51 @@
         </div>
     </section>
 
-<section class="py-20 bg-white overflow-hidden">
+<section class="py-20 bg-white">
     <div class="container mx-auto px-6">
         <div class="text-center mb-12" data-aos="fade-up">
             <h2 class="text-[#2D5A27] font-black tracking-[0.3em] uppercase text-[10px] mb-4">Commemoration</h2>
-            <h3 class="text-4xl font-black italic uppercase font-heading mb-4">International Day of Peace 2025</h3>
-            <p class="text-gray-600 max-w-2xl mx-auto font-light">
-                “Act Now, for a Peaceful World” — Highlighting our commitment to sustainable peace and community resilience. 
-                <span class="block mt-2 font-bold text-[#2D5A27]">#GEPaDC #PeaceDay2025</span>
-            </p>
+            <h3 class="text-4xl font-black italic uppercase font-heading mb-2">International Day of Peace 2025</h3>
+            <p class="text-gray-600 max-w-2xl mx-auto font-light mb-2">“Act Now, for a Peaceful World”</p>
+            <p class="font-bold text-[#2D5A27] text-sm uppercase tracking-widest">#GEPaDC #PeaceDay2025</p>
         </div>
 
-        <div id="swipe-gallery" class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8">
-            <div class="min-w-[80%] md:min-w-[40%] aspect-[4/3] snap-center bg-gray-100 rounded-lg overflow-hidden shadow-lg border border-gray-100">
-                <img src="media/photos/1.png" alt="Peace Day 1" class="w-full h-full object-cover">
+        <div class="relative max-w-4xl mx-auto group">
+            <div id="peace-slider" class="flex overflow-x-hidden snap-x snap-mandatory scroll-smooth rounded-2xl shadow-2xl">
+                <div class="min-w-full snap-center aspect-video bg-gray-100">
+                    <img src="media/photos/1.png" class="w-full h-full object-cover" alt="Peace Day 1">
+                </div>
+                <div class="min-w-full snap-center aspect-video bg-gray-100">
+                    <img src="media/photos/2.png" class="w-full h-full object-cover" alt="Peace Day 2">
+                </div>
+                <div class="min-w-full snap-center aspect-video bg-gray-100">
+                    <img src="media/photos/3.png" class="w-full h-full object-cover" alt="Peace Day 3">
+                </div>
+                <div class="min-w-full snap-center aspect-video bg-gray-100">
+                    <img src="media/photos/4.png" class="w-full h-full object-cover" alt="Peace Day 4">
+                </div>
+                <div class="min-w-full snap-center aspect-video bg-gray-100">
+                    <img src="media/photos/5.png" class="w-full h-full object-cover" alt="Peace Day 5">
+                </div>
             </div>
-            <div class="min-w-[80%] md:min-w-[40%] aspect-[4/3] snap-center bg-gray-100 rounded-lg overflow-hidden shadow-lg border border-gray-100">
-                <img src="media/photos/2.png" alt="Peace Day 2" class="w-full h-full object-cover">
-            </div>
-            <div class="min-w-[80%] md:min-w-[40%] aspect-[4/3] snap-center bg-gray-100 rounded-lg overflow-hidden shadow-lg border border-gray-100">
-                <img src="media/photos/3.png" alt="Peace Day 3" class="w-full h-full object-cover">
-            </div>
-            <div class="min-w-[80%] md:min-w-[40%] aspect-[4/3] snap-center bg-gray-100 rounded-lg overflow-hidden shadow-lg border border-gray-100">
-                <img src="media/photos/4.png" alt="Peace Day 4" class="w-full h-full object-cover">
-            </div>
-            <div class="min-w-[80%] md:min-w-[40%] aspect-[4/3] snap-center bg-gray-100 rounded-lg overflow-hidden shadow-lg border border-gray-100">
-                <img src="media/photos/5.png" alt="Peace Day 5" class="w-full h-full object-cover">
+
+            <button onclick="moveSlider('prev')" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-4 rounded-full shadow-lg hover:bg-[#2D5A27] hover:text-white transition-all z-30 focus:outline-none">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="moveSlider('next')" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 p-4 rounded-full shadow-lg hover:bg-[#2D5A27] hover:text-white transition-all z-30 focus:outline-none">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <div class="flex justify-center gap-2 mt-6">
+                <div class="dot h-2 w-8 bg-[#2D5A27] rounded-full"></div>
+                <div class="dot h-2 w-2 bg-gray-300 rounded-full"></div>
+                <div class="dot h-2 w-2 bg-gray-300 rounded-full"></div>
+                <div class="dot h-2 w-2 bg-gray-300 rounded-full"></div>
+                <div class="dot h-2 w-2 bg-gray-300 rounded-full"></div>
             </div>
         </div>
     </div>
-</section>
+</section>  
     
 <section class="py-24 bg-[#f8f9fa]"> <div class="container mx-auto px-6 md:px-10">
         <div class="max-w-4xl mx-auto">
@@ -1206,49 +1221,87 @@
     }
         const gallery = document.getElementById('swipe-gallery');
 
-function autoScroll() {
-    // If we are at the end, go back to start, else scroll right
-    if (gallery.scrollLeft + gallery.offsetWidth >= gallery.scrollWidth) {
-        gallery.scrollTo({ left: 0, behavior: 'smooth' });
-    } else {
-        gallery.scrollBy({ left: 300, behavior: 'smooth' });
-    }
-}
+    // 1. TABS LOGIC (Vision, Mission, Values)
+    function openTab(evt, tabName) {
+        const tabcontents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].classList.add("hidden");
+            tabcontents[i].classList.remove("block");
+        }
 
-// Change image every 4 seconds
-let scrollInterval = setInterval(autoScroll, 4000);
+        const tablinks = document.getElementsByClassName("tab-link");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("tab-active", "border-[#2D5A27]", "text-black");
+            tablinks[i].classList.add("border-transparent", "text-gray-400");
+        }
 
-// Stop auto-scroll if user starts swiping manually
-gallery.addEventListener('touchstart', () => {
-    clearInterval(scrollInterval);
-});
-        function openTab(evt, tabName) {
-    // 1. Get all tab content elements and hide them
-    const tabcontents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabcontents.length; i++) {
-        tabcontents[i].classList.add("hidden");
-        tabcontents[i].classList.remove("block");
-    }
+        const activeTab = document.getElementById(tabName);
+        if (activeTab) {
+            activeTab.classList.remove("hidden");
+            activeTab.classList.add("block");
+        }
 
-    // 2. Get all tab links and remove the active styling
-    const tablinks = document.getElementsByClassName("tab-link");
-    for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("tab-active", "border-[#2D5A27]", "text-black");
-        tablinks[i].classList.add("border-transparent", "text-gray-400");
+        evt.currentTarget.classList.add("tab-active", "border-[#2D5A27]", "text-black");
+        evt.currentTarget.classList.remove("border-transparent", "text-gray-400");
     }
 
-    // 3. Show the current tab, and add an "active" class to the button that opened the tab
-    const activeTab = document.getElementById(tabName);
-    activeTab.classList.remove("hidden");
-    activeTab.classList.add("block");
+    // 2. PEACE DAY SLIDER LOGIC (One at a time with buttons)
+    const slider = document.getElementById('peace-slider');
+    const dots = document.querySelectorAll('.dot');
 
-    // 4. Update the clicked button styling
-    evt.currentTarget.classList.add("tab-active", "border-[#2D5A27]", "text-black");
-    evt.currentTarget.classList.remove("border-transparent", "text-gray-400");
-}
+    function moveSlider(direction) {
+        if (!slider) return;
+        const slideWidth = slider.clientWidth;
+        
+        if (direction === 'next') {
+            if (slider.scrollLeft + slideWidth >= slider.scrollWidth - 5) {
+                slider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
+            }
+        } else {
+            if (slider.scrollLeft <= 5) {
+                slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' });
+            } else {
+                slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+            }
+        }
+        // Small delay to allow scroll to finish before updating dots
+        setTimeout(updateDots, 500);
+    }
+
+    function updateDots() {
+        if (!slider || dots.length === 0) return;
+        const index = Math.round(slider.scrollLeft / slider.clientWidth);
+        dots.forEach((dot, i) => {
+            if (i === index) {
+                dot.classList.add('w-8', 'bg-[#2D5A27]');
+                dot.classList.remove('w-2', 'bg-gray-300');
+            } else {
+                dot.classList.add('w-2', 'bg-gray-300');
+                dot.classList.remove('w-8', 'bg-[#2D5A27]');
+            }
+        });
+    }
+
+    // 3. AUTO-SLIDE & INTERACTION
+    if (slider) {
+        let autoSlide = setInterval(() => moveSlider('next'), 5000);
+
+        // Stop auto-slide when user touches the slider
+        slider.addEventListener('touchstart', () => {
+            clearInterval(autoSlide);
+        }, {passive: true});
+        
+        // Update dots if user swipes manually
+        slider.addEventListener('scroll', () => {
+            updateDots();
+        }, {passive: true});
+    }
     </script>
 </body>
 </html>
+
 
 
 
