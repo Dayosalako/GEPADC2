@@ -169,6 +169,33 @@
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
 }
+
+        /* Active Tab Styling */
+.tab-active {
+    border-color: #2D5A27 !important;
+    color: black !important;
+}
+
+/* Smooth Fade In Animation */
+.animate-fadeIn {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ensure hidden works properly with Tailwind if not using the CDN */
+.hidden {
+    display: none;
+}
     </style>
 </head>
 <body>
@@ -1195,9 +1222,34 @@ let scrollInterval = setInterval(autoScroll, 4000);
 gallery.addEventListener('touchstart', () => {
     clearInterval(scrollInterval);
 });
+        function openTab(evt, tabName) {
+    // 1. Get all tab content elements and hide them
+    const tabcontents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].classList.add("hidden");
+        tabcontents[i].classList.remove("block");
+    }
+
+    // 2. Get all tab links and remove the active styling
+    const tablinks = document.getElementsByClassName("tab-link");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("tab-active", "border-[#2D5A27]", "text-black");
+        tablinks[i].classList.add("border-transparent", "text-gray-400");
+    }
+
+    // 3. Show the current tab, and add an "active" class to the button that opened the tab
+    const activeTab = document.getElementById(tabName);
+    activeTab.classList.remove("hidden");
+    activeTab.classList.add("block");
+
+    // 4. Update the clicked button styling
+    evt.currentTarget.classList.add("tab-active", "border-[#2D5A27]", "text-black");
+    evt.currentTarget.classList.remove("border-transparent", "text-gray-400");
+}
     </script>
 </body>
 </html>
+
 
 
 
