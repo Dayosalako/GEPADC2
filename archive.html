@@ -12,18 +12,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;900&display=swap');
         
-        /* Restored background to white and text to dark gray */
         body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1a1a1a; scroll-behavior: smooth; }
         .font-heading { font-family: 'Syncopate', sans-serif; }
         
-        /* Timeline Styling - Adjusted for White Background */
         .timeline-link.active { color: #2D5A27; transform: scale(1.2); }
         .timeline-line { width: 1px; background: rgba(0,0,0,0.1); height: 100%; position: absolute; left: 50%; }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #ffffff; }
         ::-webkit-scrollbar-thumb { background: #2D5A27; }
+
+        /* PDF Container Responsiveness */
+        .pdf-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border: 1px solid #eee;
+            background: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -55,21 +61,29 @@
         </aside>
 
         <main class="flex-1 border-l border-gray-100">
+            <section id="year-2026" class="py-20 px-10 relative overflow-hidden">
+                <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2026</h2>
+                <div class="pt-20">
+                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Current Edition</span>
+                    <h3 class="text-4xl font-black italic uppercase mb-8">Quarterly <span class="text-[#2D5A27]">Publication.</span></h3>
+                    
+                    <div class="pdf-container rounded-xl shadow-2xl overflow-hidden mb-12" data-aos="zoom-in">
+                        <iframe src="media/pdf/newsletter-march-2026.pdf#toolbar=0" class="w-full h-full" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </section>
+
             <section id="year-2025" class="py-20 px-10 relative overflow-hidden">
                 <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2025</h2>
                 <div class="pt-20">
                     <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">FIELD WORK</span>
-                    <div class="group relative aspect-[21/9] bg-gray-100 overflow-hidden cursor-pointer rounded-sm" data-aos="fade-up">
-                        <img src="media/photos/GEPADC (19).jpg" class="w-full h-full object-cover opacity-90 transition duration-1000 group-hover:scale-105 group-hover:opacity-100">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-12 flex flex-col justify-end">
-                            <h3 class="text-4xl md:text-6xl font-black italic uppercase leading-none mb-4 text-white">Northeastern <br><span class="text-[#2D5A27]">Flood Response.</span></h3>
+                    <div class="group relative aspect-video bg-gray-50 overflow-hidden rounded-xl border border-gray-100" data-aos="fade-up">
+                        <img src="media/photos/1.png" class="w-full h-full object-contain transition duration-1000">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-12 flex flex-col justify-end">
+                            <h3 class="text-4xl font-black italic uppercase leading-none mb-4 text-white">Northeastern <br><span class="text-[#2D5A27]">Flood Response.</span></h3>
                             <p class="text-gray-200 text-sm max-w-xl leading-relaxed mb-6">
-                                In coordination with the Humanitarian Coalition, GEPaDC deployed life-saving WASH and Protection kits across Borno State to mitigate the impact of the 2024-2025 flood disaster.
+                                Integrated humanitarian response providing life-saving WASH and Protection services across the Lake Chad Basin.
                             </p>
-                            <div class="flex gap-4">
-                                <span class="px-4 py-2 border border-white/20 text-[9px] font-black uppercase tracking-widest text-white">WASH Deployment</span>
-                                <span class="px-4 py-2 border border-white/20 text-[9px] font-black uppercase tracking-widest text-white">Child Protection</span>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,24 +93,22 @@
                 <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2024</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 pt-20">
                     <div class="space-y-6" data-aos="fade-right">
-                        <div class="aspect-square bg-gray-200 overflow-hidden">
-                            <img src="media/photos/GEPADC (9).jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                        <div class="aspect-square bg-white border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center p-4">
+                            <img src="media/photos/2.png" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition duration-700">
                         </div>
                         <div>
                             <p class="text-[#2D5A27] font-black text-[10px] uppercase tracking-widest mb-2">Protection & Advocacy</p>
-                            <h4 class="text-2xl font-bold uppercase italic">Gatekeeper Engagement</h4>
-                            <p class="text-gray-500 text-xs leading-relaxed mt-4">Capacity building for community leaders in Maiduguri to strengthen SGBV reporting mechanisms.</p>
+                            <h4 class="text-2xl font-bold uppercase italic">Community Engagement</h4>
                         </div>
                     </div>
 
                     <div class="space-y-6" data-aos="fade-left">
-                        <div class="aspect-square bg-gray-200 overflow-hidden">
-                            <img src="media/photos/GEPADC (5).jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                        <div class="aspect-square bg-white border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center p-4">
+                            <img src="media/photos/3.png" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition duration-700">
                         </div>
                         <div>
                             <p class="text-[#2D5A27] font-black text-[10px] uppercase tracking-widest mb-2">Women Leadership</p>
                             <h4 class="text-2xl font-bold uppercase italic">WPS Policy Forum</h4>
-                            <p class="text-gray-500 text-xs leading-relaxed mt-4">Advancing the Women, Peace, and Security agenda through grassroots participation.</p>
                         </div>
                     </div>
                 </div>
@@ -104,42 +116,38 @@
 
             <section id="year-2023" class="py-40 px-10 relative overflow-hidden">
                 <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2023</h2>
-                <div class="flex flex-wrap gap-4 pt-20">
-                    <img src="media/photos/GEPADC (7).jpg" class="h-40 w-auto opacity-60 hover:opacity-100 transition grayscale hover:grayscale-0">
-                    <img src="media/photos/GEPADC (17).jpg" class="h-40 w-auto opacity-60 hover:opacity-100 transition grayscale hover:grayscale-0">
-                    <img src="media/photos/GEPADC (12).jpg" class="h-40 w-auto opacity-60 hover:opacity-100 transition grayscale hover:grayscale-0">
-                    <img src="media/photos/GEPADC (9).jpg" class="h-40 w-auto opacity-60 hover:opacity-100 transition grayscale hover:grayscale-0">
+                <div class="flex flex-wrap gap-8 pt-20">
+                    <img src="media/photos/4.png" class="h-48 w-auto border border-gray-100 shadow-sm opacity-80 hover:opacity-100 transition grayscale hover:grayscale-0 object-contain">
+                    <img src="media/photos/5.png" class="h-48 w-auto border border-gray-100 shadow-sm opacity-80 hover:opacity-100 transition grayscale hover:grayscale-0 object-contain">
                 </div>
             </section>
         </main>
     </div>
 
-    <section class="py-24 bg-white">
-    <div class="container mx-auto px-6 md:px-10">
-        <div class="mb-16">
-            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Resource Center</h2>
-            <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black">Newsletter <br> Archive.</h3>
+    <section class="py-24 bg-white border-t border-gray-100">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="mb-16">
+                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Resource Center</h2>
+                <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black">Newsletter <br> Archive.</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group border border-gray-100 p-8 hover:border-[#2D5A27] transition-all duration-500 bg-gray-50/50">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="far fa-file-pdf text-4xl text-red-600"></i>
+                        <span class="text-[9px] font-black uppercase text-gray-400 tracking-widest">Zamfara Project</span>
+                    </div>
+                    <h4 class="text-xl font-black uppercase italic font-heading mb-4 leading-tight">Resilient Futures: Advancing Gender Equality</h4>   
+                    <p class="text-gray-500 text-xs leading-relaxed mb-8">Strengthening gender equality and promoting women's rights for conflict-affected populations in Zamfara State under the French Embassy (FEF-OSC) support.</p>
+                    
+                    <div class="flex gap-6">
+                        <a href="media/pdf/newsletter-march-2026.pdf" target="_blank" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-[#2D5A27] hover:border-[#2D5A27] transition-all">Open Full PDF</a>
+                        <a href="media/pdf/newsletter-march-2026.pdf" download class="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-all">Download</a>
+                    </div>
+                </div>
+                </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div class="group border border-gray-100 p-8 hover:border-[#2D5A27] transition-all duration-500">
-                <div class="flex justify-between items-start mb-6">
-                    <i class="far fa-file-pdf text-4xl text-red-600"></i>
-                    <span class="text-[9px] font-black uppercase text-gray-400 tracking-widest">Newsletter from Zamfara</span>
-                </div>
-                <h4 class="text-xl font-black uppercase italic font-heading mb-4 leading-tight">Resilent Futures: Advancing Gender Equality and Holistic Wellbeing for Women, Youth and Vulnerable Communities in Northwest Nigeria</h4>   
-                <p class="text-gray-500 text-xs leading-relaxed mb-8">Summary of our activities: This project was implemented by GEPaDC in partnership with POWIB with support from the French Embassy (FEF-OSC), seeks to strengthen gender equality, promote women's rights,and improve access to life-saving services for conflict-affected populations in Zamfara State.</p>
-                
-                <div class="flex gap-4">
-                    <a href="media/pdf/newsletter-march-2026.pdf" target="_blank" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-[#2D5A27] hover:border-[#2D5A27]">View PDF</a>
-                    <a href="media/pdf/newsletter-march-2026.pdf" download class="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black">Download</a>
-                </div>
-            </div>
-
-            </div>
-    </div>
-</section>
+    </section>
     
     <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
         <div class="container mx-auto">
@@ -218,14 +226,14 @@
 
                 <div>
                     <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
-                    <form class="relative mb-4">
-    <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-4 px-6 text-[10px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
-    <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-6 text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
-</form>
-<a href="media/pdf/latest-newsletter.pdf" class="text-[9px] font-black uppercase tracking-[0.2em] text-[#2D5A27] flex items-center gap-2 hover:text-white transition">
-    <i class="fas fa-download"></i> Download Latest Edition (PDF)
-</a>
-                    <div class="grid grid-cols-1 gap-2 text-[9px] text-gray-500 font-black uppercase tracking-[0.2em]">
+                    <form class="relative mb-8">
+                        <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-4 px-6 text-[10px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
+                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-6 text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+                    </form>
+                    <a href="media/pdf/latest-newsletter.pdf" class="block text-white font-black text-[11px] uppercase tracking-[0.4em] mb-10 border-l-4 border-[#2D5A27] pl-4 hover:text-[#2D5A27] transition">
+                        <i class="fas fa-download mr-2"></i> Download Latest Edition (PDF)
+                    </a>
+                    <div class="grid grid-cols-1 gap-4 text-[9px] text-gray-500 font-black uppercase tracking-[0.2em] pt-4 border-t border-white/10">
                         <div class="flex justify-between border-b border-white/5 pb-2"><span>Registry</span> <span class="text-white">IT/39885</span></div>
                         <div class="flex justify-between border-b border-white/5 pb-2"><span>Established</span> <span class="text-white">2008</span></div>
                         <div class="flex justify-between"><span>DUNS No.</span> <span class="text-white">55-667-8892</span></div>
@@ -237,7 +245,7 @@
                 <div class="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
                     <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
                     <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
-                    <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>                    
+                    <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>                      
                 </div>
                 
                 <div class="flex items-center gap-5">
@@ -255,17 +263,19 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
 
-        // SCROLL OBSERVER FOR SIDEBAR
         window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
+            const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.timeline-link');
             
             let current = "";
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 200) {
+                if (window.pageYOffset >= sectionTop - 300) {
                     current = section.getAttribute('id');
                 }
             });
@@ -280,8 +290,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
