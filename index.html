@@ -50,18 +50,17 @@
 }  
         .nav-logo { height: 40px; width: auto; object-fit: contain; }
 
-        .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu { 
-            display: none; position: absolute; top: 100%; left: 0; 
-            background: white; min-width: 260px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
-            border-top: 3px solid var(--brand-green); z-index: 50; 
-        }
         .dropdown-item { 
-            padding: 14px 20px; display: block; font-size: 10px; color: #1a1a1a; 
-            border-bottom: 1px solid #f3f4f6; transition: all 0.3s; 
-            text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; 
+            padding: 14px 20px; 
+            display: block; 
+            font-size: 12px; /* Increased from 10px */
+            color: #1a1a1a; 
+            border-bottom: 1px solid #f3f4f6; 
+            transition: all 0.3s; 
+            text-transform: uppercase; 
+            font-weight: 900; 
+            letter-spacing: 0.2em; 
         }
-        .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
 
         .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.5s ease-in-out; background-size: cover; background-position: center; z-index: 5; }
         .slide.active { opacity: 1; }
@@ -126,6 +125,21 @@
     overflow: hidden;
 }
 
+        /* FIX: Updated selectors from 'header' to 'nav' to match your HTML */
+        @media (max-width: 768px) {
+            nav button[onclick="toggleModal()"] {
+                display: block !important;
+                padding: 8px 16px !important;
+                font-size: 10px !important; /* Increased for legibility */
+                letter-spacing: 0.1em !important;
+            }
+
+            nav .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+        }
+        
         @media (max-width: 768px) {
     /* Adjusts the donate button to fit perfectly next to the logo on mobile */
     header button[onclick="toggleModal()"] {
@@ -154,9 +168,11 @@
     overflow-x: hidden;
 }
     </style>
-</head>
-<body>
+</head>                                        
+  
+  
 
+<body>
     <div class="bg-gray-50 text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase border-b border-gray-100">
         <div id="liveDate"></div>
         <div class="flex gap-4">
@@ -165,65 +181,65 @@
         </div>
     </div>
 
-    <nav class="flex justify-between items-center py-4 px-6 md:px-10 sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
-        <div class="flex items-center gap-3">
-            <img src="logo.png" alt="Logo" class="nav-logo">
-            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black ">GEPaDC</div>
-        </div>
-
-      <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-                <div class="dropdown relative">
-                    <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="#about-snapshot" class="dropdown-item">Who We Are</a>
-                        <a href="#vision-section" class="dropdown-item">Our Vision</a>
-                        <a href="#mission-section" class="dropdown-item">Our Mission</a>
-                        <a href="#values" class="dropdown-item">Our Values</a>
-                    </div>
-                </div>
-
-           <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="work.html" class="dropdown-item">Program Areas</a>
-                        <a href="programs.html" class="dropdown-item">Thematic Areas</a>  
-                        <a href="team.html#board" class="dropdown-item">Our Board</a>
-                        <a href="team.html" class="dropdown-item">Our Team</a>
-                        <a href="#partners" class="dropdown-item">Our Partners</a>
-                        <a href="volunteer.html" class="dropdown-item">Join Us</a>                     
-                    </div>
-                </div>
-
-            <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="programs.html" class="dropdown-item">Program/Thematic Areas</a>
-                    </div>  
-                </div>
-
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="archive.html" class="dropdown-item">Annual Reports</a>
-                        <a href="archive.html" class="dropdown-item">Monthly Reports</a>
-                        <a href="archive.html" class="dropdown-item">Newsletters</a>
-                        <a href="archive.html" class="dropdown-item">Media & Press</a>
-                    </div>
-                </div>
+    <nav class="bg-white w-full border-b border-gray-100 z-[100] relative" id="mainNav">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="flex justify-between items-center py-4">
                 
-            <a href="contact.html" class="hover:text-[#2D5A27] transition">Contact Us</a>                                        
-  
-  
-            </div>
+                <a href="index.html" class="flex items-center gap-3 group shrink-0">
+                    <img src="logo.png" alt="Logo" class="h-9 md:h-11 w-auto nav-logo">
+                    <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black uppercase">GEPaDC</div>
+                </a>
 
-            <div class="flex items-center space-x-3 md:space-x-6">
-                <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
-                    Donate
-                </button>
-                
-                <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
-                    <i id="navIcon" class="fas fa-bars"></i>
-                </button>
+                <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
+                    <div class="dropdown relative">
+                        <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#about-snapshot" class="dropdown-item">Who We Are</a>
+                            <a href="#vision-section" class="dropdown-item">Our Vision</a>
+                            <a href="#mission-section" class="dropdown-item">Our Mission</a>
+                            <a href="#values" class="dropdown-item">Our Values</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown relative">
+                        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
+                        <div class="dropdown-menu">
+                            <a href="work.html" class="dropdown-item">Program Areas</a>
+                            <a href="programs.html" class="dropdown-item">Thematic Areas</a>  
+                            <a href="team.html#board" class="dropdown-item">Our Board</a>
+                            <a href="team.html" class="dropdown-item">Our Team</a>
+                            <a href="#partners" class="dropdown-item">Our Partners</a>
+                            <a href="volunteer.html" class="dropdown-item">Join Us</a>                     
+                        </div>
+                    </div>
+
+                    <div class="dropdown relative">
+                        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
+                        <div class="dropdown-menu">
+                            <a href="programs.html" class="dropdown-item">Program Areas</a>
+                        </div>  
+                    </div>
+
+                    <div class="dropdown relative">
+                        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
+                        <div class="dropdown-menu">
+                            <a href="archive.html" class="dropdown-item">Annual Reports</a>
+                            <a href="archive.html" class="dropdown-item">Newsletters</a>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.html" class="hover:text-[#2D5A27] transition">Contact</a>
+                </div>
+
+                <div class="flex items-center space-x-3 md:space-x-6">
+                    <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
+                        Donate
+                    </button>
+                    
+                    <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
+                        <i id="navIcon" class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -234,40 +250,18 @@
             <button onclick="toggleMobileNav()" class="text-4xl text-[#2D5A27]">&times;</button>
         </div>
 
-        <div class="flex flex-col space-y-6">
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Main</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                    <a href="index.html" class="text-sm font-black uppercase tracking-widest text-black">Home</a>
-                    <a href="#about-snapshot" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Who We Are</a>
-                    <a href="#vision-section" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Our Vision</a>
-                </div>
-            </div>
-
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Organization</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                    <a href="team.html" class="text-[10px] font-bold uppercase text-gray-500">Our Team</a>
-                    <a href="#partners" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Our Partners</a>
-                    <a href="volunteer.html" class="text-[10px] font-bold uppercase text-gray-500">Join Us</a>
-                </div>
-            </div>
-
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Our Impact</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                    <a href="programs.html" class="text-[10px] font-bold uppercase text-gray-500">Program/Thematic Areas</a>
-                </div>  
-            </div>
-
-            <a href="contact.html" class="text-sm font-black uppercase tracking-widest text-black pt-4">Contact Us</a>
+        <div class="flex flex-col space-y-8">
+            <a href="index.html" class="text-2xl font-black uppercase tracking-tighter text-black">Home</a>
+            <a href="work.html" class="text-2xl font-black uppercase tracking-tighter text-black">Our Work</a>
+            <a href="team.html" class="text-2xl font-black uppercase tracking-tighter text-black">The Team</a>
+            <a href="contact.html" class="text-2xl font-black uppercase tracking-tighter text-black">Contact</a>
         </div>
 
         <div class="mt-auto pt-10">
-            <button onclick="toggleModal(); toggleMobileNav();" class="w-full py-4 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic tracking-widest">Donate Now</button>
+            <button onclick="toggleModal(); toggleMobileNav();" class="w-full py-5 bg-[#2D5A27] text-white font-black text-[12px] uppercase italic tracking-widest">Support our Mission</button>
         </div>
-    </div>  
-</body>                                    
+    </div>
+    
     <section class="relative h-screen min-h-[700px] overflow-hidden bg-black flex items-center justify-center">
     <div class="absolute inset-0 z-0" id="hero-slideshow">
         <div class="hero-overlay"></div>
@@ -1049,14 +1043,7 @@
             slideElements[currentSlide].classList.add('active');
         }, 5000);
 
-        // UI HELPERS
-        function toggleMobileNav() {
-    const mobileNav = document.getElementById('mobileNav');
-    const navIcon = document.getElementById('navIcon');
-    
-    mobileNav.classList.toggle('hidden');
-    mobileNav.classList.toggle('flex');
-    
+       
      
     // Update Icon
     if (mobileNav.classList.contains('flex')) {
@@ -1146,17 +1133,25 @@
         });
     }
 
-    // 4. Mobile Nav Toggle (As per your existing logic)
-    function toggleMobileNav() {
-        const mobileNav = document.getElementById('mobileNav');
-        const navIcon = document.getElementById('navIcon');
-        mobileNav.classList.toggle('hidden');
-        mobileNav.classList.toggle('flex');
-        navIcon.className = mobileNav.classList.contains('hidden') ? "fas fa-bars" : "fas fa-times";
-        
-      
-        const gallery = document.getElementById('swipe-gallery');
-
+    // SINGLE SOURCE OF TRUTH FOR MOBILE NAV
+function                    
+   toggleMobileNav() {
+    const mobileNav = document.getElementById('mobileNav');
+    const navIcon = document.getElementById('navIcon');
+    const body = document.body;
+    
+    if (mobileNav.classList.contains('hidden')) {
+        mobileNav.classList.remove('hidden');
+        mobileNav.classList.add('flex');
+        navIcon.className = "fas fa-times";
+        body.style.overflow = "hidden"; // Prevent background scroll
+    } else {
+        mobileNav.classList.add('hidden');
+        mobileNav.classList.remove('flex');
+        navIcon.className = "fas fa-bars";
+        body.style.overflow = "auto"; // Re-enable scroll
+    }
+}
     // 1. TABS LOGIC (Vision, Mission, Values)
     function openTab(evt, tabName) {
         const tabcontents = document.getElementsByClassName("tab-content");
@@ -1237,6 +1232,7 @@
     </script>
 </body>
 </html>
+
 
 
 
