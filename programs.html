@@ -454,9 +454,98 @@
     </div>
 </footer>  
     <script src="script.js"></script>
+     <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('.timeline-link');
+            
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 300) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+function loadComponent(id, file){
+fetch(file)
+.then(res => {
+if(!res.ok){
+throw new Error("Could not load " + file);
+}
+return res.text();
+})
+.then(data => {
+document.getElementById(id).innerHTML = data;
+})
+.catch(err => console.error(err));
+}
+
+loadComponent("topbar","topbar.html");
+loadComponent("header","header.html");
+loadComponent("footer","footer.html");
+loadComponent("donate","donate-modal.html");
+
+function toggleModal(){
+const modal = document.getElementById("donateModal");
+modal.classList.toggle("hidden");
+}
+
+function toggleMobileNav(){
+const nav = document.getElementById("mobileNav");
+nav.classList.toggle("hidden");
+document.body.classList.toggle("no-scroll");
+}
+
+function copyToClipboard(text){
+navigator.clipboard.writeText(text);
+
+const btn = document.getElementById("copyBtn");
+btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+
+setTimeout(()=>{
+btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+},2000);
+}
+
+function updateClock(){
+const now = new Date();
+
+const dateEl = document.getElementById("liveDate");
+const timeEl = document.getElementById("liveTime");
+
+if(dateEl && timeEl){
+dateEl.innerHTML = now.toLocaleDateString("en-US", {
+weekday:"long",
+year:"numeric",
+month:"long",
+day:"numeric"
+});
+
+timeEl.innerHTML = now.toLocaleTimeString();
+}
+}
+
+setInterval(updateClock,1000);
+updateClock();
+    </script>
 </body>
 
 </html>
+
 
 
 
