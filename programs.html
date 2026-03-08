@@ -13,6 +13,18 @@
         color: transparent;
         -webkit-text-stroke: 1.5px #000;
     }
+    .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu { 
+            display: none; position: absolute; top: 100%; left: 0; 
+            background: white; min-width: 260px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+            border-top: 3px solid var(--brand-green); z-index: 50; 
+        }
+        .dropdown-item { 
+            padding: 14px 20px; display: block; font-size: 10px; color: #1a1a1a; 
+            border-bottom: 1px solid #f3f4f6; transition: all 0.3s; 
+            text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; 
+        }
+        .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
 </style>
 </head>
 <body>
@@ -205,261 +217,12 @@
     </div>
 </section>                    
   
-  <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
-    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
-        
-        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
-            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
-                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
-            </div>
+<div id="donate"></div>
+<div id="footer"></div>
 
-            <div class="relative z-10">
-                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-                    <i class="fas fa-arrow-left"></i> Back to Site
-                </button>
-                
-                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
-                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
-                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
-                </p>
-
-                <div class="space-y-4 md:space-y-8">
-                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
-                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
-                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
-                        
-                        <div class="flex items-center gap-3">
-                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
-                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
-                                <i class="fas fa-copy text-xs"></i>
-                            </button>
-                        </div>
-                        
-                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
-                <div class="flex items-center gap-4">
-                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
-                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
-            
-            <div id="formContent">
-                <div class="mb-8 md:mb-10">
-                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
-                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
-                </div>
-
-                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
-                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
-                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
-                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
-                            <option>General Support</option>
-                            <option>Protection Missions (GBV)</option>
-                            <option>WASH Initiatives</option>
-                            <option>Economic Empowerment</option>
-                        </select>
-                    </div>
-
-                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
-                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
-                            Confirm Support
-                        </button>
-                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div id="successContent" class="hidden text-center">
-                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
-                    <i class="fas fa-check text-3xl"></i>
-                </div>
-                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
-                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
-                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
-                </p>
-                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
-                    Return to Site
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>                      
-  
-
-   <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
-    <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            
-            <div class="space-y-6">
-                <div class="flex items-center gap-4">
-                    <a href="index.html" class="flex items-center gap-4 group">
-                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200 group-hover:scale-105 transition-transform">
-                        <span class="text-3xl font-heading font-black tracking-tighter italic group-hover:text-[#2D5A27] transition-colors">GEPaDC</span>
-                    </a>
-                </div>
-                <p class="text-gray-300 text-xs font-medium leading-relaxed max-w-xs">
-                    Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
-                </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-
-            <div>
-                <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Field Operations</h4>
-                <ul class="space-y-5 text-[10px] uppercase font-black tracking-widest">
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Borno State Office, Northeast Zone</span>
-                            <p class="text-gray-500 font-bold lowercase tracking-normal">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-dot text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Adamawa State Office, Northeast Zone </span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">Coper Lane, Zone 3, Jimeta, Yola, Adamawa State.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Kaduna State Office, Northwest Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">Sir Patrick Yakowa Street, Karji, Kaduna, Kaduna State</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Sokoto Office, Northwest Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">No 1 Abuja Road, GRA, Sokoto State.</p>
-                        </div>
-                    </li>                    
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Kebbi Office, Northwest Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">No.5 Behind Oando bypass, Brini Kebbi, Kebbi State.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Zamfara Office, Northeast Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">UBE, Lala International, Angwan Yerima, Gusau, Zamfara State.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-earth-africa text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Yobe Office, Northeast Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">Maisandari Beside Damaturu PHC, Yobe State. </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
-                <ul class="space-y-6">
-                    <li class="flex gap-4">
-                        <i class="fas fa-building text-[#2D5A27] text-lg"></i>
-                        <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
-                    </li>
-                    
-                    <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
-                        <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
-                        <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
-                            <i class="fas fa-headset text-xl text-[#2D5A27]"></i>
-                            <a href="tel:08000004000" class="hover:text-[#2D5A27] transition">08000004000</a>
-                        </div>
-                    </li>
-
-                    <li class="mt-4 p-4 bg-white/5 border-l-4 border-white/20 group hover:border-[#2D5A27] transition-all">
-                        <span class="text-[9px] font-black uppercase text-gray-500 tracking-[0.3em] block mb-2">Work With Us</span>
-                        <div class="flex items-center gap-3 text-xl font-black italic text-white tracking-tighter">
-                            <i class="fas fa-users text-lg group-hover:text-[#2D5A27] transition"></i>
-                            <a href="volunteer.html" class="uppercase hover:text-[#2D5A27] transition">Join The Mission</a>
-                        </div>
-                    </li>
-
-                    <li class="mt-4 p-4 bg-red-900/10 border-l-4 border-red-700">
-                        <span class="text-[9px] font-black uppercase text-red-700 tracking-[0.3em] block mb-2">Safeguarding Reporting</span>
-                        <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[10px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-6 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
-                <form class="relative mb-8">
-                    <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-4 px-6 text-[10px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
-                    <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-6 text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
-                </form>
-
-                <a href="media/pdf/newsletter-march-2026.pdf" target="_blank" class="block text-white font-black text-[11px] uppercase tracking-[0.4em] mb-10 border-l-4 border-[#2D5A27] pl-4 hover:text-[#2D5A27] transition">
-                    <i class="fas fa-download mr-2"></i> Download Latest Edition (PDF)
-                </a>
-
-                <div class="grid grid-cols-1 gap-4 text-[9px] text-gray-500 font-black uppercase tracking-[0.2em] pt-4 border-t border-white/10">
-                    <div class="flex justify-between border-b border-white/5 pb-2"><span>Registry</span> <span class="text-white">IT/39885</span></div>
-                    <div class="flex justify-between border-b border-white/5 pb-2"><span>Established</span> <span class="text-white">2008</span></div>
-                    <div class="flex justify-between"><span>DUNS No.</span> <span class="text-white">55-667-8892</span></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
-                <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
-                <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
-                <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
-            </div>
-            
-            <div class="flex items-center gap-5">
-                <div class="text-right">
-                    <p class="text-gray-500 text-[8px] uppercase font-black tracking-widest">Architected & Managed by</p>
-                    <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
-                </div>
-                <div class="w-12 h-12 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
-                    <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>  
     <script src="script.js"></script>
      <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
+        
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('main section[id]');
             const navLinks = document.querySelectorAll('.timeline-link');
@@ -499,6 +262,8 @@ el.innerHTML = data;
 
 loadComponent("topbar","topbar.html");
 loadComponent("header","header.html");
+loadComponent("donate","donate-modal.html");
+loadComponent("footer","footer.html");
 
 function toggleModal(){
 const modal = document.getElementById("donateModal");
@@ -544,9 +309,7 @@ setInterval(updateClock,1000);
 updateClock();
     </script>
 </body>
-
 </html>
-
 
 
 
