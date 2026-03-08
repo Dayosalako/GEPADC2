@@ -35,25 +35,24 @@
 
         .marquee-container:hover .marquee-item { color: rgba(45, 90, 39, 0.6); }
         .text-outline {
-    color: rgba(255, 255, 255, 0.05); /* Very slight fill so it's not 100% empty */
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8); /* Thickens the white line */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* Adds a shadow behind the letters */
-    transition: all 0.4s ease;
-}
+            color: rgba(255, 255, 255, 0.05); 
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8); 
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); 
+            transition: all 0.4s ease;
+        }
 
-/* On Mobile, we make it even more solid for readability */
-@media (max-width: 768px) {
-    .text-outline {
-        -webkit-text-stroke: 1px #ffffff;
-        color: rgba(255, 255, 255, 0.15); 
-    }
-}  
+        @media (max-width: 768px) {
+            .text-outline {
+                -webkit-text-stroke: 1px #ffffff;
+                color: rgba(255, 255, 255, 0.15); 
+            }
+        }  
         .nav-logo { height: 40px; width: auto; object-fit: contain; }
 
         .dropdown-item { 
             padding: 14px 20px; 
             display: block; 
-            font-size: 12px; /* Increased from 10px */
+            font-size: 12px; 
             color: #1a1a1a; 
             border-bottom: 1px solid #f3f4f6; 
             transition: all 0.3s; 
@@ -65,13 +64,12 @@
         .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.5s ease-in-out; background-size: cover; background-position: center; z-index: 5; }
         .slide.active { opacity: 1; }
         
-       .hero-overlay {
-    position: absolute;
-    inset: 0;
-    /* This makes the top/center light and the bottom slightly darker for text visibility */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
-    z-index: 10;
-}
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
+            z-index: 10;
+        }
         .pillar-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f3f4f6; }
         .pillar-card:hover { background-color: #f9fafb; border-color: var(--brand-green); transform: translateY(-5px); }
 
@@ -80,60 +78,48 @@
         .giving-input { border-color: #e5e7eb; transition: all 0.3s ease; }
         .giving-input:focus { border-color: #2D5A27; padding-left: 1rem; }
         .trust-badge { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        /* Optimized Mobile Typography & Spacing */
-@media (max-width: 768px) {
-    .hero-title { 
-        font-size: 3.5rem !important; /* Prevents text from being too small or breaking weirdly */
-        line-height: 1;
-    }
-    
-    section {
-        padding-top: 4rem !important;
-        padding-bottom: 4rem !important; /* Tighter spacing for mobile scrolling */
-    }
 
-    /* Fix for the 5-column grid on mobile */
-    .lg\:grid-cols-5 {
-        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-    }
-    
-    /* Ensure images don't look overly tall on mobile */
-    .h-\[500px\], .h-\[600px\] {
-        height: 350px !important;
-    }
+        @media (max-width: 768px) {
+            .hero-title { 
+                font-size: 3.5rem !important; 
+                line-height: 1;
+            }
+            section {
+                padding-top: 4rem !important;
+                padding-bottom: 4rem !important; 
+            }
+            .lg\:grid-cols-5 {
+                grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+            }
+            .h-\[500px\], .h-\[600px\] {
+                height: 350px !important;
+            }
+            .value-card, .group.p-8 {
+                padding: 1.5rem !important;
+            }
+        }
 
-    /* Better padding for the "Core Values" cards on touch screens */
-    .value-card, .group.p-8 {
-        padding: 1.5rem !important;
-    }
-}
+        @media (max-width: 1024px) {
+            #mobileNav.flex {
+                display: flex !important;
+                animation: slideIn 0.3s ease-out;
+            }
+        }
 
-@media (max-width: 1024px) {
-    #mobileNav.flex {
-        display: flex !important;
-        animation: slideIn 0.3s ease-out;
-    }
-}
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
 
-@keyframes slideIn {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-}
+        .no-scroll { overflow: hidden; }
 
-/* Prevents body scroll when menu is active */
-.no-scroll {
-    overflow: hidden;
-}
-
-        /* FIX: Updated selectors from 'header' to 'nav' to match your HTML */
         @media (max-width: 768px) {
             nav button[onclick="toggleModal()"] {
                 display: block !important;
                 padding: 8px 16px !important;
-                font-size: 10px !important; /* Increased for legibility */
+                font-size: 10px !important; 
                 letter-spacing: 0.1em !important;
             }
-
             nav .container {
                 padding-left: 1rem !important;
                 padding-right: 1rem !important;
@@ -141,36 +127,30 @@
         }
         
         @media (max-width: 768px) {
-    /* Adjusts the donate button to fit perfectly next to the logo on mobile */
-    header button[onclick="toggleModal()"] {
-        display: block !important; /* Forces it to stay visible if it was hidden */
-        padding: 8px 16px !important;
-        font-size: 8px !important;
-        letter-spacing: 0.1em !important;
-    }
-
-    /* Prevents the header from getting too tall on mobile */
-    header .container {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
-}
+            header button[onclick="toggleModal()"] {
+                display: block !important; 
+                padding: 8px 16px !important;
+                font-size: 8px !important;
+                letter-spacing: 0.1em !important;
+            }
+            header .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+        }
 
         html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-    position: relative;
-}
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-/* This targets the specific container to ensure it stays boxed */
-.container {
-    max-width: 100vw;
-    overflow-x: hidden;
-}
+        .container {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
     </style>
 </head>                                        
-  
-  
 
 <body>
     <div class="bg-gray-50 text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase border-b border-gray-100">
@@ -375,7 +355,6 @@
         </div>
     </section>
 
-    
 <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
     <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
         
@@ -420,7 +399,6 @@
         </div>
 
         <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
-            
             <div id="formContent">
                 <div class="mb-8 md:mb-10">
                     <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
@@ -472,7 +450,6 @@
                     Return to Site
                 </button>
             </div>
-
         </div>
     </div>
 </div>                      
@@ -552,51 +529,44 @@
     </div>
 </section>
 
-<section class="py-24 bg-[#f9fafb] border-y border-gray-100">
-    <div class="container mx-auto px-6 md:px-10">
-        
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Tracking Change</h2>
-            <h3 class="text-4xl md:text-5xl font-black italic uppercase font-heading text-black">Our Successes in Numbers</h3>
-            <div class="w-16 h-1 bg-[#2D5A27] mx-auto mt-6"></div>
-        </div>
-
-        <div class="grid grid-cols-2 lg:grid-cols-5 gap-10">
+    <section class="py-24 bg-[#f9fafb] border-y border-gray-100">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Tracking Change</h2>
+                <h3 class="text-4xl md:text-5xl font-black italic uppercase font-heading text-black">Our Successes in Numbers</h3>
+                <div class="w-16 h-1 bg-[#2D5A27] mx-auto mt-6"></div>
+            </div>
             
-            <div class="text-center" data-aos="zoom-in">
-                <i class="fas fa-users text-[#2D5A27] text-2xl mb-4"></i>
-                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="50000">0</span>+</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Beneficiaries Reached</p>
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-10">
+                <div class="text-center" data-aos="zoom-in">
+                    <i class="fas fa-users text-[#2D5A27] text-2xl mb-4"></i>
+                    <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="50000">0</span>+</h3>
+                    <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Beneficiaries Reached</p>
+                </div>
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-map-marked-alt text-[#2D5A27] text-2xl mb-4"></i>
+                    <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="120">0</span>+</h3>
+                    <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Communities Served</p>
+                </div>
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-briefcase text-[#2D5A27] text-2xl mb-4"></i>
+                    <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="35">0</span>+</h3>
+                    <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Projects Implemented</p>
+                </div>
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-handshake text-[#2D5A27] text-2xl mb-4"></i>
+                    <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="20">0</span>+</h3>
+                    <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Strategic Partners</p>
+                </div>
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
+                    <i class="fas fa-venus text-[#1e3a8a] text-2xl mb-4"></i>
+                    <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="60">0</span>%</h3>
+                    <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Women & Girls</p>
+                </div>
             </div>
-
-            <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
-                <i class="fas fa-map-marked-alt text-[#2D5A27] text-2xl mb-4"></i>
-                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="120">0</span>+</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Communities Served</p>
-            </div>
-
-            <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
-                <i class="fas fa-briefcase text-[#2D5A27] text-2xl mb-4"></i>
-                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="35">0</span>+</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Projects Implemented</p>
-            </div>
-
-            <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
-                <i class="fas fa-handshake text-[#2D5A27] text-2xl mb-4"></i>
-                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="20">0</span>+</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Strategic Partners</p>
-            </div>
-
-            <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
-                <i class="fas fa-venus text-[#1e3a8a] text-2xl mb-4"></i>
-                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="60">0</span>%</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Women & Girls</p>
-            </div>
-
         </div>
-    </div>
-</section>
-   
+    </section>
+
     <section class="py-24 bg-white border-b border-gray-100">
         <div class="container mx-auto px-6 md:px-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -610,262 +580,42 @@
                         <a href="strategy.html" class="inline-block border-b-2 border-black pb-1 text-[10px] font-black uppercase tracking-widest hover:text-[#2D5A27] transition">View Strategy 2030</a>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-100 border border-gray-100 shadow-2xl">
-                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up">
-                        <i class="fas fa-shield-halved text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Humanitarian Response</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
-                            Emergency GBV response and legal aid for conflict-affected populations in Northeast Nigeria.
-                        </p>
-                        <a href="protection.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="pillar-card p-8 bg-white group" data-aos="fade-up">
+                        <i class="fas fa-shield-alt text-[#2D5A27] text-xl mb-4"></i>
+                        <h4 class="font-black uppercase text-xs tracking-widest mb-2">Protection & Rights</h4>
+                        <p class="text-[10px] text-gray-400 leading-relaxed uppercase font-bold">GBV Response, Child Protection, and Human Rights advocacy.</p>
                     </div>
-
-                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-users-gear text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Economic Livelihood</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
-                            Food security, vocational training, and early recovery for women and youth.
-                        </p>
-                        <a href="empowerment.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
+                    <div class="pillar-card p-8 bg-white group" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-seedling text-[#2D5A27] text-xl mb-4"></i>
+                        <h4 class="font-black uppercase text-xs tracking-widest mb-2">Climate & WASH</h4>
+                        <p class="text-[10px] text-gray-400 leading-relaxed uppercase font-bold">Sustainable water access and climate resilience programs.</p>
                     </div>
-
-                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-scale-balanced text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Rights & Education</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
-                            Protecting the rights of women and children through policy reform and educational access.
-                        </p>
-                        <a href="rights.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
+                    <div class="pillar-card p-8 bg-white group" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-chart-line text-[#2D5A27] text-xl mb-4"></i>
+                        <h4 class="font-black uppercase text-xs tracking-widest mb-2">Livelihoods</h4>
+                        <p class="text-[10px] text-gray-400 leading-relaxed uppercase font-bold">Economic empowerment and vocational skills training.</p>
                     </div>
-
-                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fas fa-leaf text-[#2D5A27] text-3xl mb-6"></i>
-                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Climate Action</h4>
-                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
-                            Building climate resilience and sustainable agricultural practices in vulnerable communities.
-                        </p>
-                        <a href="climate.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
+                    <div class="pillar-card p-8 bg-white group" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-dove text-[#2D5A27] text-xl mb-4"></i>
+                        <h4 class="font-black uppercase text-xs tracking-widest mb-2">Peacebuilding</h4>
+                        <p class="text-[10px] text-gray-400 leading-relaxed uppercase font-bold">Conflict resolution and community social cohesion.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-10 border-t border-gray-100 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div>
-                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">News & Field Updates</span>
-                    <h2 class="text-5xl md:text-7xl font-heading font-black italic uppercase leading-none text-black">Recent.</h2>
-                </div>
-                <a href="archive.html" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-[#2D5A27] pb-2 hover:text-[#2D5A27] transition">View All News</a>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[700px]">
-                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden bg-gray-100 shadow-md">
-                    <img src="media/photos/IMG_8631.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-10 flex flex-col justify-end">
-                        <span class="bg-[#2D5A27] text-white text-[8px] font-black uppercase px-3 py-1 w-max mb-4">Emergency Response</span>
-                        <h3 class="text-3xl font-heading font-black italic uppercase mb-4 text-white">2024 Northeastern <br>Flood Relief</h3>
-                        <p class="text-gray-200 text-xs leading-relaxed max-w-sm mb-6">Strategic deployment of WASH and Protection kits to displaced populations in Borno State.</p>
-                        <a href="archive.html" class="text-[9px] font-black text-white uppercase tracking-widest flex items-center gap-2">Read Mission Report <i class="fas fa-arrow-right text-[#2D5A27]"></i></a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-2 relative group overflow-hidden">
-                    <img src="media/photos/IMG_8652.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all">
-                    <div class="absolute inset-0 p-8 flex flex-col justify-end bg-black/40">
-                        <h4 class="text-xl font-heading font-black italic uppercase text-white">Safe Space Initiatives</h4>
-                    </div>
-                </div>
-                <div class="md:col-span-1 relative group overflow-hidden">
-                    <img src="media/photos/IMG_8656.jpg" class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end bg-black/40">
-                        <h4 class="text-sm font-heading font-black italic uppercase text-white">Gatekeeper Training</h4>
-                    </div>
-                </div>
-                <div class="md:col-span-1 relative group overflow-hidden">
-                    <img src="media/photos/IMG_6897.jpg" class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end bg-black/40">
-                        <h4 class="text-sm font-heading font-black italic uppercase text-white">Site Monitoring</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white border-t border-gray-100">
-        <div class="container mx-auto px-6 md:px-10">
-            <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
-                <div>
-                    <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Operational Pulse</h2>
-                    <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black">Field <br> Perspectives</h3>
-                </div>
-                <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">Real-time updates from our protection missions across Nigeria.</p>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="group relative overflow-hidden aspect-square border border-gray-100">
-                    <img src="media/photos/IMG_7622.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <a href="https://www.instagram.com/gepadc/" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-                        <i class="fab fa-instagram text-2xl mb-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest">Instagram</span>
-                    </a>
-                </div>
-                <div class="group relative overflow-hidden aspect-[4/5] md:row-span-2 border border-gray-100">
-                    <img src="media/photos/IMG_7590.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-                        <i class="fab fa-facebook-f text-2xl mb-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest">Facebook</span>
-                    </a>
-                </div>
-                <div class="group relative overflow-hidden aspect-video md:col-span-2 border border-gray-100">
-                    <img src="media/photos/IMG_8661.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <a href="https://www.youtube.com/@gepadc370" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-                        <i class="fab fa-youtube text-2xl mb-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest">YouTube</span>
-                    </a>
-                </div>
-                <div class="group relative overflow-hidden aspect-square border border-gray-100">
-                    <img src="media/photos/GEPADC (1).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <a href="https://twitter.com/GEPaDC" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-                        <i class="fab fa-x-twitter text-2xl mb-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest">X updates</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-<section class="py-24 bg-[#f8f9fa]"> <div class="container mx-auto px-6 md:px-10">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 text-center" data-aos="fade-up">
-                <p class="text-black font-bold uppercase tracking-[0.2em] text-[10px] mb-2">Gender Equality Peace and Development Centre</p>
-                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Field Documentation</h2>
-                <h3 class="text-black text-4xl font-black italic uppercase font-heading">Impact in Motion</h3>
-            </div>
-            
-            <div class="relative aspect-video shadow-2xl border border-gray-200 bg-black" data-aos="zoom-in">
-                <video controls poster="media/photos/IMG_8641.jpg" class="w-full h-full" playsinline>
-                    <source src="media/video1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-    </div>
-</section>
-
-   <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
-    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
-        
-        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
-            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
-                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
-            </div>
-
-            <div class="relative z-10">
-                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-                    <i class="fas fa-arrow-left"></i> Back to Site
-                </button>
-                
-                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
-                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
-                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
-                </p>
-
-                <div class="space-y-4 md:space-y-8">
-                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
-                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
-                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
-                        
-                        <div class="flex items-center gap-3">
-                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
-                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
-                                <i class="fas fa-copy text-xs"></i>
-                            </button>
-                        </div>
-                        
-                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
-                <div class="flex items-center gap-4">
-                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
-                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
-            
-            <div id="formContent">
-                <div class="mb-8 md:mb-10">
-                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
-                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
-                </div>
-
-                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
-                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
-                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
-                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
-                            <option>General Support</option>
-                            <option>Protection Missions (GBV)</option>
-                            <option>WASH Initiatives</option>
-                            <option>Economic Empowerment</option>
-                        </select>
-                    </div>
-
-                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
-                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
-                            Confirm Support
-                        </button>
-                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div id="successContent" class="hidden text-center">
-                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
-                    <i class="fas fa-check text-3xl"></i>
-                </div>
-                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
-                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
-                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
-                </p>
-                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
-                    Return to Site
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>                      
-  
-
-  <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
+   <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             
             <div class="space-y-6">
                 <div class="flex items-center gap-4">
-                    <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
-                    <span class="text-3xl font-heading font-black tracking-tighter italic">GEPaDC</span>
+                    <a href="index.html" class="flex items-center gap-4 group">
+                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200 group-hover:scale-105 transition-transform">
+                        <span class="text-3xl font-heading font-black tracking-tighter italic group-hover:text-[#2D5A27] transition-colors">GEPaDC</span>
+                    </a>
                 </div>
                 <p class="text-gray-300 text-xs font-medium leading-relaxed max-w-xs">
                     Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
@@ -940,22 +690,23 @@
                         <i class="fas fa-building text-[#2D5A27] text-lg"></i>
                         <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
                     </li>
-                    <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">                                        
-                     <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
+                    
+                    <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+                        <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
                         <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
-                            <i class="fas fa-headset text-xl"></i>
-                            <span>08000004000</span>
+                            <i class="fas fa-headset text-xl text-[#2D5A27]"></i>
+                            <a href="tel:08000004000" class="hover:text-[#2D5A27] transition">08000004000</a>
                         </div>
                     </li>
-                     
-                   <li class="mt-4 p-4 bg-white/5 border-l-4 border-white/20 group hover:border-[#2D5A27] transition-all">
-    <span class="text-[9px] font-black uppercase text-gray-500 tracking-[0.3em] block mb-2">Work With Us</span>
-    <div class="flex items-center gap-3 text-xl font-black italic text-white tracking-tighter">
-        <i class="fas fa-users text-lg group-hover:text-[#2D5A27] transition"></i>
-        <a href="volunteer.html" class="uppercase hover:text-[#2D5A27] transition">Join The Mission</a>
-    </div>
-</li>
-                    
+
+                    <li class="mt-4 p-4 bg-white/5 border-l-4 border-white/20 group hover:border-[#2D5A27] transition-all">
+                        <span class="text-[9px] font-black uppercase text-gray-500 tracking-[0.3em] block mb-2">Work With Us</span>
+                        <div class="flex items-center gap-3 text-xl font-black italic text-white tracking-tighter">
+                            <i class="fas fa-users text-lg group-hover:text-[#2D5A27] transition"></i>
+                            <a href="volunteer.html" class="uppercase hover:text-[#2D5A27] transition">Join The Mission</a>
+                        </div>
+                    </li>
+
                     <li class="mt-4 p-4 bg-red-900/10 border-l-4 border-red-700">
                         <span class="text-[9px] font-black uppercase text-red-700 tracking-[0.3em] block mb-2">Safeguarding Reporting</span>
                         <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[10px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
@@ -980,8 +731,9 @@
                     <div class="flex justify-between"><span>DUNS No.</span> <span class="text-white">55-667-8892</span></div>
                 </div>
             </div>
-        </div> <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-            
+        </div>
+
+        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
                 <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
                 <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
@@ -990,250 +742,131 @@
             
             <div class="flex items-center gap-5">
                 <div class="text-right">
-                    <p class="text-gray-500 text-[8px] uppercase font-black tracking-widest">Designed & Managed by</p>
+                    <p class="text-gray-500 text-[8px] uppercase font-black tracking-widest">Architected & Managed by</p>
                     <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
                 </div>
-                <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+                <div class="w-12 h-12 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
                     <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
                 </div>
             </div>
         </div>
-        </div>
-</footer>                   
-  
+    </div>
+</footer>  
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-       AOS.init({
-    duration: 1000,
-    once: true,
-    disable: 'mobile' // Option A: Disable animations on mobile for speed
-    // OR
-    // startEvent: 'DOMContentLoaded' // Option B: Forces calculation earlier
-});                                        
-  
+        AOS.init({ duration: 1000, once: true });
 
-        // LIVE TIME
+        // 1. NAVIGATION & MODAL LOGIC
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            const icon = document.getElementById('navIcon');
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
+            document.body.classList.toggle('no-scroll');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
+
+        function toggleModal() {
+            const modal = document.getElementById('donateModal');
+            modal.classList.toggle('hidden');
+            document.body.classList.toggle('no-scroll');
+        }
+
+        // 2. TABS LOGIC
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.add("hidden");
+                tabcontent[i].classList.remove("block");
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("tab-active", "text-black");
+                tablinks[i].classList.add("text-gray-400", "border-transparent");
+            }
+            document.getElementById(tabName).classList.remove("hidden");
+            document.getElementById(tabName).classList.add("block");
+            evt.currentTarget.classList.add("tab-active", "text-black");
+            evt.currentTarget.classList.remove("text-gray-400", "border-transparent");
+        }
+
+        // 3. LIVE CLOCK & DATE
         function updateClock() {
             const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-US', options);
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-US', { hour12: false }) + ' WAT';
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-US', dateOptions);
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-US', timeOptions) + ' WAT';
         }
         setInterval(updateClock, 1000);
         updateClock();
 
-        // HERO SLIDESHOW
-        const slides = [
-            'media/photos/IMG_8641.jpg', 'media/photos/IMG_6927.jpg', 
-            'media/photos/main 1.jpeg', 'media/photos/Mainpics (5).jpeg'
-        ];
-        const container = document.getElementById('hero-slideshow');
-        let currentSlide = 0;
-        slides.forEach((src, index) => {
-            const div = document.createElement('div');
-            div.className = `slide ${index === 0 ? 'active' : ''}`;
-            div.style.backgroundImage = `url('${src}')`;
-            container.appendChild(div);
-        });
-        const slideElements = document.querySelectorAll('.slide');
-        setInterval(() => {
-            slideElements[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slideElements.length;
-            slideElements[currentSlide].classList.add('active');
-        }, 5000);
+        // 4. COUNTER ANIMATION
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
 
-       
-     
-    // Update Icon
-    if (mobileNav.classList.contains('flex')) {
-        navIcon.className = "fas fa-times";
-    } else {
-        navIcon.className = "fas fa-bars";
-    }
-}
-
-        function toggleModal() { 
-            document.getElementById('donateModal').classList.toggle('hidden'); 
-        }
-
-        // COUNTER
-        const startCounters = () => {
-            document.querySelectorAll('.counter').forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                let count = 0;
-                const totalFrames = 150; 
-                const increment = target / totalFrames;
-                const update = () => {
-                    if(count < target) {
-                        count += increment;
-                        counter.innerText = Math.ceil(count);
-                        setTimeout(update, 35);
-                    } else { counter.innerText = target; }
-                };
-                update();
+        const startCounters = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 1);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(counter);
+                }
             });
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    startCounters();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.counter').forEach(c => observer.observe(c));
+        const counterObserver = new IntersectionObserver(startCounters, { threshold: 0.5 });
+        counters.forEach(counter => counterObserver.observe(counter));
 
-    // 1. Toggle Modal Visibility & Reset State
-    function toggleModal() {
-        const modal = document.getElementById('donateModal');
-        const formContent = document.getElementById('formContent');
-        const successContent = document.getElementById('successContent');
-        const donorForm = document.getElementById('donorForm');
-
-        modal.classList.toggle('hidden');
-
-        // Reset the form if the modal is being closed
-        if (modal.classList.contains('hidden')) {
+        // 5. CLIPBOARD & DONATION FORM
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            const btn = document.getElementById('copyBtn');
+            btn.innerHTML = '<i class="fas fa-check text-xs text-white"></i>';
             setTimeout(() => {
-                formContent.classList.remove('hidden');
-                successContent.classList.add('hidden');
-                donorForm.reset();
-            }, 400); // Wait for transition if any
-        }
-    }
-
-    // 2. Handle Form Submission (Transition to Success)
-    function handleDonation(event) {
-        event.preventDefault(); // Stop page refresh
-        
-        const formContent = document.getElementById('formContent');
-        const successContent = document.getElementById('successContent');
-
-        // Smoothly swap content
-        formContent.classList.add('hidden');
-        successContent.classList.remove('hidden');
-    }
-
-    // 3. Copy Account Number to Clipboard
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            const copyBtn = document.getElementById('copyBtn');
-            const originalIcon = copyBtn.innerHTML;
-            
-            // Visual Feedback
-            copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
-            copyBtn.classList.replace('text-white/40', 'text-white');
-            
-            setTimeout(() => {
-                copyBtn.innerHTML = originalIcon;
-                copyBtn.classList.replace('text-white', 'text-white/40');
+                btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
             }, 2000);
-        });
-    }
-
-    // SINGLE SOURCE OF TRUTH FOR MOBILE NAV
-function                    
-   toggleMobileNav() {
-    const mobileNav = document.getElementById('mobileNav');
-    const navIcon = document.getElementById('navIcon');
-    const body = document.body;
-    
-    if (mobileNav.classList.contains('hidden')) {
-        mobileNav.classList.remove('hidden');
-        mobileNav.classList.add('flex');
-        navIcon.className = "fas fa-times";
-        body.style.overflow = "hidden"; // Prevent background scroll
-    } else {
-        mobileNav.classList.add('hidden');
-        mobileNav.classList.remove('flex');
-        navIcon.className = "fas fa-bars";
-        body.style.overflow = "auto"; // Re-enable scroll
-    }
-}
-    // 1. TABS LOGIC (Vision, Mission, Values)
-    function openTab(evt, tabName) {
-        const tabcontents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < tabcontents.length; i++) {
-            tabcontents[i].classList.add("hidden");
-            tabcontents[i].classList.remove("block");
         }
 
-        const tablinks = document.getElementsByClassName("tab-link");
-        for (let i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("tab-active", "border-[#2D5A27]", "text-black");
-            tablinks[i].classList.add("border-transparent", "text-gray-400");
+        function handleDonation(e) {
+            e.preventDefault();
+            document.getElementById('formContent').classList.add('hidden');
+            document.getElementById('successContent').classList.remove('hidden');
         }
 
-        const activeTab = document.getElementById(tabName);
-        if (activeTab) {
-            activeTab.classList.remove("hidden");
-            activeTab.classList.add("block");
-        }
-
-        evt.currentTarget.classList.add("tab-active", "border-[#2D5A27]", "text-black");
-        evt.currentTarget.classList.remove("border-transparent", "text-gray-400");
-    }
-
-    // 2. PEACE DAY SLIDER LOGIC (One at a time with buttons)
-    const slider = document.getElementById('peace-slider');
-    const dots = document.querySelectorAll('.dot');
-
-    function moveSlider(direction) {
-        if (!slider) return;
-        const slideWidth = slider.clientWidth;
+        // 6. HERO SLIDESHOW
+        const slideImages = ['media/photos/IMG_8641.jpg', 'media/photos/IMG_6927.jpg', 'media/photos/main 1.jpeg'];
+        const slideshowContainer = document.getElementById('hero-slideshow');
         
-        if (direction === 'next') {
-            if (slider.scrollLeft + slideWidth >= slider.scrollWidth - 5) {
-                slider.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
-            }
-        } else {
-            if (slider.scrollLeft <= 5) {
-                slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' });
-            } else {
-                slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
-            }
-        }
-        // Small delay to allow scroll to finish before updating dots
-        setTimeout(updateDots, 500);
-    }
-
-    function updateDots() {
-        if (!slider || dots.length === 0) return;
-        const index = Math.round(slider.scrollLeft / slider.clientWidth);
-        dots.forEach((dot, i) => {
-            if (i === index) {
-                dot.classList.add('w-8', 'bg-[#2D5A27]');
-                dot.classList.remove('w-2', 'bg-gray-300');
-            } else {
-                dot.classList.add('w-2', 'bg-gray-300');
-                dot.classList.remove('w-8', 'bg-[#2D5A27]');
-            }
+        slideImages.forEach((img, idx) => {
+            const div = document.createElement('div');
+            div.className = `slide ${idx === 0 ? 'active' : ''}`;
+            div.style.backgroundImage = `url('${img}')`;
+            slideshowContainer.appendChild(div);
         });
-    }
 
-    // 3. AUTO-SLIDE & INTERACTION
-    if (slider) {
-        let autoSlide = setInterval(() => moveSlider('next'), 5000);
-
-        // Stop auto-slide when user touches the slider
-        slider.addEventListener('touchstart', () => {
-            clearInterval(autoSlide);
-        }, {passive: true});
-        
-        // Update dots if user swipes manually
-        slider.addEventListener('scroll', () => {
-            updateDots();
-        }, {passive: true});
-    }
+        let currentSlide = 0;
+        const allSlides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            allSlides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % allSlides.length;
+            allSlides[currentSlide].classList.add('active');
+        }, 5000);
     </script>
 </body>
 </html>
-
-
-
-
-
