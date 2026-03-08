@@ -26,44 +26,8 @@
 </head>
 <body>
 
-    <div class="bg-white text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase border-b border-gray-100">
-        <div id="liveDate"></div>
-        <div class="flex gap-4">
-            <span class="text-[#2D5A27]">Registry: CAC/IT/39885</span>
-            <span id="liveTime"></span>
-        </div>
-    </div>
-
-    <nav class="flex justify-between items-center py-4 px-6 md:px-10 sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
-        <div class="flex items-center gap-3">
-            <img src="logo.png" alt="Logo" class="h-10 w-auto">
-            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic">GEPaDC</div>
-        </div>
-
-        <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-            <a href="index.html" class="hover:text-[#2D5A27] transition">Home</a>
-            <div class="dropdown relative">
-                <button class="hover:text-[#2D5A27] transition flex items-center gap-1 uppercase">Mission <i class="fas fa-chevron-down text-[8px]"></i></button>
-                <div class="dropdown-menu">
-                    <a href="about.html" class="dropdown-item">Who We Are</a>
-                    <a href="team.html" class="dropdown-item">Leadership</a>
-                    <a href="strategy.html" class="dropdown-item">Strategy 2030</a>
-                </div>
-            </div>
-            <div class="dropdown relative">
-                <button class="hover:text-[#2D5A27] transition flex items-center gap-1 uppercase">Impact <i class="fas fa-chevron-down text-[8px]"></i></button>
-                <div class="dropdown-menu">
-                    <a href="protection.html" class="dropdown-item">Protection & WASH</a>
-                    <a href="peacebuilding.html" class="dropdown-item">Peace & Security</a>
-                    <a href="empowerment.html" class="dropdown-item">Economic Empowerment</a>
-                </div>
-            </div>
-            <a href="volunteer.html" class="hover:text-[#2D5A27] transition uppercase">Join</a>
-            <a href="contact.html" class="text-[#2D5A27] uppercase">HQ</a>
-        </div>
-
-        <button class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic shadow-lg hover:bg-black transition">Donate</button>
-    </nav>
+    <div id="topbar"></div>
+    <div id="header"></div>
 
     <section class="py-24 container mx-auto px-6 md:px-10">
         <div class="grid lg:grid-cols-2 gap-20">
@@ -166,128 +130,77 @@
     </div>
 
                         
- <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                
-                <div class="space-y-6">
-                    <div class="flex items-center gap-4">
-                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
-                        <span class="text-3xl font-heading font-black tracking-tighter italic">GEPaDC</span>
-                    </div>
-                    <p class="text-gray-300 text-xs font-medium leading-relaxed max-w-xs">
-                        Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
-                    </p>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Field Operations</h4>
-                    <ul class="space-y-5 text-[10px] uppercase font-black tracking-widest">
-                        <li class="flex gap-4 group">
-                            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                            <div>
-                                <span class="text-white block">Borno State (Field HQ)</span>
-                                <p class="text-gray-500 font-bold lowercase tracking-normal">No 7 Nguru Street Polo close, Old GRA Maiduguri</p>
-                            </div>
-                        </li>
-                        <li class="flex gap-4 group">
-                            <i class="fas fa-location-dot text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                            <div>
-                                <span class="text-white block">Adamawa State</span>
-                                <p class="text-gray-400 font-bold lowercase tracking-normal">Coper Lane, Zone 3, Jimeta, Yola</p>
-                            </div>
-                        </li>
-                        <li class="flex gap-4 group">
-                            <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                            <div>
-                                <span class="text-white block">Kaduna / Sokoto</span>
-                                <p class="text-gray-400 font-bold lowercase tracking-normal">Sir Patrick Yakowa St. • No 1 Abuja Road, GRA</p>
-                            </div>
-                        </li>
-                        <li class="flex gap-4 group">
-                            <i class="fas fa-earth-africa text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                            <div>
-                                <span class="text-white block">Yobe State</span>
-                                <p class="text-gray-400 font-bold lowercase tracking-normal">Maisandari Beside Damaturu PHC</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
-                    <ul class="space-y-6">
-                        <li class="flex gap-4">
-                            <i class="fas fa-building text-[#2D5A27] text-lg"></i>
-                            <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <i class="fas fa-envelope-open-text text-[#2D5A27] text-lg"></i>
-                            <span class="text-white font-black text-xs lowercase">institutional.response@gepadc.org</span>
-                        </li>
-                        <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
-                            <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
-                            <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
-                                <i class="fas fa-headset text-xl"></i>
-                                <span>0800-GEPADC-HQ</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
-                    <form class="relative mb-8">
-                        <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-4 px-6 text-[10px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
-                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-6 text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
-                    </form>
-                    <div class="grid grid-cols-1 gap-2 text-[9px] text-gray-500 font-black uppercase tracking-[0.2em]">
-                        <div class="flex justify-between border-b border-white/5 pb-2"><span>Registry</span> <span class="text-white">IT/39885</span></div>
-                        <div class="flex justify-between border-b border-white/5 pb-2"><span>Established</span> <span class="text-white">2008</span></div>
-                        <div class="flex justify-between"><span>DUNS No.</span> <span class="text-white">55-667-8892</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
-                    <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
-                    <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
-                    <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>                    
-                </div>
-                
-                <div class="flex items-center gap-5">
-                    <div class="text-right">
-                        <p class="text-gray-500 text-[8px] uppercase font-black tracking-widest">Architected & Managed by</p>
-                        <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
-                    </div>
-                    <div class="w-12 h-12 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
-                        <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div id="donate"></div>
+    <div id="footer"></div>
                    
   
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
-        function updateTime() {
-            const now = new Date();
-            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false });
-        }
-        setInterval(updateTime, 1000); updateTime();
+       
+    function toggleModal(){
+const modal = document.getElementById("donateModal");
+modal.classList.toggle("hidden");
+}
+
+function toggleMobileNav(){
+const nav = document.getElementById("mobileNav");
+nav.classList.toggle("hidden");
+document.body.classList.toggle("no-scroll");
+}
+
+function copyToClipboard(text){
+navigator.clipboard.writeText(text);
+
+const btn = document.getElementById("copyBtn");
+btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+
+setTimeout(()=>{
+btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+},2000);
+}
+
+AOS.init();
+function updateClock(){
+const now = new Date();
+
+const dateEl = document.getElementById("liveDate");
+const timeEl = document.getElementById("liveTime");
+
+if(dateEl && timeEl){
+dateEl.innerHTML =
+now.toLocaleDateString("en-US", {weekday:"long",year:"numeric",month:"long",day:"numeric"});
+
+timeEl.innerHTML =
+now.toLocaleTimeString();
+}
+}
+setInterval(updateClock,1000);
+updateClock();
+
+function loadComponent(id, file){
+fetch(file)
+.then(res => {
+if(!res.ok){
+throw new Error("Failed to load " + file);
+}
+return res.text();
+})
+.then(data => {
+const el = document.getElementById(id);
+if(el){
+el.innerHTML = data;
+}
+})
+.catch(err => console.error(err));
+}
+
+loadComponent("topbar","topbar.html");
+loadComponent("header","header.html");
+loadComponent("footer","footer.html");
+loadComponent("donate","donate-modal.html");
+
     </script>
 </body>
 </html>
-
 
 
