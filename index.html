@@ -49,30 +49,68 @@
     }
 }  
         .nav-logo { height: 40px; width: auto; object-fit: contain; }
+/* 1. DROPDOWNS: Static Header Style */
+.dropdown-menu { 
+    display: none; 
+    position: absolute; 
+    /* top: 100% ensures it starts exactly at the bottom of the nav bar */
+    top: 100%; 
+    left: 0; 
+    background: white; 
+    min-width: 260px; 
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+    border-top: 3px solid var(--brand-green); 
+    /* High z-index to overlay on top of the hero slider */
+    z-index: 150; 
+}
 
-        .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu { 
-            display: none; position: absolute; top: 100%; left: 0; 
-            background: white; min-width: 260px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
-            border-top: 3px solid var(--brand-green); z-index: 50; 
-        }
-        .dropdown-item { 
-            padding: 14px 20px; display: block; font-size: 10px; color: #1a1a1a; 
-            border-bottom: 1px solid #f3f4f6; transition: all 0.3s; 
-            text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; 
-        }
-        .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
+/* Show menu when hovering over the parent container */
+.dropdown:hover .dropdown-menu { 
+    display: block; 
+}
 
-        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.5s ease-in-out; background-size: cover; background-position: center; z-index: 5; }
-        .slide.active { opacity: 1; }
-        
-       .hero-overlay {
+.dropdown-item { 
+    padding: 14px 20px; 
+    display: block; 
+    font-size: 10px; 
+    color: #1a1a1a; 
+    border-bottom: 1px solid #f3f4f6; 
+    transition: all 0.3s; 
+    text-transform: uppercase; 
+    font-weight: 900; 
+    letter-spacing: 0.2em; 
+}
+
+.dropdown-item:hover { 
+    background: #f9fafb; 
+    color: var(--brand-green); 
+    padding-left: 28px; 
+}
+
+/* 2. HERO SLIDER */
+.slide { 
+    position: absolute; 
+    inset: 0; 
+    opacity: 0; 
+    transition: opacity 1.5s ease-in-out; 
+    background-size: cover; 
+    background-position: center; 
+    /* Lower z-index so dropdowns float over it */
+    z-index: 5; 
+}
+
+.slide.active { 
+    opacity: 1; 
+}
+
+.hero-overlay {
     position: absolute;
     inset: 0;
-    /* This makes the top/center light and the bottom slightly darker for text visibility */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
+    /* Improved gradient for better text readability over images */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
     z-index: 10;
-}
+}                    
+  
         .pillar-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f3f4f6; }
         .pillar-card:hover { background-color: #f9fafb; border-color: var(--brand-green); transform: translateY(-5px); }
 
@@ -1236,6 +1274,7 @@
 </script>  
 </body>
 </html>
+
 
 
 
