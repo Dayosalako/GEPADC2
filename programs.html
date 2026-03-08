@@ -489,15 +489,16 @@ throw new Error("Could not load " + file);
 return res.text();
 })
 .then(data => {
-document.getElementById(id).innerHTML = data;
+const el = document.getElementById(id);
+if(el){
+el.innerHTML = data;
+}
 })
 .catch(err => console.error(err));
 }
 
 loadComponent("topbar","topbar.html");
 loadComponent("header","header.html");
-loadComponent("footer","footer.html");
-loadComponent("donate","donate-modal.html");
 
 function toggleModal(){
 const modal = document.getElementById("donateModal");
@@ -545,6 +546,7 @@ updateClock();
 </body>
 
 </html>
+
 
 
 
