@@ -35,6 +35,11 @@
         .team-card { position: relative; overflow: hidden; filter: grayscale(100%); transition: all 0.5s ease; border: 1px solid rgba(255,255,255,0.1); }
         .team-card:hover { filter: grayscale(0%); border-color: var(--brand-green); }
         .team-info { background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
+    
+    .text-outline-dark {
+        color: transparent;
+        -webkit-text-stroke: 1.5px #000;
+    }
     </style>
 </head>
 <body>
@@ -78,18 +83,25 @@
         <button onclick="toggleModal()" class="px-6 py-2 bg-[#2D5A27] text-white font-black text-[10px] uppercase italic">Donate</button>
     </nav>
 
-    <section class="py-24 bg-[#0a0a0a] border-b border-white/5">
-        <div class="container mx-auto px-6 md:px-10">
-            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4" data-aos="fade-right">Governance</h2>
-            <h1 class="hero-title font-black italic uppercase font-heading mb-12" data-aos="fade-up">
-                Our <br> <span class="text-outline">Board &</span> <br> <span class="text-white">Leadership.</span>
-            </h1>
-            <p class="text-gray-400 text-lg max-w-2xl leading-relaxed font-light" data-aos="fade-up" data-aos-delay="100">
-                Driven by a commitment to transparency and accountability, our board oversees GEPaDC’s mission to ensure gender equality and protection for all. [cite: 20-22]
-            </p>
-        </div>
-    </section>
+    <section class="py-24 bg-white border-b border-gray-100 relative overflow-hidden group">
+    
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10"></div>
+        <img src="media/photo/IMG_8897.jpg" alt="Governance Leadership" class="w-full h-full object-cover grayscale opacity-10 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000 transform group-hover:scale-105">
+    </div>
 
+    <div class="container mx-auto px-6 md:px-10 relative z-20">
+        <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4" data-aos="fade-right">GovernanceBlueprint</h2>
+        
+        <h1 class="hero-title font-black italic uppercase font-heading mb-12 text-black" data-aos="fade-up">
+            Our <br> <span class="text-outline-dark">Board &</span> <br> <span class="text-black">Leadership.</span>
+        </h1>
+        
+        <p class="text-gray-600 text-lg max-w-2xl leading-relaxed font-light" data-aos="fade-up" data-aos-delay="100">
+            Driven by a commitment to transparency and accountability, our board oversees GEPaDC’s mission to ensure gender equality and protection for all.
+        </p>
+    </div>
+</section>
     <section class="py-24 bg-white text-black">
         <div class="container mx-auto px-6 md:px-10">
             <div class="mb-16">
