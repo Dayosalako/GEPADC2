@@ -121,11 +121,6 @@
     to { transform: translateX(0); }
 }
 
-/* Prevents body scroll when menu is active */
-.no-scroll {
-    overflow: hidden;
-}
-
         @media (max-width: 768px) {
     /* Adjusts the donate button to fit perfectly next to the logo on mobile */
     header button[onclick="toggleModal()"] {
@@ -1112,9 +1107,7 @@
     mobileNav.classList.toggle('hidden');
     mobileNav.classList.toggle('flex');
     
-    // Toggle body scroll
-    document.body.classList.toggle('no-scroll');
-    
+     
     // Update Icon
     if (mobileNav.classList.contains('flex')) {
         navIcon.className = "fas fa-times";
@@ -1211,9 +1204,7 @@
         mobileNav.classList.toggle('flex');
         navIcon.className = mobileNav.classList.contains('hidden') ? "fas fa-bars" : "fas fa-times";
         
-        // Prevent body scroll when menu is open
-        document.body.style.overflow = mobileNav.classList.contains('hidden') ? 'auto' : 'hidden';
-    }
+      
         const gallery = document.getElementById('swipe-gallery');
 
     // 1. TABS LOGIC (Vision, Mission, Values)
@@ -1296,5 +1287,6 @@
     </script>
 </body>
 </html>
+
 
 
