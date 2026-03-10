@@ -29,38 +29,15 @@
 </head>
 <body>
 
-    <div class="bg-gray-50 text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase border-b border-gray-100">
-        <div id="liveDate">Loading Date...</div>
-        <div class="flex gap-4">
-            <span class="text-[#2D5A27] animate-pulse">● HQ Status: Operational</span>
-            <span id="liveTime">00:00:00 WAT</span>
-        </div>
-    </div>
-
-    <nav class="flex justify-between items-center py-5 px-6 md:px-10 sticky top-0 bg-white/90 backdrop-blur-md shadow-sm z-[100] border-b border-gray-100">
-        <div class="flex items-center gap-3">
-            <img src="logo.png" alt="GEPaDC Logo" class="h-10 md:h-12 w-auto object-contain">
-            <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter italic font-black">GEPaDC</div>
-        </div>
-
-        <div class="hidden lg:flex space-x-8 font-bold text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]">
-            <a href="index.html" class="hover:text-[#2D5A27]">Home</a>
-            <a href="about.html" class="hover:text-[#2D5A27]">Mission</a>
-            <a href="programs.html" class="hover:text-[#2D5A27]">Programs</a>
-            <a href="contact.html" class="hover:text-[#2D5A27]">Contacts</a>                    
-        </div>
-
-        <div class="flex items-center space-x-3 md:space-x-6">
-                <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
-                    Donate
-                </button>
-                
-                <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
-                    <i id="navIcon" class="fas fa-bars"></i>
-                </button>
-            </div>
+   <nav class="py-6 px-10 bg-white flex justify-between items-center border-b border-gray-100">
+        <a href="index.html" class="flex items-center gap-3">
+            <img src="logo.png" alt="Logo" class="h-10 w-auto">
+            <div class="text-2xl font-heading text-[#2D5A27] tracking-tighter font-bold">GEPaDC</div>
+        </a>
+        <a href="index.html" class="text-[10px] font-black uppercase tracking-widest text-black hover:text-[#2D5A27]">Return Home</a>
     </nav>
 
+    
     <main class="py-24 px-6 md:px-10 max-w-4xl mx-auto min-h-[60vh]">
         <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Privacy Framework</h2>
         <h1 class="text-5xl md:text-7xl font-heading font-black italic uppercase mb-12 leading-none">Cookie <br><span class="text-[#2D5A27]">Policy.</span></h1>
