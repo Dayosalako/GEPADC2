@@ -1,4 +1,7 @@
-<!DOCTYPE html>                    
+<!DOCTYPE html>                                                            
+  
+  
+                      
   
 <html lang="en">
 <head>
@@ -505,7 +508,8 @@
         </div>
     </div>
 </footer>  
-    <script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
   // Initialize AOS Animations
   AOS.init({
     duration: 1000,
@@ -542,16 +546,13 @@
       e.preventDefault();
       const volMsg = document.getElementById('volMsg');
       if (volMsg) volMsg.classList.remove('hidden');
-
-      // Optional: Reset form after showing message
       volunteerForm.reset();
     });
   }
 
-  // --- Optional: Donation Form Handling ---
+  // --- Donation Form Handling ---
   function handleDonation(e) {
     e.preventDefault();
-    // Show success content
     const formContent = document.getElementById('formContent');
     const successContent = document.getElementById('successContent');
     if (formContent && successContent) {
@@ -565,9 +566,10 @@
     const modal = document.getElementById('donateModal');
     if (modal) modal.classList.toggle('hidden');
   }
-</script>
+</script>  
 </body>
 </html>
+
 
 
 
