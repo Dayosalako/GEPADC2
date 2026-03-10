@@ -239,113 +239,8 @@ cursor: pointer;
         </div>
     </div>
 
-    <nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
-        <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
-            
-            <a href="index.html" class="flex items-center gap-3 group">
-                <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
-                <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black uppercase">GEPaDC</div>
-            </a>
-
-            <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-                <div class="dropdown relative">
-                    <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="#about-snapshot" class="dropdown-item">Who We Are</a>
-                        <a href="#vision-section" class="dropdown-item">Our Vision</a>
-                        <a href="#mission-section" class="dropdown-item">Our Mission</a>
-                        <a href="#values" class="dropdown-item">Our Values</a>
-                    </div>
-                </div>
-
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="work.html" class="dropdown-item">Program Areas</a>
-                        <a href="programs.html" class="dropdown-item">Thematic Areas</a>  
-                        <a href="team.html#board" class="dropdown-item">Our Board</a>
-                        <a href="team.html" class="dropdown-item">Our Team</a>
-                        <a href="#partners" class="dropdown-item">Our Partners</a>
-                        <a href="volunteer.html" class="dropdown-item">Join Us</a>                     
-                    </div>
-                </div>
-
-                 <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="programs.html" class="dropdown-item">Thematic Areas</a>
-                        <a href="programs.html#impact" class="dropdown-item">Impact</a>
-                    </div>  
-                </div>                    
+                       
   
-                 <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="archive.html" class="dropdown-item">Annual Reports</a>
-                        <a href="archive.html" class="dropdown-item">Monthly Reports</a>
-                        <a href="archive.html" class="dropdown-item">Newsletters</a>
-                        <a href="gallery.html" class="dropdown-item">Gallery</a>
-                    </div>
-                </div>
-                
-                <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
-            </div>
-
-            <div class="flex items-center space-x-3 md:space-x-6">
-                <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
-                    Donate
-                </button>
-                
-                <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
-                    <i id="navIcon" class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-   <div id="mobileNav" class="fixed inset-0 bg-white z-[200] hidden flex-col p-8 overflow-hidden">
-       <div class="flex justify-between items-center mb-14 border-b border-gray-100 pb-6">
-            <img src="logo.png" alt="Logo" class="h-8">
-           <button onclick="toggleMobileNav()" class="text-4xl text-[#2D5A27] hover:rotate-90 transition-transform duration-300">&times;</button>
-        </div>
-
-        <div class="flex flex-col space-y-8 text-center">
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Main</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                    <a href="index.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Home</a>
-                    <a href="#about-snapshot" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Who We Are</a>
-                    <a href="#vision-section" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Our Vision</a>
-                </div>
-            </div>
-
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Organization</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                    <a href="team.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Our Team</a>
-                    <a href="#partners" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Our Partners</a>
-                    <a href="volunteer.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Join Us</a>
-                      <a href="gallery.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Gallery</a>  
-                    
-                </div>
-            </div>
-
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Our Impact</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                   
-                    <a href="programs.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Thematic Areas</a>
-                     <a href="programs.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Impacts</a>
-                </div>  
-            </div>
-
-            <a href="contact.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Contact Us</a>
-        </div>
-
-        <div class="mt-auto pt-10">
-            <button onclick="toggleModal(); toggleMobileNav();" class="w-full py-4 bg-[#2D5A27] text-white font-black text-[11px] uppercase italic tracking-widest shadow-lg hover:bg-black transition">
-        </div>
-    </div>  
 </body>                                
     
     <section class="relative h-screen min-h-[700px] overflow-hidden bg-black flex items-center justify-center">
@@ -1414,6 +1309,7 @@ cursor: pointer;
     </script>
 </body>
 </html>
+
 
 
 
