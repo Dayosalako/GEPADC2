@@ -17,14 +17,68 @@
 </style>
 </head>
 <body class="bg-white text-gray-900 font-sans overflow-x-hidden"> 
-   <nav class="py-6 px-10 bg-white flex justify-between items-center border-b border-gray-100">
-        <a href="index.html" class="flex items-center gap-3">
-            <img src="logo.png" alt="Logo" class="h-10 w-auto">
-            <div class="text-2xl font-heading text-[#2D5A27] tracking-tighter font-bold">GEPaDC</div>
-        </a>
-        <a href="index.html" class="text-[10px] font-black uppercase tracking-widest text-black hover:text-[#2D5A27]">Return Home</a>
-    </nav>                    
-  
+  <nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
+            
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
+                <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black">GEPaDC</div>
+            </a>
+
+            <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
+                <div class="dropdown relative">
+                    <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#about-snapshot" class="dropdown-item">Who We Are</a>
+                        <a href="#vision-section" class="dropdown-item">Our Vision</a>
+                        <a href="#mission-section" class="dropdown-item">Our Mission</a>
+                        <a href="#values" class="dropdown-item">Our Values</a>
+                    </div>
+                </div>
+
+                <div class="dropdown relative">
+                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
+                    <div class="dropdown-menu">
+                        <a href="team.html#board" class="dropdown-item">Our Board</a>
+                        <a href="team.html" class="dropdown-item">Our Team</a>
+                        <a href="#partners" class="dropdown-item">Our Partners</a>
+                        <a href="volunteer.html" class="dropdown-item">Join Us</a>                     
+                    </div>
+                </div>
+
+                <div class="dropdown relative">
+                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
+                    <div class="dropdown-menu">
+                        <a href="programs.html" class="dropdown-item">Thematic Areas</a>
+                        <a href="programs.html" class="dropdown-item">Impact</a>
+                    </div>  
+                </div>                    
+                 
+                    <div class="dropdown relative">
+                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
+                    <div class="dropdown-menu">
+                        <a href="archive.html" class="dropdown-item">Annual Reports</a>
+                        <a href="archive.html" class="dropdown-item">Monthly Reports</a>
+                        <a href="archive.html" class="dropdown-item">Newsletters</a>
+                        <a href="gallery.html" class="dropdown-item">Gallery</a>
+                    </div>
+                </div>
+                  
+                <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
+            </div>
+
+            <div class="flex items-center space-x-3 md:space-x-6">
+                <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
+                    Donate
+                </button>
+                
+                <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
+                    <i id="navIcon" class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+    </nav>
 
     <section class="bg-black text-white py-20 px-6 md:px-10 overflow-hidden">
         <div class="container mx-auto text-center" data-aos="zoom-out">
@@ -460,6 +514,7 @@
 </body>
 
 </html>
+
 
 
 
