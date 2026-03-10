@@ -1,26 +1,45 @@
-<!DOCTYPE html>                                                                                
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leadership | GEPaDC</title>
     <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- AOS Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+
+    <!-- SEO Meta -->
+    <meta name="description" content="GEPaDC Board & Leadership – Promoting Gender Equality & Protection in Western Africa">
+    <meta property="og:title" content="GEPaDC Leadership">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:url" content="https://gepadc.org/leadership.html">
+    <meta property="og:type" content="website">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;700&display=swap');
         :root { --brand-green: #2D5A27; }
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0a0a0a; color: white; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0a0a0a; color: white; scroll-behavior: smooth; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
-        
+
         .hero-title { font-size: clamp(2.5rem, 8vw, 7rem); line-height: 0.9; }
         .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
-        
+        .text-outline-dark { color: transparent; -webkit-text-stroke: 1.5px var(--brand-green); }
+
         /* Nav Styles */
-        .dropdown:focus-within .dropdown-menu { display: block; }                    
-         .dropdown-menu { 
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu { display: block; }
+        .dropdown-menu { 
             display: none; position: absolute; top: 100%; left: 0; 
             background: white; min-width: 240px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
             border-top: 3px solid var(--brand-green); z-index: 50; 
@@ -32,32 +51,31 @@
         }
         .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
 
+        /* Team Card */
         .team-card { position: relative; overflow: hidden; filter: grayscale(100%); transition: all 0.5s ease; border: 1px solid rgba(255,255,255,0.1); }
         .team-card:hover { filter: grayscale(0%); border-color: var(--brand-green); }
+        .team-card img { transition: transform 0.5s ease; }
+        .team-card:hover img { transform: scale(1.05); }
         .team-info { background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
-    
-   .text-outline-dark {
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--brand-green);
-}                   
-      ..mobile-nav {
-    overflow-y: auto; 
-    -webkit-overflow-scrolling: touch;
-}                    
-  
-.mobile-nav.hidden {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-}
-.mobile-nav:not(.hidden) {
-    max-height: 1000px; /* large enough to fit content */
-    opacity: 1;
-}
+
+        /* Mobile Nav */
+        .mobile-nav {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .mobile-nav.hidden {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .mobile-nav:not(.hidden) {
+            max-height: 1000px;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Top Bar -->
     <div class="bg-white text-black py-2 px-6 flex justify-between items-center text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase">
         <div id="liveDate"></div>
         <div class="flex gap-4">
@@ -65,15 +83,16 @@
             <span id="liveTime"></span>
         </div>
     </div>
-    
-<nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
         <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
-            
             <a href="index.html" class="flex items-center gap-3 group">
                 <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
                 <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black">GEPaDC</div>
             </a>
 
+            <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
                 <div class="dropdown relative">
                     <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
@@ -102,8 +121,8 @@
                         <a href="programs.html" class="dropdown-item">Impact</a>
                     </div>  
                 </div>                    
-                 
-                    <div class="dropdown relative">
+
+                <div class="dropdown relative">
                     <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
                     <div class="dropdown-menu">
                         <a href="archive.html" class="dropdown-item">Annual Reports</a>
@@ -112,10 +131,11 @@
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
-                  
+
                 <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
             </div>
 
+            <!-- Buttons & Mobile Toggle -->
             <div class="flex items-center space-x-3 md:space-x-6">
                 <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
                     Donate
@@ -126,22 +146,23 @@
                 </button>
             </div>
         </div>
-<!-- Mobile Navigation -->
-<div class="mobile-nav hidden lg:hidden bg-white w-full fixed top-0 left-0 shadow-md z-50 h-screen overflow-y-auto">  
-    <ul class="flex flex-col p-4 space-y-4 text-[12px] font-bold uppercase">
-        <li><a href="index.html" class="block hover:text-[#2D5A27]">Home</a></li>
-        <li><a href="index.html#about-snapshot" class="block hover:text-[#2D5A27]">Who We Are</a></li>
-        <li><a href="index.html#vision-section" class="block hover:text-[#2D5A27]">Our Vision</a></li>
-        <li><a href="index.html#mission-section" class="block hover:text-[#2D5A27]">Our Mission</a></li>
-        <li><a href="index.html#values" class="block hover:text-[#2D5A27]">Our Values</a></li>
-        <li><a href="team.html" class="block hover:text-[#2D5A27]">Our Team</a></li>
-        <li><a href="programs.html" class="block hover:text-[#2D5A27]">Thematic Areas</a></li>
-        <li><a href="contact.html" class="block hover:text-[#2D5A27]">Contact Us</a></li>
-        <li><button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#2D5A27]">Donate</button></li>
-    </ul>
-</div>
-    </nav>                                                            
-   
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav hidden lg:hidden bg-white w-full fixed top-0 left-0 shadow-md z-50 h-screen overflow-y-auto">  
+            <ul class="flex flex-col p-4 space-y-4 text-[12px] font-bold uppercase">
+                <li><a href="index.html" class="block hover:text-[#2D5A27]">Home</a></li>
+                <li><a href="index.html#about-snapshot" class="block hover:text-[#2D5A27]">Who We Are</a></li>
+                <li><a href="index.html#vision-section" class="block hover:text-[#2D5A27]">Our Vision</a></li>
+                <li><a href="index.html#mission-section" class="block hover:text-[#2D5A27]">Our Mission</a></li>
+                <li><a href="index.html#values" class="block hover:text-[#2D5A27]">Our Values</a></li>
+                <li><a href="team.html" class="block hover:text-[#2D5A27]">Our Team</a></li>
+                <li><a href="programs.html" class="block hover:text-[#2D5A27]">Thematic Areas</a></li>
+                <li><a href="contact.html" class="block hover:text-[#2D5A27]">Contact Us</a></li>
+                <li><button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#2D5A27]">Donate</button></li>
+            </ul>
+        </div>
+    </nav>
+
     <section class="py-24 bg-white border-b border-gray-100 relative overflow-hidden group">
     
     <div class="absolute inset-0 z-0">
@@ -406,37 +427,37 @@
         </div>
     </div>
 </footer>                    
+                      
   
-
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+
         function updateTime() {
             const now = new Date();
             document.getElementById('liveDate').innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false });
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false, timeZone: 'Africa/Lagos' });
         }
         setInterval(updateTime, 1000); updateTime();
-      function toggleMobileNav() {
-    const nav = document.querySelector('.mobile-nav');
-    const icon = document.getElementById('navIcon');
-    if (nav) nav.classList.toggle('hidden');
 
-    // Toggle icon between hamburger & close
-    if (icon) {
-        icon.classList.toggle('fa-bars');
-        icon.classList.toggle('fa-xmark');
-    }
-}
+        function toggleMobileNav() {
+            const nav = document.querySelector('.mobile-nav');
+            const icon = document.getElementById('navIcon');
+            if (nav) nav.classList.toggle('hidden');
 
-      document.querySelectorAll('.mobile-nav a, .mobile-nav button').forEach(link => {
-    link.addEventListener('click', () => {
-        const nav = document.querySelector('.mobile-nav');
-        if (!nav.classList.contains('hidden')) toggleMobileNav();
-    });
-});
-  
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-xmark');
+            }
+        }
+
+        document.querySelectorAll('.mobile-nav a, .mobile-nav button').forEach(link => {
+            link.addEventListener('click', () => {
+                const nav = document.querySelector('.mobile-nav');
+                if (!nav.classList.contains('hidden')) toggleMobileNav();
+            });
+        });
     </script>
 </body>
 </html>
