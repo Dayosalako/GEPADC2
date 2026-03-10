@@ -40,6 +40,10 @@
         
         .filter-btn { transition: all 0.3s ease; border-bottom: 2px solid transparent; padding-bottom: 4px; cursor: pointer; }
         .filter-btn.active { color: #2D5A27; border-color: #2D5A27; }
+
+      html, body{
+overflow-x:hidden;
+}
     </style>
 </head>
 <body>
@@ -247,7 +251,7 @@ Donate
                 <a href="media/photos/GEPADC (19).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (19).jpg" alt="Impact"></a>
             </div>                    
            <div class="grid-item peace">
-                <a href="media/photos/GEPADC 121.jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (19).jpg" alt="Impact"></a>
+                <a href="media/photos/GEPADC 121.jpg" class="glightbox media-container block"><img src="media/photos/GEPADC 121.jpg" alt="Impact"></a>
             </div>
 
         </div>
@@ -509,28 +513,44 @@ Donate
     <script>
         // Initialize Isotope after images are loaded
         var grid = document.querySelector('.grid-container');
-        var iso;
-        
-        window.addEventListener('load', function() {
-            iso = new Isotope(grid, {
-                itemSelector: '.grid-item',
-                layoutMode: 'masonry'
-            });
-        });
+var iso;
 
+window.addEventListener('load', function() {
+
+if(!grid) return;
+
+iso = new Isotope(grid, {
+itemSelector: '.grid-item',
+layoutMode: 'masonry',
+percentPosition:true,
+transitionDuration:"0.6s"
+});
         // Filter Logic
-        document.querySelector('#filters').addEventListener('click', function(e) {
-            if (!e.target.classList.contains('filter-btn')) return;
-            var filterValue = e.target.getAttribute('data-filter');
-            iso.arrange({ filter: filterValue });
-            
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            e.target.classList.add('active');
-        });
+       const filters = document.querySelector('#filters');
+
+if(filters){
+filters.addEventListener('click', function(e) {
+
+if (!e.target.classList.contains('filter-btn')) return;
+
+var filterValue = e.target.getAttribute('data-filter');
+
+if(iso){
+iso.arrange({ filter: filterValue });
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+e.target.classList.add('active');
+
+});
+}
 
         // Lightbox
-        const lightbox = GLightbox({ selector: '.glightbox' });
-
+    const lightbox = GLightbox({
+selector: '.glightbox',
+touchNavigation:true,
+loop:true
+});
                         
       // MOBILE NAV TOGGLE
 function toggleMobileNav() {
@@ -544,7 +564,9 @@ function toggleMobileNav() {
 
     // Change icon
     if (mobileNav.classList.contains('flex')) {
-        navIcon.className = "fas fa-times";
+        if(navIcon){
+navIcon.className = "fas fa-times";
+}
         document.body.style.overflow = "hidden";
     } else {
         navIcon.className = "fas fa-bars";
