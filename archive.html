@@ -310,31 +310,24 @@ transform-origin:center;
 <div id="footer"></div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
 
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('main section[id]');
-            const navLinks = document.querySelectorAll('.timeline-link');
-            
-            let current = "";
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.pageYOffset >= sectionTop - 300) {
-                    current = section.getAttribute('id');
-                }
-            });
+<script>
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
+document.addEventListener("DOMContentLoaded", function(){
+
+/* ==============================
+AOS INITIALIZATION
+============================== */
+
+AOS.init({
+duration: 1000,
+once: true
+});
+
+
+/* ==============================
+LOAD HTML COMPONENTS
+============================== */
 
 function loadComponent(id, file){
 fetch(file)
@@ -345,7 +338,10 @@ throw new Error("Could not load " + file);
 return res.text();
 })
 .then(data => {
-document.getElementById(id).innerHTML = data;
+const el = document.getElementById(id);
+if(el){
+el.innerHTML = data;
+}
 })
 .catch(err => console.error(err));
 }
@@ -355,48 +351,137 @@ loadComponent("header","header.html");
 loadComponent("footer","footer.html");
 loadComponent("donate","donate-modal.html");
 
-function toggleModal(){
+
+/* ==============================
+SCROLL ACTIVE SECTION
+============================== */
+
+window.addEventListener('scroll', () => {
+
+const sections = document.querySelectorAll('main section[id]');
+const navLinks = document.querySelectorAll('.timeline-link');
+
+let current = "";
+
+sections.forEach(section => {
+const sectionTop = section.offsetTop;
+
+if(window.pageYOffset >= sectionTop - 300){
+current = section.getAttribute('id');
+}
+});
+
+navLinks.forEach(link => {
+link.classList.remove('active');
+
+if(link.getAttribute('href').includes(current)){
+link.classList.add('active');
+}
+
+});
+
+});
+
+
+/* ==============================
+DONATION MODAL
+============================== */
+
+window.toggleModal = function(){
+
 const modal = document.getElementById("donateModal");
+
+if(modal){
 modal.classList.toggle("hidden");
 }
 
-function toggleMobileNav(){
-const nav = document.getElementById("mobileNav");
-nav.classList.toggle("hidden");
-document.body.classList.toggle("no-scroll");
 }
 
-function copyToClipboard(text){
+
+/* ==============================
+MOBILE NAVIGATION
+============================== */
+
+window.toggleMobileNav = function(){
+
+const mobileNav = document.getElementById("mobileNav");
+const navIcon = document.getElementById("navIcon");
+
+if(!mobileNav) return;
+
+mobileNav.classList.toggle("hidden");
+mobileNav.classList.toggle("flex");
+
+if(mobileNav.classList.contains("flex")){
+navIcon.className = "fas fa-times";
+document.body.style.overflow = "hidden";
+}else{
+navIcon.className = "fas fa-bars";
+document.body.style.overflow = "auto";
+}
+
+}
+
+
+/* ==============================
+COPY ACCOUNT NUMBER
+============================== */
+
+window.copyToClipboard = function(text){
+
 navigator.clipboard.writeText(text);
 
 const btn = document.getElementById("copyBtn");
+
+if(btn){
+
 btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
 
 setTimeout(()=>{
 btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
 },2000);
+
 }
 
+}
+
+
+/* ==============================
+LIVE DATE & TIME
+============================== */
+
 function updateClock(){
+
 const now = new Date();
 
 const dateEl = document.getElementById("liveDate");
 const timeEl = document.getElementById("liveTime");
 
 if(dateEl && timeEl){
-dateEl.innerHTML = now.toLocaleDateString("en-US", {
+
+dateEl.innerHTML = now.toLocaleDateString("en-US",{
 weekday:"long",
 year:"numeric",
 month:"long",
 day:"numeric"
 });
 
-timeEl.innerHTML = now.toLocaleTimeString();
+timeEl.innerHTML = now.toLocaleTimeString("en-US",{
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit"
+}) + " WAT";
+
 }
+
 }
 
 setInterval(updateClock,1000);
 updateClock();
-    </script>
+
+});
+
+</script>
 </body>
 </html>
+
