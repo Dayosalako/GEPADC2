@@ -1,12 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html>                    
+  
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Us | GEPaDC</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">                    
+   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <style>
@@ -14,6 +15,18 @@
         color: transparent;
         -webkit-text-stroke: 1.5px #000;
     }
+        .mobile-nav {
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.mobile-nav.hidden {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+.mobile-nav:not(.hidden) {
+    max-height: 1000px; /* large enough to fit content */
+    opacity: 1;
+}
 </style>
 </head>
 <body class="bg-white text-gray-900 font-sans overflow-x-hidden"> 
@@ -28,7 +41,7 @@
             <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
                 <div class="dropdown relative">
                     <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu hidden hidden">
                         <a href="index.html#about-snapshot" class="dropdown-item">Who We Are</a>
                         <a href="index.html#vision-section" class="dropdown-item">Our Vision</a>
                         <a href="index.html#mission-section" class="dropdown-item">Our Mission</a>
@@ -38,7 +51,7 @@
 
                 <div class="dropdown relative">
                     <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu hidden">
                         <a href="team.html#board" class="dropdown-item">Our Board</a>
                         <a href="team.html" class="dropdown-item">Our Team</a>
                         <a href="index.html#partners" class="dropdown-item">Our Partners</a>
@@ -48,7 +61,7 @@
 
                 <div class="dropdown relative">
                     <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu hidden">
                         <a href="programs.html" class="dropdown-item">Thematic Areas</a>
                         <a href="programs.html#impact" class="dropdown-item">Impact</a>
                     </div>  
@@ -56,7 +69,7 @@
                  
                     <div class="dropdown relative">
                     <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu hidden">
                         <a href="archive.html" class="dropdown-item">Annual Reports</a>
                         <a href="archive.html" class="dropdown-item">Monthly Reports</a>
                         <a href="archive.html" class="dropdown-item">Newsletters</a>
@@ -77,7 +90,20 @@
                 </button>
             </div>
         </div>
-
+<!-- Mobile Navigation -->
+<div class="mobile-nav hidden lg:hidden bg-white w-full absolute top-full left-0 shadow-md z-50">
+    <ul class="flex flex-col p-4 space-y-4 text-[12px] font-bold uppercase">
+        <li><a href="index.html" class="block hover:text-[#2D5A27]">Home</a></li>
+        <li><a href="index.html#about-snapshot" class="block hover:text-[#2D5A27]">Who We Are</a></li>
+        <li><a href="index.html#vision-section" class="block hover:text-[#2D5A27]">Our Vision</a></li>
+        <li><a href="index.html#mission-section" class="block hover:text-[#2D5A27]">Our Mission</a></li>
+        <li><a href="index.html#values" class="block hover:text-[#2D5A27]">Our Values</a></li>
+        <li><a href="team.html" class="block hover:text-[#2D5A27]">Our Team</a></li>
+        <li><a href="programs.html" class="block hover:text-[#2D5A27]">Thematic Areas</a></li>
+        <li><a href="contact.html" class="block hover:text-[#2D5A27]">Contact Us</a></li>
+        <li><button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#2D5A27]">Donate</button></li>
+    </ul>
+</div>
     </nav>                                                            
   
     <section class="bg-black text-white py-20 px-6 md:px-10 overflow-hidden">
@@ -125,11 +151,11 @@
                 <h3 class="text-xl font-bold mb-6 uppercase">Application Form</h3>
                 <form id="volunteerForm" class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" id="vName" placeholder="Full Name" requigreen class="w-full p-4 border-b-2 bg-transparent focus:border-green-600 outline-none transition">
-                        <input type="email" id="vEmail" placeholder="Email Address" requigreen class="w-full p-4 border-b-2 bg-transparent focus:border-green-600 outline-none transition">
+                        <input type="text" id="vName" placeholder="Full Name" required class="w-full p-4 border-b-2 bg-transparent focus:border-green-600 outline-none transition">
+                        <input type="email" id="vEmail" placeholder="Email Address" required class="w-full p-4 border-b-2 bg-transparent focus:border-green-600 outline-none transition">
                     </div>
                     
-                    <select id="vInterest" requigreen class="w-full p-4 border-b-2 focus:border-green-600 outline-none bg-transparent text-gray-500">
+                    <select id="vInterest" required class="w-full p-4 border-b-2 focus:border-green-600 outline-none bg-transparent text-gray-500">
                         <option value="">Area of Interest</option>
                         <option value="Advocacy">Advocacy & Outreach</option>
                         <option value="Education">Educational Support</option>
@@ -137,7 +163,7 @@
                         <option value="Admin">Administrative Support</option>
                     </select>
                     
-                    <textarea id="vMsg" placeholder="Briefly describe your skills or motivation" requigreen class="w-full p-4 border-b-2 bg-transparent focus:border-green-600 outline-none h-32 transition"></textarea>
+                    <textarea id="vMsg" placeholder="Briefly describe your skills or motivation" required class="w-full p-4 border-b-2 bg-transparent focus:border-green-600 outline-none h-32 transition"></textarea>
                     
                     <button type="submit" id="volSubmitBtn" class="bg-black text-white w-full py-4 font-black uppercase tracking-widest hover:bg-green-600 transition duration-300">
                         Submit Application
@@ -228,7 +254,10 @@
     </div>
 </section>
 
-<div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+<div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">                                                            
+  
+  
+  
     <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
         
         <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
@@ -476,44 +505,70 @@
         </div>
     </div>
 </footer>  
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize Animations
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-    </script>
+  // Initialize AOS Animations
+  AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 100
+  });
 
-    <div id="donateModal" class="fixed inset-0 bg-black bg-opacity-95 z-[100] hidden flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-4xl flex flex-col md:flex-row shadow-2xl relative overflow-y-auto max-h-[90vh]">
-        <button onclick="toggleModal()" class="absolute top-4 right-4 text-3xl font-bold z-10">&times;</button>
-        <div class="bg-green-600 text-white p-8 md:p-12 md:w-1/2">
-            <h2 class="text-3xl font-black mb-6 uppercase italic">Bank Details</h2>
-            <div class="space-y-6 text-sm">
-                <div><p class="opacity-70 text-xs font-bold uppercase">Bank Name</p><p class="font-black">Global Charity Bank</p></div>
-                <div><p class="opacity-70 text-xs font-bold uppercase">Account Number</p><p class="font-black text-2xl tracking-widest">0123456789</p></div>
-                <div><p class="opacity-70 text-xs font-bold uppercase">Account Name</p><p class="font-black">GEPaDC Official</p></div>
-            </div>
-        </div>
-        <div class="p-8 md:p-12 md:w-1/2">
-            <form id="donorForm" class="space-y-4">
-                <h3 class="font-black text-xl mb-4 border-b-2 border-black inline-block uppercase">Notify Us</h3>
-                <input type="text" id="donorName" placeholder="Full Name" requigreen class="w-full border-b-2 py-3 outline-none focus:border-green-600 transition">
-                <input type="number" id="donorAmount" placeholder="Amount (₦)" requigreen class="w-full border-b-2 py-3 outline-none focus:border-green-600 transition">
-                <input type="text" id="donorRef" placeholder="Transfer Ref" class="w-full border-b-2 py-3 outline-none focus:border-green-600 transition">
-                <button type="submit" id="donorSubmitBtn" class="w-full bg-black text-white py-4 font-black uppercase tracking-widest hover:bg-green-600 transition">Confirm Payment</button>
-                <p id="donorMsg" class="hidden text-green-600 text-center font-bold italic mt-2">Notification Sent!</p>
-            </form>
-        </div>
-    </div>
-</div>
+  // --- Dropdown Hover Functionality ---
+  document.querySelectorAll('.dropdown').forEach(drop => {
+    const menu = drop.querySelector('.dropdown-menu');
+    if (menu) {
+      drop.addEventListener('mouseenter', () => menu.classList.remove('hidden'));
+      drop.addEventListener('mouseleave', () => menu.classList.add('hidden'));
+    }
+  });
 
-    <script src="script.js"></script>
+  // --- Mobile Navigation Toggle ---
+  function toggleMobileNav() {
+    const nav = document.querySelector('.mobile-nav');
+    if (nav) nav.classList.toggle('hidden');
+  }
+
+  // --- Copy Account Number to Clipboard ---
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+      .then(() => alert('Account number copied!'))
+      .catch(err => console.error('Copy failed', err));
+  }
+
+  // --- Volunteer Form Submission ---
+  const volunteerForm = document.getElementById('volunteerForm');
+  if (volunteerForm) {
+    volunteerForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const volMsg = document.getElementById('volMsg');
+      if (volMsg) volMsg.classList.remove('hidden');
+
+      // Optional: Reset form after showing message
+      volunteerForm.reset();
+    });
+  }
+
+  // --- Optional: Donation Form Handling ---
+  function handleDonation(e) {
+    e.preventDefault();
+    // Show success content
+    const formContent = document.getElementById('formContent');
+    const successContent = document.getElementById('successContent');
+    if (formContent && successContent) {
+      formContent.classList.add('hidden');
+      successContent.classList.remove('hidden');
+    }
+  }
+
+  // --- Modal Toggle ---
+  function toggleModal() {
+    const modal = document.getElementById('donateModal');
+    if (modal) modal.classList.toggle('hidden');
+  }
+</script>
 </body>
-
 </html>
+
 
 
 
