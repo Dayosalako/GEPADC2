@@ -19,8 +19,8 @@
         .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
         
         /* Nav Styles */
-        .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu { 
+        .dropdown:focus-within .dropdown-menu { display: block; }                    
+         .dropdown-menu { 
             display: none; position: absolute; top: 100%; left: 0; 
             background: white; min-width: 240px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
             border-top: 3px solid var(--brand-green); z-index: 50; 
@@ -36,13 +36,15 @@
         .team-card:hover { filter: grayscale(0%); border-color: var(--brand-green); }
         .team-info { background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
     
-    .text-outline-dark {
-        color: transparent;
-        -webkit-text-stroke: 1.5px #000;
-    }
-      .mobile-nav {
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
+   .text-outline-dark {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--brand-green);
+}                   
+      ..mobile-nav {
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch;
+}                    
+  
 .mobile-nav.hidden {
     max-height: 0;
     opacity: 0;
