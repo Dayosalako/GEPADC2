@@ -41,6 +41,18 @@
         color: transparent;
         -webkit-text-stroke: 1.5px #000;
     }
+      .mobile-nav {
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.mobile-nav.hidden {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+.mobile-nav:not(.hidden) {
+    max-height: 1000px; /* large enough to fit content */
+    opacity: 1;
+}
     </style>
 </head>
 <body>
@@ -113,15 +125,22 @@
                 </button>
             </div>
         </div>
-
+<!-- Mobile Navigation -->
+<div class="mobile-nav hidden lg:hidden bg-white w-full absolute top-full left-0 shadow-md z-50">
+    <ul class="flex flex-col p-4 space-y-4 text-[12px] font-bold uppercase">
+        <li><a href="index.html" class="block hover:text-[#2D5A27]">Home</a></li>
+        <li><a href="index.html#about-snapshot" class="block hover:text-[#2D5A27]">Who We Are</a></li>
+        <li><a href="index.html#vision-section" class="block hover:text-[#2D5A27]">Our Vision</a></li>
+        <li><a href="index.html#mission-section" class="block hover:text-[#2D5A27]">Our Mission</a></li>
+        <li><a href="index.html#values" class="block hover:text-[#2D5A27]">Our Values</a></li>
+        <li><a href="team.html" class="block hover:text-[#2D5A27]">Our Team</a></li>
+        <li><a href="programs.html" class="block hover:text-[#2D5A27]">Thematic Areas</a></li>
+        <li><a href="contact.html" class="block hover:text-[#2D5A27]">Contact Us</a></li>
+        <li><button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#2D5A27]">Donate</button></li>
+    </ul>
+</div>
     </nav>                                                            
-  
-  
-                      
-                      
-                      
-  
-
+   
     <section class="py-24 bg-white border-b border-gray-100 relative overflow-hidden group">
     
     <div class="absolute inset-0 z-0">
@@ -398,6 +417,10 @@
             document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false });
         }
         setInterval(updateTime, 1000); updateTime();
+      function toggleMobileNav() {
+    const nav = document.querySelector('.mobile-nav');
+    if (nav) nav.classList.toggle('hidden');
+}
     </script>
 </body>
 </html>
