@@ -135,23 +135,47 @@
                    
   
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-       
-    function toggleModal(){
-const modal = document.getElementById("donateModal");
-modal.classList.toggle("hidden");
+
+<script>
+
+// DONATION MODAL
+function toggleModal() {
+const modal = document.getElementById('donateModal');
+if (!modal) return;
+
+modal.classList.toggle('hidden');
 }
 
-function toggleMobileNav(){
-const nav = document.getElementById("mobileNav");
-nav.classList.toggle("hidden");
-document.body.classList.toggle("no-scroll");
+
+// MOBILE NAV TOGGLE
+function toggleMobileNav() {
+const mobileNav = document.getElementById('mobileNav');
+const navIcon = document.getElementById('navIcon');
+
+if (!mobileNav) return;
+
+mobileNav.classList.toggle('hidden');
+mobileNav.classList.toggle('flex');
+
+// Change icon
+if (mobileNav.classList.contains('flex')) {
+navIcon.className = "fas fa-times";
+document.body.style.overflow = "hidden";
+} else {
+navIcon.className = "fas fa-bars";
+document.body.style.overflow = "auto";
+}
 }
 
+
+// COPY ACCOUNT NUMBER
 function copyToClipboard(text){
+
 navigator.clipboard.writeText(text);
 
 const btn = document.getElementById("copyBtn");
+
+if(btn){
 btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
 
 setTimeout(()=>{
@@ -159,48 +183,87 @@ btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
 },2000);
 }
 
-AOS.init();
+}
+
+
+// AOS INITIALIZATION
+AOS.init({
+duration:1000,
+once:true
+});
+
+
+// LIVE DATE AND TIME
 function updateClock(){
+
 const now = new Date();
 
 const dateEl = document.getElementById("liveDate");
 const timeEl = document.getElementById("liveTime");
 
 if(dateEl && timeEl){
+
 dateEl.innerHTML =
-now.toLocaleDateString("en-US", {weekday:"long",year:"numeric",month:"long",day:"numeric"});
+now.toLocaleDateString("en-US", {
+weekday:"long",
+year:"numeric",
+month:"long",
+day:"numeric"
+});
 
 timeEl.innerHTML =
-now.toLocaleTimeString();
+now.toLocaleTimeString("en-NG",{
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit"
+}) + " WAT";
+
 }
+
 }
+
 setInterval(updateClock,1000);
 updateClock();
 
+
+// COMPONENT LOADER
 function loadComponent(id, file){
+
 fetch(file)
+
 .then(res => {
 if(!res.ok){
 throw new Error("Failed to load " + file);
 }
 return res.text();
 })
+
 .then(data => {
 const el = document.getElementById(id);
+
 if(el){
 el.innerHTML = data;
 }
 })
+
 .catch(err => console.error(err));
+
 }
+
+
+// LOAD COMPONENTS AFTER PAGE LOAD
+document.addEventListener("DOMContentLoaded", function(){
 
 loadComponent("topbar","topbar.html");
 loadComponent("header","header.html");
 loadComponent("footer","footer.html");
 loadComponent("donate","donate-modal.html");
 
-    </script>
+});
+
+</script>  
 </body>
 </html>
+
 
 
