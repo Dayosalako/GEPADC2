@@ -29,7 +29,9 @@
 </head>
 <body>
 
-    <div id="topbar"></div>
+    <div id="topbar">                    
+                      
+  </div>
     <div id="header"></div>
 
     <section class="py-20 px-6 md:px-10 container mx-auto">
@@ -350,27 +352,31 @@ Impact: Increased school enrolment for out-of-school children and improved econo
 <div id="footer"></div>
 
     <script src="script.js"></script>
-     <script>
-        
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('main section[id]');
-            const navLinks = document.querySelectorAll('.timeline-link');
-            
-            let current = "";
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.pageYOffset >= sectionTop - 300) {
-                    current = section.getAttribute('id');
-                }
-            });
+<script>
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('main section[id]');
+    const navLinks = document.querySelectorAll('.timeline-link');
+
+    let current = "";
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+
+        if (window.pageYOffset >= sectionTop - 300) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+
+        if (link.getAttribute('href') && link.getAttribute('href').includes(current)) {
+            link.classList.add('active');
+        }
+    });
+});
+
 
 function loadComponent(id, file){
 fetch(file)
@@ -389,26 +395,54 @@ el.innerHTML = data;
 .catch(err => console.error(err));
 }
 
+
 loadComponent("topbar","topbar.html");
 loadComponent("header","header.html");
 loadComponent("donate","donate-modal.html");
 loadComponent("footer","footer.html");
 
+
 function toggleModal(){
 const modal = document.getElementById("donateModal");
+if(modal){
 modal.classList.toggle("hidden");
 }
-
-function toggleMobileNav(){
-const nav = document.getElementById("mobileNav");
-nav.classList.toggle("hidden");
-document.body.classList.toggle("no-scroll");
 }
 
+
+function toggleMobileNav(){
+
+const mobileNav = document.getElementById("mobileNav");
+const navIcon = document.getElementById("navIcon");
+
+if(!mobileNav) return;
+
+mobileNav.classList.toggle("hidden");
+mobileNav.classList.toggle("flex");
+
+if(mobileNav.classList.contains("flex")){
+    if(navIcon){
+        navIcon.className = "fas fa-times";
+    }
+    document.body.style.overflow = "hidden";
+}
+else{
+    if(navIcon){
+        navIcon.className = "fas fa-bars";
+    }
+    document.body.style.overflow = "auto";
+}
+
+}
+
+
 function copyToClipboard(text){
+
 navigator.clipboard.writeText(text);
 
 const btn = document.getElementById("copyBtn");
+
+if(btn){
 btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
 
 setTimeout(()=>{
@@ -416,13 +450,18 @@ btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
 },2000);
 }
 
+}
+
+
 function updateClock(){
+
 const now = new Date();
 
 const dateEl = document.getElementById("liveDate");
 const timeEl = document.getElementById("liveTime");
 
 if(dateEl && timeEl){
+
 dateEl.innerHTML = now.toLocaleDateString("en-US", {
 weekday:"long",
 year:"numeric",
@@ -431,14 +470,20 @@ day:"numeric"
 });
 
 timeEl.innerHTML = now.toLocaleTimeString();
+
 }
+
 }
+
 
 setInterval(updateClock,1000);
 updateClock();
-    </script>
+
+</script>
+  
 </body>
 </html>
+
 
 
 
