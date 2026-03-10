@@ -427,37 +427,56 @@
         </div>
     </div>
 </footer>                    
-                      
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Initialize AOS Animations
+  AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 100
+  });
+
+  // --- Dropdown Hover Functionality ---
+  document.querySelectorAll('.dropdown').forEach(drop => {
+    const menu = drop.querySelector('.dropdown-menu');
+    if (menu) {
+      drop.addEventListener('mouseenter', () => menu.classList.remove('hidden'));
+      drop.addEventListener('mouseleave', () => menu.classList.add('hidden'));
+    }
+  });
+
+  // --- Mobile Navigation Toggle ---
+  function toggleMobileNav() {
+    const nav = document.querySelector('.mobile-nav');
+    if (nav) nav.classList.toggle('hidden');
+  }
+
+  // --- Copy Account Number to Clipboard ---
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+      .then(() => alert('Account number copied!'))
+      .catch(err => console.error('Copy failed', err));
+  }
+
+            
   
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
+  // --- Donation Form Handling ---
+  function handleDonation(e) {
+    e.preventDefault();
+    const formContent = document.getElementById('formContent');
+    const successContent = document.getElementById('successContent');
+    if (formContent && successContent) {
+      formContent.classList.add('hidden');
+      successContent.classList.remove('hidden');
+    }
+  }
 
-        function updateTime() {
-            const now = new Date();
-            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric'}).toUpperCase();
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-GB', { hour12: false, timeZone: 'Africa/Lagos' });
-        }
-        setInterval(updateTime, 1000); updateTime();
-
-        function toggleMobileNav() {
-            const nav = document.querySelector('.mobile-nav');
-            const icon = document.getElementById('navIcon');
-            if (nav) nav.classList.toggle('hidden');
-
-            if (icon) {
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-xmark');
-            }
-        }
-
-        document.querySelectorAll('.mobile-nav a, .mobile-nav button').forEach(link => {
-            link.addEventListener('click', () => {
-                const nav = document.querySelector('.mobile-nav');
-                if (!nav.classList.contains('hidden')) toggleMobileNav();
-            });
-        });
-    </script>
+  // --- Modal Toggle ---
+  function toggleModal() {
+    const modal = document.getElementById('donateModal');
+    if (modal) modal.classList.toggle('hidden');
+  }
+</script>
 </body>
 </html>
