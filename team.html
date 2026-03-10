@@ -1,4 +1,7 @@
-<!DOCTYPE html>                    
+<!DOCTYPE html>                                                                                
+  
+  
+  
   
 <html lang="en">
 <head>
@@ -126,7 +129,7 @@
             </div>
         </div>
 <!-- Mobile Navigation -->
-<div class="mobile-nav hidden lg:hidden bg-white w-full absolute top-full left-0 shadow-md z-50">
+<div class="mobile-nav hidden lg:hidden bg-white w-full fixed top-0 left-0 shadow-md z-50 h-screen overflow-y-auto">  
     <ul class="flex flex-col p-4 space-y-4 text-[12px] font-bold uppercase">
         <li><a href="index.html" class="block hover:text-[#2D5A27]">Home</a></li>
         <li><a href="index.html#about-snapshot" class="block hover:text-[#2D5A27]">Who We Are</a></li>
@@ -419,8 +422,23 @@
         setInterval(updateTime, 1000); updateTime();
       function toggleMobileNav() {
     const nav = document.querySelector('.mobile-nav');
+    const icon = document.getElementById('navIcon');
     if (nav) nav.classList.toggle('hidden');
+
+    // Toggle icon between hamburger & close
+    if (icon) {
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-xmark');
+    }
 }
+
+      document.querySelectorAll('.mobile-nav a, .mobile-nav button').forEach(link => {
+    link.addEventListener('click', () => {
+        const nav = document.querySelector('.mobile-nav');
+        if (!nav.classList.contains('hidden')) toggleMobileNav();
+    });
+});
+  
     </script>
 </body>
 </html>
