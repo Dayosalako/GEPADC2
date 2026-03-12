@@ -949,180 +949,178 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-    document.addEventListener("DOMContentLoaded", function(){
-        /* -------------------------
-        AOS ANIMATION INITIALIZATION
-        --------------------------*/
-        AOS.init({
-            duration: 1000,
-            once: true,
-            disable: 'mobile'
+   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    /* -------------------------
+    AOS ANIMATION INITIALIZATION
+    --------------------------*/
+    AOS.init({
+        duration: 1000,
+        once: true,
+        disable: 'mobile'
+    });
+    /* -------------------------
+    LIVE DATE & TIME
+    --------------------------*/
+    function updateClock() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateEl = document.getElementById('liveDate');
+        const timeEl = document.getElementById('liveTime');
+        if(dateEl) dateEl.innerText = now.toLocaleDateString('en-US', options);
+        if(timeEl) timeEl.innerText = now.toLocaleTimeString('en-US', { hour12:false }) + ' WAT';
+    }
+    setInterval(updateClock,1000);
+    updateClock();
+    /* -------------------------
+    HERO SLIDESHOW
+    --------------------------*/
+    const slides = [
+        'media/photos/IMG_8641.jpg',
+        'media/photos/IMG_6927.jpg',
+        'media/photos/main 1.jpeg',
+        'media/photos/Mainpics (5).jpeg'
+    ];
+    const container = document.getElementById('hero-slideshow');
+    if(container){
+        let currentSlide = 0;
+        slides.forEach((src,index)=>{
+            const div = document.createElement('div');
+            div.className = `slide ${index===0?'active':''}`;
+            div.style.backgroundImage = `url('${src}')`;
+            container.appendChild(div);
         });
-        /* -------------------------
-        LIVE DATE & TIME
-        --------------------------*/
-        function updateClock() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateEl = document.getElementById('liveDate');
-            const timeEl = document.getElementById('liveTime');
-            if(dateEl) dateEl.innerText = now.toLocaleDateString('en-US', options);
-            if(timeEl) timeEl.innerText = now.toLocaleTimeString('en-US', { hour12:false }) + ' WAT';
+        const slideElements = document.querySelectorAll('.slide');
+        setInterval(()=>{
+            slideElements[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slideElements.length;
+            slideElements[currentSlide].classList.add('active');
+        },5000);
+    }
+    /* -------------------------
+    MOBILE NAVIGATION
+    --------------------------*/
+    window.openMobileNav = function(){
+        document.getElementById("mobileNavOverlay")?.classList.add("active");
+        document.getElementById("mobileNavPanel")?.classList.add("active");
+        document.body.classList.add("no-scroll");
+    };
+    window.closeMobileNav = function(){
+        document.getElementById("mobileNavOverlay")?.classList.remove("active");
+        document.getElementById("mobileNavPanel")?.classList.remove("active");
+        document.body.classList.remove("no-scroll");
+    };
+    window.toggleSubmenu = function(id){
+        const menu = document.getElementById(id);
+        if(!menu) return;
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    };
+    /* -------------------------
+    DONATION MODAL
+    --------------------------*/
+    window.toggleModal = function(){
+        const modal = document.getElementById('donateModal');
+        const formContent = document.getElementById('formContent');
+        const successContent = document.getElementById('successContent');
+        const donorForm = document.getElementById('donorForm');
+        if(!modal) return;
+        modal.classList.toggle('hidden');
+        if(modal.classList.contains('hidden')){
+            setTimeout(()=>{
+                if(formContent) formContent.classList.remove('hidden');
+                if(successContent) successContent.classList.add('hidden');
+                if(donorForm) donorForm.reset();
+            },400);
         }
-        setInterval(updateClock,1000);
-        updateClock();
-        /* -------------------------
-        HERO SLIDESHOW
-        --------------------------*/
-        const slides = [
-            'media/photos/IMG_8641.jpg',
-            'media/photos/IMG_6927.jpg',
-            'media/photos/main 1.jpeg',
-            'media/photos/Mainpics (5).jpeg'
-        ];
-        const container = document.getElementById('hero-slideshow');
-        if(container){
-            let currentSlide = 0;
-            slides.forEach((src,index)=>{
-                const div = document.createElement('div');
-                div.className = `slide ${index===0?'active':''}`;
-                div.style.backgroundImage = `url('${src}')`;
-                container.appendChild(div);
-            });
-            const slideElements = document.querySelectorAll('.slide');
-            setInterval(()=>{
-                slideElements[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slideElements.length;
-                slideElements[currentSlide].classList.add('active');
-            },5000);
-        }
-        /* -------------------------
-        MOBILE NAVIGATION
-        --------------------------*/
-        window.openMobileNav = function(){
-            document.getElementById("mobileNavOverlay")?.classList.add("active");
-            document.getElementById("mobileNavPanel")?.classList.add("active");
-            document.body.classList.add("no-scroll");
-        };
-
-        window.closeMobileNav = function(){
-            document.getElementById("mobileNavOverlay")?.classList.remove("active");
-            document.getElementById("mobileNavPanel")?.classList.remove("active");
-            document.body.classList.remove("no-scroll");
-        };
-
-        window.toggleSubmenu = function(id){
-            const menu = document.getElementById(id);
-            if(!menu) return;
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        };
-
-        /* -------------------------
-        DONATION MODAL
-        --------------------------*/
-        window.toggleModal = function(){
-            const modal = document.getElementById('donateModal');
-            const formContent = document.getElementById('formContent');
-            const successContent = document.getElementById('successContent');
-            const donorForm = document.getElementById('donorForm');
-            if(!modal) return;
-            modal.classList.toggle('hidden');
-            if(modal.classList.contains('hidden')){
-                setTimeout(()=>{
-                    if(formContent) formContent.classList.remove('hidden');
-                    if(successContent) successContent.classList.add('hidden');
-                    if(donorForm) donorForm.reset();
-                },400);
-            }
-        };
-        window.handleDonation = function(event){
-            event.preventDefault();
-            const formContent = document.getElementById('formContent');
-            const successContent = document.getElementById('successContent');
-            if(formContent) formContent.classList.add('hidden');
-            if(successContent) successContent.classList.remove('hidden');
-        };
-        window.copyToClipboard = function(text){
-            navigator.clipboard.writeText(text).then(()=>{
-                const copyBtn = document.getElementById('copyBtn');
-                if(!copyBtn) return;
-                const originalIcon = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
-                copyBtn.classList.replace('text-white/40','text-white');
-                setTimeout(()=>{
-                    copyBtn.innerHTML = originalIcon;
-                    copyBtn.classList.replace('text-white','text-white/40');
-                },2000);
-            });
-        };
-        /* -------------------------
-        COUNTER ANIMATION
-        --------------------------*/
-        function startCounters(){
-            document.querySelectorAll('.counter').forEach(counter=>{
-                const target = +counter.getAttribute('data-target');
-                let count = 0;
-                const totalFrames = 150;
-                const increment = target / totalFrames;
-                const update = ()=>{
-                    if(count < target){
-                        count += increment;
-                        counter.innerText = Math.ceil(count);
-                        setTimeout(update,35);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-                update();
-            });
-        }
-        const observer = new IntersectionObserver((entries)=>{
-            entries.forEach(entry=>{
-                if(entry.isIntersecting){
-                    startCounters();
-                    observer.unobserve(entry.target);
+    };
+    window.handleDonation = function(event){
+        event.preventDefault();
+        const formContent = document.getElementById('formContent');
+        const successContent = document.getElementById('successContent');
+        if(formContent) formContent.classList.add('hidden');
+        if(successContent) successContent.classList.remove('hidden');
+    };
+    window.copyToClipboard = function(text){
+        navigator.clipboard.writeText(text).then(()=>{
+            const copyBtn = document.getElementById('copyBtn');
+            if(!copyBtn) return;
+            const originalIcon = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
+            copyBtn.classList.replace('text-white/40','text-white');
+            setTimeout(()=>{
+                copyBtn.innerHTML = originalIcon;
+                copyBtn.classList.replace('text-white','text-white/40');
+            },2000);
+        });
+    };
+    /* -------------------------
+    COUNTER ANIMATION
+    --------------------------*/
+    function startCounters(){
+        document.querySelectorAll('.counter').forEach(counter=>{
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const totalFrames = 150;
+            const increment = target / totalFrames;
+            const update = ()=>{
+                if(count < target){
+                    count += increment;
+                    counter.innerText = Math.ceil(count);
+                    setTimeout(update,35);
+                } else {
+                    counter.innerText = target;
                 }
-            });
-        },{threshold:0.5});
-        document.querySelectorAll('.counter').forEach(c=>observer.observe(c));
-        /* -------------------------
-        TABS (VISION MISSION VALUES)
-        --------------------------*/
-        window.openTab = function(evt,tabName){
-            const tabcontents = document.getElementsByClassName("tab-content");
-            for(let i=0;i<tabcontents.length;i++){
-                tabcontents[i].classList.add("hidden");
-                tabcontents[i].classList.remove("block");
+            };
+            update();
+        });
+    }
+    const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){
+                startCounters();
+                observer.unobserve(entry.target);
             }
-            const tablinks = document.getElementsByClassName("tab-link");
-            for(let i=0;i<tablinks.length;i++){
-                tablinks[i].classList.remove("tab-active","border-[#2D5A27]","text-black");
-                tablinks[i].classList.add("border-transparent","text-gray-400");
-            }
-            const activeTab = document.getElementById(tabName);
-            if(activeTab){
-                activeTab.classList.remove("hidden");
-                activeTab.classList.add("block");
-            }
-            evt.currentTarget.classList.add("tab-active","border-[#2D5A27]","text-black");
-            evt.currentTarget.classList.remove("border-transparent","text-gray-400");
-        };
-        /* -------------------------
-        DESKTOP DROPDOWN HOVER
-        --------------------------*/
-        document.querySelectorAll('.dropdown').forEach(drop=>{
-            const menu = drop.querySelector('.dropdown-menu');
-            if(!menu) return;
-            drop.addEventListener('mouseenter',()=>{
-                menu.classList.remove('hidden');
-            });
-            drop.addEventListener('mouseleave',()=>{
-                menu.classList.add('hidden');
-            });
+        });
+    },{threshold:0.5});
+    document.querySelectorAll('.counter').forEach(c=>observer.observe(c));
+    /* -------------------------
+    TABS (VISION MISSION VALUES)
+    --------------------------*/
+    window.openTab = function(evt,tabName){
+        const tabcontents = document.getElementsByClassName("tab-content");
+        for(let i=0;i<tabcontents.length;i++){
+            tabcontents[i].classList.add("hidden");
+            tabcontents[i].classList.remove("block");
+        }
+        const tablinks = document.getElementsByClassName("tab-link");
+        for(let i=0;i<tablinks.length;i++){
+            tablinks[i].classList.remove("tab-active","border-[#2D5A27]","text-black");
+            tablinks[i].classList.add("border-transparent","text-gray-400");
+        }
+        const activeTab = document.getElementById(tabName);
+        if(activeTab){
+            activeTab.classList.remove("hidden");
+            activeTab.classList.add("block");
+        }
+        evt.currentTarget.classList.add("tab-active","border-[#2D5A27]","text-black");
+        evt.currentTarget.classList.remove("border-transparent","text-gray-400");
+    };
+    /* -------------------------
+    DESKTOP DROPDOWN HOVER
+    --------------------------*/
+    document.querySelectorAll('.dropdown').forEach(drop=>{
+        const menu = drop.querySelector('.dropdown-menu');
+        if(!menu) return;
+        drop.addEventListener('mouseenter',()=>{
+            menu.classList.remove('hidden');
+        });
+        drop.addEventListener('mouseleave',()=>{
+            menu.classList.add('hidden');
         });
     });
-    </script>
+});
+</script>
 </body>
 </html>
+
