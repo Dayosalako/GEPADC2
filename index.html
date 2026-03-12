@@ -145,13 +145,14 @@
 }
 
 .marquee-item img {
-    height: 3.5rem;               /* ≈ h-14, adjust to taste */
+    height: 4.2rem;          /* was 3.5rem → now ~20% bigger */
     width: auto;
-    max-width: 180px;
+    max-width: 220px;        /* increased a bit to avoid forced squishing */
     object-fit: contain;
     filter: grayscale(60%) opacity(0.85);
     transition: all 0.35s ease;
-}
+}                    
+  
 
 .marquee-container:hover .marquee-content {
     animation-play-state: paused;
@@ -174,9 +175,9 @@
         --marquee-gap: 2.5rem;
     }
     .marquee-item img {
-        height: 2.8rem;
-        max-width: 140px;
-    }
+        height: 3.4rem;      /* was 2.8rem → still noticeably bigger */
+        max-width: 170px;                    
+      }
 }                    
   
         @media (max-width: 1024px) {
@@ -1227,6 +1228,7 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </body>
 </html>
+
 
 
 
