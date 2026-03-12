@@ -14,98 +14,184 @@
         color: transparent;
         -webkit-text-stroke: 1.5px #000;
     }
-        .mobile-nav {
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-.mobile-nav.hidden {
-    max-height: 0;
+   /* 1. The Dimmed Background Overlay */
+.mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
     opacity: 0;
-    overflow: hidden;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
 }
-.mobile-nav:not(.hidden) {
-    max-height: 1000px; /* large enough to fit content */
+
+/* State when overlay is open */
+.mobile-nav-overlay.active {
     opacity: 1;
+    visibility: visible;
 }
+
+/* 2. The Navigation Panel */
+.mobile-nav-panel {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Completely off-screen to the right */
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: white;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    /* Cubic-bezier gives it that "premium" snappy-then-smooth feel */
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+/* State when panel is open */
+.mobile-nav-panel.active {
+    right: 0; /* Slides into view */
+}
+
+/* Optional: Add a smooth fade to the links inside so they don't just "appear" */
+.mobile-nav-panel ul li {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-panel.active ul li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Staggered delay for links (makes it feel very high-end) */
+.mobile-nav-panel.active li:nth-child(1) { transition-delay: 0.1s; }
+.mobile-nav-panel.active li:nth-child(2) { transition-delay: 0.15s; }
+.mobile-nav-panel.active li:nth-child(3) { transition-delay: 0.2s; }
+.mobile-nav-panel.active li:nth-child(4) { transition-delay: 0.25s; }                    
+  
 </style>
-</head>
-<body class="bg-white text-gray-900 font-sans overflow-x-hidden"> 
- <nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
-        <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
+</head>  
+ <body class="bg-white text-gray-900 font-sans overflow-x-hidden">
+
+    <header class="sticky top-0 z-[100] bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="container mx-auto px-5 md:px-10 flex justify-between items-center py-4 md:py-5">
             
             <a href="index.html" class="flex items-center gap-3 group">
-                <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
-                <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black">GEPaDC</div>
+                <img src="logo.png" alt="GEPaDC Logo" class="h-9 md:h-11 w-auto transition group-hover:scale-105 duration-300"/>
+                <div class="text-2xl md:text-3xl font-heading font-black text-[var(--brand-green)] tracking-tight uppercase">
+                    GEPaDC
+                </div>
             </a>
 
-            <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-                <div class="dropdown relative">
-                    <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
-                    <div class="dropdown-menu hidden hidden">
-                        <a href="index.html#about-snapshot" class="dropdown-item">Who We Are</a>
-                        <a href="index.html#vision-section" class="dropdown-item">Our Vision</a>
-                        <a href="index.html#mission-section" class="dropdown-item">Our Mission</a>
-                        <a href="index.html#values" class="dropdown-item">Our Values</a>
+            <nav class="hidden lg:flex items-center gap-8 text-[11px] font-bold uppercase tracking-widest text-gray-800">
+                <a href="index.html" class="hover:text-[var(--brand-green)] transition">Home</a>
+                
+                <div class="relative group">
+                    <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition uppercase">
+                        About <i class="fas fa-chevron-down text-[9px]"></i>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        <div class="w-60 bg-white shadow-2xl border border-gray-100 rounded-xl py-3 overflow-hidden">
+                            <a href="index.html#about-snapshot" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)] transition">Who We Are</a>
+                            <a href="index.html#vision-section" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)] transition">Our Vision</a>
+                            <a href="index.html#mission-section" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)] transition">Our Mission</a>
+                            <a href="team.html#board" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)] transition">OUR BOARD OF TRUSTEES/SMT</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu hidden">
-                        <a href="team.html#board" class="dropdown-item">Our Board</a>
-                        <a href="team.html" class="dropdown-item">OUR BOARD OF TRUSTEES/SMT</a>
-                        <a href="index.html#partners" class="dropdown-item">Our Partners</a>
-                        <a href="volunteer.html" class="dropdown-item">Join Us</a>                     
+                <div class="relative group">
+                    <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition uppercase">
+                        Join Us <i class="fas fa-chevron-down text-[9px]"></i>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        <div class="w-56 bg-white shadow-2xl border border-gray-100 rounded-xl py-3">
+                            <a href="volunteer.html" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Volunteer</a>
+                            <a href="volunteer.html#career" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Careers</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu hidden">
-                        <a href="programs.html" class="dropdown-item">Thematic Areas</a>
-                        <a href="programs.html#impact" class="dropdown-item">Impact</a>
-                    </div>  
-                </div>                    
-                 
-                    <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu hidden">
-                        <a href="archive.html" class="dropdown-item">Annual Reports</a>
-                        <a href="archive.html" class="dropdown-item">Monthly Reports</a>
-                        <a href="archive.html" class="dropdown-item">Newsletters</a>
-                        <a href="gallery.html" class="dropdown-item">Gallery</a>
+                <div class="relative group">
+                    <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition uppercase">
+                        Our Work <i class="fas fa-chevron-down text-[9px]"></i>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        <div class="w-56 bg-white shadow-2xl border border-gray-100 rounded-xl py-3">
+                            <a href="programs.html" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Thematic Areas</a>
+                            <a href="programs.html#impact" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Impact</a>
+                        </div>
                     </div>
                 </div>
-                  
-                <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
-            </div>
 
-            <div class="flex items-center space-x-3 md:space-x-6">
-                <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
+                <div class="relative group">
+                    <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition uppercase">
+                        Publications <i class="fas fa-chevron-down text-[9px]"></i>
+                    </button>
+                    <div class="absolute right-0 lg:left-0 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        <div class="w-64 bg-white shadow-2xl border border-gray-100 rounded-xl py-3">
+                            <a href="archive.html" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Annual Report</a>
+                            <a href="archive.html" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Newsletter</a>
+                            <a href="gallery.html#success-stories" class="block px-6 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Success Stories</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="hover:text-[var(--brand-green)] transition">Contact Us</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-7 py-3 bg-black text-white text-[10px] font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition duration-300">
                     Donate
                 </button>
-                
-                <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
-                    <i id="navIcon" class="fas fa-bars"></i>
+                <button onclick="openMobileNav()" class="lg:hidden w-10 h-10 flex items-center justify-center text-gray-800 hover:text-[var(--brand-green)] transition">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
-<!-- Mobile Navigation -->
-<div class="mobile-nav hidden lg:hidden bg-white w-full absolute top-full left-0 shadow-md z-50">
-    <ul class="flex flex-col p-4 space-y-4 text-[12px] font-bold uppercase">
-        <li><a href="index.html" class="block hover:text-[#2D5A27]">Home</a></li>
-        <li><a href="index.html#about-snapshot" class="block hover:text-[#2D5A27]">Who We Are</a></li>
-        <li><a href="index.html#vision" class="block hover:text-[#2D5A27]">Our Vision</a></li>
-        <li><a href="index.html#mission" class="block hover:text-[#2D5A27]">Our Mission</a></li>
-        <li><a href="index.html#values" class="block hover:text-[#2D5A27]">Our Values</a></li>
-        <li><a href="team.html" class="block hover:text-[#2D5A27]">OUR BOARD OF TRUSTEES/SMT</a></li>
-        <li><a href="programs.html" class="block hover:text-[#2D5A27]">Thematic Areas</a></li>
-        <li><a href="contact.html" class="block hover:text-[#2D5A27]">Contact Us</a></li>
-        <li><button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#2D5A27]">Donate</button></li>
-    </ul>
-</div>
-    </nav>                                                            
+    </header>
+
+    <div id="mobileNavOverlay" class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
+    <nav id="mobileNavPanel" class="mobile-nav-panel">
+        <div class="flex flex-col h-full">
+            <div class="p-6 border-b border-gray-50 flex justify-between items-center">
+                <span class="font-heading font-black text-[var(--brand-green)] text-lg tracking-tight">MENU</span>
+                <button onclick="closeMobileNav()" class="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full text-gray-400">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-8">
+                <ul class="flex flex-col gap-6">
+                    <li><a href="index.html" class="text-xl font-black uppercase tracking-tighter hover:text-[var(--brand-green)]">Home</a></li>
+                    
+                    <li class="space-y-4">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b pb-2">Organization</p>
+                        <a href="index.html#about-snapshot" class="block text-lg font-bold">Who We Are</a>
+                        <a href="team.html#board" class="block text-lg font-bold">OUR BOARD OF TRUSTEES/SMT</a>
+                    </li>
+
+                    <li class="space-y-4 pt-4">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b pb-2">Engagement</p>
+                        <a href="programs.html" class="block text-lg font-bold">Our Work</a>
+                        <a href="volunteer.html" class="block text-lg font-bold">Volunteer</a>
+                        <a href="contact.html" class="block text-lg font-bold">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="p-8 border-t border-gray-50">
+                <button onclick="toggleModal(); closeMobileNav();" class="w-full bg-black text-white py-5 font-black uppercase tracking-widest text-xs hover:bg-[var(--brand-green)] transition">
+                    Donate Now
+                </button>
+            </div>
+        </div>
+    </nav>                                                                                                    
   
-    <section class="bg-black text-white py-20 px-6 md:px-10 overflow-hidden">
+      <section class="bg-black text-white py-20 px-6 md:px-10 overflow-hidden">
         <div class="container mx-auto text-center" data-aos="zoom-out">
             <h1 class="text-4xl md:text-6xl font-black mb-6 uppercase italic">Join the Movement</h1>
             <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">Your time and skills can help us protect rights and secure peace for women and girls in Nigeria.</p>
@@ -544,9 +630,24 @@
     const modal = document.getElementById('donateModal');
     if (modal) modal.classList.toggle('hidden');
   }
+
+ window.openMobileNav = function() {
+    document.getElementById("mobileNavOverlay").classList.add("active");
+    document.getElementById("mobileNavPanel").classList.add("active");
+    // Prevent the background from scrolling while menu is open
+    document.body.style.overflow = "hidden";
+};
+
+window.closeMobileNav = function() {
+    document.getElementById("mobileNavOverlay").classList.remove("active");
+    document.getElementById("mobileNavPanel").classList.remove("active");
+    // Restore scrolling
+    document.body.style.overflow = "";
+};
 </script>  
 </body>
 </html>
+
 
 
 
