@@ -325,8 +325,54 @@
             font-size: 1.1rem;
         }
 
-                            
-  
+           /* ────────────────────────────────────────────────
+   Stats Counters
+───────────────────────────────────────────────── */
+
+.stats-number {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    color: #1a1a1a;
+    display: inline-block;
+    min-width: 2.8ch;
+}
+
+.counter {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;   /* better number alignment */
+}
+
+/* Optional: add subtle "plus" or "%" styling */
+.stats-unit {
+    font-size: 0.65em;
+    font-weight: 700;
+    vertical-align: 0.4em;
+    margin-left: 0.15em;
+    color: var(--brand-green);
+}                 
+  /* Better mobile defaults */
+@media (max-width: 640px) {
+    :root {
+        --marquee-gap: 2.8rem;
+    }
+    .hero-title {
+        font-size: clamp(2.8rem, 11vw, 5.5rem) !important;
+    }
+}
+
+/* Make very small uppercase text more readable */
+.text-[8px], .text-[9px], .text-[10px] {
+    font-size: 0.81rem !important;
+    letter-spacing: 0.12em;
+}
+
+/* Improve dropdown contrast on dark/light modes if you ever add dark mode */
+.dropdown-item:hover {
+    background: #f0f9f0;          /* very light green */
+    color: var(--brand-green);
+}
     </style>
 </head>
 <body>
@@ -1149,6 +1195,21 @@ document.addEventListener("DOMContentLoaded", function(){
         evt.currentTarget.classList.add("tab-active","border-[#2D5A27]","text-black");
         evt.currentTarget.classList.remove("border-transparent","text-gray-400");
     };
+
+    document.querySelectorAll('.counter').forEach(el => {
+        const target = +el.dataset.target;
+        const isPercent = el.nextElementSibling?.classList.contains('stats-unit') && el.textContent.includes('%');
+        let current = 0;
+        const increment = target / 80;   // ~2 seconds
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            el.textContent = isPercent ? Math.round(current) : Math.floor(current).toLocaleString();
+        }, 25);
+    });
     /* -------------------------
     DESKTOP DROPDOWN HOVER
     --------------------------*/
@@ -1166,6 +1227,7 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </body>
 </html>
+
 
 
 
