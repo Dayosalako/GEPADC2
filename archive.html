@@ -332,6 +332,108 @@ section{
         color: rgba(255, 255, 255, 0.15);
     }
 }
+        /* Mobile Nav Overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+
+/* Slide Panel */
+.mobile-nav-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-width: 90%;
+  height: 100vh;
+  background: #2D5A27;
+  color: white;
+  z-index: 9999;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Active state */
+.mobile-nav-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-panel.active {
+  transform: translateX(0);
+}
+
+/* Menu list */
+.mobile-nav-panel ul {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+
+.mobile-nav-panel li {
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+/* Links */
+.mobile-nav-panel a,
+.mobile-nav-panel button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 14px 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-nav-panel a:hover,
+.mobile-nav-panel button:hover {
+  color: #cfe7cf;
+}
+
+/* Submenus */
+.mobile-submenu {
+  display: none;
+  flex-direction: column;
+  padding-left: 15px;
+}
+
+.mobile-submenu a {
+  font-size: 12px;
+  padding: 10px 0;
+  font-weight: 600;
+  text-transform: none;
+}
+
+/* Close button */
+.mobile-nav-close {
+  padding: 20px;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: #1f3f1c;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.mobile-nav-close:hover {
+  background: #163114;
+}
     </style>
 </head>
 <body>
@@ -403,84 +505,87 @@ section{
       <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
         Donate
       </button>
-      <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
-        <i id="navIcon" class="fas fa-bars"></i>
-      </button>
+<button onclick="openMobileNav()" class="lg:hidden">
+  <i class="fas fa-bars text-xl"></i>
+</button>  
     </div>
   </div>
 </nav>
 
-<!-- Mobile Navigation -->
-<div id="mobileNav" class="mobile-nav hidden lg:hidden bg-[#2D5A27] w-full fixed inset-0 z-[9999] h-screen overflow-y-auto p-4">
+<!-- Mobile Nav Overlay -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
 
-  <ul class="flex flex-col space-y-4 text-[12px] font-bold uppercase">
+<!-- Mobile Nav Panel -->
+<nav id="mobileNavPanel" class="mobile-nav-panel">
 
-    <!-- Home -->
-    <li><a href="index.html" class="block text-white hover:text-gray-200 transition">Home</a></li>
+  <!-- Cancel / Close -->
+  <button class="mobile-nav-close" onclick="closeMobileNav()">
+    ✕ Cancel
+  </button>
 
-    <!-- About Dropdown -->
+  <ul>
+
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('aboutSub')">
-        About <i class="fas fa-chevron-down text-[10px]"></i>
-      </button>
-      <ul id="aboutSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="index.html#about-snapshot" class="block text-white hover:text-gray-200">Who We Are</a></li>
-        <li><a href="index.html#vision-section" class="block text-white hover:text-gray-200">Our Vision</a></li>
-        <li><a href="index.html#mission-section" class="block text-white hover:text-gray-200">Our Mission</a></li>
-        <li><a href="index.html#values" class="block text-white hover:text-gray-200">Our Values</a></li>
-        <li><a href="team.html#board" class="block text-white hover:text-gray-200">Our Board</a></li>
-      </ul>
+      <a href="index.html">Home</a>
     </li>
 
-    <!-- Join Us Dropdown -->
+    <!-- About -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('joinSub')">
-        Join Us <i class="fas fa-chevron-down text-[10px]"></i>
+      <button onclick="toggleSubmenu('aboutSub')">
+        About <i class="fas fa-chevron-down"></i>
       </button>
-      <ul id="joinSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="volunteer.html" class="block text-white hover:text-gray-200">Volunteer</a></li>
-        <li><a href="volunteer.html" class="block text-white hover:text-gray-200">Career Ads</a></li>
-      </ul>
+      <div id="aboutSub" class="mobile-submenu">
+        <a href="index.html#about-snapshot">Who We Are</a>
+        <a href="index.html#vision-section">Our Vision</a>
+        <a href="index.html#mission-section">Our Mission</a>
+        <a href="index.html#values">Our Values</a>
+        <a href="team.html#board">Our Board</a>
+      </div>
     </li>
 
-    <!-- Our Work Dropdown -->
+    <!-- Join -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('workSub')">
-        Our Work <i class="fas fa-chevron-down text-[10px]"></i>
+      <button onclick="toggleSubmenu('joinSub')">
+        Join Us <i class="fas fa-chevron-down"></i>
       </button>
-      <ul id="workSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="programs.html" class="block text-white hover:text-gray-200">Thematic Areas</a></li>
-        <li><a href="programs.html#impact" class="block text-white hover:text-gray-200">Impact</a></li>
-      </ul>
+      <div id="joinSub" class="mobile-submenu">
+        <a href="volunteer.html">Volunteer</a>
+        <a href="volunteer.html">Career Ads</a>
+      </div>
     </li>
 
-    <!-- Publications Dropdown -->
+    <!-- Work -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('pubSub')">
-        Publications <i class="fas fa-chevron-down text-[10px]"></i>
+      <button onclick="toggleSubmenu('workSub')">
+        Our Work <i class="fas fa-chevron-down"></i>
       </button>
-      <ul id="pubSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="archive.html" class="block text-white hover:text-gray-200">Annual Report</a></li>
-        <li><a href="archive.html" class="block text-white hover:text-gray-200">Newsletter</a></li>
-        <li><a href="archive.html" class="block text-white hover:text-gray-200">Project Impactation</a></li>
-        <li><a href="gallery.html#success-stories" class="block text-white hover:text-gray-200">Success Stories</a></li>
-        <li><a href="gallery.html#social-media-links" class="block text-white hover:text-gray-200">Social Handles</a></li>
-      </ul>
+      <div id="workSub" class="mobile-submenu">
+        <a href="programs.html">Thematic Areas</a>
+        <a href="programs.html#impact">Impact</a>
+      </div>
     </li>
 
-    <!-- Contact -->
-    <li><a href="contact.html" class="block text-white hover:text-gray-200 transition">Contact Us</a></li>
-
-    <!-- Donate -->
+    <!-- Publications -->
     <li>
-      <button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#1e3d1a] transition">
-        Donate
+      <button onclick="toggleSubmenu('pubSub')">
+        Publications <i class="fas fa-chevron-down"></i>
       </button>
+      <div id="pubSub" class="mobile-submenu">
+        <a href="archive.html">Annual Report</a>
+        <a href="archive.html">Newsletter</a>
+        <a href="archive.html">Project Impactation</a>
+        <a href="gallery.html#success-stories">Success Stories</a>
+        <a href="gallery.html#social-media-links">Social Handles</a>
+      </div>
+    </li>
+
+    <li>
+      <a href="contact.html">Contact Us</a>
     </li>
 
   </ul>
-</div>
 
+</nav>
 
     <div class="flex">
         <aside class="hidden md:flex flex-col items-center sticky top-32 h-[60vh] px-10 z-50">
@@ -1057,8 +1162,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+    function openMobileNav() {
+  document.getElementById("mobileNavOverlay").classList.add("active");
+  document.getElementById("mobileNavPanel").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeMobileNav() {
+  document.getElementById("mobileNavOverlay").classList.remove("active");
+  document.getElementById("mobileNavPanel").classList.remove("active");
+  document.body.style.overflow = "auto";
+}
+
+function toggleSubmenu(id) {
+  const menu = document.getElementById(id);
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
 </script>
 </body>
 </html>
+
 
 
