@@ -359,72 +359,75 @@ cursor: pointer;
 </nav>
 
 <!-- Mobile Navigation -->
-<div id="mobileNav" class="mobile-nav hidden lg:hidden bg-[#2D5A27] w-full fixed top-0 left-0 z-50 h-screen overflow-y-auto p-4">
+<div id="mobileNav" class="mobile-nav hidden lg:hidden bg-[#2D5A27] w-full fixed inset-0 z-[9999] h-screen overflow-y-auto p-4">
+
   <ul class="flex flex-col space-y-4 text-[12px] font-bold uppercase">
 
     <!-- Home -->
-    <li><a href="index.html" class="block text-white hover:text-[#2D5A27] transition">Home</a></li>
+    <li><a href="index.html" class="block text-white hover:text-gray-200 transition">Home</a></li>
 
     <!-- About Dropdown -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('aboutSub')">
+      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('aboutSub')">
         About <i class="fas fa-chevron-down text-[10px]"></i>
       </button>
       <ul id="aboutSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="index.html#about-snapshot" class="block text-white hover:text-[#2D5A27]">Who We Are</a></li>
-        <li><a href="index.html#vision-section" class="block text-white hover:text-[#2D5A27]">Our Vision</a></li>
-        <li><a href="index.html#mission-section" class="block text-white hover:text-[#2D5A27]">Our Mission</a></li>
-        <li><a href="index.html#values" class="block text-white hover:text-[#2D5A27]">Our Values</a></li>
-        <li><a href="team.html#board" class="block text-white hover:text-[#2D5A27]">Our Board</a></li>
+        <li><a href="index.html#about-snapshot" class="block text-white hover:text-gray-200">Who We Are</a></li>
+        <li><a href="index.html#vision-section" class="block text-white hover:text-gray-200">Our Vision</a></li>
+        <li><a href="index.html#mission-section" class="block text-white hover:text-gray-200">Our Mission</a></li>
+        <li><a href="index.html#values" class="block text-white hover:text-gray-200">Our Values</a></li>
+        <li><a href="team.html#board" class="block text-white hover:text-gray-200">Our Board</a></li>
       </ul>
     </li>
 
     <!-- Join Us Dropdown -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('joinSub')">
+      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('joinSub')">
         Join Us <i class="fas fa-chevron-down text-[10px]"></i>
       </button>
       <ul id="joinSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="volunteer.html" class="block text-white hover:text-[#2D5A27]">Volunteer</a></li>
-        <li><a href="volunteer.html#career-ads" class="block text-white hover:text-[#2D5A27]">Career Ads</a></li>
+        <li><a href="volunteer.html" class="block text-white hover:text-gray-200">Volunteer</a></li>
+        <li><a href="volunteer.html" class="block text-white hover:text-gray-200">Career Ads</a></li>
       </ul>
     </li>
 
     <!-- Our Work Dropdown -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('workSub')">
+      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('workSub')">
         Our Work <i class="fas fa-chevron-down text-[10px]"></i>
       </button>
       <ul id="workSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="programs.html" class="block text-white hover:text-[#2D5A27]">Thematic Areas</a></li>
-        <li><a href="programs.html#impact" class="block text-white hover:text-[#2D5A27]">Impact</a></li>
+        <li><a href="programs.html" class="block text-white hover:text-gray-200">Thematic Areas</a></li>
+        <li><a href="programs.html#impact" class="block text-white hover:text-gray-200">Impact</a></li>
       </ul>
     </li>
 
     <!-- Publications Dropdown -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('pubSub')">
+      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('pubSub')">
         Publications <i class="fas fa-chevron-down text-[10px]"></i>
       </button>
       <ul id="pubSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Annual Report</a></li>
-        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Newsletter</a></li>
-        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Project Impactation</a></li>
-        <li><a href="gallery.html#success-stories" class="block text-white hover:text-[#2D5A27]">Success Stories</a></li>
-        <li><a href="gallery.html#social-media-links" class="block text-white hover:text-[#2D5A27]">Social Handles</a></li>
+        <li><a href="archive.html" class="block text-white hover:text-gray-200">Annual Report</a></li>
+        <li><a href="archive.html" class="block text-white hover:text-gray-200">Newsletter</a></li>
+        <li><a href="archive.html" class="block text-white hover:text-gray-200">Project Impactation</a></li>
+        <li><a href="gallery.html#success-stories" class="block text-white hover:text-gray-200">Success Stories</a></li>
+        <li><a href="gallery.html#social-media-links" class="block text-white hover:text-gray-200">Social Handles</a></li>
       </ul>
     </li>
 
     <!-- Contact -->
-    <li><a href="contact.html" class="block text-white hover:text-[#2D5A27] transition">Contact Us</a></li>
+    <li><a href="contact.html" class="block text-white hover:text-gray-200 transition">Contact Us</a></li>
 
     <!-- Donate -->
     <li>
-      <button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#2D5A27] transition">Donate</button>
+      <button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#1e3d1a] transition">
+        Donate
+      </button>
     </li>
+
   </ul>
-</div>                                                   
-  
+</div>
     
     <section class="relative h-screen min-h-[700px] overflow-hidden bg-black flex items-center justify-center">
     <div class="absolute inset-0 z-0" id="hero-slideshow">
@@ -1420,3 +1423,4 @@ Accountability to Affected Persons
     </script>
 </body>
 </html>
+
