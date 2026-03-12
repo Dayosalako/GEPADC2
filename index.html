@@ -272,6 +272,109 @@ margin-right:60px;
 .dropdown > button {
 cursor: pointer;
 }
+
+        /* Mobile Nav Overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+
+/* Slide Panel */
+.mobile-nav-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-width: 90%;
+  height: 100vh;
+  background: #2D5A27;
+  color: white;
+  z-index: 9999;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Active state */
+.mobile-nav-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-panel.active {
+  transform: translateX(0);
+}
+
+/* Menu list */
+.mobile-nav-panel ul {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+
+.mobile-nav-panel li {
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+/* Links */
+.mobile-nav-panel a,
+.mobile-nav-panel button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 14px 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-nav-panel a:hover,
+.mobile-nav-panel button:hover {
+  color: #cfe7cf;
+}
+
+/* Submenus */
+.mobile-submenu {
+  display: none;
+  flex-direction: column;
+  padding-left: 15px;
+}
+
+.mobile-submenu a {
+  font-size: 12px;
+  padding: 10px 0;
+  font-weight: 600;
+  text-transform: none;
+}
+
+/* Close button */
+.mobile-nav-close {
+  padding: 20px;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: #1f3f1c;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.mobile-nav-close:hover {
+  background: #163114;
+}
     </style>
 </head>
 <body>
@@ -358,76 +461,80 @@ cursor: pointer;
   </div>
 </nav>
 
-<!-- Mobile Navigation -->
-<div id="mobileNav" class="mobile-nav hidden lg:hidden bg-[#2D5A27] w-full fixed inset-0 z-[9999] h-screen overflow-y-auto p-4">
+<!-- Mobile Nav Overlay -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
 
-  <ul class="flex flex-col space-y-4 text-[12px] font-bold uppercase">
+<!-- Mobile Nav Panel -->
+<nav id="mobileNavPanel" class="mobile-nav-panel">
 
-    <!-- Home -->
-    <li><a href="index.html" class="block text-white hover:text-gray-200 transition">Home</a></li>
+  <!-- Cancel / Close -->
+  <button class="mobile-nav-close" onclick="closeMobileNav()">
+    ✕ Cancel
+  </button>
 
-    <!-- About Dropdown -->
+  <ul>
+
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('aboutSub')">
-        About <i class="fas fa-chevron-down text-[10px]"></i>
-      </button>
-      <ul id="aboutSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="index.html#about-snapshot" class="block text-white hover:text-gray-200">Who We Are</a></li>
-        <li><a href="index.html#vision-section" class="block text-white hover:text-gray-200">Our Vision</a></li>
-        <li><a href="index.html#mission-section" class="block text-white hover:text-gray-200">Our Mission</a></li>
-        <li><a href="index.html#values" class="block text-white hover:text-gray-200">Our Values</a></li>
-        <li><a href="team.html#board" class="block text-white hover:text-gray-200">Our Board</a></li>
-      </ul>
+      <a href="index.html">Home</a>
     </li>
 
-    <!-- Join Us Dropdown -->
+    <!-- About -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('joinSub')">
-        Join Us <i class="fas fa-chevron-down text-[10px]"></i>
+      <button onclick="toggleSubmenu('aboutSub')">
+        About <i class="fas fa-chevron-down"></i>
       </button>
-      <ul id="joinSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="volunteer.html" class="block text-white hover:text-gray-200">Volunteer</a></li>
-        <li><a href="volunteer.html" class="block text-white hover:text-gray-200">Career Ads</a></li>
-      </ul>
+      <div id="aboutSub" class="mobile-submenu">
+        <a href="index.html#about-snapshot">Who We Are</a>
+        <a href="index.html#vision-section">Our Vision</a>
+        <a href="index.html#mission-section">Our Mission</a>
+        <a href="index.html#values">Our Values</a>
+        <a href="team.html#board">Our Board</a>
+      </div>
     </li>
 
-    <!-- Our Work Dropdown -->
+    <!-- Join -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('workSub')">
-        Our Work <i class="fas fa-chevron-down text-[10px]"></i>
+      <button onclick="toggleSubmenu('joinSub')">
+        Join Us <i class="fas fa-chevron-down"></i>
       </button>
-      <ul id="workSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="programs.html" class="block text-white hover:text-gray-200">Thematic Areas</a></li>
-        <li><a href="programs.html#impact" class="block text-white hover:text-gray-200">Impact</a></li>
-      </ul>
+      <div id="joinSub" class="mobile-submenu">
+        <a href="volunteer.html">Volunteer</a>
+        <a href="volunteer.html">Career Ads</a>
+      </div>
     </li>
 
-    <!-- Publications Dropdown -->
+    <!-- Work -->
     <li>
-      <button class="w-full flex justify-between items-center text-white hover:text-gray-200 transition font-black" onclick="toggleSubmenu('pubSub')">
-        Publications <i class="fas fa-chevron-down text-[10px]"></i>
+      <button onclick="toggleSubmenu('workSub')">
+        Our Work <i class="fas fa-chevron-down"></i>
       </button>
-      <ul id="pubSub" class="hidden flex-col pl-4 mt-2 space-y-2">
-        <li><a href="archive.html" class="block text-white hover:text-gray-200">Annual Report</a></li>
-        <li><a href="archive.html" class="block text-white hover:text-gray-200">Newsletter</a></li>
-        <li><a href="archive.html" class="block text-white hover:text-gray-200">Project Impactation</a></li>
-        <li><a href="gallery.html#success-stories" class="block text-white hover:text-gray-200">Success Stories</a></li>
-        <li><a href="gallery.html#social-media-links" class="block text-white hover:text-gray-200">Social Handles</a></li>
-      </ul>
+      <div id="workSub" class="mobile-submenu">
+        <a href="programs.html">Thematic Areas</a>
+        <a href="programs.html#impact">Impact</a>
+      </div>
     </li>
 
-    <!-- Contact -->
-    <li><a href="contact.html" class="block text-white hover:text-gray-200 transition">Contact Us</a></li>
-
-    <!-- Donate -->
+    <!-- Publications -->
     <li>
-      <button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#1e3d1a] transition">
-        Donate
+      <button onclick="toggleSubmenu('pubSub')">
+        Publications <i class="fas fa-chevron-down"></i>
       </button>
+      <div id="pubSub" class="mobile-submenu">
+        <a href="archive.html">Annual Report</a>
+        <a href="archive.html">Newsletter</a>
+        <a href="archive.html">Project Impactation</a>
+        <a href="gallery.html#success-stories">Success Stories</a>
+        <a href="gallery.html#social-media-links">Social Handles</a>
+      </div>
+    </li>
+
+    <li>
+      <a href="contact.html">Contact Us</a>
     </li>
 
   </ul>
-</div>
+
+</nav>
     
     <section class="relative h-screen min-h-[700px] overflow-hidden bg-black flex items-center justify-center">
     <div class="absolute inset-0 z-0" id="hero-slideshow">
@@ -1167,260 +1274,372 @@ Accountability to Affected Persons
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-       AOS.init({
+
+document.addEventListener("DOMContentLoaded", function(){
+
+/* -------------------------
+AOS ANIMATION INITIALIZATION
+--------------------------*/
+AOS.init({
     duration: 1000,
     once: true,
-    disable: 'mobile' // Option A: Disable animations on mobile for speed
-    // OR
-    // startEvent: 'DOMContentLoaded' // Option B: Forces calculation earlier
-});                                        
-  
+    disable: 'mobile'
+});
 
-        // LIVE TIME
-        function updateClock() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-US', options);
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-US', { hour12: false }) + ' WAT';
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
 
-        // HERO SLIDESHOW
-        const slides = [
-            'media/photos/IMG_8641.jpg', 'media/photos/IMG_6927.jpg', 
-            'media/photos/main 1.jpeg', 'media/photos/Mainpics (5).jpeg'
-        ];
-        const container = document.getElementById('hero-slideshow');
-        let currentSlide = 0;
-        slides.forEach((src, index) => {
-            const div = document.createElement('div');
-            div.className = `slide ${index === 0 ? 'active' : ''}`;
-            div.style.backgroundImage = `url('${src}')`;
-            container.appendChild(div);
-        });
-        const slideElements = document.querySelectorAll('.slide');
-        setInterval(() => {
-            slideElements[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slideElements.length;
-            slideElements[currentSlide].classList.add('active');
-        }, 5000);
+/* -------------------------
+LIVE DATE & TIME
+--------------------------*/
+function updateClock() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-        // UI HELPERS
-        function toggleMobileNav() {
-    const mobileNav = document.getElementById('mobileNav');
-    const navIcon = document.getElementById('navIcon');
-    
-    mobileNav.classList.toggle('hidden');
-    mobileNav.classList.toggle('flex');
-    
-    // Toggle body scroll
-    document.body.classList.toggle('no-scroll');
-    
-    // Update Icon
-    if (mobileNav.classList.contains('flex')) {
-        navIcon.className = "fas fa-times";
-    } else {
-        navIcon.className = "fas fa-bars";
+    const dateEl = document.getElementById('liveDate');
+    const timeEl = document.getElementById('liveTime');
+
+    if(dateEl) dateEl.innerText = now.toLocaleDateString('en-US', options);
+    if(timeEl) timeEl.innerText = now.toLocaleTimeString('en-US', { hour12:false }) + ' WAT';
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+
+/* -------------------------
+HERO SLIDESHOW
+--------------------------*/
+const slides = [
+ 'media/photos/IMG_8641.jpg',
+ 'media/photos/IMG_6927.jpg',
+ 'media/photos/main 1.jpeg',
+ 'media/photos/Mainpics (5).jpeg'
+];
+
+const container = document.getElementById('hero-slideshow');
+
+if(container){
+
+let currentSlide = 0;
+
+slides.forEach((src,index)=>{
+    const div = document.createElement('div');
+    div.className = `slide ${index===0?'active':''}`;
+    div.style.backgroundImage = `url('${src}')`;
+    container.appendChild(div);
+});
+
+const slideElements = document.querySelectorAll('.slide');
+
+setInterval(()=>{
+    slideElements[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slideElements.length;
+    slideElements[currentSlide].classList.add('active');
+},5000);
+
+}
+
+
+/* -------------------------
+MOBILE NAVIGATION TOGGLE
+--------------------------*/
+window.toggleMobileNav = function(){
+
+const mobileNav = document.getElementById('mobileNav');
+const navIcon = document.getElementById('navIcon');
+
+if(!mobileNav) return;
+
+mobileNav.classList.toggle('hidden');
+mobileNav.classList.toggle('flex');
+
+document.body.classList.toggle('no-scroll');
+
+if(navIcon){
+    if(mobileNav.classList.contains('flex')){
+        navIcon.className="fas fa-times";
+    }else{
+        navIcon.className="fas fa-bars";
     }
 }
 
-        function toggleModal() { 
-            document.getElementById('donateModal').classList.toggle('hidden'); 
-        }
+};
 
-        // COUNTER
-        const startCounters = () => {
-            document.querySelectorAll('.counter').forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                let count = 0;
-                const totalFrames = 150; 
-                const increment = target / totalFrames;
-                const update = () => {
-                    if(count < target) {
-                        count += increment;
-                        counter.innerText = Math.ceil(count);
-                        setTimeout(update, 35);
-                    } else { counter.innerText = target; }
-                };
-                update();
-            });
-        };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    startCounters();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.counter').forEach(c => observer.observe(c));
+/* -------------------------
+DONATION MODAL
+--------------------------*/
+window.toggleModal = function(){
 
-    // 1. Toggle Modal Visibility & Reset State
-    function toggleModal() {
-        const modal = document.getElementById('donateModal');
-        const formContent = document.getElementById('formContent');
-        const successContent = document.getElementById('successContent');
-        const donorForm = document.getElementById('donorForm');
+const modal = document.getElementById('donateModal');
+const formContent = document.getElementById('formContent');
+const successContent = document.getElementById('successContent');
+const donorForm = document.getElementById('donorForm');
 
-        modal.classList.toggle('hidden');
+if(!modal) return;
 
-        // Reset the form if the modal is being closed
-        if (modal.classList.contains('hidden')) {
-            setTimeout(() => {
-                formContent.classList.remove('hidden');
-                successContent.classList.add('hidden');
-                donorForm.reset();
-            }, 400); // Wait for transition if any
-        }
+modal.classList.toggle('hidden');
+
+if(modal.classList.contains('hidden')){
+    setTimeout(()=>{
+        if(formContent) formContent.classList.remove('hidden');
+        if(successContent) successContent.classList.add('hidden');
+        if(donorForm) donorForm.reset();
+    },400);
+}
+
+};
+
+
+/* -------------------------
+HANDLE DONATION SUBMISSION
+--------------------------*/
+window.handleDonation = function(event){
+
+event.preventDefault();
+
+const formContent = document.getElementById('formContent');
+const successContent = document.getElementById('successContent');
+
+if(formContent) formContent.classList.add('hidden');
+if(successContent) successContent.classList.remove('hidden');
+
+};
+
+
+/* -------------------------
+COPY ACCOUNT NUMBER
+--------------------------*/
+window.copyToClipboard = function(text){
+
+navigator.clipboard.writeText(text).then(()=>{
+
+const copyBtn = document.getElementById('copyBtn');
+
+if(!copyBtn) return;
+
+const originalIcon = copyBtn.innerHTML;
+
+copyBtn.innerHTML='<i class="fas fa-check text-white"></i>';
+copyBtn.classList.replace('text-white/40','text-white');
+
+setTimeout(()=>{
+    copyBtn.innerHTML=originalIcon;
+    copyBtn.classList.replace('text-white','text-white/40');
+},2000);
+
+});
+
+};
+
+
+/* -------------------------
+COUNTER ANIMATION
+--------------------------*/
+function startCounters(){
+
+document.querySelectorAll('.counter').forEach(counter=>{
+
+const target = +counter.getAttribute('data-target');
+let count = 0;
+
+const totalFrames = 150;
+const increment = target / totalFrames;
+
+const update=()=>{
+
+if(count < target){
+    count += increment;
+    counter.innerText = Math.ceil(count);
+    setTimeout(update,35);
+}
+else{
+    counter.innerText = target;
+}
+
+};
+
+update();
+
+});
+
+}
+
+const observer = new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+    if(entry.isIntersecting){
+        startCounters();
+        observer.unobserve(entry.target);
     }
+});
 
-    // 2. Handle Form Submission (Transition to Success)
-    function handleDonation(event) {
-        event.preventDefault(); // Stop page refresh
-        
-        const formContent = document.getElementById('formContent');
-        const successContent = document.getElementById('successContent');
+},{threshold:0.5});
 
-        // Smoothly swap content
-        formContent.classList.add('hidden');
-        successContent.classList.remove('hidden');
-    }
+document.querySelectorAll('.counter').forEach(c=>observer.observe(c));
 
-    // 3. Copy Account Number to Clipboard
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            const copyBtn = document.getElementById('copyBtn');
-            const originalIcon = copyBtn.innerHTML;
-            
-            // Visual Feedback
-            copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
-            copyBtn.classList.replace('text-white/40', 'text-white');
-            
-            setTimeout(() => {
-                copyBtn.innerHTML = originalIcon;
-                copyBtn.classList.replace('text-white', 'text-white/40');
-            }, 2000);
-        });
-    }
 
-    
+/* -------------------------
+TABS (VISION MISSION VALUES)
+--------------------------*/
+window.openTab = function(evt,tabName){
 
-    // 4. Mobile Nav Toggle (As per your existing logic)
-    function toggleMobileNav() {
-        const mobileNav = document.getElementById('mobileNav');
-        const navIcon = document.getElementById('navIcon');
-        mobileNav.classList.toggle('hidden');
-        mobileNav.classList.toggle('flex');
-        navIcon.className = mobileNav.classList.contains('hidden') ? "fas fa-bars" : "fas fa-times";
-        
-        // Prevent body scroll when menu is open
-        document.body.style.overflow = mobileNav.classList.contains('hidden') ? 'auto' : 'hidden';
-    }
-        const gallery = document.getElementById('swipe-gallery');
+const tabcontents=document.getElementsByClassName("tab-content");
 
-    // 1. TABS LOGIC (Vision, Mission, Values)
-    function openTab(evt, tabName) {
-        const tabcontents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < tabcontents.length; i++) {
-            tabcontents[i].classList.add("hidden");
-            tabcontents[i].classList.remove("block");
-        }
+for(let i=0;i<tabcontents.length;i++){
+tabcontents[i].classList.add("hidden");
+tabcontents[i].classList.remove("block");
+}
 
-        const tablinks = document.getElementsByClassName("tab-link");
-        for (let i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("tab-active", "border-[#2D5A27]", "text-black");
-            tablinks[i].classList.add("border-transparent", "text-gray-400");
-        }
+const tablinks=document.getElementsByClassName("tab-link");
 
-        const activeTab = document.getElementById(tabName);
-        if (activeTab) {
-            activeTab.classList.remove("hidden");
-            activeTab.classList.add("block");
-        }
+for(let i=0;i<tablinks.length;i++){
+tablinks[i].classList.remove("tab-active","border-[#2D5A27]","text-black");
+tablinks[i].classList.add("border-transparent","text-gray-400");
+}
 
-        evt.currentTarget.classList.add("tab-active", "border-[#2D5A27]", "text-black");
-        evt.currentTarget.classList.remove("border-transparent", "text-gray-400");
-    }
+const activeTab=document.getElementById(tabName);
 
-    // 2. PEACE DAY SLIDER LOGIC (One at a time with buttons)
-    const slider = document.getElementById('peace-slider');
-    const dots = document.querySelectorAll('.dot');
+if(activeTab){
+activeTab.classList.remove("hidden");
+activeTab.classList.add("block");
+}
 
-    function moveSlider(direction) {
-        if (!slider) return;
-        const slideWidth = slider.clientWidth;
-        
-        if (direction === 'next') {
-            if (slider.scrollLeft + slideWidth >= slider.scrollWidth - 5) {
-                slider.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
-            }
-        } else {
-            if (slider.scrollLeft <= 5) {
-                slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' });
-            } else {
-                slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
-            }
-        }
-        // Small delay to allow scroll to finish before updating dots
-        setTimeout(updateDots, 500);
-    }
+evt.currentTarget.classList.add("tab-active","border-[#2D5A27]","text-black");
+evt.currentTarget.classList.remove("border-transparent","text-gray-400");
 
-    function updateDots() {
-        if (!slider || dots.length === 0) return;
-        const index = Math.round(slider.scrollLeft / slider.clientWidth);
-        dots.forEach((dot, i) => {
-            if (i === index) {
-                dot.classList.add('w-8', 'bg-[#2D5A27]');
-                dot.classList.remove('w-2', 'bg-gray-300');
-            } else {
-                dot.classList.add('w-2', 'bg-gray-300');
-                dot.classList.remove('w-8', 'bg-[#2D5A27]');
-            }
-        });
-    }
+};
 
-    // 3. AUTO-SLIDE & INTERACTION
-    if (slider) {
-        let autoSlide = setInterval(() => moveSlider('next'), 5000);
 
-        // Stop auto-slide when user touches the slider
-        slider.addEventListener('touchstart', () => {
-            clearInterval(autoSlide);
-        }, {passive: true});
-        
-        // Update dots if user swipes manually
-        slider.addEventListener('scroll', () => {
-            updateDots();
-        }, {passive: true});
-    }
+/* -------------------------
+PEACE DAY SLIDER
+--------------------------*/
+const slider=document.getElementById('peace-slider');
+const dots=document.querySelectorAll('.dot');
 
-     function toggleMobileNav() {
-    const nav = document.getElementById('mobileNav');
-    nav.classList.toggle('hidden');
-  }
+window.moveSlider=function(direction){
 
-  function toggleSubmenu(id) {
-    const submenu = document.getElementById(id);
-    submenu.classList.toggle('hidden');
-  }
+if(!slider) return;
 
-  // Optional: Desktop dropdown hover effect
-  document.querySelectorAll('.dropdown').forEach(drop => {
-    drop.addEventListener('mouseenter', () => {
-      drop.querySelector('.dropdown-menu').classList.remove('hidden');
-    });
-    drop.addEventListener('mouseleave', () => {
-      drop.querySelector('.dropdown-menu').classList.add('hidden');
-    });
-  });
+const slideWidth=slider.clientWidth;
 
-  /* This ensures that even if there is a 5px gap, the menu stays open */
+if(direction==='next'){
+if(slider.scrollLeft + slideWidth >= slider.scrollWidth - 5){
+slider.scrollTo({left:0,behavior:'smooth'});
+}else{
+slider.scrollBy({left:slideWidth,behavior:'smooth'});
+}
+}else{
 
-    </script>
+if(slider.scrollLeft<=5){
+slider.scrollTo({left:slider.scrollWidth,behavior:'smooth'});
+}else{
+slider.scrollBy({left:-slideWidth,behavior:'smooth'});
+}
+
+}
+
+setTimeout(updateDots,500);
+
+};
+
+
+function updateDots(){
+
+if(!slider || dots.length===0) return;
+
+const index=Math.round(slider.scrollLeft/slider.clientWidth);
+
+dots.forEach((dot,i)=>{
+
+if(i===index){
+dot.classList.add('w-8','bg-[#2D5A27]');
+dot.classList.remove('w-2','bg-gray-300');
+}else{
+dot.classList.add('w-2','bg-gray-300');
+dot.classList.remove('w-8','bg-[#2D5A27]');
+}
+
+});
+
+}
+
+
+if(slider){
+
+let autoSlide=setInterval(()=>moveSlider('next'),5000);
+
+slider.addEventListener('touchstart',()=>{
+clearInterval(autoSlide);
+},{passive:true});
+
+slider.addEventListener('scroll',()=>{
+updateDots();
+},{passive:true});
+
+}
+
+
+/* -------------------------
+DESKTOP DROPDOWN HOVER
+--------------------------*/
+document.querySelectorAll('.dropdown').forEach(drop=>{
+
+const menu = drop.querySelector('.dropdown-menu');
+
+if(!menu) return;
+
+drop.addEventListener('mouseenter',()=>{
+menu.classList.remove('hidden');
+});
+
+drop.addEventListener('mouseleave',()=>{
+menu.classList.add('hidden');
+});
+
+});
+
+
+/* -------------------------
+ADVANCED MOBILE NAV
+--------------------------*/
+window.openMobileNav=function(){
+
+const overlay=document.getElementById("mobileNavOverlay");
+const panel=document.getElementById("mobileNavPanel");
+
+if(overlay) overlay.classList.add("active");
+if(panel) panel.classList.add("active");
+
+document.body.style.overflow="hidden";
+
+}
+
+window.closeMobileNav=function(){
+
+const overlay=document.getElementById("mobileNavOverlay");
+const panel=document.getElementById("mobileNavPanel");
+
+if(overlay) overlay.classList.remove("active");
+if(panel) panel.classList.remove("active");
+
+document.body.style.overflow="auto";
+
+}
+
+window.toggleSubmenu=function(id){
+
+const menu=document.getElementById(id);
+
+if(!menu) return;
+
+menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+
+}
+
+});
+
+</script>
 </body>
 </html>
+
 
