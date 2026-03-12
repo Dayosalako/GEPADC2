@@ -1,1298 +1,662 @@
-<!DOCTYPE html>                                                                                  
-<html lang="en">
-<head>                    
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Archive | GEPaDC Institutional Records</title>  
-    <link rel="icon" type="image/png" href="logo.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
-    <style>
- @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Syncopate:wght@700&family=Inter:wght@300;400;700;900&display=swap');
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Archive | GEPaDC Institutional Records</title>
+  <link rel="icon" type="image/png" href="logo.png"/>
 
-:root { 
-    --brand-green: #2D5A27; 
-    --brand-blue: #1e3a8a; 
-}
+  <!-- Tailwind + CDN fonts + icons + AOS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-body { 
-    font-family: 'Inter', sans-serif; 
-    overflow-x: hidden; 
-    background-color: #ffffff; 
-    color: #1a1a1a; 
-    scroll-behavior: smooth;
-    max-width: 100%;
-    position: relative;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&family=Syncopate:wght@700&display=swap" rel="stylesheet"/>
 
-.font-heading { font-family: 'Montserrat', sans-serif; }
-
-.hero-title { 
-    font-size: clamp(3rem, 10vw, 9rem); 
-    line-height: 0.9; 
-}
-
-@keyframes scroll { 
-    0% { transform: translateX(0); } 
-    100% { transform: translateX(-50%); } 
-}
-
-.marquee-container { 
-    overflow: hidden; 
-    white-space: nowrap; 
-    display: flex; 
-    padding: 2rem 0; 
-    background: #fff; 
-}
-
-.marquee-content { 
-    display: flex; 
-    animation: scroll 30s linear infinite; 
-}
-
-.marquee-item { 
-    flex: 0 0 auto; 
-    padding: 0 4rem; 
-    font-size: clamp(1.2rem, 3vw, 2rem); 
-    font-weight: 900; 
-    color: rgba(0,0,0,0.4); 
-    text-transform: uppercase; 
-    font-family: 'Montserrat', sans-serif;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 60px;
-}
-
-.marquee-container:hover .marquee-item { 
-    color: rgba(45, 90, 39, 0.6); 
-}
-
-.text-outline {
-    color: rgba(255, 255, 255, 0.05);
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s ease;
-}
-
-.nav-logo { 
-    height: 40px; 
-    width: auto; 
-    object-fit: contain; 
-}
-
-
-.slide { 
-    position: absolute; 
-    inset: 0; 
-    opacity: 0; 
-    transition: opacity 1.5s ease-in-out; 
-    background-size: cover; 
-    background-position: center; 
-    z-index: 5; 
-}
-
-.slide.active { 
-    opacity: 1; 
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 6;
-}
-
-.pillar-card { 
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-    border: 1px solid #f3f4f6; 
-}
-
-.pillar-card:hover { 
-    background-color: #f9fafb; 
-    border-color: var(--brand-green); 
-    transform: translateY(-5px); 
-}
-
-#donateModal { 
-    backdrop-filter: blur(8px); 
-    transition: all 0.4s ease-in-out; 
-}
-
-.modal-content-wrapper { 
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
-    border-radius: 4px; 
-    overflow: hidden; 
-}
-
-.giving-input { 
-    border-color: #e5e7eb; 
-    transition: all 0.3s ease; 
-}
-
-.giving-input:focus { 
-    border-color: #2D5A27; 
-    padding-left: 1rem; 
-}
-
-.trust-badge { 
-    background: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(4px); 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-}
-
-.timeline-link { 
-    transition: all .3s ease; 
-    transform-origin: center; 
-}
-
-.timeline-link.active { 
-    color: #2D5A27; 
-    transform: scale(1.2); 
-}
-
-.timeline-line { 
-    width: 1px; 
-    background: rgba(0,0,0,0.1); 
-    height: 100%; 
-    position: absolute; 
-    left: 50%; 
-}
-
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #ffffff; }
-::-webkit-scrollbar-thumb { background: #2D5A27; }
-
-.pdf-container {
-    position: relative;
-    width: 100%;
-    height: 70vh;
-    max-height: 650px;
-    border: 1px solid #eee;
-    background: #f9f9f9;
-}
-
-.pdf-container iframe{
-    border: none;
-}
-
-section{
-    scroll-margin-top:120px;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
-}
-
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-#swipe-gallery {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-}
-
-.tab-active {
-    border-color: #2D5A27 !important;
-    color: black !important;
-}
-
-.animate-fadeIn {
-    animation: fadeIn 0.4s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.hidden { display: none; }
-
-#peace-slider img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-#peace-slider {
-    transition: height 0.3s ease-in-out;
-}
-
-
-
-/* Responsive Styles */
-@media (max-width: 1024px) {
-    #mobileNav.flex {
-        display: flex !important;
-        animation: slideIn 0.3s ease-out;
-    }
-}
-
-@keyframes slideIn {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-}
-
-@media (max-width: 768px) {
-    .hero-title { 
-        font-size: 3.5rem !important;
-        line-height: 1;
-    }
-    
-    section {
-        padding-top: 4rem !important;
-        padding-bottom: 4rem !important;
+  <style>
+    :root {
+      --brand-green: #2D5A27;
+      --brand-green-dark: #23481f;
+      --brand-blue: #1e3a8a;
+      --text-dark: #111827;
+      --text-muted: #6b7280;
+      --border-light: #e5e7eb;
+      --bg-light: #f9fafb;
     }
 
-    .lg\:grid-cols-5 {
-        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-    }
-    
-    .h-\[500px\], .h-\[600px\] {
-        height: 350px !important;
-    }
-
-    .value-card, .group.p-8 {
-        padding: 1.5rem !important;
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #ffffff;
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    header button[onclick="toggleModal()"] {
-        display: block !important;
-        padding: 8px 16px !important;
-        font-size: 8px !important;
-        letter-spacing: 0.1em !important;
-    }
+    .font-heading { font-family: 'Montserrat', sans-serif; }
+    .font-syncopate { font-family: 'Syncopate', sans-serif; }
 
-    header .container {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+    .hero-title {
+      font-size: clamp(3.5rem, 12vw, 10rem);
+      line-height: 0.92;
+      font-weight: 900;
     }
 
     .text-outline {
-        -webkit-text-stroke: 1px #ffffff;
-        color: rgba(255, 255, 255, 0.15);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(0,0,0,0.12);
+      text-stroke: 1px rgba(0,0,0,0.12);
     }
-}
-        /* Mobile Nav Overlay */
-.mobile-nav-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(2px);
-  z-index: 9998;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s ease;
-}
 
-/* =========================
-DESKTOP DROPDOWN MENU
-========================= */
+    /* Timeline vertical line */
+    .timeline-line {
+      width: 2px;
+      background: linear-gradient(to bottom, var(--brand-green) 0%, transparent 100%);
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
 
-.dropdown-menu{
-    opacity:0;
-    visibility:hidden;
-    transform:translateY(10px);
-    transition:all 0.25s ease;
-}
+    .timeline-link {
+      position: relative;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
 
-.dropdown:hover .dropdown-menu{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-}
+    .timeline-link.active {
+      color: var(--brand-green);
+      transform: scale(1.15);
+      font-weight: 900;
+    }
 
-.dropdown-menu a{
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.08em;
-}
+    .timeline-link.active::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      background: var(--brand-green);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 0 4px rgba(45,90,39,0.2);
+    }
 
+    /* PDF viewer */
+    .pdf-container {
+      aspect-ratio: 210 / 297;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto 3rem;
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
+    }
 
-/* =========================
-MOBILE NAVIGATION
-========================= */
+    /* Modal */
+    #donateModal {
+      backdrop-filter: blur(12px);
+    }
 
-.mobile-nav-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.45);
-    opacity:0;
-    visibility:hidden;
-    transition:all .3s ease;
-    z-index:998;
-}
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--brand-green);
+      border-radius: 3px;
+    }
 
-.mobile-nav-overlay.active{
-    opacity:1;
-    visibility:visible;
-}
+    /* Mobile nav */
+    .mobile-nav-panel {
+      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
+    .mobile-submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
 
-/* MOBILE PANEL */
+    .mobile-submenu.open {
+      max-height: 600px; /* large enough */
+    }
 
-.mobile-nav-panel{
-    position:fixed;
-    top:0;
-    right:-340px;
-    width:320px;
-    height:100%;
-    background:white;
-    z-index:999;
-    box-shadow:-6px 0 30px rgba(0,0,0,0.08);
-    padding:30px 24px;
-    overflow-y:auto;
-    transition:right .35s ease;
-}
-
-.mobile-nav-panel.active{
-    right:0;
-}
-
-
-/* CLOSE BUTTON */
-
-.mobile-nav-close{
-    font-size:14px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.15em;
-    margin-bottom:28px;
-    color:#2D5A27;
-}
-
-
-/* MOBILE MENU LIST */
-
-.mobile-nav-panel ul{
-    list-style:none;
-    padding:0;
-    margin:0;
-}
-
-.mobile-nav-panel li{
-    border-bottom:1px solid #f2f2f2;
-}
-
-
-/* MAIN MOBILE LINKS */
-
-.mobile-nav-panel a,
-.mobile-nav-panel button{
-
-    width:100%;
-    text-align:left;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:16px 0;
-
-    font-size:12px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-
-    background:none;
-    border:none;
-    cursor:pointer;
-}
-
-
-/* HOVER EFFECT */
-
-.mobile-nav-panel a:hover{
-    color:#2D5A27;
-}
-
-
-/* =========================
-SUBMENUS
-========================= */
-
-.mobile-submenu{
-    display:none;
-    padding-bottom:10px;
-}
-
-.mobile-submenu a{
-    padding:10px 0 10px 10px;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:.1em;
-}
-
-.mobile-submenu a:hover{
-    color:#2D5A27;
-}    
-</style>
+    @media (max-width: 640px) {
+      .hero-title { font-size: clamp(2.8rem, 11vw, 5.5rem); }
+      .text-[10rem] { font-size: 7rem !important; opacity: 0.04; }
+      section { padding-top: 5rem !important; padding-bottom: 5rem !important; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ================= HEADER / NAVIGATION ================= -->
-<header class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
-
-  <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
-
+<!-- ================= HEADER ================= -->
+<header class="sticky top-0 z-[100] bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+  <div class="container mx-auto px-5 md:px-10 flex justify-between items-center py-4 md:py-5">
     <!-- Logo -->
     <a href="index.html" class="flex items-center gap-3 group">
-      <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
-      <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black uppercase">
+      <img src="logo.png" alt="GEPaDC Logo" class="h-9 md:h-11 w-auto transition group-hover:scale-105 duration-300"/>
+      <div class="text-2xl md:text-3xl font-heading font-black text-[var(--brand-green)] tracking-tight uppercase">
         GEPaDC
       </div>
     </a>
 
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center gap-10 text-xs font-bold uppercase tracking-wider text-gray-800">
+      <a href="index.html" class="hover:text-[var(--brand-green)] transition">Home</a>
 
-    <!-- ================= DESKTOP MENU ================= -->
-    <nav class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-
-      <!-- Home -->
-      <a href="index.html" class="text-[#2D5A27] hover:text-[#2D5A27] transition">
-        Home
-      </a>
-
-      <!-- About Dropdown -->
-      <div class="dropdown relative">
-
-        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition">
-          About <i class="fas fa-chevron-down text-[8px]"></i>
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
+          About <i class="fas fa-chevron-down text-[9px]"></i>
         </button>
-
-        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
-
-          <a href="index.html#about-snapshot" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Who We Are
-          </a>
-
-          <a href="index.html#vision-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Our Vision
-          </a>
-
-          <a href="index.html#mission-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Our Mission
-          </a>
-
-          <a href="index.html#values" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Our Values
-          </a>
-
-          <a href="team.html#board" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Our Board
-          </a>
-
+        <div class="absolute left-0 top-full mt-3 w-56 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <a href="index.html#about-snapshot" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Who We Are</a>
+          <a href="index.html#vision-section" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Vision</a>
+          <a href="index.html#mission-section" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Mission</a>
+          <a href="index.html#values" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Values</a>
+          <a href="team.html#board" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Board</a>
         </div>
-
       </div>
 
-
-      <!-- Join Us -->
-      <div class="dropdown relative">
-
-        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition">
-          Join Us <i class="fas fa-chevron-down text-[8px]"></i>
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
+          Join Us <i class="fas fa-chevron-down text-[9px]"></i>
         </button>
-
-        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
-
-          <a href="volunteer.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Volunteer
-          </a>
-
-          <a href="career.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Career Ads
-          </a>
-
+        <div class="absolute left-0 top-full mt-3 w-56 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <a href="volunteer.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Volunteer</a>
+          <a href="career.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Career Ads</a>
         </div>
-
       </div>
 
-
-      <!-- Our Work -->
-      <div class="dropdown relative">
-
-        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition">
-          Our Work <i class="fas fa-chevron-down text-[8px]"></i>
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
+          Our Work <i class="fas fa-chevron-down text-[9px]"></i>
         </button>
-
-        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
-
-          <a href="programs.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Thematic Areas
-          </a>
-
-          <a href="programs.html#impact" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Impact
-          </a>
-
+        <div class="absolute left-0 top-full mt-3 w-56 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <a href="programs.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Thematic Areas</a>
+          <a href="programs.html#impact" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Impact</a>
         </div>
-
       </div>
 
-
-      <!-- Publications -->
-      <div class="dropdown relative">
-
-        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition">
-          Publications <i class="fas fa-chevron-down text-[8px]"></i>
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
+          Publications <i class="fas fa-chevron-down text-[9px]"></i>
         </button>
-
-        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-52 rounded-md py-2">
-
-          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Annual Report
-          </a>
-
-          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Newsletter
-          </a>
-
-          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Project Impactation
-          </a>
-
-          <a href="gallery.html#success-stories" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Success Stories
-          </a>
-
-          <a href="gallery.html#social-media-links" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">
-            Social Handles
-          </a>
-
+        <div class="absolute left-0 top-full mt-3 w-64 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <a href="archive.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Annual Report</a>
+          <a href="archive.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Newsletter</a>
+          <a href="archive.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Project Impactation</a>
+          <a href="gallery.html#success-stories" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Success Stories</a>
+          <a href="gallery.html#social-media-links" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Social Handles</a>
         </div>
-
       </div>
 
-
-      <!-- Contact -->
-      <a href="contact.html" class="hover:text-[#2D5A27] transition">
-        Contact Us
-      </a>
-
+      <a href="contact.html" class="hover:text-[var(--brand-green)] transition">Contact Us</a>
     </nav>
 
-
-    <!-- ================= RIGHT SIDE ================= -->
-    <div class="flex items-center space-x-4">
-
-      <!-- Donate -->
-      <button onclick="toggleModal()"
-      class="bg-black text-white px-5 py-2 md:px-7 md:py-2.5 text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition border-2 border-black">
-
+    <!-- Actions -->
+    <div class="flex items-center gap-4 md:gap-6">
+      <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-6 py-2.5 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition border-2 border-black hover:border-[var(--brand-green)]">
         Donate
-
       </button>
-
-      <!-- Mobile Hamburger -->
-      <button onclick="openMobileNav()" class="lg:hidden text-xl text-black">
+      <button onclick="openMobileNav()" class="lg:hidden text-2xl text-gray-800">
         <i class="fas fa-bars"></i>
       </button>
-
     </div>
-
   </div>
-
 </header>
 
+<!-- Mobile Nav Overlay + Panel -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
 
-
-<!-- ================= MOBILE NAV OVERLAY ================= -->
-<div id="mobileNavOverlay" class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
-
-
-
-<!-- ================= MOBILE NAV PANEL ================= -->
-<nav id="mobileNavPanel" class="mobile-nav-panel">
-
-  <!-- Close Button -->
-  <button class="mobile-nav-close" onclick="closeMobileNav()">
-    ✕ Cancel
+<nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-340px] w-[320px] h-full bg-white z-[9999] shadow-2xl p-8 overflow-y-auto transition-all duration-500">
+  <button class="mobile-nav-close text-[var(--brand-green)] font-black uppercase tracking-widest text-sm mb-10" onclick="closeMobileNav()">
+    ✕ Close
   </button>
 
-  <ul>
+  <ul class="space-y-1">
+    <li><a href="index.html" class="block py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">Home</a></li>
 
-    <li><a href="index.html">Home</a></li>
-
-    <!-- About -->
     <li>
-      <button onclick="toggleSubmenu('aboutSub')">
-        About <i class="fas fa-chevron-down"></i>
+      <button onclick="toggleSubmenu('aboutSub')" class="w-full flex justify-between items-center py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">
+        About <i class="fas fa-chevron-down text-xs transition-transform"></i>
       </button>
-
-      <div id="aboutSub" class="mobile-submenu">
-
-        <a href="index.html#about-snapshot">Who We Are</a>
-        <a href="index.html#vision-section">Our Vision</a>
-        <a href="index.html#mission-section">Our Mission</a>
-        <a href="index.html#values">Our Values</a>
-        <a href="team.html#board">Our Board</a>
-
+      <div id="aboutSub" class="mobile-submenu space-y-3 pl-4 text-sm">
+        <a href="index.html#about-snapshot" class="block py-2 hover:text-[var(--brand-green)]">Who We Are</a>
+        <a href="index.html#vision-section" class="block py-2 hover:text-[var(--brand-green)]">Our Vision</a>
+        <a href="index.html#mission-section" class="block py-2 hover:text-[var(--brand-green)]">Our Mission</a>
+        <a href="index.html#values" class="block py-2 hover:text-[var(--brand-green)]">Our Values</a>
+        <a href="team.html#board" class="block py-2 hover:text-[var(--brand-green)]">Our Board</a>
       </div>
     </li>
 
-
-    <!-- Join -->
     <li>
-      <button onclick="toggleSubmenu('joinSub')">
-        Join Us <i class="fas fa-chevron-down"></i>
+      <button onclick="toggleSubmenu('joinSub')" class="w-full flex justify-between items-center py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">
+        Join Us <i class="fas fa-chevron-down text-xs transition-transform"></i>
       </button>
-
-      <div id="joinSub" class="mobile-submenu">
-
-        <a href="volunteer.html">Volunteer</a>
-        <a href="career.html">Career Ads</a>
-
+      <div id="joinSub" class="mobile-submenu space-y-3 pl-4 text-sm">
+        <a href="volunteer.html" class="block py-2 hover:text-[var(--brand-green)]">Volunteer</a>
+        <a href="career.html" class="block py-2 hover:text-[var(--brand-green)]">Career Ads</a>
       </div>
     </li>
 
-
-    <!-- Work -->
     <li>
-      <button onclick="toggleSubmenu('workSub')">
-        Our Work <i class="fas fa-chevron-down"></i>
+      <button onclick="toggleSubmenu('workSub')" class="w-full flex justify-between items-center py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">
+        Our Work <i class="fas fa-chevron-down text-xs transition-transform"></i>
       </button>
-
-      <div id="workSub" class="mobile-submenu">
-
-        <a href="programs.html">Thematic Areas</a>
-        <a href="programs.html#impact">Impact</a>
-
+      <div id="workSub" class="mobile-submenu space-y-3 pl-4 text-sm">
+        <a href="programs.html" class="block py-2 hover:text-[var(--brand-green)]">Thematic Areas</a>
+        <a href="programs.html#impact" class="block py-2 hover:text-[var(--brand-green)]">Impact</a>
       </div>
     </li>
 
-
-    <!-- Publications -->
     <li>
-      <button onclick="toggleSubmenu('pubSub')">
-        Publications <i class="fas fa-chevron-down"></i>
+      <button onclick="toggleSubmenu('pubSub')" class="w-full flex justify-between items-center py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">
+        Publications <i class="fas fa-chevron-down text-xs transition-transform"></i>
       </button>
-
-      <div id="pubSub" class="mobile-submenu">
-
-        <a href="archive.html">Annual Report</a>
-        <a href="archive.html">Newsletter</a>
-        <a href="archive.html">Project Impactation</a>
-        <a href="gallery.html#success-stories">Success Stories</a>
-        <a href="gallery.html#social-media-links">Social Handles</a>
-
+      <div id="pubSub" class="mobile-submenu space-y-3 pl-4 text-sm">
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Annual Report</a>
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Newsletter</a>
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Project Impactation</a>
+        <a href="gallery.html#success-stories" class="block py-2 hover:text-[var(--brand-green)]">Success Stories</a>
+        <a href="gallery.html#social-media-links" class="block py-2 hover:text-[var(--brand-green)]">Social Handles</a>
       </div>
     </li>
 
-    <li><a href="contact.html">Contact Us</a></li>
-
+    <li><a href="contact.html" class="block py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">Contact Us</a></li>
   </ul>
+</nav>
 
-</nav>                                                            
-  
-  
-  
-
-    <div class="flex">
-        <aside class="hidden md:flex flex-col items-center sticky top-32 h-[60vh] px-10 z-50">
-            <div class="relative h-full flex flex-col justify-between py-10">
-                <div class="timeline-line"></div>
-                <a href="#year-2026" class="timeline-link active z-10 bg-white py-2 font-black text-xs transition-all">2026</a>
-                <a href="#year-2025" class="timeline-link z-10 bg-white py-2 font-black text-xs transition-all">2025</a>
-                <a href="#year-2024" class="timeline-link z-10 bg-white py-2 font-black text-xs transition-all">2024</a>
-                <a href="#year-2023" class="timeline-link z-10 bg-white py-2 font-black text-xs transition-all">2023</a>
-            </div>
-        </aside>
-
-        <main class="flex-1 border-l border-gray-100">
-            <section id="year-2026" class="py-20 px-10 relative overflow-hidden">
-                <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2026</h2>
-                <div class="pt-20">
-                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Current Edition</span>
-                    <h3 class="text-4xl font-black italic uppercase mb-8">Quarterly <span class="text-[#2D5A27]">Publication.</span></h3>
-                    
-                    <div class="pdf-container rounded-xl shadow-2xl overflow-hidden mb-12" data-aos="zoom-in">
-                        <iframe src="media/pdf/newsletter-march-2026.pdf#toolbar=0" class="w-full h-full" frameborder="0"></iframe>
-                    </div>
-                </div>
-            </section>
-
-            <section id="year-2025" class="py-20 px-10 relative overflow-hidden">
-                <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2025</h2>
-                <div class="pt-20">
-                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">FIELD WORK</span>
-                    <div class="group relative aspect-video bg-gray-50 overflow-hidden rounded-xl border border-gray-100" data-aos="fade-up">
-                        <img src="media/photos/IMG_8631.jpg" class="w-full h-full object-contain transition duration-1000">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-12 flex flex-col justify-end">
-                            <h3 class="text-4xl font-black italic uppercase leading-none mb-4 text-white">Northeastern <br><span class="text-[#2D5A27]">Flood Response.</span></h3>
-                            <p class="text-gray-200 text-sm max-w-xl leading-relaxed mb-6">
-                                Integrated humanitarian response providing life-saving WASH and Protection services across the Lake Chad Basin.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="year-2024" class="py-40 px-10 bg-gray-50 relative overflow-hidden">
-                <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2024</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 pt-20">
-                    <div class="space-y-6" data-aos="fade-right">
-                        <div class="aspect-square bg-white border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center p-4">
-                            <img src="media/photos/IMG_8641.jpg" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition duration-700">
-                        </div>
-                        <div>
-                            <p class="text-[#2D5A27] font-black text-[10px] uppercase tracking-widest mb-2">Protection & Advocacy</p>
-                            <h4 class="text-2xl font-bold uppercase italic">Community Engagement</h4>
-                        </div>
-                    </div>
-
-                    <div class="space-y-6" data-aos="fade-left">
-                        <div class="aspect-square bg-white border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center p-4">
-                            <img src="media/photos/IMG_8656.jpg" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition duration-700">
-                        </div>
-                        <div>
-                            <p class="text-[#2D5A27] font-black text-[10px] uppercase tracking-widest mb-2">Women Leadership</p>
-                            <h4 class="text-2xl font-bold uppercase italic">WPS Policy Forum</h4>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="year-2023" class="py-40 px-10 relative overflow-hidden">
-                <h2 class="text-[10rem] font-black text-black/5 absolute -mt-20 pointer-events-none">2023</h2>
-                <div class="flex flex-wrap gap-8 pt-20">
-                    <img src="media/photos/IMG_8893.jpg" class="h-48 w-auto border border-gray-100 shadow-sm opacity-80 hover:opacity-100 transition grayscale hover:grayscale-0 object-contain">
-                    <img src="media/photos/IMG_8890.jpg" class="h-48 w-auto border border-gray-100 shadow-sm opacity-80 hover:opacity-100 transition grayscale hover:grayscale-0 object-contain">
-                    <img src="media/photos/IMG_8897.jpg" class="h-48 w-auto border border-gray-100 shadow-sm opacity-80 hover:opacity-100 transition grayscale hover:grayscale-0 object-contain">
-                </div>                    
-              </section>
-        </main>
+<!-- ================= MAIN CONTENT ================= -->
+<div class="flex min-h-screen">
+  <!-- Timeline (desktop) -->
+  <aside class="hidden md:flex flex-col items-center sticky top-32 self-start px-8 lg:px-12 z-50">
+    <div class="relative h-[70vh] flex flex-col justify-between py-12">
+      <div class="timeline-line"></div>
+      <a href="#year-2026" class="timeline-link active font-black text-xs uppercase tracking-widest py-3">2026</a>
+      <a href="#year-2025" class="timeline-link font-black text-xs uppercase tracking-widest py-3">2025</a>
+      <a href="#year-2024" class="timeline-link font-black text-xs uppercase tracking-widest py-3">2024</a>
+      <a href="#year-2023" class="timeline-link font-black text-xs uppercase tracking-widest py-3">2023</a>
     </div>
+  </aside>
 
-    <section class="py-24 bg-white border-t border-gray-100">
-        <div class="container mx-auto px-6 md:px-10">
-            <div class="mb-16">
-                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Resource Center</h2>
-                <h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black">Newsletter <br> Archive.</h3>
-            </div>
+  <!-- Main -->
+  <main class="flex-1 border-l border-gray-100">
+    <section id="year-2026" class="py-24 px-6 md:px-12 lg:px-20 relative">
+      <h2 class="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-black/4 absolute -top-16 left-4 pointer-events-none select-none">2026</h2>
+      <div class="relative pt-16">
+        <span class="text-[var(--brand-green)] font-black text-[10px] tracking-[0.5em] uppercase block mb-5">Current Edition</span>
+        <h3 class="text-4xl md:text-5xl font-black italic uppercase mb-10 leading-tight">
+          Quarterly <span class="text-[var(--brand-green)]">Publication</span>
+        </h3>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="group border border-gray-100 p-8 hover:border-[#2D5A27] transition-all duration-500 bg-gray-50/50">
-                    <div class="flex justify-between items-start mb-6">
-                        <i class="far fa-file-pdf text-4xl text-red-600"></i>
-                        <span class="text-[9px] font-black uppercase text-gray-400 tracking-widest">Zamfara Project</span>
-                    </div>
-                    <h4 class="text-xl font-black uppercase italic font-heading mb-4 leading-tight">Resilient Futures: Advancing Gender Equality</h4>   
-                    <p class="text-gray-500 text-xs leading-relaxed mb-8">Strengthening gender equality and promoting women's rights for conflict-affected populations in Zamfara State under the French Embassy (FEF-OSC) support.</p>
-                    
-                    <div class="flex gap-6">
-                        <a href="media/pdf/newsletter-march-2026.pdf" target="_blank" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-[#2D5A27] hover:border-[#2D5A27] transition-all">Open Full PDF</a>
-                        <a href="media/pdf/newsletter-march-2026.pdf" download class="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-all">Download</a>
-                    </div>
-                </div>
-                </div>
+        <div class="pdf-container" data-aos="fade-up" data-aos-delay="100">
+          <iframe src="media/pdf/newsletter-march-2026.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full" frameborder="0" title="GEPaDC Quarterly Newsletter March 2026"></iframe>
         </div>
+      </div>
     </section>
-    
-    <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
-    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
-        
-        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
-            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
-                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
-            </div>
 
-            <div class="relative z-10">
-                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-                    <i class="fas fa-arrow-left"></i> Back to Site
-                </button>
-                
-                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
-                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
-                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
-                </p>
+    <section id="year-2025" class="py-24 px-6 md:px-12 lg:px-20 bg-gray-50/50">
+      <h2 class="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-black/4 absolute -top-16 left-4 pointer-events-none select-none">2025</h2>
+      <div class="relative pt-16">
+        <span class="text-[var(--brand-green)] font-black text-[10px] tracking-[0.5em] uppercase block mb-5">Field Work</span>
 
-                <div class="space-y-4 md:space-y-8">
-                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
-                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
-                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
-                        
-                        <div class="flex items-center gap-3">
-                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
-                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
-                                <i class="fas fa-copy text-xs"></i>
-                            </button>
-                        </div>
-                        
-                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
-                    </div>
-                </div>
-            </div>
+        <div class="group relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 aspect-video" data-aos="fade-up">
+          <img src="media/photos/IMG_8631.jpg" alt="Northeastern Nigeria Flood Response – WASH and Protection Services" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" loading="lazy"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-8 md:p-12 flex flex-col justify-end">
+            <h3 class="text-4xl md:text-5xl font-black italic uppercase leading-tight text-white mb-4">
+              Northeastern<br/><span class="text-[var(--brand-green)]">Flood Response</span>
+            </h3>
+            <p class="text-gray-200 text-base max-w-2xl">
+              Integrated humanitarian response providing life-saving WASH and Protection services across the Lake Chad Basin.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
-                <div class="flex items-center gap-4">
-                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
-                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
-                </div>
-            </div>
+    <section id="year-2024" class="py-32 px-6 md:px-12 lg:px-20 bg-white">
+      <h2 class="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-black/4 absolute -top-16 left-4 pointer-events-none select-none">2024</h2>
+      <div class="grid md:grid-cols-2 gap-12 pt-16">
+        <div class="space-y-6" data-aos="fade-right">
+          <div class="aspect-square bg-white border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center p-6 shadow-sm hover:shadow-xl transition-shadow">
+            <img src="media/photos/IMG_8641.jpg" alt="Community engagement activity – Protection & Advocacy" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-700" loading="lazy"/>
+          </div>
+          <div>
+            <p class="text-[var(--brand-green)] font-black text-xs uppercase tracking-widest mb-2">Protection & Advocacy</p>
+            <h4 class="text-3xl font-black italic uppercase">Community Engagement</h4>
+          </div>
         </div>
 
-        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
-            
-            <div id="formContent">
-                <div class="mb-8 md:mb-10">
-                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
-                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
-                </div>
-
-                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
-                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
-                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
-                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
-                            <option>General Support</option>
-                            <option>Protection Missions (GBV)</option>
-                            <option>WASH Initiatives</option>
-                            <option>Economic Empowerment</option>
-                        </select>
-                    </div>
-
-                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
-                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
-                            Confirm Support
-                        </button>
-                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div id="successContent" class="hidden text-center">
-                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
-                    <i class="fas fa-check text-3xl"></i>
-                </div>
-                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
-                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
-                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
-                </p>
-                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
-                    Return to Site
-                </button>
-            </div>
-
+        <div class="space-y-6" data-aos="fade-left">
+          <div class="aspect-square bg-white border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center p-6 shadow-sm hover:shadow-xl transition-shadow">
+            <img src="media/photos/IMG_8656.jpg" alt="Women Leadership – WPS Policy Forum" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-700" loading="lazy"/>
+          </div>
+          <div>
+            <p class="text-[var(--brand-green)] font-black text-xs uppercase tracking-widest mb-2">Women Leadership</p>
+            <h4 class="text-3xl font-black italic uppercase">WPS Policy Forum</h4>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section id="year-2023" class="py-32 px-6 md:px-12 lg:px-20">
+      <h2 class="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-black/4 absolute -top-16 left-4 pointer-events-none select-none">2023</h2>
+      <div class="flex flex-wrap gap-8 pt-16">
+        <img src="media/photos/IMG_8893.jpg" alt="GEPaDC activity 2023 – image 1" class="h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
+        <img src="media/photos/IMG_8890.jpg" alt="GEPaDC activity 2023 – image 2" class="h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
+        <img src="media/photos/IMG_8897.jpg" alt="GEPaDC activity 2023 – image 3" class="h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ================= RESOURCE CENTER ================= -->
+<section class="py-32 bg-white border-t border-gray-100">
+  <div class="container mx-auto px-6 md:px-12 lg:px-20">
+    <div class="max-w-4xl mx-auto text-center md:text-left">
+      <h2 class="text-[var(--brand-green)] font-black tracking-[0.4em] uppercase text-xs mb-5">Resource Center</h2>
+      <h3 class="text-5xl md:text-6xl font-black uppercase font-heading leading-tight mb-16">
+        Newsletter<br/>Archive
+      </h3>
+
+      <div class="grid md:grid-cols-2 gap-10">
+        <div class="group border border-gray-200 p-8 rounded-2xl hover:border-[var(--brand-green)] hover:shadow-xl transition-all duration-400 bg-gray-50/40">
+          <div class="flex justify-between items-start mb-6">
+            <i class="far fa-file-pdf text-5xl text-red-600/80"></i>
+            <span class="text-[10px] font-black uppercase text-gray-500 tracking-widest">Zamfara Project</span>
+          </div>
+          <h4 class="text-2xl font-black italic uppercase leading-tight mb-5">
+            Resilient Futures:<br/>Advancing Gender Equality
+          </h4>
+          <p class="text-gray-600 text-sm mb-8 leading-relaxed">
+            Strengthening gender equality and promoting women's rights for conflict-affected populations in Zamfara State under the French Embassy (FEF-OSC) support.
+          </p>
+          <div class="flex gap-8">
+            <a href="media/pdf/newsletter-march-2026.pdf" target="_blank" class="text-xs font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-[var(--brand-green)] hover:border-[var(--brand-green)] transition">Open Full PDF</a>
+            <a href="media/pdf/newsletter-march-2026.pdf" download class="text-xs font-black uppercase tracking-widest text-gray-500 hover:text-black transition">Download</a>
+          </div>
+        </div>
+
+        <!-- You can duplicate the card block above for more archive items -->
+      </div>
     </div>
-</div>                 
-   
-<footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
-  <div class="container mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+  </div>
+</section>
 
-      <!-- Logo & Description -->
-      <div class="space-y-6">
-        <div class="flex items-center gap-4">
-          <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
-          <span class="text-xl sm:text-2xl md:text-3xl font-heading font-black tracking-tighter">GEPaDC</span>
+<!-- ================= DONATE MODAL ================= -->
+<div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg overflow-y-auto">
+  <div class="bg-white w-full max-w-6xl flex flex-col lg:flex-row rounded-2xl overflow-hidden shadow-2xl my-8 relative">
+    <!-- Left - Branding -->
+    <div class="bg-[var(--brand-green)] p-10 lg:p-16 lg:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+      <div class="absolute -top-20 -right-20 opacity-10 text-[30rem] pointer-events-none">
+        <i class="fas fa-hand-holding-heart"></i>
+      </div>
+      <div class="relative z-10">
+        <button onclick="toggleModal()" class="mb-12 text-white/70 hover:text-white flex items-center gap-3 text-xs font-black uppercase tracking-widest transition">
+          <i class="fas fa-arrow-left"></i> Back to Site
+        </button>
+
+        <h2 class="text-5xl lg:text-6xl font-black italic font-heading uppercase leading-tight mb-8">
+          Secure<br/>Giving
+        </h2>
+        <p class="text-white/80 text-base max-w-md leading-relaxed mb-12">
+          Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
+        </p>
+
+        <div class="bg-white/10 p-8 rounded-xl border border-white/20 backdrop-blur-md">
+          <p class="text-xs font-black uppercase tracking-widest mb-3 text-white/70">Direct Bank Transfer</p>
+          <p class="text-sm font-bold uppercase mb-2">First Bank Nigeria</p>
+          <div class="flex items-center gap-4">
+            <p class="text-4xl font-black italic tracking-tight" id="accNum">2034098418</p>
+            <button onclick="copyToClipboard('2034098418')" class="text-white/50 hover:text-white transition">
+              <i class="fas fa-copy text-xl"></i>
+            </button>
+          </div>
+          <p class="text-sm mt-4 font-medium">Gender Equality Peace and Development Centre</p>
         </div>
-        <p class="text-gray-300 text-sm sm:text-base md:text-sm font-medium leading-relaxed max-w-xs">
+      </div>
+
+      <div class="relative z-10 mt-12 pt-8 border-t border-white/20 flex items-center gap-4 text-sm">
+        <i class="fas fa-shield-check text-2xl text-white/60"></i>
+        <span class="font-black uppercase tracking-widest text-white/70">Encrypted & Verified</span>
+      </div>
+    </div>
+
+    <!-- Right - Form -->
+    <div class="p-10 lg:p-16 lg:w-7/12 flex flex-col justify-center min-h-[500px]">
+      <div id="formContent">
+        <div class="mb-12">
+          <h3 class="text-4xl font-black uppercase italic font-heading leading-tight mb-3">Pledge Support</h3>
+          <p class="text-gray-500 text-sm font-bold uppercase tracking-widest">Let us know you've made a difference</p>
+        </div>
+
+        <form id="donorForm" class="space-y-8" onsubmit="handleDonation(event)">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-xs font-black uppercase tracking-widest text-gray-500">Full Name</label>
+              <input type="text" required placeholder="John Doe" class="w-full border-b-2 border-gray-200 py-4 text-base font-semibold focus:border-[var(--brand-green)] outline-none transition"/>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-black uppercase tracking-widest text-gray-500">Email Address</label>
+              <input type="email" required placeholder="john@example.com" class="w-full border-b-2 border-gray-200 py-4 text-base font-semibold focus:border-[var(--brand-green)] outline-none transition"/>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-black uppercase tracking-widest text-gray-500">Donation Purpose</label>
+            <select class="w-full border-b-2 border-gray-200 py-4 text-base font-semibold bg-transparent focus:border-[var(--brand-green)] outline-none appearance-none">
+              <option>General Support</option>
+              <option>Protection Missions (GBV)</option>
+              <option>WASH Initiatives</option>
+              <option>Economic Empowerment</option>
+            </select>
+          </div>
+
+          <div class="pt-8 flex flex-col sm:flex-row gap-6">
+            <button type="submit" class="flex-1 bg-black text-white py-5 text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition shadow-lg active:scale-98">
+              Confirm Support
+            </button>
+            <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-600 py-5 text-xs font-black uppercase tracking-widest hover:bg-gray-200 transition">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="successContent" class="hidden text-center">
+        <div class="w-24 h-24 bg-[var(--brand-green)]/10 text-[var(--brand-green)] rounded-full flex items-center justify-center mx-auto mb-10 text-4xl">
+          <i class="fas fa-check"></i>
+        </div>
+        <h3 class="text-4xl font-black uppercase italic font-heading mb-6">Pledge Received</h3>
+        <p class="text-gray-600 text-base leading-relaxed mb-12 max-w-md mx-auto">
+          Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
+        </p>
+        <button onclick="toggleModal()" class="border-2 border-black px-12 py-5 font-black uppercase text-xs tracking-widest hover:bg-black hover:text-white transition">
+          Return to Site
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-[#0a0a0a] pt-20 pb-12 px-6 md:px-12 lg:px-20 text-white border-t-4 border-[var(--brand-green)]">
+  <div class="container mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
+      <!-- Brand -->
+      <div class="space-y-8">
+        <div class="flex items-center gap-4">
+          <img src="logo.png" alt="GEPaDC Logo" class="h-14 w-auto brightness-150"/>
+          <span class="text-3xl font-heading font-black tracking-tight">GEPaDC</span>
+        </div>
+        <p class="text-gray-300 leading-relaxed max-w-xs">
           Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
         </p>
-        <div class="flex flex-wrap gap-3">
-          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+        <div class="flex gap-4">
+          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
             <i class="fab fa-x-twitter"></i>
           </a>
-          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
             <i class="fab fa-instagram"></i>
           </a>
-          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
             <i class="fab fa-linkedin-in"></i>
           </a>
         </div>
       </div>
 
-      <!-- Operational Office -->
+      <!-- Office -->
       <div>
-        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Operational Office</h4>
-        <ul class="space-y-4 sm:space-y-5 text-[9px] sm:text-[10px] md:text-[11px] uppercase font-black tracking-widest">
-          <li class="flex gap-4 group">
-            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+        <h4 class="font-black text-xs uppercase tracking-[0.35em] mb-8 border-l-4 border-[var(--brand-green)] pl-5">Operational Office</h4>
+        <ul class="space-y-6 text-sm uppercase font-semibold tracking-wider">
+          <li class="flex gap-5 group">
+            <i class="fas fa-map-pin text-[var(--brand-green)] text-xl mt-1 group-hover:scale-125 transition"></i>
             <div>
-              <span class="text-white block">Borno State Office, Northeast Zone</span>
-              <p class="text-gray-500 font-bold lowercase tracking-normal text-[8px] sm:text-[9px] md:text-[10px]">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
+              <span class="block">Borno State Office, Northeast Zone</span>
+              <p class="text-gray-500 font-medium normal-case text-xs mt-1">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
             </div>
           </li>
         </ul>
       </div>
 
-      <!-- Direct Contact -->
+      <!-- Contact -->
       <div>
-        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
-        <ul class="space-y-5">
-          <li class="mt-4 p-3 sm:p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
-            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-[#2D5A27] tracking-[0.25em] block mb-1">Emergency Toll-Free</span>
-            <div class="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-black italic text-white tracking-tighter">
-              <i class="fas fa-headset text-base sm:text-lg md:text-xl"></i>
+        <h4 class="font-black text-xs uppercase tracking-[0.35em] mb-8 border-l-4 border-[var(--brand-green)] pl-5">Direct Contact</h4>
+        <ul class="space-y-6">
+          <li class="p-5 bg-[var(--brand-green)]/10 border-l-4 border-[var(--brand-green)]">
+            <span class="text-xs font-black uppercase tracking-widest text-[var(--brand-green)] block mb-2">Emergency Toll-Free</span>
+            <div class="flex items-center gap-4 text-2xl font-black italic">
+              <i class="fas fa-headset"></i>
               <span>08000004000</span>
             </div>
           </li>
-          <li class="mt-4 p-3 sm:p-4 bg-red-900/10 border-l-4 border-red-700">
-            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-red-700 tracking-[0.25em] block mb-1">Safeguarding Reporting</span>
-            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
+          <li class="p-5 bg-red-900/10 border-l-4 border-red-700">
+            <span class="text-xs font-black uppercase tracking-widest text-red-700 block mb-2">Safeguarding Reporting</span>
+            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-sm uppercase tracking-wider border-b border-white/30 hover:text-red-400 transition">safeguarding@gepadc.org</a>
           </li>
         </ul>
       </div>
 
       <!-- Newsletter -->
       <div>
-        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
-        <form class="relative mb-8">
-          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-3 sm:py-4 px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
-          <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+        <h4 class="font-black text-xs uppercase tracking-[0.35em] mb-8 border-l-4 border-[var(--brand-green)] pl-5">Newsletter</h4>
+        <form class="relative">
+          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/5 border-2 border-white/10 py-5 px-6 text-sm font-black uppercase tracking-widest text-white focus:outline-none focus:border-[var(--brand-green)] transition"/>
+          <button class="absolute right-2 top-2 bottom-2 bg-[var(--brand-green)] px-8 text-sm font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
         </form>
       </div>
     </div>
 
-    <!-- Footer Bottom -->
-    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
-      <div class="flex gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">
-        <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
-        <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
-        <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
+    <div class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8 text-sm text-gray-500 font-semibold uppercase tracking-wider">
+      <div class="flex gap-8">
+        <a href="privacy.html" class="hover:text-[var(--brand-green)] transition">Privacy</a>
+        <a href="terms.html" class="hover:text-[var(--brand-green)] transition">Terms</a>
+        <a href="cookies.html" class="hover:text-[var(--brand-green)] transition">Cookies</a>
       </div>
-
-      <div class="flex items-center gap-4 md:gap-5">
+      <div class="flex items-center gap-6">
         <div class="text-right">
-          <p class="text-gray-500 text-[7px] sm:text-[8px] md:text-[9px] uppercase font-black tracking-widest">Designed & Managed by</p>
-          <p class="text-white text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+          <p class="text-xs uppercase font-black tracking-widest text-gray-600">Designed & Managed by</p>
+          <p class="text-white text-sm font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
         </div>
-        <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
-          <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
+        <div class="w-16 h-10 bg-white p-2 rounded shadow-xl group hover:scale-105 transition">
+          <img src="zion.jpg" alt="Zion Netcom Solutions Logo" class="w-full h-full object-contain"/>
         </div>
       </div>
     </div>
   </div>
 </footer>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-// ==============================
-// DOCUMENT READY
-// ==============================
-document.addEventListener("DOMContentLoaded", function () {
+// ──────────────────────────────────────────────
+//  Initialization
+// ──────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+  AOS.init({ duration: 900, once: true, disable: 'mobile' });
 
-    /* ==============================
-    AOS INITIALIZATION
-    ==============================
-    */
-    AOS.init({
-        duration: 1000,
-        once: true,
-        disable: 'mobile'
+  // ───── Mobile Navigation ─────
+  window.openMobileNav = () => {
+    document.getElementById("mobileNavPanel").classList.add("!right-0");
+    document.getElementById("mobileNavOverlay").classList.add("opacity-100", "pointer-events-auto");
+    document.body.style.overflow = "hidden";
+  };
+
+  window.closeMobileNav = () => {
+    document.getElementById("mobileNavPanel").classList.remove("!right-0");
+    document.getElementById("mobileNavOverlay").classList.remove("opacity-100", "pointer-events-auto");
+    document.body.style.overflow = "";
+  };
+
+  window.toggleSubmenu = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle("open");
+  };
+
+  // ───── Donate Modal ─────
+  window.toggleModal = () => {
+    const modal = document.getElementById("donateModal");
+    const form = document.getElementById("formContent");
+    const success = document.getElementById("successContent");
+    modal?.classList.toggle("hidden");
+
+    if (modal?.classList.contains("hidden")) {
+      setTimeout(() => {
+        form?.classList.remove("hidden");
+        success?.classList.add("hidden");
+        document.getElementById("donorForm")?.reset();
+      }, 400);
+    }
+  };
+
+  window.handleDonation = (e) => {
+    e.preventDefault();
+    document.getElementById("formContent")?.classList.add("hidden");
+    document.getElementById("successContent")?.classList.remove("hidden");
+  };
+
+  window.copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector("#copyBtn i") || document.querySelector("[onclick*='copyToClipboard'] i");
+      if (btn) {
+        const original = btn.className;
+        btn.className = "fas fa-check text-white";
+        setTimeout(() => btn.className = original, 2200);
+      }
+    });
+  };
+
+  // ───── Timeline Active Link ─────
+  window.addEventListener("scroll", () => {
+    const sections = document.querySelectorAll("section[id^='year-']");
+    const links = document.querySelectorAll(".timeline-link");
+    let current = "";
+
+    sections.forEach((sec) => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 220 && rect.bottom >= 220) {
+        current = sec.id;
+      }
     });
 
-    /* ==============================
-    LOAD HTML COMPONENTS
-    ==============================
-    */
-    function loadComponent(id, file) {
-        fetch(file)
-            .then(res => {
-                if (!res.ok) throw new Error("Could not load " + file);
-                return res.text();
-            })
-            .then(data => {
-                const el = document.getElementById(id);
-                if (el) el.innerHTML = data;
-            })
-            .catch(err => console.error(err));
-    }
-    loadComponent("topbar", "topbar.html");
-    loadComponent("header", "header.html");
-    loadComponent("footer", "footer.html");
-    loadComponent("donate", "donate-modal.html");
-
-    /* ==============================
-    LIVE DATE & TIME
-    ==============================
-    */
-    function updateClock() {
-        const now = new Date();
-        const dateEl = document.getElementById("liveDate");
-        const timeEl = document.getElementById("liveTime");
-
-        if (dateEl && timeEl) {
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            dateEl.innerText = now.toLocaleDateString('en-US', options);
-            timeEl.innerText = now.toLocaleTimeString('en-US', { hour12: false }) + ' WAT';
-        }
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    /* ==============================
-    HERO SLIDESHOW
-    ==============================
-    */
-    const slides = [
-        'media/photos/IMG_8641.jpg',
-        'media/photos/IMG_6927.jpg',
-        'media/photos/main 1.jpeg',
-        'media/photos/Mainpics (5).jpeg'
-    ];
-    const container = document.getElementById('hero-slideshow');
-    let currentSlide = 0;
-
-    if (container) {
-        slides.forEach((src, index) => {
-            const div = document.createElement('div');
-            div.className = `slide ${index === 0 ? 'active' : ''}`;
-            div.style.backgroundImage = `url('${src}')`;
-            container.appendChild(div);
-        });
-
-        const slideElements = document.querySelectorAll('.slide');
-        setInterval(() => {
-            slideElements[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slideElements.length;
-            slideElements[currentSlide].classList.add('active');
-        }, 5000);
-    }
-
-    /* ==============================
-    COUNTER ANIMATION
-    ==============================
-    */
-    const startCounters = () => {
-        document.querySelectorAll('.counter').forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            let count = 0;
-            const totalFrames = 150;
-            const increment = target / totalFrames;
-
-            const update = () => {
-                if (count < target) {
-                    count += increment;
-                    counter.innerText = Math.ceil(count);
-                    setTimeout(update, 35);
-                } else counter.innerText = target;
-            };
-            update();
-        });
-    };
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                startCounters();
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.counter').forEach(c => observer.observe(c));
-
-    /* ==============================
-    MODAL TOGGLE & FORM HANDLING
-    ==============================
-    */
-    window.toggleModal = function () {
-        const modal = document.getElementById('donateModal');
-        const formContent = document.getElementById('formContent');
-        const successContent = document.getElementById('successContent');
-        const donorForm = document.getElementById('donorForm');
-
-        if (!modal) return;
-        modal.classList.toggle('hidden');
-
-        // Reset form when modal is closed
-        if (modal.classList.contains('hidden')) {
-            setTimeout(() => {
-                formContent?.classList.remove('hidden');
-                successContent?.classList.add('hidden');
-                donorForm?.reset();
-            }, 400);
-        }
-    };
-
-    window.handleDonation = function (event) {
-        event.preventDefault();
-        document.getElementById('formContent')?.classList.add('hidden');
-        document.getElementById('successContent')?.classList.remove('hidden');
-    };
-
-    /* ==============================
-    COPY TO CLIPBOARD
-    ==============================
-    */
-    window.copyToClipboard = function (text) {
-        navigator.clipboard.writeText(text);
-        const btn = document.getElementById('copyBtn');
-        if (!btn) return;
-        const originalIcon = btn.innerHTML;
-
-        btn.innerHTML = '<i class="fas fa-check text-white"></i>';
-        btn.classList.replace('text-white/40', 'text-white');
-
-        setTimeout(() => {
-            btn.innerHTML = originalIcon;
-            btn.classList.replace('text-white', 'text-white/40');
-        }, 2000);
-    };
-
-    /* ==============================
-    MOBILE NAVIGATION
-    ==============================
-    */
-    window.toggleMobileNav = function () {
-        const mobileNav = document.getElementById('mobileNav');
-        const navIcon = document.getElementById('navIcon');
-        if (!mobileNav) return;
-
-        mobileNav.classList.toggle('hidden');
-        mobileNav.classList.toggle('flex');
-        navIcon.className = mobileNav.classList.contains('hidden') ? 'fas fa-bars' : 'fas fa-times';
-        document.body.style.overflow = mobileNav.classList.contains('hidden') ? 'auto' : 'hidden';
-    };
-
-    window.toggleSubmenu = function (id) {
-        const submenu = document.getElementById(id);
-        submenu?.classList.toggle('hidden');
-    };
-
-    // Optional desktop hover for dropdowns
-    document.querySelectorAll('.dropdown').forEach(drop => {
-        drop.addEventListener('mouseenter', () => drop.querySelector('.dropdown-menu')?.classList.remove('hidden'));
-        drop.addEventListener('mouseleave', () => drop.querySelector('.dropdown-menu')?.classList.add('hidden'));
+    links.forEach((link) => {
+      link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
     });
-
-    /* ==============================
-    TABS (Vision, Mission, Values)
-    ==============================
-    */
-    window.openTab = function (evt, tabName) {
-        const tabcontents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < tabcontents.length; i++) {
-            tabcontents[i].classList.add("hidden");
-            tabcontents[i].classList.remove("block");
-        }
-
-        const tablinks = document.getElementsByClassName("tab-link");
-        for (let i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("tab-active", "border-[#2D5A27]", "text-black");
-            tablinks[i].classList.add("border-transparent", "text-gray-400");
-        }
-
-        const activeTab = document.getElementById(tabName);
-        activeTab?.classList.remove("hidden");
-        activeTab?.classList.add("block");
-
-        evt.currentTarget.classList.add("tab-active", "border-[#2D5A27]", "text-black");
-        evt.currentTarget.classList.remove("border-transparent", "text-gray-400");
-    };
-
-    /* ==============================
-    PEACE DAY SLIDER
-    ==============================
-    */
-    const slider = document.getElementById('peace-slider');
-    const dots = document.querySelectorAll('.dot');
-
-    function moveSlider(direction) {
-        if (!slider) return;
-        const slideWidth = slider.clientWidth;
-
-        if (direction === 'next') {
-            if (slider.scrollLeft + slideWidth >= slider.scrollWidth - 5) slider.scrollTo({ left: 0, behavior: 'smooth' });
-            else slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
-        } else {
-            if (slider.scrollLeft <= 5) slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' });
-            else slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
-        }
-        setTimeout(updateDots, 500);
-    }
-
-    function updateDots() {
-        if (!slider || dots.length === 0) return;
-        const index = Math.round(slider.scrollLeft / slider.clientWidth);
-        dots.forEach((dot, i) => {
-            if (i === index) {
-                dot.classList.add('w-8', 'bg-[#2D5A27]');
-                dot.classList.remove('w-2', 'bg-gray-300');
-            } else {
-                dot.classList.add('w-2', 'bg-gray-300');
-                dot.classList.remove('w-8', 'bg-[#2D5A27]');
-            }
-        });
-    }
-
-    if (slider) {
-        let autoSlide = setInterval(() => moveSlider('next'), 5000);
-
-        slider.addEventListener('touchstart', () => clearInterval(autoSlide), { passive: true });
-        slider.addEventListener('scroll', () => updateDots(), { passive: true });
-    }
-
-    /* ==============================
-    SCROLL ACTIVE SECTION
-    ==============================
-    */
-    window.addEventListener('scroll', () => {
-        const sections = document.querySelectorAll('main section[id]');
-        const navLinks = document.querySelectorAll('.timeline-link');
-        let current = "";
-
-        sections.forEach(section => {
-            if (window.pageYOffset >= section.offsetTop - 300) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) link.classList.add('active');
-        });
-    });
-
+  });
 });
-   function openMobileNav(){
-    document.getElementById("mobileNavPanel").classList.add("active");
-    document.getElementById("mobileNavOverlay").classList.add("active");
-}
-
-function closeMobileNav(){
-    document.getElementById("mobileNavPanel").classList.remove("active");
-    document.getElementById("mobileNavOverlay").classList.remove("active");
-}
-
-function toggleSubmenu(id){
-
-    const submenu = document.getElementById(id);
-
-    if(submenu.style.display === "block"){
-        submenu.style.display = "none";
-    }else{
-        submenu.style.display = "block";
-    }
-
-}                    
-  
 </script>
 </body>
 </html>
-
-
-
-
