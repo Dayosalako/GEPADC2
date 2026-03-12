@@ -12,7 +12,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1a1a1a; overflow-x: hidden; }
         .font-heading { font-family: 'Montserrat', sans-serif; }
-       
+      
         /* Masonry Grid Setup */
         .grid-container {
             display: grid;
@@ -35,7 +35,6 @@
         }
         @media (max-width: 1024px) { .grid-item { width: 50%; } }
         @media (max-width: 640px) { .grid-item { width: 100%; } }
-
         /* Navigation Dropdown */
         .dropdown-menu {
             display: none;
@@ -55,22 +54,21 @@
             text-transform: uppercase; font-weight: 900; color: #1a1a1a; transition: all 0.2s;
         }
         .dropdown-item:hover { background: #f9f9f9; color: #2D5A27; padding-left: 2rem; }
-  
+ 
         /* Media Card Styling */
         .media-container { position: relative; overflow: hidden; background: #f4f4f4; border: 1px solid rgba(0,0,0,0.05); }
         .media-container img { transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease; filter: grayscale(100%); width: 100%; height: auto; display: block; }
         .media-container:hover img { transform: scale(1.05); filter: grayscale(0%); }
-       
+      
         .filter-btn { transition: all 0.3s ease; border-bottom: 2px solid transparent; padding-bottom: 4px; cursor: pointer; }
         .filter-btn.active { color: #2D5A27; border-color: #2D5A27; }
-      
+     
         html, body{
             overflow-x:hidden;
         }
         html{
             scroll-behavior:smooth;
         }
-
         /* ─── Mobile Navigation ─── */
         .mobile-nav-overlay {
             position: fixed;
@@ -100,10 +98,10 @@
             overflow-y: auto;
             box-shadow: -12px 0 40px rgba(0,0,0,0.25);
         }
-       .mobile-nav-panel.active {
-    transform: translateX(0) !important;  /* add !important temporarily to test */
-}                    
-          .mobile-nav-panel ul {
+        .mobile-nav-panel.active {
+            transform: translateX(0) !important;
+        }
+        .mobile-nav-panel ul {
             list-style: none;
             padding: 1.5rem 1rem;
             margin: 0;
@@ -170,6 +168,7 @@
         .mobile-nav-close i {
             font-size: 1.1rem;
         }
+        :root { --brand-green: #2D5A27; }
     </style>
 </head>
 <body>
@@ -238,13 +237,12 @@
           <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-6 py-2.5 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition border-2 border-black hover:border-[var(--brand-green)]">
             Donate
           </button>
-          <button id="hamburgerBtn" class="lg:hidden text-2xl text-gray-800 focus:outline-none">
-  <i class="fas fa-bars"></i>
-</button>  
+          <button onclick="openMobileNav()" class="lg:hidden text-2xl text-gray-800">
+            <i class="fas fa-bars"></i>
+          </button>
         </div>
       </div>
     </header>
-
     <!-- Mobile Nav Overlay + Panel -->
     <div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
     <nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-100%] w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto transition-all duration-500">
@@ -369,7 +367,7 @@ X Updates
     <h1 class="text-7xl md:text-9xl font-heading font-black uppercase leading-[0.85] mb-16 text-black">
         GALLERY.
     </h1>
-       
+      
         <div id="filters" class="flex flex-wrap justify-center gap-x-10 gap-y-6 font-black text-[10px] uppercase tracking-[0.2em] text-gray-400 w-full">
     <div class="filter-btn active cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter="*">All Records</div>
     <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".protection">Protection</div>
@@ -455,10 +453,9 @@ X Updates
             </div>
         </div>
     </div>
-
    <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
     <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
-       
+      
         <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
             <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
                 <i class="fas fa-hand-holding-heart text-[20rem]"></i>
@@ -467,7 +464,7 @@ X Updates
                 <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
                     <i class="fas fa-arrow-left"></i> Back to Site
                 </button>
-               
+              
                 <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
                 <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
                     Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
@@ -476,14 +473,14 @@ X Updates
                     <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
                         <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
                         <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
-                       
+                      
                         <div class="flex items-center gap-3">
                             <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
                             <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
                                 <i class="fas fa-copy text-xs"></i>
                             </button>
                         </div>
-                       
+                      
                         <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
                     </div>
                 </div>
@@ -496,7 +493,7 @@ X Updates
             </div>
         </div>
         <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
-           
+          
             <div id="formContent">
                 <div class="mb-8 md:mb-10">
                     <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
@@ -562,7 +559,7 @@ X Updates
                     Impact in Motion
                 </h3>
             </div>
-           
+          
             <div class="relative aspect-video shadow-2xl border border-gray-200 bg-black" data-aos="zoom-in">
                 <video controls poster="media/photos/IMG_8641.jpg" class="w-full h-full" playsinline>
                     <source src="media/video1.mp4" type="video/mp4">
@@ -572,7 +569,6 @@ X Updates
         </div>
     </div>
 </section>
-
    <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
   <div class="container mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -659,21 +655,32 @@ X Updates
   </div>
 </footer>
  
- <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // ─── Lightbox (GLightbox) ───
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function(){
+    /* -------------------------
+    AOS ANIMATION INITIALIZATION
+    --------------------------*/
+    AOS.init({
+        duration: 1000,
+        once: true,
+        disable: 'mobile'
+    });
+    /* -------------------------
+    LIGHTBOX
+    --------------------------*/
     const lightbox = GLightbox({
         selector: '.glightbox'
     });
-
-    // ─── Isotope Masonry Grid + Filter ───
+    /* -------------------------
+    ISOTOPE GRID + FILTER
+    --------------------------*/
     const grid = document.querySelector('.grid-container');
     let iso;
-
-    if (grid) {
-        imagesLoaded(grid, function () {
+    if(grid){
+        imagesLoaded(grid, function(){
             iso = new Isotope(grid, {
                 itemSelector: '.grid-item',
                 percentPosition: true,
@@ -683,85 +690,69 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
-
     const filters = document.querySelector('#filters');
-    if (filters) {
-        filters.addEventListener('click', function (e) {
+    if(filters){
+        filters.addEventListener('click', function(e) {
             if (!e.target.classList.contains('filter-btn')) return;
-            const filterValue = e.target.getAttribute('data-filter');
-            if (iso) {
+            var filterValue = e.target.getAttribute('data-filter');
+            if(iso){
                 iso.arrange({ filter: filterValue });
             }
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             e.target.classList.add('active');
         });
     }
-
-    // ─── Mobile Navigation ───
-    window.openMobileNav = function () {
+    /* -------------------------
+    MOBILE NAVIGATION
+    --------------------------*/
+    window.openMobileNav = function(){
         const overlay = document.getElementById("mobileNavOverlay");
         const panel = document.getElementById("mobileNavPanel");
-        if (overlay) overlay.classList.add("active");
-        if (panel) panel.classList.add("active");
+        if(overlay) overlay.classList.add("active");
+        if(panel) panel.classList.add("active");
         document.body.classList.add("no-scroll");
     };
-
-    window.closeMobileNav = function () {
+    window.closeMobileNav = function(){
         const overlay = document.getElementById("mobileNavOverlay");
         const panel = document.getElementById("mobileNavPanel");
-        if (overlay) overlay.classList.remove("active");
-        if (panel) panel.classList.remove("active");
+        if(overlay) overlay.classList.remove("active");
+        if(panel) panel.classList.remove("active");
         document.body.classList.remove("no-scroll");
     };
-
-    window.toggleSubmenu = function (id) {
+    window.toggleSubmenu = function(id){
         const menu = document.getElementById(id);
-        if (!menu) return;
+        if(!menu) return;
         menu.style.display = menu.style.display === "block" ? "none" : "block";
     };
-
-    // ─── Donation Modal ───
-    window.toggleModal = function () {
+    /* -------------------------
+    DONATION MODAL
+    --------------------------*/
+    window.toggleModal = function(){
         const modal = document.getElementById('donateModal');
-        if (!modal) return;
+        if(!modal) return;
         modal.classList.toggle('hidden');
     };
-
-    window.copyToClipboard = function (text) {
+    window.copyToClipboard = function(text){
         navigator.clipboard.writeText(text);
         const btn = document.getElementById("copyBtn");
-        if (btn) {
+        if(btn){
             btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
-            setTimeout(() => {
+            setTimeout(()=>{
                 btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
-            }, 2000);
+            },2000);
         }
     };
-
-    window.handleDonation = function (e) {
+    window.handleDonation = function(e){
         e.preventDefault();
         const form = document.getElementById("donorForm");
         const success = document.getElementById("successContent");
         const content = document.getElementById("formContent");
-        if (form && success && content) {
+        if(form && success && content){
             content.classList.add("hidden");
             success.classList.remove("hidden");
         }
     };
 });
-
-    // Explicit mobile nav binding (prevents onclick issues)
-document.addEventListener("DOMContentLoaded", () => {
-    const hamburger = document.getElementById("hamburgerBtn");
-    if (hamburger) {
-        hamburger.addEventListener("click", (e) => {
-            e.preventDefault();
-            console.log("Hamburger clicked - calling openMobileNav");
-            openMobileNav();
-        });
-    }
-});
-</script>                    
-  
+</script>
 </body>
 </html>
