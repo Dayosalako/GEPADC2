@@ -10,9 +10,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1a1a1a; overflow-x: hidden; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #ffffff; 
+            color: #1a1a1a; 
+            overflow-x: hidden; 
+        }
         .font-heading { font-family: 'Montserrat', sans-serif; }
-      
+
         /* Masonry Grid Setup */
         .grid-container {
             display: grid;
@@ -35,6 +40,7 @@
         }
         @media (max-width: 1024px) { .grid-item { width: 50%; } }
         @media (max-width: 640px) { .grid-item { width: 100%; } }
+
         /* Navigation Dropdown */
         .dropdown-menu {
             display: none;
@@ -50,25 +56,57 @@
             pointer-events: auto;
         }
         .dropdown-item {
-            display: block; padding: 0.75rem 1.5rem; font-size: 9px;
-            text-transform: uppercase; font-weight: 900; color: #1a1a1a; transition: all 0.2s;
+            display: block; 
+            padding: 0.75rem 1.5rem; 
+            font-size: 9px;
+            text-transform: uppercase; 
+            font-weight: 900; 
+            color: #1a1a1a; 
+            transition: all 0.2s;
         }
-        .dropdown-item:hover { background: #f9f9f9; color: #2D5A27; padding-left: 2rem; }
- 
+        .dropdown-item:hover { 
+            background: #f9f9f9; 
+            color: #2D5A27; 
+            padding-left: 2rem; 
+        }
+
         /* Media Card Styling */
-        .media-container { position: relative; overflow: hidden; background: #f4f4f4; border: 1px solid rgba(0,0,0,0.05); }
-        .media-container img { transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease; filter: grayscale(100%); width: 100%; height: auto; display: block; }
-        .media-container:hover img { transform: scale(1.05); filter: grayscale(0%); }
-      
-        .filter-btn { transition: all 0.3s ease; border-bottom: 2px solid transparent; padding-bottom: 4px; cursor: pointer; }
-        .filter-btn.active { color: #2D5A27; border-color: #2D5A27; }
-     
+        .media-container { 
+            position: relative; 
+            overflow: hidden; 
+            background: #f4f4f4; 
+            border: 1px solid rgba(0,0,0,0.05); 
+        }
+        .media-container img { 
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease; 
+            filter: grayscale(100%); 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+        }
+        .media-container:hover img { 
+            transform: scale(1.05); 
+            filter: grayscale(0%); 
+        }
+
+        .filter-btn { 
+            transition: all 0.3s ease; 
+            border-bottom: 2px solid transparent; 
+            padding-bottom: 4px; 
+            cursor: pointer; 
+        }
+        .filter-btn.active { 
+            color: #2D5A27; 
+            border-color: #2D5A27; 
+        }
+
         html, body{
             overflow-x:hidden;
         }
         html{
             scroll-behavior:smooth;
         }
+
         /* ─── Mobile Navigation ─── */
         .mobile-nav-overlay {
             position: fixed;
@@ -172,6 +210,7 @@
     </style>
 </head>
 <body>
+
     <!-- ================= HEADER ================= -->
     <header class="sticky top-0 z-[100] bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
       <div class="container mx-auto px-5 md:px-10 flex justify-between items-center py-4 md:py-5">
@@ -243,6 +282,7 @@
         </div>
       </div>
     </header>
+
     <!-- Mobile Nav Overlay + Panel -->
     <div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
     <nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-100%] w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto transition-all duration-500">
@@ -297,88 +337,89 @@
       </ul>
     </nav>
 
-   <section id="social-media-links" class="py-24 bg-white border-t border-gray-100">
-<div class="container mx-auto px-6 md:px-10">
-<div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
-<div>
-<h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">
-Operational Pulse
-</h2>
-<h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black">
-Field <br> Perspectives
-</h3>
-</div>
-<p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">
-Real-time updates from our protection missions across Nigeria.
-</p>
-</div>
-<!-- SOCIAL MEDIA GRID -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-<!-- INSTAGRAM -->
-<div class="group relative overflow-hidden aspect-square border border-gray-100">
-<img src="media/photos/IMG_7622.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-<a href="https://www.instagram.com/gepadc/" target="_blank"
-class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-<i class="fab fa-instagram text-2xl mb-2"></i>
-<span class="text-[10px] font-black uppercase tracking-widest">
-Instagram
-</span>
-</a>
-</div>
-<!-- FACEBOOK -->
-<div class="group relative overflow-hidden aspect-square border border-gray-100">
-<img src="media/photos/IMG_7590.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-<a href="https://web.facebook.com/GEPaDC.Nig" target="_blank"
-class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-<i class="fab fa-facebook-f text-2xl mb-2"></i>
-<span class="text-[10px] font-black uppercase tracking-widest">
-Facebook
-</span>
-</a>
-</div>
-<!-- YOUTUBE -->
-<div class="group relative overflow-hidden aspect-square border border-gray-100">
-<img src="media/photos/IMG_8661.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-<a href="https://www.youtube.com/@gepadc370" target="_blank"
-class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-<i class="fab fa-youtube text-2xl mb-2"></i>
-<span class="text-[10px] font-black uppercase tracking-widest">
-YouTube
-</span>
-</a>
-</div>
-<!-- X / TWITTER -->
-<div class="group relative overflow-hidden aspect-square border border-gray-100">
-<img src="media/photos/GEPADC (1).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-<a href="https://twitter.com/GEPaDC" target="_blank"
-class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-<i class="fab fa-x-twitter text-2xl mb-2"></i>
-<span class="text-[10px] font-black uppercase tracking-widest">
-X Updates
-</span>
-</a>
-</div>
-</div>
-</div>
-</section>
- 
-<header class="pt-24 pb-12 px-10 max-w-7xl mx-auto text-center">
-    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4 mx-auto">Evidence of Impact</span>
-    <h1 class="text-7xl md:text-9xl font-heading font-black uppercase leading-[0.85] mb-16 text-black">
-        GALLERY.
-    </h1>
-      
+    <section id="social-media-links" class="py-24 bg-white border-t border-gray-100">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
+                <div>
+                    <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">
+                        Operational Pulse
+                    </h2>
+                    <h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black">
+                        Field <br> Perspectives
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">
+                    Real-time updates from our protection missions across Nigeria.
+                </p>
+            </div>
+            <!-- SOCIAL MEDIA GRID -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- INSTAGRAM -->
+                <div class="group relative overflow-hidden aspect-square border border-gray-100">
+                    <img src="media/photos/IMG_7622.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <a href="https://www.instagram.com/gepadc/" target="_blank"
+                       class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
+                        <i class="fab fa-instagram text-2xl mb-2"></i>
+                        <span class="text-[10px] font-black uppercase tracking-widest">
+                            Instagram
+                        </span>
+                    </a>
+                </div>
+                <!-- FACEBOOK -->
+                <div class="group relative overflow-hidden aspect-square border border-gray-100">
+                    <img src="media/photos/IMG_7590.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank"
+                       class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
+                        <i class="fab fa-facebook-f text-2xl mb-2"></i>
+                        <span class="text-[10px] font-black uppercase tracking-widest">
+                            Facebook
+                        </span>
+                    </a>
+                </div>
+                <!-- YOUTUBE -->
+                <div class="group relative overflow-hidden aspect-square border border-gray-100">
+                    <img src="media/photos/IMG_8661.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <a href="https://www.youtube.com/@gepadc370" target="_blank"
+                       class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
+                        <i class="fab fa-youtube text-2xl mb-2"></i>
+                        <span class="text-[10px] font-black uppercase tracking-widest">
+                            YouTube
+                        </span>
+                    </a>
+                </div>
+                <!-- X / TWITTER -->
+                <div class="group relative overflow-hidden aspect-square border border-gray-100">
+                    <img src="media/photos/GEPADC (1).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <a href="https://twitter.com/GEPaDC" target="_blank"
+                       class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
+                        <i class="fab fa-x-twitter text-2xl mb-2"></i>
+                        <span class="text-[10px] font-black uppercase tracking-widest">
+                            X Updates
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <header class="pt-24 pb-12 px-10 max-w-7xl mx-auto text-center">
+        <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4 mx-auto">Evidence of Impact</span>
+        <h1 class="text-7xl md:text-9xl font-heading font-black uppercase leading-[0.85] mb-16 text-black">
+            GALLERY.
+        </h1>
+         
         <div id="filters" class="flex flex-wrap justify-center gap-x-10 gap-y-6 font-black text-[10px] uppercase tracking-[0.2em] text-gray-400 w-full">
-    <div class="filter-btn active cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter="*">All Records</div>
-    <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".protection">Protection</div>
-    <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".wash">WASH</div>
-    <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".peace">Peacebuilding</div>
-    <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".empowerment">Empowerment</div>
-</div>
+            <div class="filter-btn active cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter="*">All Records</div>
+            <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".protection">Protection</div>
+            <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".wash">WASH</div>
+            <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".peace">Peacebuilding</div>
+            <div class="filter-btn cursor-pointer hover:text-[#2D5A27] transition-colors" data-filter=".empowerment">Empowerment</div>
+        </div>
     </header>
+
     <div class="px-6 max-w-[1800px] mx-auto min-h-screen">
         <div class="grid-container">
-           
+          
             <div class="grid-item protection">
                 <a href="media/photos/GEPADC (1).jpg" class="glightbox media-container block"><img src="media/photos/GEPADC (1).jpg" alt="Impact" loading="lazy"></a>
             </div>
@@ -453,306 +494,302 @@ X Updates
             </div>
         </div>
     </div>
-   <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
-    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
-      
-        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
-            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
-                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
+
+    <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+        <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
+            <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+                <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
+                    <i class="fas fa-hand-holding-heart text-[20rem]"></i>
+                </div>
+                <div class="relative z-10">
+                    <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                        <i class="fas fa-arrow-left"></i> Back to Site
+                    </button>
+                    <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
+                    <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
+                        Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
+                    </p>
+                    <div class="space-y-4 md:space-y-8">
+                        <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
+                            <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
+                            <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
+                            <div class="flex items-center gap-3">
+                                <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
+                                <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                                    <i class="fas fa-copy text-xs"></i>
+                                </button>
+                            </div>
+                            <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
+                        <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
+                    </div>
+                </div>
             </div>
-            <div class="relative z-10">
-                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-                    <i class="fas fa-arrow-left"></i> Back to Site
-                </button>
-              
-                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
-                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
-                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
-                </p>
-                <div class="space-y-4 md:space-y-8">
-                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
-                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
-                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
-                      
-                        <div class="flex items-center gap-3">
-                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
-                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
-                                <i class="fas fa-copy text-xs"></i>
+            <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
+                <div id="formContent">
+                    <div class="mb-8 md:mb-10">
+                        <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
+                        <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
+                    </div>
+                    <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
+                                <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
+                                <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
+                            <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                                <option>General Support</option>
+                                <option>Protection Missions (GBV)</option>
+                                <option>WASH Initiatives</option>
+                                <option>Economic Empowerment</option>
+                            </select>
+                        </div>
+                        <div class="pt-6 flex flex-col sm:flex-row gap-4">
+                            <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                                Confirm Support
+                            </button>
+                            <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
+                                Cancel
                             </button>
                         </div>
-                      
-                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
-                    </div>
+                    </form>
                 </div>
-            </div>
-            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
-                <div class="flex items-center gap-4">
-                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
-                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
-                </div>
-            </div>
-        </div>
-        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
-          
-            <div id="formContent">
-                <div class="mb-8 md:mb-10">
-                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
-                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
-                </div>
-                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
-                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
-                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
-                        </div>
+                <div id="successContent" class="hidden text-center">
+                    <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
+                        <i class="fas fa-check text-3xl"></i>
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
-                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
-                            <option>General Support</option>
-                            <option>Protection Missions (GBV)</option>
-                            <option>WASH Initiatives</option>
-                            <option>Economic Empowerment</option>
-                        </select>
-                    </div>
-                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
-                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
-                            Confirm Support
-                        </button>
-                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div id="successContent" class="hidden text-center">
-                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
-                    <i class="fas fa-check text-3xl"></i>
+                    <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
+                        Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
+                    </p>
+                    <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
+                        Return to Site
+                    </button>
                 </div>
-                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
-                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
-                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
-                </p>
-                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
-                    Return to Site
-                </button>
             </div>
         </div>
     </div>
-</div>
- 
-<section id="success-stories" class="py-24 bg-[#f8f9fa]">
-    <div class="container mx-auto px-6 md:px-10">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 text-center" data-aos="fade-up">
-                <p class="text-black font-bold uppercase tracking-[0.2em] text-[10px] mb-2">
-                    Gender Equality Peace and Development Centre
-                </p>
-                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">
-                    Field Documentation
-                </h2>
-                <h3 class="text-black text-4xl font-black italic uppercase font-heading">
-                    Impact in Motion
-                </h3>
+
+    <section id="success-stories" class="py-24 bg-[#f8f9fa]">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-12 text-center" data-aos="fade-up">
+                    <p class="text-black font-bold uppercase tracking-[0.2em] text-[10px] mb-2">
+                        Gender Equality Peace and Development Centre
+                    </p>
+                    <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">
+                        Field Documentation
+                    </h2>
+                    <h3 class="text-black text-4xl font-black italic uppercase font-heading">
+                        Impact in Motion
+                    </h3>
+                </div>
+                <div class="relative aspect-video shadow-2xl border border-gray-200 bg-black" data-aos="zoom-in">
+                    <video controls poster="media/photos/IMG_8641.jpg" class="w-full h-full" playsinline>
+                        <source src="media/video1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
             </div>
-          
-            <div class="relative aspect-video shadow-2xl border border-gray-200 bg-black" data-aos="zoom-in">
-                <video controls poster="media/photos/IMG_8641.jpg" class="w-full h-full" playsinline>
-                    <source src="media/video1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+        </div>
+    </section>
+
+    <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Logo & Description -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
+                        <span class="text-xl sm:text-2xl md:text-3xl font-heading font-black tracking-tighter">GEPaDC</span>
+                    </div>
+                    <p class="text-gray-300 text-sm sm:text-base md:text-sm font-medium leading-relaxed max-w-xs">
+                        Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Operational Office -->
+                <div>
+                    <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Operational Office</h4>
+                    <ul class="space-y-4 sm:space-y-5 text-[9px] sm:text-[10px] md:text-[11px] uppercase font-black tracking-widest">
+                        <li class="flex gap-4 group">
+                            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                            <div>
+                                <span class="text-white block">Borno State Office, Northeast Zone</span>
+                                <p class="text-gray-500 font-bold lowercase tracking-normal text-[8px] sm:text-[9px] md:text-[10px]">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Direct Contact -->
+                <div>
+                    <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
+                    <ul class="space-y-5">
+                        <li class="mt-4 p-3 sm:p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+                            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-[#2D5A27] tracking-[0.25em] block mb-1">Emergency Toll-Free</span>
+                            <div class="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-black italic text-white tracking-tighter">
+                                <i class="fas fa-headset text-base sm:text-lg md:text-xl"></i>
+                                <span>08000004000</span>
+                            </div>
+                        </li>
+                        <li class="mt-4 p-3 sm:p-4 bg-red-900/10 border-l-4 border-red-700">
+                            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-red-700 tracking-[0.25em] block mb-1">Safeguarding Reporting</span>
+                            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
+                    <form class="relative mb-8">
+                        <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-3 sm:py-4 px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
+                        <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+                <div class="flex gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">
+                    <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
+                    <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
+                </div>
+                <div class="flex items-center gap-4 md:gap-5">
+                    <div class="text-right">
+                        <p class="text-gray-500 text-[7px] sm:text-[8px] md:text-[9px] uppercase font-black tracking-widest">Designed & Managed by</p>
+                        <p class="text-white text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+                    </div>
+                    <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+                        <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-   <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
-  <div class="container mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-      <!-- Logo & Description -->
-      <div class="space-y-6">
-        <div class="flex items-center gap-4">
-          <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
-          <span class="text-xl sm:text-2xl md:text-3xl font-heading font-black tracking-tighter">GEPaDC</span>
-        </div>
-        <p class="text-gray-300 text-sm sm:text-base md:text-sm font-medium leading-relaxed max-w-xs">
-          Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
-            <i class="fab fa-x-twitter"></i>
-          </a>
-          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-        </div>
-      </div>
-      <!-- Operational Office -->
-      <div>
-        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Operational Office</h4>
-        <ul class="space-y-4 sm:space-y-5 text-[9px] sm:text-[10px] md:text-[11px] uppercase font-black tracking-widest">
-          <li class="flex gap-4 group">
-            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-            <div>
-              <span class="text-white block">Borno State Office, Northeast Zone</span>
-              <p class="text-gray-500 font-bold lowercase tracking-normal text-[8px] sm:text-[9px] md:text-[10px]">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <!-- Direct Contact -->
-      <div>
-        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
-        <ul class="space-y-5">
-          <li class="mt-4 p-3 sm:p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
-            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-[#2D5A27] tracking-[0.25em] block mb-1">Emergency Toll-Free</span>
-            <div class="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-black italic text-white tracking-tighter">
-              <i class="fas fa-headset text-base sm:text-lg md:text-xl"></i>
-              <span>08000004000</span>
-            </div>
-          </li>
-          <li class="mt-4 p-3 sm:p-4 bg-red-900/10 border-l-4 border-red-700">
-            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-red-700 tracking-[0.25em] block mb-1">Safeguarding Reporting</span>
-            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
-          </li>
-        </ul>
-      </div>
-      <!-- Newsletter -->
-      <div>
-        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
-        <form class="relative mb-8">
-          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-3 sm:py-4 px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
-          <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
-        </form>
-      </div>
-    </div>
-    <!-- Footer Bottom -->
-    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
-      <div class="flex gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">
-        <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
-        <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
-        <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
-      </div>
-      <div class="flex items-center gap-4 md:gap-5">
-        <div class="text-right">
-          <p class="text-gray-500 text-[7px] sm:text-[8px] md:text-[9px] uppercase font-black tracking-widest">Designed & Managed by</p>
-          <p class="text-white text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
-        </div>
-        <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
-          <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
- 
+    </footer>
+
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function(){
-    /* -------------------------
-    AOS ANIMATION INITIALIZATION
-    --------------------------*/
-    AOS.init({
-        duration: 1000,
-        once: true,
-        disable: 'mobile'
-    });
-    /* -------------------------
-    LIGHTBOX
-    --------------------------*/
-    const lightbox = GLightbox({
-        selector: '.glightbox'
-    });
-    /* -------------------------
-    ISOTOPE GRID + FILTER
-    --------------------------*/
-    const grid = document.querySelector('.grid-container');
-    let iso;
-    if(grid){
-        imagesLoaded(grid, function(){
-            iso = new Isotope(grid, {
-                itemSelector: '.grid-item',
-                percentPosition: true,
-                masonry: {
-                    columnWidth: '.grid-sizer'
-                }
+    document.addEventListener("DOMContentLoaded", function(){
+        /* -------------------------
+        LIGHTBOX
+        --------------------------*/
+        const lightbox = GLightbox({
+            selector: '.glightbox'
+        });
+
+        /* -------------------------
+        ISOTOPE GRID + FILTER
+        --------------------------*/
+        const grid = document.querySelector('.grid-container');
+        let iso;
+        if(grid){
+            imagesLoaded(grid, function(){
+                iso = new Isotope(grid, {
+                    itemSelector: '.grid-item',
+                    percentPosition: true,
+                    masonry: {
+                        columnWidth: '.grid-item'
+                    }
+                });
             });
-        });
-    }
-    const filters = document.querySelector('#filters');
-    if(filters){
-        filters.addEventListener('click', function(e) {
-            if (!e.target.classList.contains('filter-btn')) return;
-            var filterValue = e.target.getAttribute('data-filter');
-            if(iso){
-                iso.arrange({ filter: filterValue });
+        }
+
+        const filters = document.querySelector('#filters');
+        if(filters){
+            filters.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('filter-btn')) return;
+                var filterValue = e.target.getAttribute('data-filter');
+                if(iso){
+                    iso.arrange({ filter: filterValue });
+                }
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+            });
+        }
+
+        /* -------------------------
+        MOBILE NAVIGATION
+        --------------------------*/
+        window.openMobileNav = function(){
+            const overlay = document.getElementById("mobileNavOverlay");
+            const panel = document.getElementById("mobileNavPanel");
+            if(overlay) overlay.classList.add("active");
+            if(panel) panel.classList.add("active");
+            document.body.classList.add("no-scroll");
+        };
+
+        window.closeMobileNav = function(){
+            const overlay = document.getElementById("mobileNavOverlay");
+            const panel = document.getElementById("mobileNavPanel");
+            if(overlay) overlay.classList.remove("active");
+            if(panel) panel.classList.remove("active");
+            document.body.classList.remove("no-scroll");
+        };
+
+        window.toggleSubmenu = function(id){
+            const menu = document.getElementById(id);
+            if(!menu) return;
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        };
+
+        /* -------------------------
+        DONATION MODAL
+        --------------------------*/
+        window.toggleModal = function(){
+            const modal = document.getElementById('donateModal');
+            if(!modal) return;
+            modal.classList.toggle('hidden');
+        };
+
+        window.copyToClipboard = function(text){
+            navigator.clipboard.writeText(text);
+            const btn = document.getElementById("copyBtn");
+            if(btn){
+                btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+                setTimeout(()=>{
+                    btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+                },2000);
             }
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            e.target.classList.add('active');
-        });
-    }
-    /* -------------------------
-    MOBILE NAVIGATION
-    --------------------------*/
-    window.openMobileNav = function(){
-        const overlay = document.getElementById("mobileNavOverlay");
-        const panel = document.getElementById("mobileNavPanel");
-        if(overlay) overlay.classList.add("active");
-        if(panel) panel.classList.add("active");
-        document.body.classList.add("no-scroll");
-    };
-    window.closeMobileNav = function(){
-        const overlay = document.getElementById("mobileNavOverlay");
-        const panel = document.getElementById("mobileNavPanel");
-        if(overlay) overlay.classList.remove("active");
-        if(panel) panel.classList.remove("active");
-        document.body.classList.remove("no-scroll");
-    };
-    window.toggleSubmenu = function(id){
-        const menu = document.getElementById(id);
-        if(!menu) return;
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
-    };
-    /* -------------------------
-    DONATION MODAL
-    --------------------------*/
-    window.toggleModal = function(){
-        const modal = document.getElementById('donateModal');
-        if(!modal) return;
-        modal.classList.toggle('hidden');
-    };
-    window.copyToClipboard = function(text){
-        navigator.clipboard.writeText(text);
-        const btn = document.getElementById("copyBtn");
-        if(btn){
-            btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
-            setTimeout(()=>{
-                btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
-            },2000);
-        }
-    };
-    window.handleDonation = function(e){
-        e.preventDefault();
-        const form = document.getElementById("donorForm");
-        const success = document.getElementById("successContent");
-        const content = document.getElementById("formContent");
-        if(form && success && content){
-            content.classList.add("hidden");
-            success.classList.remove("hidden");
-        }
-    };
-});
-</script>
+        };
+
+        window.handleDonation = function(e){
+            e.preventDefault();
+            const form = document.getElementById("donorForm");
+            const success = document.getElementById("successContent");
+            const content = document.getElementById("formContent");
+            if(form && success && content){
+                content.classList.add("hidden");
+                success.classList.remove("hidden");
+            }
+        };
+    });
+    </script>
 </body>
 </html>
