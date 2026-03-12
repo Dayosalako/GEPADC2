@@ -238,9 +238,9 @@
           <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-6 py-2.5 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition border-2 border-black hover:border-[var(--brand-green)]">
             Donate
           </button>
-          <button onclick="openMobileNav()" class="lg:hidden text-2xl text-gray-800">
-            <i class="fas fa-bars"></i>
-          </button>
+          <button id="hamburgerBtn" class="lg:hidden text-2xl text-gray-800 focus:outline-none">
+  <i class="fas fa-bars"></i>
+</button>  
         </div>
       </div>
     </header>
@@ -748,6 +748,18 @@ document.addEventListener("DOMContentLoaded", function () {
             success.classList.remove("hidden");
         }
     };
+});
+
+    // Explicit mobile nav binding (prevents onclick issues)
+document.addEventListener("DOMContentLoaded", () => {
+    const hamburger = document.getElementById("hamburgerBtn");
+    if (hamburger) {
+        hamburger.addEventListener("click", (e) => {
+            e.preventDefault();
+            console.log("Hamburger clicked - calling openMobileNav");
+            openMobileNav();
+        });
+    }
 });
 </script>                    
   
