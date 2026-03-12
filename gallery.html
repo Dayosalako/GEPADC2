@@ -13,22 +13,27 @@
       rel="stylesheet"
     />
     <style>
-     /* ──────────────────────────────────────────────
+  /* ──────────────────────────────────────────────
    GLOBAL & ROOT
    ────────────────────────────────────────────── */
 :root {
     --brand-green: #2d5a27;
+    --brand-green-dark: #1e3d1a;
+    --transition-smooth: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
 }
+
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
 }
+
 body {
     font-family: "Inter", sans-serif;
     background: #ffffff;
     color: #1a1a1a;
     overflow-x: hidden;
 }
+
 .font-heading {
     font-family: "Montserrat", sans-serif;
 }
@@ -36,7 +41,6 @@ body {
 /* ──────────────────────────────────────────────
    GALLERY GRID (Uniform Frames)
    ────────────────────────────────────────────── */
-/* Premium Uniform Grid */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -47,25 +51,22 @@ body {
 .grid-item {
     position: relative;
     background: #ffffff;
-    /* This creates the uniform square frame */
     aspect-ratio: 1 / 1; 
-    padding: 12px; /* The "frame" border spacing */
+    padding: 12px;
     border: 1px solid #e5e7eb;
     box-shadow: 0 10px 30px -15px rgba(0,0,0,0.1);
-    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    transition: var(--transition-smooth);
     overflow: hidden;
 }
 
 .grid-item img {
     width: 100%;
     height: 100%;
-    /* This ensures the image fills the square without stretching */
-    object-fit: cover; 
+    object-fit: cover;
     filter: grayscale(100%) contrast(1.1);
     transition: all 0.6s ease;
 }
 
-/* Hover Effects for the Uniform Frame */
 .grid-item:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px -20px rgba(45, 90, 39, 0.3);
@@ -77,36 +78,37 @@ body {
     transform: scale(1.05);
 }
 
-/* Technical Corner Accents (Optional) */
+/* Premium Corner Accents */
 .grid-item::before, .grid-item::after {
     content: '';
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-color: var(--brand-green);
     border-style: solid;
     opacity: 0;
-    transition: all 0.4s ease;
+    transition: var(--transition-smooth);
 }
 .grid-item::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
 .grid-item::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
 
-.grid-item:hover::before { opacity: 1; transform: translate(5px, 5px); }
-.grid-item:hover::after { opacity: 1; transform: translate(-5px, -5px); }
-  
+.grid-item:hover::before { opacity: 1; transform: translate(6px, 6px); }
+.grid-item:hover::after { opacity: 1; transform: translate(-6px, -6px); }
+
 /* ──────────────────────────────────────────────
    MOBILE NAVIGATION
    ────────────────────────────────────────────── */
 .mobile-nav-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(4px);
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
     z-index: 9998;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.35s ease;
+    transition: all 0.4s ease;
 }
+
 .mobile-nav-overlay.active {
     opacity: 1;
     visibility: visible;
@@ -117,35 +119,38 @@ body {
     top: 0;
     right: -100%;
     width: 320px;
-    max-width: 90vw;
+    max-width: 85vw;
     height: 100vh;
     background: white;
     z-index: 9999;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
+    transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -15px 0 40px rgba(0,0,0,0.1);
 }
+
 .mobile-nav-panel.active {
     right: 0;
 }
 
 .mobile-submenu {
     display: none;
-    flex-direction: column;
-    padding-left: 1.25rem;
+    background: #f9fafb;
 }
 
 /* ──────────────────────────────────────────────
    FILTER BUTTONS
    ────────────────────────────────────────────── */
 .filter-btn {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #9ca3af;
     transition: all 0.3s ease;
     border-bottom: 2px solid transparent;
-    padding-bottom: 4px;
-    cursor: pointer;
+    padding-bottom: 6px;
 }
-.filter-btn.active {
+
+.filter-btn.active, .filter-btn:hover {
     color: var(--brand-green);
     border-color: var(--brand-green);
 }
@@ -154,25 +159,23 @@ body {
    MOBILE ALIGNMENT FIXES
    ────────────────────────────────────────────── */
 @media (max-width: 768px) {
-    /* Center Gallery Header */
     h1.text-7xl {
         font-size: 3.5rem !important;
         text-align: center !important;
         line-height: 1.1;
     }
 
-    /* Center Filters */
     #filters {
         justify-content: center !important;
         text-align: center;
-        gap: 1rem 1.5rem !important;
+        gap: 1.5rem !important;
     }
 
-    /* Center Operational Pulse Section */
     #social-media-links .flex-col {
         align-items: center !important;
         text-align: center !important;
     }
+
     #social-media-links p {
         margin: 0 auto;
     }
@@ -922,42 +925,43 @@ body {
     const lightbox = GLightbox({
         selector: ".glightbox",
         touchNavigation: true,
-        loop: true,
-        autoplayVideos: true
+        loop: true
     });
 
-    // 2. Initialize Isotope
-    // Ensure this is inside your DOMContentLoaded block
-const grid = document.querySelector('.grid-container');
-if (grid) {
-    imagesLoaded(grid, function () {
-        // Initialize Isotope after images are loaded
-        const iso = new Isotope(grid, {
-            itemSelector: '.grid-item',
-            layoutMode: 'fitRows', // Best for uniform square grids
-            percentPosition: true
-        });
-    });
-}                    
-  
+    // 2. Initialize Isotope with ImagesLoaded
+    const grid = document.querySelector('.grid-container');
+    let iso; // Define variable in scope
 
-        // Connect Filters
-        const filters = document.querySelector('#filters');
-        if (filters) {
-            filters.addEventListener('click', function(e) {
-                if (!e.target.classList.contains('filter-btn')) return;
-                
-                const filterValue = e.target.getAttribute('data-filter');
-                iso.arrange({ filter: filterValue });
-                
-                // Active State Update
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
+    if (grid) {
+        imagesLoaded(grid, function () {
+            iso = new Isotope(grid, {
+                itemSelector: '.grid-item',
+                layoutMode: 'fitRows',
+                percentPosition: true,
+                transitionDuration: '0.6s'
             });
-        }
+
+            // Connect Filters after Isotope is ready
+            const filterContainer = document.querySelector('#filters');
+            if (filterContainer) {
+                filterContainer.addEventListener('click', function(e) {
+                    const btn = e.target.closest('.filter-btn');
+                    if (!btn) return;
+                    
+                    const filterValue = btn.getAttribute('data-filter');
+                    iso.arrange({ filter: filterValue });
+                    
+                    // Update Active State
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            }
+        });
     }
 
-    // 3. GLOBAL FUNCTIONS (Attached to window for HTML onclicks)
+    // 3. GLOBAL FUNCTIONS (Assigned to window for HTML onclicks)
+    
+    // Hamburger / Mobile Nav
     window.openMobileNav = function() {
         document.getElementById("mobileNavOverlay").classList.add("active");
         document.getElementById("mobileNavPanel").classList.add("active");
@@ -973,37 +977,31 @@ if (grid) {
     window.toggleSubmenu = function(id) {
         const menu = document.getElementById(id);
         if (!menu) return;
-        // Toggle logic
-        const isCurrentlyVisible = menu.style.display === "block";
-        menu.style.display = isCurrentlyVisible ? "none" : "block";
+        const isHidden = window.getComputedStyle(menu).display === "none";
+        menu.style.display = isHidden ? "block" : "none";
     };
 
+    // Modal Handling
     window.toggleModal = function() {
         const modal = document.getElementById("donateModal");
         if (modal) modal.classList.toggle("hidden");
     };
 
+    // Clipboard
     window.copyToClipboard = function(text) {
         navigator.clipboard.writeText(text);
         const btn = document.getElementById("copyBtn");
         if (btn) {
+            const original = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-check text-white"></i>';
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
-            }, 2000);
+            setTimeout(() => { btn.innerHTML = original; }, 2000);
         }
     };
 
-    window.handleDonation = function(e) {
-        e.preventDefault();
-        document.getElementById("formContent")?.classList.add("hidden");
-        document.getElementById("successContent")?.classList.remove("hidden");
-    };
-
-    // Auto-close nav when clicking links
+    // Auto-close mobile nav on link click
     document.querySelectorAll("#mobileNavPanel a").forEach((link) => {
         link.addEventListener("click", () => {
-            setTimeout(window.closeMobileNav, 100);
+            setTimeout(window.closeMobileNav, 150);
         });
     });
 });
