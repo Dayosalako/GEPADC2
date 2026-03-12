@@ -302,136 +302,65 @@
         </div>
     </div>
 
-    <!-- Header / Navigation -->
-    <nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
-        <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
-            <!-- Logo -->
-            <a href="index.html" class="flex items-center gap-3 group">
-                <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
-                <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black uppercase">GEPaDC</div>
-            </a>
-            <!-- Desktop Menu -->
-            <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-                <!-- Home -->
-                <a href="index.html" class="text-[#2D5A27] hover:text-[#2D5A27] transition">Home</a>
-                <!-- About Dropdown -->
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
-                        <a href="index.html#about-snapshot" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Who We Are</a>
-                        <a href="index.html#vision-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Vision</a>
-                        <a href="index.html#mission-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Mission</a>
-                        <a href="index.html#values" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Values</a>
-                        <a href="team.html#board" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Board</a>
-                    </div>
-                </div>
-                <!-- Join Us Dropdown -->
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Join Us <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
-                        <a href="volunteer.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Volunteer</a>
-                        <a href="career.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Career Ads</a>
-                    </div>
-                </div>
-                <!-- Our Work Dropdown -->
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
-                        <a href="programs.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Thematic Areas</a>
-                        <a href="programs.html#impact" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Impact</a>
-                    </div>
-                </div>
-                <!-- Publications Dropdown -->
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-52 rounded-md py-2">
-                        <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Annual Report</a>
-                        <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Newsletter</a>
-                        <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Project Impactation</a>
-                        <a href="gallery.html#success-stories" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Success Stories</a>
-                        <a href="gallery.html#social-media-links" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Social Handles</a>
-                    </div>
-                </div>
-                <!-- Contact -->
-                <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
-            </div>
-            <!-- Right Side Buttons -->
-            <div class="flex items-center space-x-3 md:space-x-6">
-                <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
-                    Donate
-                </button>
-                <button onclick="openMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
-                    <i id="navIcon" class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <!-- Mobile Nav Overlay + Panel -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
+<nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-100%] w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto transition-all duration-500">
+  <button class="mobile-nav-close text-[var(--brand-green)] font-black uppercase tracking-widest text-sm mb-8 flex items-center gap-2" onclick="closeMobileNav()">
+    <i class="fas fa-times text-lg"></i> Close
+  </button>
 
-    <!-- Mobile Nav Overlay -->
-    <div id="mobileNavOverlay" class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
+  <ul class="space-y-1 text-sm font-black uppercase tracking-wider">
+    <li><a href="index.html" class="block py-4 hover:text-[var(--brand-green)] transition">Home</a></li>
 
-    <!-- Mobile Nav Panel -->
-    <nav id="mobileNavPanel" class="mobile-nav-panel">
-        <!-- Cancel / Close -->
-        <button class="mobile-nav-close" onclick="closeMobileNav()">
-            ✕ Cancel
-        </button>
-        <ul>
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <!-- About -->
-            <li>
-                <button onclick="toggleSubmenu('aboutSub')">
-                    About <i class="fas fa-chevron-down"></i>
-                </button>
-                <div id="aboutSub" class="mobile-submenu">
-                    <a href="index.html#about-snapshot">Who We Are</a>
-                    <a href="index.html#vision-section">Our Vision</a>
-                    <a href="index.html#mission-section">Our Mission</a>
-                    <a href="index.html#values">Our Values</a>
-                    <a href="team.html#board">Our Board</a>
-                </div>
-            </li>
-            <!-- Join -->
-            <li>
-                <button onclick="toggleSubmenu('joinSub')">
-                    Join Us <i class="fas fa-chevron-down"></i>
-                </button>
-                <div id="joinSub" class="mobile-submenu">
-                    <a href="volunteer.html">Volunteer</a>
-                    <a href="career.html">Career Ads</a>
-                </div>
-            </li>
-            <!-- Work -->
-            <li>
-                <button onclick="toggleSubmenu('workSub')">
-                    Our Work <i class="fas fa-chevron-down"></i>
-                </button>
-                <div id="workSub" class="mobile-submenu">
-                    <a href="programs.html">Thematic Areas</a>
-                    <a href="programs.html#impact">Impact</a>
-                </div>
-            </li>
-            <!-- Publications -->
-            <li>
-                <button onclick="toggleSubmenu('pubSub')">
-                    Publications <i class="fas fa-chevron-down"></i>
-                </button>
-                <div id="pubSub" class="mobile-submenu">
-                    <a href="archive.html">Annual Report</a>
-                    <a href="archive.html">Newsletter</a>
-                    <a href="archive.html">Project Impactation</a>
-                    <a href="gallery.html#success-stories">Success Stories</a>
-                    <a href="gallery.html#social-media-links">Social Handles</a>
-                </div>
-            </li>
-            <li>
-                <a href="contact.html">Contact Us</a>
-            </li>
-        </ul>
-    </nav>
+    <li>
+      <button onclick="toggleSubmenu('aboutSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        About <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+      </button>
+      <div id="aboutSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
+        <a href="index.html#about-snapshot" class="block py-2 hover:text-[var(--brand-green)]">Who We Are</a>
+        <a href="index.html#vision-section" class="block py-2 hover:text-[var(--brand-green)]">Our Vision</a>
+        <a href="index.html#mission-section" class="block py-2 hover:text-[var(--brand-green)]">Our Mission</a>
+        <a href="index.html#values" class="block py-2 hover:text-[var(--brand-green)]">Our Values</a>
+        <a href="team.html#board" class="block py-2 hover:text-[var(--brand-green)]">Our Board</a>
+      </div>
+    </li>
 
+    <li>
+      <button onclick="toggleSubmenu('joinSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Join Us <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+      </button>
+      <div id="joinSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
+        <a href="volunteer.html" class="block py-2 hover:text-[var(--brand-green)]">Volunteer</a>
+        <a href="career.html" class="block py-2 hover:text-[var(--brand-green)]">Career Ads</a>
+      </div>
+    </li>
+
+    <li>
+      <button onclick="toggleSubmenu('workSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Our Work <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+      </button>
+      <div id="workSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
+        <a href="programs.html" class="block py-2 hover:text-[var(--brand-green)]">Thematic Areas</a>
+        <a href="programs.html#impact" class="block py-2 hover:text-[var(--brand-green)]">Impact</a>
+      </div>
+    </li>
+
+    <li>
+      <button onclick="toggleSubmenu('pubSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Publications <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+      </button>
+      <div id="pubSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Annual Report</a>
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Newsletter</a>
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Project Impactation</a>
+        <a href="gallery.html#success-stories" class="block py-2 hover:text-[var(--brand-green)]">Success Stories</a>
+        <a href="gallery.html#social-media-links" class="block py-2 hover:text-[var(--brand-green)]">Social Handles</a>
+      </div>
+    </li>
+
+    <li><a href="contact.html" class="block py-4 hover:text-[var(--brand-green)] transition">Contact Us</a></li>
+  </ul>
+</nav>
     <section class="relative h-screen min-h-[700px] overflow-hidden bg-black flex items-center justify-center">
         <div class="absolute inset-0 z-0" id="hero-slideshow">
             <div class="hero-overlay"></div>
@@ -1163,3 +1092,4 @@
     </script>
 </body>
 </html>
+
