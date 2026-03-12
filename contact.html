@@ -8,136 +8,176 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-    :root {
-      --brand-green: #2D5A27;
-      --brand-green-dark: #23481f;
-      --brand-blue: #1e3a8a;
-      --text-dark: #111827;
-      --text-muted: #6b7280;
-      --border-light: #e5e7eb;
-      --bg-light: #f9fafb;
-    }
+    <style>                                        
+  
+  /* ──────────────────────────────────────────────
+   VARIABLES & RESET
+   ────────────────────────────────────────────── */
+:root {
+  --brand-green: #2D5A27;
+  --brand-green-dark: #23481f;
+  --brand-blue: #1e3a8a;
+  --text-dark: #111827;
+  --text-muted: #6b7280;
+  --border-light: #e5e7eb;
+  --bg-light: #f9fafb;
+}
 
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background-color: #ffffff;
-      color: var(--text-dark);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #ffffff;
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-    .font-heading { font-family: 'Montserrat', sans-serif; }
+.font-heading { font-family: 'Montserrat', sans-serif; }
 
-    .hero-title {
-      font-size: clamp(3.5rem, 12vw, 10rem);
-      line-height: 0.92;
-      font-weight: 900;
-    }
+/* ──────────────────────────────────────────────
+   TYPOGRAPHY & HERO
+   ────────────────────────────────────────────── */
+.hero-title {
+  font-size: clamp(3.5rem, 12vw, 10rem);
+  line-height: 0.92;
+  font-weight: 900;
+}
 
-    /* Year numbers - much better mobile handling */
-    .year-bg {
-      font-size: clamp(6rem, 18vw, 18rem);
-      opacity: 0.04;
-      pointer-events: none;
-      user-select: none;
-      line-height: 0.8;
-    }
+.year-bg {
+  font-size: clamp(6rem, 18vw, 18rem);
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+  line-height: 0.8;
+}
 
-    @media (max-width: 640px) {
-      .year-bg { font-size: clamp(4rem, 15vw, 8rem); }
-    }
+/* ──────────────────────────────────────────────
+   NAVIGATION COMPONENTS
+   ────────────────────────────────────────────── */
+.mobile-nav-panel {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  max-width: 85vw;
+  height: 100vh;
+  background: white;
+  z-index: 9999;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-    /* Timeline */
-    .timeline-line {
-      width: 2px;
-      background: linear-gradient(to bottom, var(--brand-green) 0%, transparent 100%);
-      position: absolute;
-      left: 50%;
-      top: 0; bottom: 0;
-      transform: translateX(-50%);
-      z-index: 0;
-    }
+/* Logic for opening panel via JS class */
+.mobile-nav-panel.open-active {
+  transform: translateX(-100%);
+}
 
-    .timeline-link {
-      position: relative;
-      z-index: 10;
-      transition: all 0.3s ease;
-    }
+.mobile-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
 
-    .timeline-link.active {
-      color: var(--brand-green);
-      transform: scale(1.15);
-      font-weight: 900;
-    }
+.mobile-submenu.open {
+  max-height: 800px;
+}
 
-    .timeline-link.active::before {
-      content: '';
-      position: absolute;
-      left: -1.5rem;
-      top: 50%;
-      width: 12px;
-      height: 12px;
-      background: var(--brand-green);
-      border-radius: 50%;
-      transform: translateY(-50%);
-      box-shadow: 0 0 0 4px rgba(45,90,39,0.2);
-    }
+/* ──────────────────────────────────────────────
+   TICKER ANIMATION
+   ────────────────────────────────────────────── */
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: #0a0a0a;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(45, 90, 39, 0.3);
+}
 
-    /* PDF viewer - responsive */
-    .pdf-container {
-      aspect-ratio: 210 / 297;
-      width: 100%;
-      max-width: 960px;
-      max-height: 80vh;
-      margin: 0 auto 3rem;
-      background: white;
-      border: 1px solid var(--border-light);
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
-    }
+.ticker {
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 100%;
+  animation: ticker-move 30s linear infinite;
+  color: #ffffff;
+}
 
-    @media (max-width: 640px) {
-      .pdf-container { max-height: 60vh; }
-    }
+.ticker:hover {
+  animation-play-state: paused;
+}
 
-    /* Mobile nav panel */
-    .mobile-nav-panel {
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+@keyframes ticker-move {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
 
-    .mobile-submenu {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
+/* ──────────────────────────────────────────────
+   TIMELINE & UI ELEMENTS
+   ────────────────────────────────────────────── */
+.timeline-line {
+  width: 2px;
+  background: linear-gradient(to bottom, var(--brand-green) 0%, transparent 100%);
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  transform: translateX(-50%);
+  z-index: 0;
+}
 
-    .mobile-submenu.open {
-      max-height: 800px;
-    }
+.timeline-link {
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
 
-    /* Top bar compact mobile */
-    @media (max-width: 640px) {
-      .top-bar-text { font-size: 0.75rem !important; }
-      header .container { padding: 0.75rem 1rem !important; }
-      .donate-btn-mobile { font-size: 0.75rem !important; padding: 0.5rem 1rem !important; }
-    }
+.timeline-link.active {
+  color: var(--brand-green);
+  transform: scale(1.15);
+  font-weight: 900;
+}
 
-    /* General mobile improvements */
-    @media (max-width: 640px) {
-      section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
-      .text-5xl, .text-6xl { font-size: 2.5rem !important; line-height: 1.1 !important; }
-      img { max-width: 100%; height: auto; }
-      .px-6, .px-10, .px-12 { padding-left: 1rem !important; padding-right: 1rem !important; }
-    }
+.timeline-link.active::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--brand-green);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 4px rgba(45,90,39,0.2);
+}
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #f1f1f1; }
-    ::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 3px; }
-  </style>
-</head>
+.pdf-container {
+  aspect-ratio: 210 / 297;
+  width: 100%;
+  max-width: 960px;
+  max-height: 80vh;
+  margin: 0 auto 3rem;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE OVERRIDES
+   ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .year-bg { font-size: clamp(4rem, 15vw, 8rem); }
+  .pdf-container { max-height: 60vh; }
+  .top-bar-text { font-size: 0.75rem !important; }
+  header .container { padding: 0.75rem 1rem !important; }
+  .donate-btn-mobile { font-size: 0.75rem !important; padding: 0.5rem 1rem !important; }
+  section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+  .text-5xl, .text-6xl { font-size: 2.5rem !important; line-height: 1.1 !important; }
+  .px-6, .px-10, .px-12 { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 3px; }
+    </style>                                                                                                                                                                
+ </head>
 <body>
 
 <!-- ================= HEADER ================= -->
@@ -567,111 +607,129 @@
 // ──────────────────────────────────────────────
 //  Initialization
 // ──────────────────────────────────────────────
+// ──────────────────────────────────────────────
+//  Global Logic & Initialization
+// ──────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
-  AOS.init({ duration: 900, once: true, disable: 'mobile' });
-
-  // ───── Mobile Navigation ─────
-  window.openMobileNav = () => {
-    document.getElementById("mobileNavPanel")?.classList.add("!right-0");
-    document.getElementById("mobileNavOverlay")?.classList.add("opacity-100", "pointer-events-auto");
-    document.body.style.overflow = "hidden";
-  };
-
-  window.closeMobileNav = () => {
-    document.getElementById("mobileNavPanel")?.classList.remove("!right-0");
-    document.getElementById("mobileNavOverlay")?.classList.remove("opacity-100", "pointer-events-auto");
-    document.body.style.overflow = "";
-  };
-
-  window.toggleSubmenu = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.classList.toggle("open");
-  };
-
-  // ───── Donate Modal ─────
-  window.toggleModal = () => {
-    const modal = document.getElementById("donateModal");
-    const form = document.getElementById("formContent");
-    const success = document.getElementById("successContent");
-    modal?.classList.toggle("hidden");
-
-    if (modal?.classList.contains("hidden")) {
-      setTimeout(() => {
-        form?.classList.remove("hidden");
-        success?.classList.add("hidden");
-        document.getElementById("donorForm")?.reset();
-      }, 400);
-    }
-  };
-
-  window.handleDonation = (e) => {
-    e.preventDefault();
-    document.getElementById("formContent")?.classList.add("hidden");
-    document.getElementById("successContent")?.classList.remove("hidden");
-  };
-
-  window.copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.querySelector("#copyBtn i") || document.querySelector("[onclick*='copyToClipboard'] i");
-      if (btn) {
-        const original = btn.className;
-        btn.className = "fas fa-check text-white";
-        setTimeout(() => btn.className = original, 2200);
-      }
-    });
-  };
-
-  // ───── Timeline Active Link ─────
-  window.addEventListener("scroll", () => {
-    const sections = document.querySelectorAll("section[id^='year-']");
-    const links = document.querySelectorAll(".timeline-link");
-    let current = "";
-
-    sections.forEach((sec) => {
-      const rect = sec.getBoundingClientRect();
-      // Adjusted threshold for better mobile feel
-      if (rect.top <= 180 && rect.bottom >= 180) {
-        current = sec.id;
-      }
+    
+    // 1. Initialize AOS (Once)
+    AOS.init({ 
+        duration: 900, 
+        once: true, 
+        disable: 'mobile' 
     });
 
-    links.forEach((link) => {
-      link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
-    });
-  });
+    // 2. Mobile Navigation
+    window.openMobileNav = () => {
+        const panel = document.getElementById("mobileNavPanel");
+        const overlay = document.getElementById("mobileNavOverlay");
+        
+        if (panel) panel.classList.add("open-active"); // Custom class for smooth slide
+        if (overlay) {
+            overlay.classList.remove("hidden");
+            // Small timeout to allow the 'hidden' removal to trigger transition
+            setTimeout(() => {
+                overlay.classList.add("opacity-100", "pointer-events-auto");
+            }, 10);
+        }
+        document.body.style.overflow = "hidden";
+    };
+
+    window.closeMobileNav = () => {
+        const panel = document.getElementById("mobileNavPanel");
+        const overlay = document.getElementById("mobileNavOverlay");
+        
+        if (panel) panel.classList.remove("open-active");
+        if (overlay) {
+            overlay.classList.remove("opacity-100", "pointer-events-auto");
+            overlay.classList.add("opacity-0");
+            setTimeout(() => overlay.classList.add("hidden"), 400);
+        }
+        document.body.style.overflow = "";
+    };
+
+    window.toggleSubmenu = (id) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle("open");
+    };
+
+    // 3. Donate Modal Logic
+    window.toggleModal = () => {
+        const modal = document.getElementById("donateModal");
+        if (!modal) return;
+
+        const isHidden = modal.classList.toggle("hidden");
+
+        if (isHidden) {
+            // Reset to form view when closing
+            setTimeout(() => {
+                document.getElementById("formContent")?.classList.remove("hidden");
+                document.getElementById("successContent")?.classList.add("hidden");
+                document.getElementById("donorForm")?.reset();
+            }, 400);
+        }
+    };
+
+    window.handleDonation = (e) => {
+        e.preventDefault();
+        document.getElementById("formContent")?.classList.add("hidden");
+        document.getElementById("successContent")?.classList.remove("hidden");
+    };
+
+    // 4. Clipboard Utility
+    window.copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text).then(() => {
+            const btnIcon = document.querySelector("#copyBtn i") || 
+                           document.querySelector("[onclick*='copyToClipboard'] i");
+            if (btnIcon) {
+                const originalClass = btnIcon.className;
+                btnIcon.className = "fas fa-check text-white";
+                setTimeout(() => btnIcon.className = originalClass, 2000);
+            }
+        });
+    };
+
+    // 5. Timeline Active Scroll Observer
+    window.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll("section[id^='year-']");
+        const links = document.querySelectorAll(".timeline-link");
+        let current = "";
+
+        sections.forEach((sec) => {
+            const rect = sec.getBoundingClientRect();
+            // 200px threshold works best for mobile/desktop headers
+            if (rect.top <= 200 && rect.bottom >= 200) {
+                current = sec.id;
+            }
+        });
+
+        links.forEach((link) => {
+            link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+        });
+    }, { passive: true });
 });
 
-    // AOS INITIALIZATION
-AOS.init({
-duration:1000,
-once:true
-});
-// COMPONENT LOADER
-function loadComponent(id, file){
-
-fetch(file)
-
-.then(res => {
-if(!res.ok){
-throw new Error("Failed to load " + file);
+/**
+ * Component Loader 
+ * Kept outside DOMContentLoaded to be accessible globally if needed immediately
+ */
+function loadComponent(id, file) {
+    fetch(file)
+        .then(res => {
+            if (!res.ok) throw new Error("Component failed to load: " + file);
+            return res.text();
+        })
+        .then(data => {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = data;
+        })
+        .catch(err => console.error(err));
 }
-return res.text();
-})
-
-.then(data => {
-const el = document.getElementById(id);
-
-if(el){
-el.innerHTML = data;
-}
-})
-
-.catch(err => console.error(err));
-
-}
+  
 </script>
 </body>
 </html>
+
 
 
 
