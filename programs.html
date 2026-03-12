@@ -155,9 +155,10 @@ overflow:hidden;
       <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-6 py-2.5 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition border-2 border-black hover:border-[var(--brand-green)]">
         Donate
       </button>
-    <button onclick="openMobileNav()">
-<i class="fas fa-bars"></i>
-</button>  
+  <button onclick="openMobileNav()" class="lg:hidden text-2xl text-[var(--brand-green)]">
+    <i class="fas fa-bars"></i>
+</button>                    
+  
     </div>
   </div>
 </header>
@@ -165,7 +166,7 @@ overflow:hidden;
 <!-- Mobile Nav Overlay + Panel -->                    
   
 <div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
-<nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto">
+<<nav id="mobileNavPanel" class="mobile-nav-panel lg:hidden fixed top-0 w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto">
     <button class="mobile-nav-close text-[var(--brand-green)] font-black uppercase tracking-widest text-sm mb-8 flex items-center gap-2" onclick="closeMobileNav()">
     <i class="fas fa-times text-lg"></i> Close
   </button>
@@ -996,6 +997,7 @@ updateClock();
 </script>
  </body>
 </html>
+
 
 
 
