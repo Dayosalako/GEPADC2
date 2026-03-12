@@ -50,50 +50,87 @@
 }  
         .nav-logo { height: 40px; width: auto; object-fit: contain; }
 
-        .dropdown-menu {
-position: absolute;
-top: 110%;
-left: 0;
-background: white;
-min-width: 260px;
-box-shadow: 0 20px 25px rgba(0,0,0,0.08);
-border-top: 3px solid var(--brand-green);
-z-index: 50;
-
-opacity: 0;
-visibility: hidden;
-transform: translateY(10px);
-transition: all 0.25s ease;
+        /* 1. The Main Dropdown Container */
+.dropdown-menu {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background: white;
+    min-width: 260px;
+    padding-top: 10px;
+    z-index: 50;
+    
+    /* Animation States */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
 }
 
-.dropdown:hover .dropdown-menu {
-opacity: 1;
-visibility: visible;
-transform: translateY(0);
+/* 2. The Trigger Logic */
+/* Note: Ensure your HTML parent has the class "group" or "dropdown" */
+.dropdown:hover .dropdown-menu,
+.group:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
-        .dropdown-item { 
-padding: 14px 22px;
-display: block;
-font-size: 11px;
-color: #1a1a1a;
-border-bottom: 1px solid #f3f4f6;
-transition: all 0.25s ease;
-text-transform: uppercase;
-font-weight: 800;
-letter-spacing: 0.15em;
-}
-        .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
 
-        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.5s ease-in-out; background-size: cover; background-position: center; z-index: 5; }
-        .slide.active { opacity: 1; }
-        
-       .hero-overlay {
+/* 3. The "Invisible Bridge" */
+/* This prevents the menu from closing if there's a tiny gap between the button and menu */
+.group:hover::after,
+.dropdown:hover::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    display: block;
+    z-index: 40;
+}
+
+/* 4. Dropdown Items */
+.dropdown-item { 
+    padding: 14px 22px;
+    display: block;
+    font-size: 11px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+}
+
+.dropdown-item:hover { 
+    background: #f9fafb; 
+    color: var(--brand-green); 
+    padding-left: 28px; 
+}
+
+/* 5. Hero & Slider */
+.slide { 
+    position: absolute; 
+    inset: 0; 
+    opacity: 0; 
+    transition: opacity 1.5s ease-in-out; 
+    background-size: cover; 
+    background-position: center; 
+    z-index: 5; 
+}
+
+.slide.active { 
+    opacity: 1; 
+}
+
+.hero-overlay {
     position: absolute;
     inset: 0;
-    /* This makes the top/center light and the bottom slightly darker for text visibility */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
-    z-index: 10;
+    background: rgba(0, 0, 0, 0.4); /* Ensure you have a background color/alpha defined */
+    z-index: 6;
 }
+
         .pillar-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f3f4f6; }
         .pillar-card:hover { background-color: #f9fafb; border-color: var(--brand-green); transform: translateY(-5px); }
 
@@ -128,6 +165,13 @@ letter-spacing: 0.15em;
     .value-card, .group.p-8 {
         padding: 1.5rem !important;
     }
+}
+
+.marquee-item{
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:60px;
 }
 
 @media (max-width: 1024px) {
@@ -240,120 +284,146 @@ cursor: pointer;
   
     </div>
 
-          <nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">                    
-  
-        <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
-            
-            <a href="index.html" class="flex items-center gap-3 group">
-                <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
-                <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black uppercase">GEPaDC</div>
-            </a>
+         <!-- Header / Navigation -->
+<nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+  <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
 
-            <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-                <div class="dropdown relative">
-                    <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="index.html#about-snapshot" class="dropdown-item">Who We Are</a>
-                        <a href="index.html#vision-section" class="dropdown-item">Our Vision</a>
-                        <a href="index.html#mission-section" class="dropdown-item">Our Mission</a>
-                        <a href="index.html#values" class="dropdown-item">Our Values</a>
-                    </div>
-                </div>
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
+      <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black uppercase">GEPaDC</div>
+    </a>
 
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="work.html" class="dropdown-item">Program Areas</a>
-                        <a href="programs.html" class="dropdown-item">Thematic Areas</a>  
-                        <a href="team.html#board" class="dropdown-item">Our Board</a>
-                        <a href="team.html" class="dropdown-item">Our Team</a>
-                        <a href="index.html#partners" class="dropdown-item">Our Partners</a>
-                        <a href="volunteer.html" class="dropdown-item">Join Us</a>                     
-                    </div>
-                </div>
+    <!-- Desktop Menu -->
+    <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
 
-                 <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="programs.html" class="dropdown-item">Thematic Areas</a>
-                        <a href="programs.html#impact" class="dropdown-item">Impact</a>
-                    </div>  
-                </div>                    
-  
-                 <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu">
-                        <a href="archive.html" class="dropdown-item">Annual Reports</a>
-                        <a href="archive.html" class="dropdown-item">Monthly Reports</a>
-                        <a href="archive.html" class="dropdown-item">Newsletters</a>
-                        <a href="gallery.html" class="dropdown-item">Gallery</a>
-                    </div>
-                </div>
-                
-                <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
-            </div>
+      <!-- Home -->
+      <a href="index.html" class="text-[#2D5A27] hover:text-[#2D5A27] transition">Home</a>
 
-            <div class="flex items-center space-x-3 md:space-x-6">
-                <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
-                    Donate
-                </button>
-                
-                <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
-                    <i id="navIcon" class="fas fa-bars"></i>
-                </button>
-            </div>
+      <!-- About Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="index.html#about-snapshot" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Who We Are</a>
+          <a href="index.html#vision-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Vision</a>
+          <a href="index.html#mission-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Mission</a>
+          <a href="index.html#values" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Values</a>
+          <a href="team.html#board" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Board</a>
         </div>
-    </nav>
+      </div>
 
-   <div id="mobileNav" class="fixed inset-0 bg-white z-[200] hidden flex-col p-8 overflow-hidden">
-       <div class="flex justify-between items-center mb-14 border-b border-gray-100 pb-6">
-            <img src="logo.png" alt="Logo" class="h-8">
-           <button onclick="toggleMobileNav()" class="text-4xl text-[#2D5A27] hover:rotate-90 transition-transform duration-300">&times;</button>
+      <!-- Join Us Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Join Us <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="volunteer.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Volunteer</a>
+          <a href="career.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Career Ads</a>
         </div>
+      </div>
 
-        <div class="flex flex-col space-y-8 text-center">
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Main</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                    <a href="index.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Home</a>
-                    <a href="index.html#about-snapshot" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Who We Are</a>
-                    <a href="index.html#vision-section" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Our Vision</a>
-                </div>
-            </div>
-
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Organization</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                    <a href="team.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Our Team</a>
-                    <a href="index.html#partners" onclick="toggleMobileNav()" class="text-[10px] font-bold uppercase text-gray-500">Our Partners</a>
-                    <a href="volunteer.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Join Us</a>
-                      <a href="gallery.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Gallery</a>  
-                    
-                </div>
-            </div>
-
-            <div>
-                <p class="text-[9px] font-black text-[#2D5A27] tracking-[0.3em] uppercase mb-3">Our Impact</p>
-                <div class="flex flex-col pl-2 space-y-4 border-l border-gray-100">
-                   
-                    <a href="programs.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Thematic Areas</a>
-                     <a href="programs.html#impact" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Impacts</a>
-                </div>  
-            </div>
-
-            <a href="contact.html" class="text-lg font-black uppercase tracking-widest text-black hover:text-[#2D5A27] transition">Contact Us</a>
+      <!-- Our Work Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="programs.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Thematic Areas</a>
+          <a href="programs.html#impact" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Impact</a>
         </div>
+      </div>
 
-        <div class="mt-auto pt-10">
-            <button onclick="toggleModal(); toggleMobileNav();" 
-class="w-full py-4 bg-[#2D5A27] text-white font-black text-[11px] uppercase italic tracking-widest shadow-lg hover:bg-black transition">
-Donate
-</button>
+      <!-- Publications Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-52 rounded-md py-2">
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Annual Report</a>
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Newsletter</a>
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Project Impactation</a>
+          <a href="gallery.html#success-stories" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Success Stories</a>
+          <a href="gallery.html#social-media-links" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Social Handles</a>
         </div>
-   </div>                                        
-  
-  
-</body>                                                    
+      </div>
+
+      <!-- Contact -->
+      <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
+    </div>
+
+    <!-- Right Side Buttons -->
+    <div class="flex items-center space-x-3 md:space-x-6">
+      <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
+        Donate
+      </button>
+      <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
+        <i id="navIcon" class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<div id="mobileNav" class="mobile-nav hidden lg:hidden bg-[#2D5A27] w-full fixed top-0 left-0 z-50 h-screen overflow-y-auto p-4">
+  <ul class="flex flex-col space-y-4 text-[12px] font-bold uppercase">
+
+    <!-- Home -->
+    <li><a href="index.html" class="block text-white hover:text-[#2D5A27] transition">Home</a></li>
+
+    <!-- About Dropdown -->
+    <li>
+      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('aboutSub')">
+        About <i class="fas fa-chevron-down text-[10px]"></i>
+      </button>
+      <ul id="aboutSub" class="hidden flex-col pl-4 mt-2 space-y-2">
+        <li><a href="index.html#about-snapshot" class="block text-white hover:text-[#2D5A27]">Who We Are</a></li>
+        <li><a href="index.html#vision-section" class="block text-white hover:text-[#2D5A27]">Our Vision</a></li>
+        <li><a href="index.html#mission-section" class="block text-white hover:text-[#2D5A27]">Our Mission</a></li>
+        <li><a href="index.html#values" class="block text-white hover:text-[#2D5A27]">Our Values</a></li>
+        <li><a href="team.html#board" class="block text-white hover:text-[#2D5A27]">Our Board</a></li>
+      </ul>
+    </li>
+
+    <!-- Join Us Dropdown -->
+    <li>
+      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('joinSub')">
+        Join Us <i class="fas fa-chevron-down text-[10px]"></i>
+      </button>
+      <ul id="joinSub" class="hidden flex-col pl-4 mt-2 space-y-2">
+        <li><a href="volunteer.html" class="block text-white hover:text-[#2D5A27]">Volunteer</a></li>
+        <li><a href="volunteer.html#career-ads" class="block text-white hover:text-[#2D5A27]">Career Ads</a></li>
+      </ul>
+    </li>
+
+    <!-- Our Work Dropdown -->
+    <li>
+      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('workSub')">
+        Our Work <i class="fas fa-chevron-down text-[10px]"></i>
+      </button>
+      <ul id="workSub" class="hidden flex-col pl-4 mt-2 space-y-2">
+        <li><a href="programs.html" class="block text-white hover:text-[#2D5A27]">Thematic Areas</a></li>
+        <li><a href="programs.html#impact" class="block text-white hover:text-[#2D5A27]">Impact</a></li>
+      </ul>
+    </li>
+
+    <!-- Publications Dropdown -->
+    <li>
+      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('pubSub')">
+        Publications <i class="fas fa-chevron-down text-[10px]"></i>
+      </button>
+      <ul id="pubSub" class="hidden flex-col pl-4 mt-2 space-y-2">
+        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Annual Report</a></li>
+        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Newsletter</a></li>
+        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Project Impactation</a></li>
+        <li><a href="gallery.html#success-stories" class="block text-white hover:text-[#2D5A27]">Success Stories</a></li>
+        <li><a href="gallery.html#social-media-links" class="block text-white hover:text-[#2D5A27]">Social Handles</a></li>
+      </ul>
+    </li>
+
+    <!-- Contact -->
+    <li><a href="contact.html" class="block text-white hover:text-[#2D5A27] transition">Contact Us</a></li>
+
+    <!-- Donate -->
+    <li>
+      <button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#2D5A27] transition">Donate</button>
+    </li>
+  </ul>
+</div>                                                   
   
     
     <section class="relative h-screen min-h-[700px] overflow-hidden bg-black flex items-center justify-center">
@@ -406,68 +476,229 @@ Donate
         </div>
     </section>
 
-    <section class="py-24 px-6 md:px-10 border-t border-gray-100">
-    <div class="container mx-auto max-w-6xl">
-        <div class="flex flex-wrap justify-center border-b-2 border-gray-100 mb-12">
-            <button onclick="openTab(event, 'vision')" class="tab-link tab-active px-8 py-4 font-black uppercase text-xs tracking-widest border-b-4 -mb-[2px] transition-all">01. Our Vision</button>
-            <button onclick="openTab(event, 'mission')" class="tab-link px-8 py-4 font-black uppercase text-xs tracking-widest border-b-4 border-transparent -mb-[2px] text-gray-400 hover:text-black transition-all">02. Our Mission</button>
-            <button onclick="openTab(event, 'values')" class="tab-link px-8 py-4 font-black uppercase text-xs tracking-widest border-b-4 border-transparent -mb-[2px] text-gray-400 hover:text-black transition-all">03. Core Values</button>
-        </div>  
+  <section class="py-24 px-6 md:px-10 border-t border-gray-100 bg-white">
+<div class="container mx-auto max-w-6xl">
 
-            <div id="vision" class="tab-content block animate-fadeIn">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h3 class="font-heading font-black text-4xl mb-6 italic text-[#2D5A27]">The Future We See.</h3>
-                        <p class="text-xl text-gray-600 leading-relaxed italic">
-                            "A society where women and men, girls and boys realize their full potential and participate in every sphere on equal basis and where the rights of everyone including right to a life of dignity are recognized and respected irrespective of sex and disability."
-                        </p>
-                    </div>
-                    <div class="bg-gray-50 h-64 flex items-center justify-center border-2 border-dashed border-gray-200 uppercase font-black text-gray-300 tracking-widest">GEPaDC Vision</div>
-                </div>
-            </div>
+<!-- TAB NAVIGATION -->
+<div class="flex flex-wrap justify-center border-b border-gray-200 mb-16">
 
-            <div id="mission" class="tab-content hidden animate-fadeIn">
-                <div class="max-w-4xl">
-                    <h3 class="font-heading font-black text-4xl mb-6 italic text-[#2D5A27]">Our Daily Mandate.</h3>
-                    <p class="text-lg text-gray-700 leading-loose mb-6">
-                        To work for gender equality, empowerment and advancement of women and girls, peace and sustainable development.
-                    </p>
-                    <p class="text-gray-600 leading-relaxed">
-                        To this end, we focus our efforts on promoting the social, educational, economical, and political development of women and girl’s including advocating for women’s rights, eliminating discrimination against women including gender-based violence (GBV), advancing women’s capacities and leadership skills, promoting their participation in the decisions that affect their lives, and amplifying their voices for peace and security at all levels.
-                    </p>
-                </div>
-            </div>
+<button onclick="openTab(event, 'vision')" 
+class="tab-link tab-active px-8 py-4 font-black uppercase text-xs tracking-[0.25em] border-b-4 border-[#2D5A27] -mb-[1px] text-[#2D5A27] transition-all">
+Our Vision
+</button>
 
-            <div id="values" class="tab-content hidden animate-fadeIn">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="p-8 bg-white border-2 border-gray-100 hover:border-[#2D5A27] transition-all group">
-                        <span class="text-4xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">01</span>
-                        <p class="font-black uppercase text-xs tracking-widest mt-4">Gender equality, equity, and social inclusion</p>
-                    </div>
-                    <div class="p-8 bg-white border-2 border-gray-100 hover:border-[#2D5A27] transition-all group">
-                        <span class="text-4xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">02</span>
-                        <p class="font-black uppercase text-xs tracking-widest mt-4">Participation and Inclusiveness</p>
-                    </div>
-                    <div class="p-8 bg-white border-2 border-gray-100 hover:border-[#2D5A27] transition-all group">
-                        <span class="text-4xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">03</span>
-                        <p class="font-black uppercase text-xs tracking-widest mt-4">Passion</p>
-                    </div>
-                    <div class="p-8 bg-white border-2 border-gray-100 hover:border-[#2D5A27] transition-all group">
-                        <span class="text-4xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">04</span>
-                        <p class="font-black uppercase text-xs tracking-widest mt-4">Mutual respect</p>
-                    </div>
-                    <div class="p-8 bg-white border-2 border-gray-100 hover:border-[#2D5A27] transition-all group">
-                        <span class="text-4xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">05</span>
-                        <p class="font-black uppercase text-xs tracking-widest mt-4">Transparency and accountability</p>
-                    </div>
-                    <div class="p-8 bg-white border-2 border-gray-100 hover:border-[#2D5A27] transition-all group">
-                        <span class="text-4xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">06</span>
-                        <p class="font-black uppercase text-xs tracking-widest mt-4">Accountability to Affected Persons</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<button onclick="openTab(event, 'mission')" 
+class="tab-link px-8 py-4 font-black uppercase text-xs tracking-[0.25em] border-b-4 border-transparent text-gray-400 hover:text-black transition-all">
+Our Mission
+</button>
+
+<button onclick="openTab(event, 'values')" 
+class="tab-link px-8 py-4 font-black uppercase text-xs tracking-[0.25em] border-b-4 border-transparent text-gray-400 hover:text-black transition-all">
+Core Values
+</button>
+
+</div>
+
+<!-- ================= VISION ================= -->
+
+<div id="vision" class="tab-content block animate-fadeIn">
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+<div>
+
+<h3 class="font-heading font-black text-4xl md:text-5xl mb-6 italic text-[#2D5A27]">
+The Future We See.
+</h3>
+
+<p class="text-xl text-gray-600 leading-relaxed italic">
+"A society where women and men, girls and boys realize their full potential and participate in every sphere on equal basis and where the rights of everyone including right to a life of dignity are recognized and respected irrespective of sex and disability."
+</p>
+
+</div>
+
+<!-- VISION BOARD -->
+
+<div class="bg-white h-72 flex items-center justify-center border border-gray-200 shadow-xl rounded-lg">
+
+<div class="text-center px-10">
+
+<h4 class="uppercase tracking-[0.4em] text-xs text-gray-400 font-black mb-4">
+GEPaDC
+</h4>
+
+<h3 class="text-3xl font-black font-heading italic text-[#2D5A27] mb-4">
+Our Vision
+</h3>
+
+<p class="text-gray-500 text-sm leading-relaxed">
+Building an inclusive society where dignity, equality and opportunity exist for all people regardless of gender or ability.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= MISSION ================= -->
+
+<div id="mission" class="tab-content hidden animate-fadeIn">
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+<div>
+
+<h3 class="font-heading font-black text-4xl md:text-5xl mb-6 italic text-[#2D5A27]">
+Our Daily Mandate.
+</h3>
+
+<p class="text-lg text-gray-700 leading-loose mb-6">
+To work for gender equality, empowerment and advancement of women and girls, peace and sustainable development.
+</p>
+
+<p class="text-gray-600 leading-relaxed">
+To this end, we focus our efforts on promoting the social, educational, economical, and political development of women and girls including advocating for women's rights, eliminating discrimination against women including gender-based violence (GBV), advancing women's capacities and leadership skills, promoting their participation in decisions that affect their lives, and amplifying their voices for peace and security at all levels.
+</p>
+
+<div class="mt-8 border-l-4 border-[#2D5A27] pl-6">
+
+<p class="text-sm uppercase tracking-widest font-black text-gray-400 mb-2">
+What Drives Us
+</p>
+
+<p class="text-gray-700 leading-relaxed">
+Empowering women and girls to become agents of transformation while building peaceful, resilient and inclusive communities.
+</p>
+
+</div>
+
+</div>
+
+<!-- MISSION BOARD -->
+
+<div class="bg-white h-72 flex items-center justify-center border border-gray-200 shadow-xl rounded-lg">
+
+<div class="text-center px-10">
+
+<h4 class="uppercase tracking-[0.4em] text-xs text-gray-400 font-black mb-4">
+GEPaDC
+</h4>
+
+<h3 class="text-3xl font-black font-heading italic text-[#2D5A27] mb-4">
+Our Mission
+</h3>
+
+<p class="text-gray-500 text-sm leading-relaxed">
+Advancing gender equality, strengthening women's leadership and building pathways for peace, dignity and sustainable development.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= CORE VALUES ================= -->
+
+<div id="values" class="tab-content hidden animate-fadeIn">
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+<!-- VALUE 1 -->
+
+<div class="p-10 bg-white border border-gray-200 hover:border-[#2D5A27] hover:shadow-lg transition-all group rounded-lg">
+
+<span class="text-5xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">
+01
+</span>
+
+<p class="font-black uppercase text-xs tracking-widest mt-6 leading-relaxed">
+Gender equality, equity and social inclusion
+</p>
+
+</div>
+
+<!-- VALUE 2 -->
+
+<div class="p-10 bg-white border border-gray-200 hover:border-[#2D5A27] hover:shadow-lg transition-all group rounded-lg">
+
+<span class="text-5xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">
+02
+</span>
+
+<p class="font-black uppercase text-xs tracking-widest mt-6 leading-relaxed">
+Participation and Inclusiveness
+</p>
+
+</div>
+
+<!-- VALUE 3 -->
+
+<div class="p-10 bg-white border border-gray-200 hover:border-[#2D5A27] hover:shadow-lg transition-all group rounded-lg">
+
+<span class="text-5xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">
+03
+</span>
+
+<p class="font-black uppercase text-xs tracking-widest mt-6 leading-relaxed">
+Passion
+</p>
+
+</div>
+
+<!-- VALUE 4 -->
+
+<div class="p-10 bg-white border border-gray-200 hover:border-[#2D5A27] hover:shadow-lg transition-all group rounded-lg">
+
+<span class="text-5xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">
+04
+</span>
+
+<p class="font-black uppercase text-xs tracking-widest mt-6 leading-relaxed">
+Mutual Respect
+</p>
+
+</div>
+
+<!-- VALUE 5 -->
+
+<div class="p-10 bg-white border border-gray-200 hover:border-[#2D5A27] hover:shadow-lg transition-all group rounded-lg">
+
+<span class="text-5xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">
+05
+</span>
+
+<p class="font-black uppercase text-xs tracking-widest mt-6 leading-relaxed">
+Transparency and Accountability
+</p>
+
+</div>
+
+<!-- VALUE 6 -->
+
+<div class="p-10 bg-white border border-gray-200 hover:border-[#2D5A27] hover:shadow-lg transition-all group rounded-lg">
+
+<span class="text-5xl font-heading font-black text-gray-100 group-hover:text-[#2D5A27]/20 transition-all">
+06
+</span>
+
+<p class="font-black uppercase text-xs tracking-widest mt-6 leading-relaxed">
+Accountability to Affected Persons
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</section>
 
     
 <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
@@ -575,209 +806,106 @@ Donate
         <h4 class="text-center text-gray-400 font-black text-[9px] uppercase tracking-[0.5em] mb-8">Our Funders & Partners</h4>
         <div class="marquee-container">
             <div class="marquee-content">
-                <div class="marquee-item italic">USAID</div>
-                <div class="marquee-item italic">UN Women</div>
-                <div class="marquee-item italic">Save the Children</div>
-                <div class="marquee-item italic">UNICEF</div>
-                <div class="marquee-item italic">World Bank</div>
-                <div class="marquee-item italic">GIZ</div>
-                <div class="marquee-item italic">UNDP</div>
-                <div class="marquee-item italic">British Council</div>
-                <div class="marquee-item italic">Plan International</div>
-                <div class="marquee-item italic">European Union</div>
-                <div class="marquee-item italic">WPHF</div>
-                <div class="marquee-item italic">International Alert</div>
-            </div>
+
+    <div class="marquee-item">
+        <img src="logo1.jpg" alt="UNICEF" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo2.jpg" alt="World Bank" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo3.jpg" alt="Plan International" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo4.jpg" alt="UNDP" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo6.jpg" alt="UN Women" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo7.jpg" alt="Save the Children" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo8.jpg" alt="GIZ" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo9.jpg" alt="British Council" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo10.jpg" alt="European Union" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo18.png" alt="WPHF" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo20.png" alt="Mission Inclusion" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo22.png" alt="World Food Programme" loading="lazy" class="h-12 object-contain">
+    </div>
+
+</div>
         </div>
     </section>
 
-   <section class="py-24 bg-gray-50 text-black">
-    <div class="container mx-auto px-6 md:px-10">
-
-        <div class="mb-16">
-            <h3 class="text-4xl font-black uppercase font-heading">
-                Our Partners
-            </h3>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 bg-gray-200 p-2 rounded-lg">
-
-            <!-- Partner 1 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo1.jpg" alt="UNICEF" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 2 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo2.jpg" alt="World Bank" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 3 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo3.jpg" alt="Plan International" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 4 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo4.jpg" alt="UNDP" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 6 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo6.jpg" alt="UN Women" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 7 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo7.jpg" alt="Save the Children" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 8 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo8.jpg" alt="GIZ" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 9 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo9.jpg" alt="British Council" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 10 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo10.jpg" alt="European Union" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 11 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo11.png" alt="DFID" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 12 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo12.png" alt="International Medical Corps" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 13 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo13.png" alt="Norwegian Ministry of Foreign Affairs" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 14 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo14.png" alt="Education Cannot Wait" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 15 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo15.png" alt="Street Child" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 16 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo16.png" alt="Nigeria Humanitarian Fund" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 17 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo17.png" alt="UNICEF" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 18 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo18.png" alt="Women Peace and Humanitarian Fund" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 19 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo19.png" alt="Government of Canada" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 20 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo20.png" alt="Mission Inclusion" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 21 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo21.png" alt="UN CERF" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-            <!-- Partner 22 -->
-            <div class="bg-white p-8 h-36 flex items-center justify-center transition duration-300 hover:shadow-md">
-                <img src="logo22.png" alt="World Food Programme" loading="lazy"
-                class="max-h-20 object-contain">
-            </div>
-
-        </div>
-
-    </div>
-</section>
+   
     
 <section class="py-24 bg-[#f9fafb] border-y border-gray-100">
     <div class="container mx-auto px-6 md:px-10">
         
         <div class="text-center mb-16" data-aos="fade-up">
             <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Tracking Change</h2>
-            <h3 class="text-4xl md:text-5xl font-black italic uppercase font-heading text-black">Our Successes in Numbers</h3>
+            <h3 class="text-4xl md:text-5xl font-black uppercase font-heading text-black">Our Successes in Numbers</h3>
             <div class="w-16 h-1 bg-[#2D5A27] mx-auto mt-6"></div>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-5 gap-10">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             
             <div class="text-center" data-aos="zoom-in">
-                <i class="fas fa-users text-[#2D5A27] text-2xl mb-4"></i>
+                <i class="fas fa-users text-[#2D5A27] text-xl mb-4"></i>
                 <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="1000000">0</span>+</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Beneficiaries Reached</p>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Beneficiaries Reached</p>
             </div>
 
             <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
-                <i class="fas fa-map-marked-alt text-[#2D5A27] text-2xl mb-4"></i>
+                <i class="fas fa-map-marked-alt text-[#2D5A27] text-xl mb-4"></i>
                 <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="56">0</span>+</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Communities Served</p>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Communities Served</p>
             </div>
 
             <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
-                <i class="fas fa-briefcase text-[#2D5A27] text-2xl mb-4"></i>
+                <i class="fas fa-briefcase text-[#2D5A27] text-xl mb-4"></i>
                 <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="47">0</span>+</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Projects Implemented</p>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Projects Implemented</p>
             </div>
 
             <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
-                <i class="fas fa-handshake text-[#2D5A27] text-2xl mb-4"></i>
+                <i class="fas fa-handshake text-[#2D5A27] text-xl mb-4"></i>
                 <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="25">0</span>+</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Strategic Partners</p>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Strategic Partners</p>
             </div>
 
             <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
-                <i class="fas fa-venus text-[#1e3a8a] text-2xl mb-4"></i>
+                <i class="fas fa-venus text-[#1e3a8a] text-xl mb-4"></i>
                 <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="62">0</span>%</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Women & Girls</p>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Women & Girls</p>
             </div>
 
             <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
-                <i class="fas fa-venus text-[#1e3a8a] text-2xl mb-4"></i>
+                <i class="fas fa-mars text-[#2563eb] text-xl mb-3"></i>
                 <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="38">0</span>%</h3>
-                <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-2">Men & Boys</p>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Men & Boys</p>
             </div>
             
         </div>
@@ -789,7 +917,7 @@ Donate
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div data-aos="fade-right">
                     <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Our Methodology</h2>
-                    <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black leading-none mb-8">Structural <br> Foundations.</h3>
+                    <h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black leading-none mb-8">Structural <br> Foundations.</h3>
                     <p class="text-gray-600 max-w-md text-sm leading-loose">
                         Our impact spans Humanitarian Relief, Rights Advocacy, Economic Livelihoods, and Climate Action. Each pillar is designed to move from immediate aid to long-term community autonomy.
                     </p>
@@ -839,110 +967,7 @@ Donate
         </div>
     </section>
 
-    <section class="py-24 px-10 border-t border-gray-100 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div>
-                    <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">News & Field Updates</span>
-                    <h2 class="text-5xl md:text-7xl font-heading font-black italic uppercase leading-none text-black">Recent.</h2>
-                </div>
-                <a href="archive.html" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-[#2D5A27] pb-2 hover:text-[#2D5A27] transition">View All News</a>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[700px]">
-                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden bg-gray-100 shadow-md">
-                    <img src="media/photos/IMG_8631.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-10 flex flex-col justify-end">
-                        <span class="bg-[#2D5A27] text-white text-[8px] font-black uppercase px-3 py-1 w-max mb-4">Emergency Response</span>
-                        <h3 class="text-3xl font-heading font-black italic uppercase mb-4 text-white">2024 Northeastern <br>Flood Relief</h3>
-                        <p class="text-gray-200 text-xs leading-relaxed max-w-sm mb-6">Strategic deployment of WASH and Protection kits to displaced populations in Borno State.</p>
-                        <a href="archive.html" class="text-[9px] font-black text-white uppercase tracking-widest flex items-center gap-2">Read Mission Report <i class="fas fa-arrow-right text-[#2D5A27]"></i></a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-2 relative group overflow-hidden">
-                    <img src="media/photos/IMG_8652.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all">
-                    <div class="absolute inset-0 p-8 flex flex-col justify-end bg-black/40">
-                        <h4 class="text-xl font-heading font-black italic uppercase text-white">Safe Space Initiatives</h4>
-                    </div>
-                </div>
-                <div class="md:col-span-1 relative group overflow-hidden">
-                    <img src="media/photos/IMG_8656.jpg" class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end bg-black/40">
-                        <h4 class="text-sm font-heading font-black italic uppercase text-white">Gatekeeper Training</h4>
-                    </div>
-                </div>
-                <div class="md:col-span-1 relative group overflow-hidden">
-                    <img src="media/photos/IMG_6897.jpg" class="w-full h-full object-cover grayscale">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-end bg-black/40">
-                        <h4 class="text-sm font-heading font-black italic uppercase text-white">Site Monitoring</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white border-t border-gray-100">
-        <div class="container mx-auto px-6 md:px-10">
-            <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
-                <div>
-                    <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Operational Pulse</h2>
-                    <h3 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black">Field <br> Perspectives</h3>
-                </div>
-                <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">Real-time updates from our protection missions across Nigeria.</p>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="group relative overflow-hidden aspect-square border border-gray-100">
-                    <img src="media/photos/IMG_7622.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <a href="https://www.instagram.com/gepadc/" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-                        <i class="fab fa-instagram text-2xl mb-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest">Instagram</span>
-                    </a>
-                </div>
-                <div class="group relative overflow-hidden aspect-[4/5] md:row-span-2 border border-gray-100">
-                    <img src="media/photos/IMG_7590.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-                        <i class="fab fa-facebook-f text-2xl mb-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest">Facebook</span>
-                    </a>
-                </div>
-                <div class="group relative overflow-hidden aspect-video md:col-span-2 border border-gray-100">
-                    <img src="media/photos/IMG_8661.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <a href="https://www.youtube.com/@gepadc370" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-                        <i class="fab fa-youtube text-2xl mb-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest">YouTube</span>
-                    </a>
-                </div>
-                <div class="group relative overflow-hidden aspect-square border border-gray-100">
-                    <img src="media/photos/GEPADC (1).jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                    <a href="https://twitter.com/GEPaDC" target="_blank" class="absolute inset-0 bg-[#2D5A27]/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity p-6 text-white text-center">
-                        <i class="fab fa-x-twitter text-2xl mb-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest">X updates</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-<section class="py-24 bg-[#f8f9fa]"> <div class="container mx-auto px-6 md:px-10">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-12 text-center" data-aos="fade-up">
-                <p class="text-black font-bold uppercase tracking-[0.2em] text-[10px] mb-2">Gender Equality Peace and Development Centre</p>
-                <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Field Documentation</h2>
-                <h3 class="text-black text-4xl font-black italic uppercase font-heading">Impact in Motion</h3>
-            </div>
-            
-            <div class="relative aspect-video shadow-2xl border border-gray-200 bg-black" data-aos="zoom-in">
-                <video controls poster="media/photos/IMG_8641.jpg" class="w-full h-full" playsinline>
-                    <source src="media/video1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-    </div>
-</section>
-
+  
    <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
     <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
         
@@ -1046,148 +1071,96 @@ Donate
   
 
   <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
-    <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            
-            <div class="space-y-6">
-                <div class="flex items-center gap-4">
-                    <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
-                    <span class="text-3xl font-heading font-black tracking-tighter italic">GEPaDC</span>
-                </div>
-                <p class="text-gray-300 text-xs font-medium leading-relaxed max-w-xs">
-                    Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
-                </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
+  <div class="container mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
 
-            <div>
-                <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Field Operations</h4>
-                <ul class="space-y-5 text-[10px] uppercase font-black tracking-widest">
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Borno State Office, Northeast Zone</span>
-                            <p class="text-gray-500 font-bold lowercase tracking-normal">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-dot text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Adamawa State Office, Northeast Zone </span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">Coper Lane, Zone 3, Jimeta, Yola, Adamawa State.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Kaduna State Office, Northwest Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">Sir Patrick Yakowa Street, Karji, Kaduna, Kaduna State</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Sokoto Office, Northwest Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">No 1 Abuja Road, GRA, Sokoto State.</p>
-                        </div>
-                    </li>                    
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Kebbi Office, Northwest Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">No.5 Behind Oando bypass, Brini Kebbi, Kebbi State.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-location-arrow text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Zamfara Office, Northeast Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">UBE, Lala International, Angwan Yerima, Gusau, Zamfara State.</p>
-                        </div>
-                    </li>
-                    <li class="flex gap-4 group">
-                        <i class="fas fa-earth-africa text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
-                        <div>
-                            <span class="text-white block">Yobe Office, Northeast Zone</span>
-                            <p class="text-gray-400 font-bold lowercase tracking-normal">Maisandari Beside Damaturu PHC, Yobe State. </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+      <!-- Logo & Description -->
+      <div class="space-y-6">
+        <div class="flex items-center gap-4">
+          <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
+          <span class="text-xl sm:text-2xl md:text-3xl font-heading font-black tracking-tighter">GEPaDC</span>
+        </div>
+        <p class="text-gray-300 text-sm sm:text-base md:text-sm font-medium leading-relaxed max-w-xs">
+          Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
 
+      <!-- Operational Office -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Operational Office</h4>
+        <ul class="space-y-4 sm:space-y-5 text-[9px] sm:text-[10px] md:text-[11px] uppercase font-black tracking-widest">
+          <li class="flex gap-4 group">
+            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
             <div>
-                <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
-                <ul class="space-y-6">
-                    <li class="flex gap-4">
-                        <i class="fas fa-building text-[#2D5A27] text-lg"></i>
-                        <span class="text-white font-black text-[10px] uppercase tracking-widest leading-relaxed">No 1, Cardinal Ekandem St,<br>Gwarinpa Estate, FCT, Abuja</span>
-                    </li>
-                    <li class="mt-4 p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">                                        
-                     <span class="text-[9px] font-black uppercase text-[#2D5A27] tracking-[0.3em] block mb-2">Emergency Toll-Free</span>
-                        <div class="flex items-center gap-3 text-2xl font-black italic text-white tracking-tighter">
-                            <i class="fas fa-headset text-xl"></i>
-                            <span>08000004000</span>
-                        </div>
-                    </li>
-                     
-                   <li class="mt-4 p-4 bg-white/5 border-l-4 border-white/20 group hover:border-[#2D5A27] transition-all">
-    <span class="text-[9px] font-black uppercase text-gray-500 tracking-[0.3em] block mb-2">Work With Us</span>
-    <div class="flex items-center gap-3 text-xl font-black italic text-white tracking-tighter">
-        <i class="fas fa-users text-lg group-hover:text-[#2D5A27] transition"></i>
-        <a href="volunteer.html" class="uppercase hover:text-[#2D5A27] transition">Join The Mission</a>
+              <span class="text-white block">Borno State Office, Northeast Zone</span>
+              <p class="text-gray-500 font-bold lowercase tracking-normal text-[8px] sm:text-[9px] md:text-[10px]">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Direct Contact -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
+        <ul class="space-y-5">
+          <li class="mt-4 p-3 sm:p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-[#2D5A27] tracking-[0.25em] block mb-1">Emergency Toll-Free</span>
+            <div class="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-black italic text-white tracking-tighter">
+              <i class="fas fa-headset text-base sm:text-lg md:text-xl"></i>
+              <span>08000004000</span>
+            </div>
+          </li>
+          <li class="mt-4 p-3 sm:p-4 bg-red-900/10 border-l-4 border-red-700">
+            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-red-700 tracking-[0.25em] block mb-1">Safeguarding Reporting</span>
+            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
+        <form class="relative mb-8">
+          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-3 sm:py-4 px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
+          <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+        </form>
+      </div>
     </div>
-</li>
-                    
-                    <li class="mt-4 p-4 bg-red-900/10 border-l-4 border-red-700">
-                        <span class="text-[9px] font-black uppercase text-red-700 tracking-[0.3em] block mb-2">Safeguarding Reporting</span>
-                        <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[10px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
-                    </li>
-                </ul>
-            </div>
 
-            <div>
-                <h4 class="text-white font-black text-[11px] uppercase tracking-[0.4em] mb-6 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
-                <form class="relative mb-8">
-                    <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-4 px-6 text-[10px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
-                    <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-6 text-[10px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
-                </form>
+    <!-- Footer Bottom -->
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+      <div class="flex gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">
+        <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
+        <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
+        <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
+      </div>
 
-                <a href="media/pdf/newsletter-march-2026.pdf" target="_blank" class="block text-white font-black text-[11px] uppercase tracking-[0.4em] mb-10 border-l-4 border-[#2D5A27] pl-4 hover:text-[#2D5A27] transition">
-                    <i class="fas fa-download mr-2"></i> Download Latest Edition (PDF)
-                </a>
-
-                <div class="grid grid-cols-1 gap-4 text-[9px] text-gray-500 font-black uppercase tracking-[0.2em] pt-4 border-t border-white/10">
-                    <div class="flex justify-between border-b border-white/5 pb-2"><span>Registry</span> <span class="text-white">IT/39885</span></div>
-                    <div class="flex justify-between border-b border-white/5 pb-2"><span>Established</span> <span class="text-white">2008</span></div>
-                    <div class="flex justify-between"><span>DUNS No.</span> <span class="text-white">55-667-8892</span></div>
-                </div>
-            </div>
-        </div> <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-            
-            <div class="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
-                <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
-                <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
-                <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
-            </div>
-            
-            <div class="flex items-center gap-5">
-                <div class="text-right">
-                    <p class="text-gray-500 text-[8px] uppercase font-black tracking-widest">Designed & Managed by</p>
-                    <p class="text-white text-[10px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
-                </div>
-                <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
-                    <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
-                </div>
-            </div>
+      <div class="flex items-center gap-4 md:gap-5">
+        <div class="text-right">
+          <p class="text-gray-500 text-[7px] sm:text-[8px] md:text-[9px] uppercase font-black tracking-widest">Designed & Managed by</p>
+          <p class="text-white text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
         </div>
+        <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+          <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
         </div>
-</footer>                   
-  
+      </div>
+    </div>
+  </div>
+</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -1329,6 +1302,8 @@ Donate
         });
     }
 
+    
+
     // 4. Mobile Nav Toggle (As per your existing logic)
     function toggleMobileNav() {
         const mobileNav = document.getElementById('mobileNav');
@@ -1419,19 +1394,29 @@ Donate
             updateDots();
         }, {passive: true});
     }
+
+     function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('hidden');
+  }
+
+  function toggleSubmenu(id) {
+    const submenu = document.getElementById(id);
+    submenu.classList.toggle('hidden');
+  }
+
+  // Optional: Desktop dropdown hover effect
+  document.querySelectorAll('.dropdown').forEach(drop => {
+    drop.addEventListener('mouseenter', () => {
+      drop.querySelector('.dropdown-menu').classList.remove('hidden');
+    });
+    drop.addEventListener('mouseleave', () => {
+      drop.querySelector('.dropdown-menu').classList.add('hidden');
+    });
+  });
+
+  /* This ensures that even if there is a 5px gap, the menu stays open */
+
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
