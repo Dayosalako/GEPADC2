@@ -466,17 +466,19 @@
     </nav>
 
     <section id="social-media-links" class="py-24 bg-white border-t border-gray-100">
-      <div class="container mx-auto px-6 md:px-10">
-        <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
-          <div>
-            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Operational Pulse</h2>
-            <h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black">
-              Field
-              <br />
-              Perspectives
-            </h3>
-          </div>
-          <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">
+      <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
+<div class="mb-16 flex flex-col md:flex-row justify-between items-center md:items-end gap-6 text-center md:text-left">
+    <div class="w-full">
+        <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Operational Pulse</h2>
+        <h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black">
+            Field Perspectives
+        </h3>
+    </div>
+    <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed mx-auto md:mx-0">
+        Real-time updates from our protection missions across Nigeria.
+    </p>
+</div>                                                          
+            <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">
             Real-time updates from our protection missions across Nigeria.
           </p>
         </div>
@@ -550,8 +552,9 @@
       <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4 mx-auto">
         Evidence of Impact
       </span>
-      <h1 class="text-7xl md:text-9xl font-heading font-black uppercase leading-[0.85] mb-16 text-black">GALLERY.</h1>
-
+      <h1 class="text-5xl sm:text-7xl md:text-9xl font-heading font-black uppercase leading-[0.85] mb-16 text-black text-center break-words">
+    GALLERY.
+</h1>
       <div
         id="filters"
         class="flex flex-wrap justify-center gap-x-10 gap-y-6 font-black text-[10px] uppercase tracking-[0.2em] text-gray-400 w-full"
@@ -1012,7 +1015,7 @@
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-    // 1. Initialize GLightbox for the premium popup effect
+    // 1. Initialize GLightbox
     const lightbox = GLightbox({
         selector: ".glightbox",
         touchNavigation: true,
@@ -1020,98 +1023,73 @@
         autoplayVideos: true
     });
 
-    // 2. Target the grid container
+    // 2. Initialize Isotope
     const grid = document.querySelector(".grid-container");
     let iso;
 
     if (grid) {
-        // 3. Use imagesLoaded to ensure Isotope only runs after images are ready
         imagesLoaded(grid, function () {
-            // 4. Initialize Isotope with 'fitRows' for uniform framing
             iso = new Isotope(grid, {
                 itemSelector: ".grid-item",
-                layoutMode: 'fitRows', // Changed from masonry to fitRows for uniformity
+                layoutMode: 'fitRows',
                 percentPosition: true,
-                transitionDuration: '0.6s',
-                hiddenStyle: { opacity: 0, transform: 'scale(0.8)' },
-                visibleStyle: { opacity: 1, transform: 'scale(1)' }
+                transitionDuration: '0.6s'
             });
         });
 
-        // 5. Connect the filter buttons
+        // Handle Filtering
         const filters = document.querySelector('#filters');
         if (filters) {
             filters.addEventListener('click', function(e) {
                 if (!e.target.classList.contains('filter-btn')) return;
-                
                 const filterValue = e.target.getAttribute('data-filter');
-                
-                // Trigger the Isotope filtering
                 iso.arrange({ filter: filterValue });
-                
-                // Update active button state
                 document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
             });
         }
     }
-});
-        // Mobile Navigation
-      window                    
-  .openMobileNav = function() {
-    document.getElementById("mobileNavOverlay").classList.add("active");
-    document.getElementById("mobileNavPanel").classList.add("active");
-    document.body.style.overflow = "hidden"; // Prevent background scroll
-};
 
-window.closeMobileNav = function() {
-    document.getElementById("mobileNavOverlay").classList.remove("active");
-    document.getElementById("mobileNavPanel").classList.remove("active");
-    document.body.style.overflow = ""; // Restore scroll
-};
+    // 3. Global Functions (Attached to window for HTML onclick events)
+    window.openMobileNav = function() {
+        document.getElementById("mobileNavOverlay").classList.add("active");
+        document.getElementById("mobileNavPanel").classList.add("active");
+        document.body.style.overflow = "hidden";
+    };
 
-        // Auto-close mobile menu when clicking links
-        document.querySelectorAll("#mobileNavPanel a").forEach((link) => {
-          link.addEventListener("click", () => {
-            setTimeout(closeMobileNav, 100);
-          });
-        });
+    window.closeMobileNav = function() {
+        document.getElementById("mobileNavOverlay").classList.remove("active");
+        document.getElementById("mobileNavPanel").classList.remove("active");
+        document.body.style.overflow = "";
+    };
 
-        window.toggleSubmenu = function (id) {
-          const menu = document.getElementById(id);
-          if (!menu) return;
-          menu.style.display = menu.style.display === "block" ? "none" : "block";
-        };
+    window.toggleSubmenu = function (id) {
+        const menu = document.getElementById(id);
+        if (!menu) return;
+        // Toggle using display or classes
+        menu.style.display = (menu.style.display === "flex" || menu.style.display === "block") ? "none" : "block";
+    };
 
-        // Donate Modal
-        window.toggleModal = function () {
-          const modal = document.getElementById("donateModal");
-          if (!modal) return;
-          modal.classList.toggle("hidden");
-        };
+    window.toggleModal = function () {
+        const modal = document.getElementById("donateModal");
+        modal?.classList.toggle("hidden");
+    };
 
-        window.copyToClipboard = function (text) {
-          navigator.clipboard.writeText(text);
-          const btn = document.getElementById("copyBtn");
-          if (btn) {
+    window.copyToClipboard = function (text) {
+        navigator.clipboard.writeText(text);
+        const btn = document.getElementById("copyBtn");
+        if (btn) {
             btn.innerHTML = '<i class="fas fa-check text-white"></i>';
-            setTimeout(() => {
-              btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
-            }, 2000);
-          }
-        };
+            setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy text-xs"></i>'; }, 2000);
+        }
+    };
 
-        window.handleDonation = function (e) {
-          e.preventDefault();
-          const form = document.getElementById("donorForm");
-          const success = document.getElementById("successContent");
-          const content = document.getElementById("formContent");
-          if (form && success && content) {
-            content.classList.add("hidden");
-            success.classList.remove("hidden");
-          }
-        };
-      });
+    window.handleDonation = function (e) {
+        e.preventDefault();
+        document.getElementById("formContent")?.classList.add("hidden");
+        document.getElementById("successContent")?.classList.remove("hidden");
+    };
+});
     </script>
   </body>
 </html>
