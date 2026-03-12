@@ -109,9 +109,7 @@ body {
 }
 
 /* Update these in your <style> section */
-.mobile-nav-overlay                    
-                      
-  .active {
+.mobile-nav-overlay.active {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
@@ -139,6 +137,9 @@ body {
     background: #f9fafb;
 }
 
+      .mobile-submenu-open i {
+    transform: rotate(180deg);
+}
 /* ──────────────────────────────────────────────
    FILTER BUTTONS
    ────────────────────────────────────────────── */
@@ -922,103 +923,151 @@ body {
     <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const grid = document.querySelector('.grid-container');
-    
-    // 1. Initialize GLightbox
-    const lightbox = GLightbox({ selector: ".glightbox", loop: true });
+   document.addEventListener("DOMContentLoaded", function () {
 
-    // 2. Initialize Isotope ONLY after images are loaded
+    const grid = document.querySelector('.grid-container');
+
+    // GLightbox
+    const lightbox = GLightbox({
+        selector: ".glightbox",
+        loop: true
+    });
+
     if (grid) {
-        var imgLoad = imagesLoaded(grid);
-        
-        imgLoad.on('always', function() {
-            // Now that images are loaded, Isotope won't "scatter"
+
+        const imgLoad = imagesLoaded(grid);
+
+        imgLoad.on('always', function () {
+
             const iso = new Isotope(grid, {
                 itemSelector: '.grid-item',
-                layoutMode: 'fitRows', // Keeps them in neat rows
+                layoutMode: 'fitRows',
                 percentPosition: true,
                 transitionDuration: '0.5s'
             });
 
-            // Connect Filters
-        // Replace the filterContainer logic inside your script with this:
-const                    
-   filterContainer = document.querySelector('#filters');
-if (filterContainer) {
-    filterContainer.addEventListener('click', function(e) {
-        // This ensures the click is registered even if you click the text specifically
-        const btn = e.target.classList.contains('filter-btn') ? e.target : e.target.closest('.filter-btn');
-        if (!btn) return;
-        
-        const filterValue = btn.getAttribute('data-filter');
-        
-        // Trigger Isotope filter
-        iso.arrange({ 
-            filter: filterValue,
-            transitionDuration: '0.6s'
-        });
-        
-        // Update Active UI State
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    });
-}                    
-  
-             
+            // FILTERS
+            const filterContainer = document.querySelector('#filters');
 
-    // 3. GLOBAL FUNCTIONS (Assigned to window for HTML onclicks)
-    
-    // Hamburger / Mobile Nav
-    window                    
-  .openMobileNav = function() {
-    console.log("Opening Nav"); // Debug line
-    const overlay = document.getElementById("mobileNavOverlay");
-    const panel = document.getElementById("mobileNavPanel");
-    if(overlay && panel) {
+            if (filterContainer) {
+
+                filterContainer.addEventListener('click', function (e) {
+
+                    const btn = e.target.closest('.filter-btn');
+                    if (!btn) return;
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    iso.arrange({
+                        filter: filterValue,
+                        transitionDuration: '0.6s'
+                    });
+
+                    document.querySelectorAll('.filter-btn')
+                        .forEach(b => b.classList.remove('active'));
+
+                    btn.classList.add('active');
+
+                });
+
+            }
+
+        }); // IMPORTANT: closes imagesLoaded
+
+    }
+
+    // ==============================
+    // MOBILE NAV
+    // ==============================
+
+    window.openMobileNav = function () {
+
+        const overlay = document.getElementById("mobileNavOverlay");
+        const panel = document.getElementById("mobileNavPanel");
+
+        if (!overlay || !panel) return;
+
         overlay.classList.add("active");
         panel.classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
-};                    
-  
 
-    window.closeMobileNav = function() {
-        document.getElementById("mobileNavOverlay").classList.remove("active");
-        document.getElementById("mobileNavPanel").classList.remove("active");
+        document.body.style.overflow = "hidden";
+    };
+
+    window.closeMobileNav = function () {
+
+        const overlay = document.getElementById("mobileNavOverlay");
+        const panel = document.getElementById("mobileNavPanel");
+
+        overlay.classList.remove("active");
+        panel.classList.remove("active");
+
         document.body.style.overflow = "";
     };
 
-    window.toggleSubmenu = function(id) {
+    // ==============================
+    // MOBILE SUBMENU
+    // ==============================
+
+    window.toggleSubmenu = function (id) {
+
         const menu = document.getElementById(id);
         if (!menu) return;
+
         const isHidden = window.getComputedStyle(menu).display === "none";
+
         menu.style.display = isHidden ? "block" : "none";
     };
 
-    // Modal Handling
-    window.toggleModal = function() {
+    // ==============================
+    // DONATE MODAL
+    // ==============================
+
+    window.toggleModal = function () {
+
         const modal = document.getElementById("donateModal");
-        if (modal) modal.classList.toggle("hidden");
+
+        if (!modal) return;
+
+        modal.classList.toggle("hidden");
     };
 
-    // Clipboard
-    window.copyToClipboard = function(text) {
+    // ==============================
+    // COPY ACCOUNT NUMBER
+    // ==============================
+
+    window.copyToClipboard = function (text) {
+
         navigator.clipboard.writeText(text);
+
         const btn = document.getElementById("copyBtn");
+
         if (btn) {
+
             const original = btn.innerHTML;
+
             btn.innerHTML = '<i class="fas fa-check text-white"></i>';
-            setTimeout(() => { btn.innerHTML = original; }, 2000);
+
+            setTimeout(() => {
+                btn.innerHTML = original;
+            }, 2000);
         }
     };
 
-    // Auto-close mobile nav on link click
-    document.querySelectorAll("#mobileNavPanel a").forEach((link) => {
-        link.addEventListener("click", () => {
-            setTimeout(window.closeMobileNav, 150);
+    // ==============================
+    // AUTO CLOSE MOBILE NAV
+    // ==============================
+
+    document.querySelectorAll("#mobileNavPanel a")
+        .forEach((link) => {
+
+            link.addEventListener("click", () => {
+
+                setTimeout(window.closeMobileNav, 150);
+
+            });
+
         });
-    });
+
 });
     </script>
   </body>
