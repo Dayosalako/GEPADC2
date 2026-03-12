@@ -164,7 +164,7 @@
           <a href="index.html#vision-section" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Vision</a>
           <a href="index.html#mission-section" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Mission</a>
           <a href="index.html#values" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Values</a>
-          <a href="team.html#board" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Board</a>
+          <a href="team.html#board" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">OUR BOARD OF TRUSTEES/SMT</a>
         </div>
       </div>
 
@@ -175,7 +175,7 @@
         </button>
         <div class="absolute left-0 top-full mt-3 w-56 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
           <a href="volunteer.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Volunteer</a>
-          <a href="career.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Career Ads</a>
+          <a href="volunteer.html#career" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Careers</a>
         </div>
       </div>
 
@@ -238,7 +238,7 @@
         <a href="index.html#vision-section" class="block py-2 hover:text-[var(--brand-green)]">Our Vision</a>
         <a href="index.html#mission-section" class="block py-2 hover:text-[var(--brand-green)]">Our Mission</a>
         <a href="index.html#values" class="block py-2 hover:text-[var(--brand-green)]">Our Values</a>
-        <a href="team.html#board" class="block py-2 hover:text-[var(--brand-green)]">Our Board</a>
+        <a href="team.html#board" class="block py-2 hover:text-[var(--brand-green)]">OUR BOARD OF TRUSTEES/SMT</a>
       </div>
     </li>
 
@@ -248,7 +248,7 @@
       </button>
       <div id="joinSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
         <a href="volunteer.html" class="block py-2 hover:text-[var(--brand-green)]">Volunteer</a>
-        <a href="career.html" class="block py-2 hover:text-[var(--brand-green)]">Career Ads</a>
+        <a href="volunteer.html#career" class="block py-2 hover:text-[var(--brand-green)]">Careers</a>
       </div>
     </li>
 
@@ -640,9 +640,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+    // AOS INITIALIZATION
+AOS.init({
+duration:1000,
+once:true
+});
+// COMPONENT LOADER
+function loadComponent(id, file){
+
+fetch(file)
+
+.then(res => {
+if(!res.ok){
+throw new Error("Failed to load " + file);
+}
+return res.text();
+})
+
+.then(data => {
+const el = document.getElementById(id);
+
+if(el){
+el.innerHTML = data;
+}
+})
+
+.catch(err => console.error(err));
+
+}
 </script>
 </body>
 </html>
+
 
 
 
