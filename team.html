@@ -79,66 +79,79 @@
     </style>
 </head>
 <body class="bg-white text-gray-900 font-sans overflow-x-hidden"> 
- <nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
-        <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
-            
-            <a href="index.html" class="flex items-center gap-3 group">
-                <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
-                <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black">GEPaDC</div>
-            </a>
+  <!-- Header / Navigation -->
+<nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+  <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
 
-            <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-                <div class="dropdown relative">
-                    <a href="index.html" class="text-[#2D5A27] flex items-center gap-1">Home <i class="fas fa-chevron-down text-[8px]"></i></a>
-                    <div class="dropdown-menu hidden hidden">
-                        <a href="index.html#about-snapshot" class="dropdown-item">Who We Are</a>
-                        <a href="index.html#vision-section" class="dropdown-item">Our Vision</a>
-                        <a href="index.html#mission-section" class="dropdown-item">Our Mission</a>
-                        <a href="index.html#values" class="dropdown-item">Our Values</a>
-                    </div>
-                </div>
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
+      <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black uppercase">GEPaDC</div>
+    </a>
 
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About Us <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu hidden">
-                        <a href="team.html#board" class="dropdown-item">Our Board</a>
-                        <a href="team.html" class="dropdown-item">Our Team</a>
-                        <a href="index.html#partners" class="dropdown-item">Our Partners</a>
-                        <a href="volunteer.html" class="dropdown-item">Join Us</a>                     
-                    </div>
-                </div>
+    <!-- Desktop Menu -->
+    <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
 
-                <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu hidden">
-                        <a href="programs.html" class="dropdown-item">Thematic Areas</a>
-                        <a href="programs.html#impact" class="dropdown-item">Impact</a>
-                    </div>  
-                </div>                    
-                 
-                    <div class="dropdown relative">
-                    <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
-                    <div class="dropdown-menu hidden">
-                        <a href="archive.html" class="dropdown-item">Annual Reports</a>
-                        <a href="archive.html" class="dropdown-item">Monthly Reports</a>
-                        <a href="archive.html" class="dropdown-item">Newsletters</a>
-                        <a href="gallery.html" class="dropdown-item">Gallery</a>
-                    </div>
-                </div>
-                  
-                <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
-            </div>
+      <!-- Home -->
+      <a href="index.html" class="text-[#2D5A27] hover:text-[#2D5A27] transition">Home</a>
 
-            <div class="flex items-center space-x-3 md:space-x-6">
-                <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
-                    Donate
-                </button>
-                
-                <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
-                    <i id="navIcon" class="fas fa-bars"></i>
-                </button>
-            </div>
+      <!-- About Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="index.html#about-snapshot" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Who We Are</a>
+          <a href="index.html#vision-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Vision</a>
+          <a href="index.html#mission-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Mission</a>
+          <a href="index.html#values" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Values</a>
+          <a href="team.html#board" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Board</a>
         </div>
+      </div>
+
+      <!-- Join Us Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Join Us <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="volunteer.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Volunteer</a>
+          <a href="career.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Career Ads</a>
+        </div>
+      </div>
+
+      <!-- Our Work Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="programs.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Thematic Areas</a>
+          <a href="programs.html#impact" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Impact</a>
+        </div>
+      </div>
+
+      <!-- Publications Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-52 rounded-md py-2">
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Annual Report</a>
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Newsletter</a>
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Project Impactation</a>
+          <a href="gallery.html#success-stories" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Success Stories</a>
+          <a href="gallery.html#social-media-links" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Social Handles</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
+    </div>
+
+    <!-- Right Side Buttons -->
+    <div class="flex items-center space-x-3 md:space-x-6">
+      <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
+        Donate
+      </button>
+      <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
+        <i id="navIcon" class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
 <!-- Mobile Navigation -->
 <div class="mobile-nav hidden lg:hidden bg-white w-full absolute top-full left-0 shadow-md z-50">
     <ul class="flex flex-col p-4 space-y-4 text-[12px] font-bold uppercase">
