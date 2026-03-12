@@ -451,7 +451,7 @@
 
     <!-- Mobile Nav Overlay + Panel -->
     <div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
-    <nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-100%] w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto transition-all duration-500">
+    <nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-0 translate-x-full w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto transition-all duration-500">
       <button class="mobile-nav-close text-[var(--brand-green)] font-black uppercase tracking-widest text-sm mb-8 flex items-center gap-2" onclick="closeMobileNav()">
         <i class="fas fa-times text-lg"></i> Close
       </button>
@@ -1091,16 +1091,26 @@ document.addEventListener("DOMContentLoaded", function(){
     /* -------------------------
     MOBILE NAVIGATION
     --------------------------*/
-    window.openMobileNav = function(){
-        document.getElementById("mobileNavOverlay")?.classList.add("active");
-        document.getElementById("mobileNavPanel")?.classList.add("active");
-        document.body.classList.add("no-scroll");
-    };
-    window.closeMobileNav = function(){
-        document.getElementById("mobileNavOverlay")?.classList.remove("active");
-        document.getElementById("mobileNavPanel")?.classList.remove("active");
-        document.body.classList.remove("no-scroll");
-    };
+   window.openMobileNav = function () {
+    const overlay = document.getElementById("mobileNavOverlay");
+    const panel   = document.getElementById("mobileNavPanel");
+    
+    if (overlay) overlay.classList.add("active");
+    if (panel)   panel.classList.add("active");
+    
+    document.body.classList.add("no-scroll");
+};
+
+window.closeMobileNav = function () {
+    const overlay = document.getElementById("mobileNavOverlay");
+    const panel   = document.getElementById("mobileNavPanel");
+    
+    if (overlay) overlay.classList.remove("active");
+    if (panel)   panel.classList.remove("active");
+    
+    document.body.classList.remove("no-scroll");
+};                    
+  
     window.toggleSubmenu = function(id){
         const menu = document.getElementById(id);
         if(!menu) return;
@@ -1228,6 +1238,7 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </body>
 </html>
+
 
 
 
