@@ -13,23 +13,30 @@
       rel="stylesheet"
     />
     <style>
-      :root {
-        --brand-green: #2d5a27;
-      }
-      body {
-        font-family: "Inter", sans-serif;
-        background: #ffffff;
-        color: #1a1a1a;
-        overflow-x: hidden;
-      }
-      .font-heading {
-        font-family: "Montserrat", sans-serif;
-      }
+     /* ──────────────────────────────────────────────
+   GLOBAL & ROOT
+   ────────────────────────────────────────────── */
+:root {
+    --brand-green: #2d5a27;
+}
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+body {
+    font-family: "Inter", sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    overflow-x: hidden;
+}
+.font-heading {
+    font-family: "Montserrat", sans-serif;
+}
 
-      /* Masonry Grid Setup */
-      /* Premium Uniform Grid */
-.grid-container                    
-   {
+/* ──────────────────────────────────────────────
+   GALLERY GRID (Uniform Frames)
+   ────────────────────────────────────────────── */
+.grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
@@ -39,15 +46,27 @@
 .grid-item {
     position: relative;
     background: #ffffff;
-    /* This creates the uniform square frame */
     aspect-ratio: 1 / 1; 
-    padding: 12px; /* The "Frame" thickness */
+    padding: 12px;
     border: 1px solid #e5e7eb;
     box-shadow: 0 10px 30px -15px rgba(0,0,0,0.1);
     transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-/* Technical Corner Accents for a Unique Look */
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.1);
+    transition: all 0.6s ease;
+}
+
+.grid-item:hover img {
+    filter: grayscale(0%) contrast(1);
+    transform: scale(1.02);
+}
+
+/* Technical Corner Accents */
 .grid-item::before, .grid-item::after {
     content: '';
     position: absolute;
@@ -66,87 +85,12 @@
     box-shadow: 0 20px 40px -20px rgba(45, 90, 39, 0.3);
     border-color: var(--brand-green);
 }
+.grid-item:hover::before { opacity: 1; transform: translate(5px, 5px); }
+.grid-item:hover::after { opacity: 1; transform: translate(-5px, -5px); }
 
-.grid-item:hover::before, .grid-item:hover::after {
-    opacity: 1;
-    transform: translate(5px, 5px); /* Inward movement */
-}
-
-.grid-item:hover::after {
-    transform: translate(-5px, -5px);
-}
-
-/* Force Images to fill the uniform frame perfectly */
-.grid-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This is key for uniformity */
-    filter: grayscale(100%) contrast(1.1);
-    transition: all 0.6s ease;
-}
-
-.grid-item:hover img {
-    filter: grayscale(0%) contrast(1);
-    transform: scale(1.02);
-}
-      /* Desktop Dropdown */
-      .dropdown-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: white;
-        min-width: 260px;
-        padding-top: 10px;
-        z-index: 50;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(10px);
-        transition: all 0.25s ease;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      }
-      .dropdown:hover .dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-      }
-      .dropdown-item {
-        padding: 14px 22px;
-        display: block;
-        font-size: 11px;
-        color: #1a1a1a;
-        border-bottom: 1px solid #f3f4f6;
-        transition: all 0.25s ease;
-        text-transform: uppercase;
-        font-weight: 800;
-        letter-spacing: 0.15em;
-      }
-      .dropdown-item:hover {
-        background: #f9fafb;
-        color: var(--brand-green);
-        padding-left: 28px;
-      }
-
-      .filter-btn {
-        transition: all 0.3s ease;
-        border-bottom: 2px solid transparent;
-        padding-bottom: 4px;
-        cursor: pointer;
-      }
-      .filter-btn.active {
-        color: var(--brand-green);
-        border-color: var(--brand-green);
-      }
-
-      html,
-      body {
-        overflow-x: hidden;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-
-      /* Mobile Navigation */
-     /* Mobile Navigation Overlay */
+/* ──────────────────────────────────────────────
+   MOBILE NAVIGATION
+   ────────────────────────────────────────────── */
 .mobile-nav-overlay {
     position: fixed;
     inset: 0;
@@ -154,7 +98,7 @@
     backdrop-filter: blur(4px);
     z-index: 9998;
     opacity: 0;
-    visibility: hidden; /* Added for better control */
+    visibility: hidden;
     transition: all 0.35s ease;
 }
 .mobile-nav-overlay.active {
@@ -162,89 +106,71 @@
     visibility: visible;
 }
 
-/* Mobile Navigation Panel */
 .mobile-nav-panel {
     position: fixed;
     top: 0;
-    right: -100%; /* Start off-screen */
+    right: -100%;
     width: 320px;
     max-width: 90vw;
     height: 100vh;
     background: white;
     z-index: 9999;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transition the right property */
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
 }
 .mobile-nav-panel.active {
-    right: 0; /* Move into view */
+    right: 0;
 }
-      .mobile-nav-panel ul {
-        list-style: none;
-        padding: 1.5rem 1rem;
-        margin: 0;
-      }
-      .mobile-nav-panel li {
-        border-bottom: 1px solid #eee;
-      }
-      .mobile-nav-panel a,
-      .mobile-nav-panel button {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        padding: 14px 8px;
-        font-size: 13px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: #1a1a1a;
-        background: none;
-        border: none;
-        cursor: pointer;
-        text-align: left;
-      }
-      .mobile-nav-panel a:hover,
-      .mobile-nav-panel button:hover {
-        color: var(--brand-green);
-      }
-      .mobile-submenu {
-        display: none;
-        flex-direction: column;
-        padding-left: 1.25rem;
-        padding-bottom: 0.5rem;
-      }
-      .mobile-submenu a {
-        font-size: 12px;
-        padding: 10px 0;
-        font-weight: 600;
-        text-transform: none;
-        color: #333;
-      }
-      .mobile-submenu a:hover {
-        color: var(--brand-green);
-      }
-      .mobile-nav-close {
-        padding: 1.25rem 1rem;
-        font-size: 14px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        color: var(--brand-green);
-        background: none;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-      .mobile-nav-close:hover {
-        background: #f8f8f8;
-      }
-      .no-scroll {
-        overflow: hidden !important;
-      }
+
+.mobile-submenu {
+    display: none;
+    flex-direction: column;
+    padding-left: 1.25rem;
+}
+
+/* ──────────────────────────────────────────────
+   FILTER BUTTONS
+   ────────────────────────────────────────────── */
+.filter-btn {
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+.filter-btn.active {
+    color: var(--brand-green);
+    border-color: var(--brand-green);
+}
+
+/* ──────────────────────────────────────────────
+   MOBILE ALIGNMENT FIXES
+   ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Center Gallery Header */
+    h1.text-7xl {
+        font-size: 3.5rem !important;
+        text-align: center !important;
+        line-height: 1.1;
+    }
+
+    /* Center Filters */
+    #filters {
+        justify-content: center !important;
+        text-align: center;
+        gap: 1rem 1.5rem !important;
+    }
+
+    /* Center Operational Pulse Section */
+    #social-media-links .flex-col {
+        align-items: center !important;
+        text-align: center !important;
+    }
+    #social-media-links p {
+        margin: 0 auto;
+    }
+}
     </style>
   </head>
   <body>
@@ -466,19 +392,17 @@
     </nav>
 
     <section id="social-media-links" class="py-24 bg-white border-t border-gray-100">
-      <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
-<div class="mb-16 flex flex-col md:flex-row justify-between items-center md:items-end gap-6 text-center md:text-left">
-    <div class="w-full">
-        <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Operational Pulse</h2>
-        <h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black">
-            Field Perspectives
-        </h3>
-    </div>
-    <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed mx-auto md:mx-0">
-        Real-time updates from our protection missions across Nigeria.
-    </p>
-</div>                                                          
-            <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">
+      <div class="container mx-auto px-6 md:px-10">
+        <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
+          <div>
+            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Operational Pulse</h2>
+            <h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black">
+              Field
+              <br />
+              Perspectives
+            </h3>
+          </div>
+          <p class="text-gray-400 text-xs max-w-xs uppercase font-bold tracking-widest leading-relaxed">
             Real-time updates from our protection missions across Nigeria.
           </p>
         </div>
@@ -552,9 +476,8 @@
       <span class="text-[#2D5A27] font-black text-[10px] tracking-[0.5em] uppercase block mb-4 mx-auto">
         Evidence of Impact
       </span>
-      <h1 class="text-5xl sm:text-7xl md:text-9xl font-heading font-black uppercase leading-[0.85] mb-16 text-black text-center break-words">
-    GALLERY.
-</h1>
+      <h1 class="text-7xl md:text-9xl font-heading font-black uppercase leading-[0.85] mb-16 text-black">GALLERY.</h1>
+
       <div
         id="filters"
         class="flex flex-wrap justify-center gap-x-10 gap-y-6 font-black text-[10px] uppercase tracking-[0.2em] text-gray-400 w-full"
@@ -1037,20 +960,23 @@
             });
         });
 
-        // Handle Filtering
+        // Connect Filters
         const filters = document.querySelector('#filters');
         if (filters) {
             filters.addEventListener('click', function(e) {
                 if (!e.target.classList.contains('filter-btn')) return;
+                
                 const filterValue = e.target.getAttribute('data-filter');
                 iso.arrange({ filter: filterValue });
+                
+                // Active State Update
                 document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
             });
         }
     }
 
-    // 3. Global Functions (Attached to window for HTML onclick events)
+    // 3. GLOBAL FUNCTIONS (Attached to window for HTML onclicks)
     window.openMobileNav = function() {
         document.getElementById("mobileNavOverlay").classList.add("active");
         document.getElementById("mobileNavPanel").classList.add("active");
@@ -1063,32 +989,42 @@
         document.body.style.overflow = "";
     };
 
-    window.toggleSubmenu = function (id) {
+    window.toggleSubmenu = function(id) {
         const menu = document.getElementById(id);
         if (!menu) return;
-        // Toggle using display or classes
-        menu.style.display = (menu.style.display === "flex" || menu.style.display === "block") ? "none" : "block";
+        // Toggle logic
+        const isCurrentlyVisible = menu.style.display === "block";
+        menu.style.display = isCurrentlyVisible ? "none" : "block";
     };
 
-    window.toggleModal = function () {
+    window.toggleModal = function() {
         const modal = document.getElementById("donateModal");
-        modal?.classList.toggle("hidden");
+        if (modal) modal.classList.toggle("hidden");
     };
 
-    window.copyToClipboard = function (text) {
+    window.copyToClipboard = function(text) {
         navigator.clipboard.writeText(text);
         const btn = document.getElementById("copyBtn");
         if (btn) {
             btn.innerHTML = '<i class="fas fa-check text-white"></i>';
-            setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy text-xs"></i>'; }, 2000);
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+            }, 2000);
         }
     };
 
-    window.handleDonation = function (e) {
+    window.handleDonation = function(e) {
         e.preventDefault();
         document.getElementById("formContent")?.classList.add("hidden");
         document.getElementById("successContent")?.classList.remove("hidden");
     };
+
+    // Auto-close nav when clicking links
+    document.querySelectorAll("#mobileNavPanel a").forEach((link) => {
+        link.addEventListener("click", () => {
+            setTimeout(window.closeMobileNav, 100);
+        });
+    });
 });
     </script>
   </body>
