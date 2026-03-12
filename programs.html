@@ -25,266 +25,437 @@
             text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; 
         }
         .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
+
+        /* Required variables (if not already defined) */
+:root {
+  --brand-green: #2D5A27;
+}
+
+/* Header base styles */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Mobile Navigation */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.mobile-nav-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-panel {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: 320px;
+  max-width: 90vw;
+  height: 100vh;
+  background: white;
+  color: #1a1a1a;
+  z-index: 9999;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: -12px 0 40px rgba(0,0,0,0.25);
+}
+
+.mobile-nav-panel.active {
+  transform: translateX(0);
+}
+
+.mobile-nav-panel ul {
+  list-style: none;
+  padding: 1.5rem 1rem;
+  margin: 0;
+}
+
+.mobile-nav-panel li {
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-nav-panel a,
+.mobile-nav-panel button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 14px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mobile-nav-panel a:hover,
+.mobile-nav-panel button:hover {
+  color: var(--brand-green);
+}
+
+.mobile-submenu {
+  display: none;
+  flex-direction: column;
+  padding-left: 1.25rem;
+  padding-bottom: 0.5rem;
+}
+
+.mobile-submenu a {
+  font-size: 12px;
+  padding: 10px 0;
+  font-weight: 600;
+  color: #333;
+}
+
+.mobile-submenu a:hover {
+  color: var(--brand-green);
+}
+
+.mobile-nav-close {
+  padding: 1.25rem 1rem;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--brand-green);
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobile-nav-close:hover {
+  background: #f8f8f8;
+}
+
+.mobile-nav-close i {
+  font-size: 1.1rem;
+}
 </style>
 </head>
 <body>
 
-    <div id="topbar">                    
-                      
+ <!-- ================= HEADER ================= -->
+<header class="sticky top-0 z-[100] bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+  <div class="container mx-auto px-5 md:px-10 flex justify-between items-center py-4 md:py-5">
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <img src="logo.png" alt="GEPaDC Logo" class="h-9 md:h-11 w-auto transition group-hover:scale-105 duration-300"/>
+      <div class="text-2xl md:text-3xl font-heading font-black text-[var(--brand-green)] tracking-tight uppercase">
+        GEPaDC
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center gap-10 text-xs font-bold uppercase tracking-wider text-gray-800">
+      <a href="index.html" class="hover:text-[var(--brand-green)] transition">Home</a>
+
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
+          About <i class="fas fa-chevron-down text-[9px]"></i>
+        </button>
+        <div class="absolute left-0 top-full mt-3 w-56 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <a href="index.html#about-snapshot" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Who We Are</a>
+          <a href="index.html#vision-section" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Vision</a>
+          <a href="index.html#mission-section" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Mission</a>
+          <a href="index.html#values" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Values</a>
+          <a href="team.html#board" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Board</a>
+        </div>
+      </div>
+
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
+          Join Us <i class="fas fa-chevron-down text-[9px]"></i>
+        </button>
+        <div class="absolute left-0 top-full mt-3 w-56 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <a href="volunteer.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Volunteer</a>
+          <a href="career.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Career Ads</a>
+        </div>
+      </div>
+
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
+          Our Work <i class="fas fa-chevron-down text-[9px]"></i>
+        </button>
+        <div class="absolute left-0 top-full mt-3 w-56 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <a href="programs.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Thematic Areas</a>
+          <a href="programs.html#impact" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Impact</a>
+        </div>
+      </div>
+
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
+          Publications <i class="fas fa-chevron-down text-[9px]"></i>
+        </button>
+        <div class="absolute left-0 top-full mt-3 w-64 bg-white shadow-xl rounded-lg py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+          <a href="archive.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Annual Report</a>
+          <a href="archive.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Newsletter</a>
+          <a href="archive.html" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Project Impactation</a>
+          <a href="gallery.html#success-stories" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Success Stories</a>
+          <a href="gallery.html#social-media-links" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Social Handles</a>
+        </div>
+      </div>
+
+      <a href="contact.html" class="hover:text-[var(--brand-green)] transition">Contact Us</a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-4 md:gap-6">
+      <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-6 py-2.5 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition border-2 border-black hover:border-[var(--brand-green)]">
+        Donate
+      </button>
+      <button onclick="openMobileNav()" class="lg:hidden text-2xl text-gray-800">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
   </div>
-    <div id="header"></div>
+</header>
+
+<!-- Mobile Nav Overlay + Panel -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
+<nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-100%] w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto transition-all duration-500">
+  <button class="mobile-nav-close text-[var(--brand-green)] font-black uppercase tracking-widest text-sm mb-8 flex items-center gap-2" onclick="closeMobileNav()">
+    <i class="fas fa-times text-lg"></i> Close
+  </button>
+  <ul class="space-y-1 text-sm font-black uppercase tracking-wider">
+    <li><a href="index.html" class="block py-4 hover:text-[var(--brand-green)] transition">Home</a></li>
+    <li>
+      <button onclick="toggleSubmenu('aboutSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        About <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+      </button>
+      <div id="aboutSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
+        <a href="index.html#about-snapshot" class="block py-2 hover:text-[var(--brand-green)]">Who We Are</a>
+        <a href="index.html#vision-section" class="block py-2 hover:text-[var(--brand-green)]">Our Vision</a>
+        <a href="index.html#mission-section" class="block py-2 hover:text-[var(--brand-green)]">Our Mission</a>
+        <a href="index.html#values" class="block py-2 hover:text-[var(--brand-green)]">Our Values</a>
+        <a href="team.html#board" class="block py-2 hover:text-[var(--brand-green)]">Our Board</a>
+      </div>
+    </li>
+    <li>
+      <button onclick="toggleSubmenu('joinSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Join Us <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+      </button>
+      <div id="joinSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
+        <a href="volunteer.html" class="block py-2 hover:text-[var(--brand-green)]">Volunteer</a>
+        <a href="career.html" class="block py-2 hover:text-[var(--brand-green)]">Career Ads</a>
+      </div>
+    </li>
+    <li>
+      <button onclick="toggleSubmenu('workSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Our Work <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+      </button>
+      <div id="workSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
+        <a href="programs.html" class="block py-2 hover:text-[var(--brand-green)]">Thematic Areas</a>
+        <a href="programs.html#impact" class="block py-2 hover:text-[var(--brand-green)]">Impact</a>
+      </div>
+    </li>
+    <li>
+      <button onclick="toggleSubmenu('pubSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Publications <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+      </button>
+      <div id="pubSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Annual Report</a>
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Newsletter</a>
+        <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Project Impactation</a>
+        <a href="gallery.html#success-stories" class="block py-2 hover:text-[var(--brand-green)]">Success Stories</a>
+        <a href="gallery.html#social-media-links" class="block py-2 hover:text-[var(--brand-green)]">Social Handles</a>
+      </div>
+    </li>
+    <li><a href="contact.html" class="block py-4 hover:text-[var(--brand-green)] transition">Contact Us</a></li>
+  </ul>
+</nav>
 
     <section class="py-20 px-6 md:px-10 container mx-auto">
-        <h1 class="text-5xl md:text-6xl font-black mb-16 border-l-8 border-green-600 pl-6 uppercase">Thematic Areas</h1>                    
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="bg-white p-10 border-t-8 border-green-600 shadow-lg">
-                <i class="fa fa-hands-helping text-4xl text-green-600 mb-6"></i>
-                <h3 class="text-2xl font-black mb-4 uppercase italic">Protection</h3>
-                <p class="text-gray-600 leading-relaxed">Providing comprehensive protection and response services for Gender-Based Violence survivors and Children in conflict-affected regions.</p>
-            </div>
-            <div class="bg-white p-10 border-t-8 border-black shadow-lg">
-                <i class="fa fa-dove text-4xl text-black mb-6"></i>
-                <h3 class="text-2xl font-black mb-4 uppercase italic">Peace Building and Conflict Resolution</h3>
-                <p class="text-gray-600 leading-relaxed">Promoting Women, Peace, and Security (WPS) through advocacy and community engagement for social cohesion.</p>
-            </div>
-            <div class="bg-white p-10 border-t-8 border-green-600 shadow-lg">
-                <i class="fa fa-book-reader text-4xl text-green-600 mb-6"></i>
-                <h3 class="text-2xl font-black mb-4 uppercase italic">Education</h3>
-                <p class="text-gray-600 leading-relaxed">Increasing access to quality education for girls and promoting educational rights in marginalized communities.</p>
-            </div>
-            <div class="bg-white p-10 border-t-8 border-black shadow-lg">
-                <i class="fa fa-chart-line text-4xl text-black mb-6"></i>
-                <h3 class="text-2xl font-black mb-4 uppercase italic">Food security and Livelihood</h3>
-                <p class="text-gray-600 leading-relaxed">Socio-economic empowerment initiatives to help women achieve financial independence and stability.</p>
-            </div>                    
-               <div class="bg-white p-10 border-t-8 border-black shadow-lg">
-                <i class="fa fa-chart-line text-4xl text-black mb-6"></i>
-                <h3 class="text-2xl font-black mb-4 uppercase italic">WASH</h3>
-                <p class="text-gray-600 leading-relaxed">The term WASH is used as shorthand for a vast array of infrastructure, behavioural and policy interventions implemented to increase the access to and use of water supply and sanitation services.</p>
+    <h1 class="text-5xl md:text-6xl font-black mb-16 border-l-8 border-green-600 pl-6 uppercase">Thematic Areas</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+        <!-- Protection -->
+        <div class="bg-white p-10 border-t-8 border-green-600 shadow-lg">
+            <i class="fa fa-hands-helping text-4xl text-green-600 mb-6"></i>
+            <h3 class="text-2xl font-black mb-4 uppercase italic">Protection (GBV & Child Protection)</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Providing comprehensive protection and response services for Gender-Based Violence survivors and Children in conflict-affected regions.
+            </p>
+            <button onclick="toggleDetails('protection-details')" 
+                    class="text-green-600 font-bold uppercase text-sm tracking-wider hover:text-green-800 transition flex items-center gap-2">
+                Read More <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+            </button>
+            <div id="protection-details" class="hidden mt-6 text-gray-700 leading-relaxed">
+                <p class="mb-4">
+                    GEPaDC implements protection interventions under the project
+                    <strong>“Delivering a Comprehensive Package of Life-Saving Health-Based Services to Conflict-Affected Populations in Borno State”</strong>
+                    in partnership with International Medical Corps (IMC), Danish Refugee Council (DRC), and Médecins du Monde (MdM).
+                </p>
+                <p class="mb-4">
+                    The organisation leads Gender-Based Violence (GBV) and Child Protection services across
+                    <strong>Askira Uba, Damboa, and Gwoza LGAs</strong>, providing case management, survivor referral pathways,
+                    community sensitisation, and psychosocial support.
+                </p>
+                <p class="mb-4">
+                    GEPaDC also implemented the UN Women–supported project
+                    <strong>“Building Leadership Capacity of IDP Women for Effective COVID-19 and GBV Response”</strong>,
+                    strengthening women’s leadership and community protection structures in
+                    Farm Centre, Dalori, and Teachers Village IDP camps.
+                </p>
+                <p>
+                    Through the Nigeria Humanitarian Fund (NHF) Project, implemented since November 2025, GEPaDC is reducing protection risks among vulnerable populations in Bama and Ngala LGAs of Borno State.
+                    <strong>The project provides GBV case management, psychosocial support,</strong>,
+                    and life skills sessions for women and girls through Women and Girls Safe Spaces (WGSS), while Child Friendly Safe Spaces (CFS) offer case management, psychosocial support, and life skills activities for children affected by abuse, exploitation, child labour, child marriage, and other protection risks. The project also strengthens community protection systems through awareness campaigns, positive parenting sessions, and training on disability inclusion for frontline staff.
+                    Vulnerable women, girls, and children in displacement-affected communities now have safer access to protection services, improved psychosocial wellbeing, and stronger community support systems to prevent and respond to GBV and child protection risks.
+                </p>
+                <p class="mt-4 italic text-sm font-semibold">
+                    Impact: Strengthened survivor-centred protection systems and increased community awareness on GBV prevention.
+                </p>
             </div>
         </div>
-    </section>
-                 
-      <main class="pt-32 pb-24">
-       <section class="py-20 px-6 md:px-10 container mx-auto">
 
-           <!-- Programmatic Impact Areas -->
-<div id="impact" class="mt-24 border-t pt-16">
-<h2 class="text-4xl md:text-5xl font-black uppercase border-l-8 border-[#2D5A27] pl-6 mb-16">
-IMPACT
-</h2>
-
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 text-gray-700 leading-relaxed">
-
-<!-- Protection -->
-<div class="bg-gray-50 p-10 border-l-4 border-[#2D5A27]">
-<h3 class="text-2xl font-black uppercase mb-4">Protection (GBV & Child Protection)</h3>
-
-<p class="mb-4">
-GEPaDC implements protection interventions under the project
-<strong>“Delivering a Comprehensive Package of Life-Saving Health-Based Services to Conflict-Affected Populations in Borno State”</strong>
-in partnership with International Medical Corps (IMC), Danish Refugee Council (DRC), and Médecins du Monde (MdM).
-</p>
-
-<p class="mb-4">
-The organisation leads Gender-Based Violence (GBV) and Child Protection services across
-<strong>Askira Uba, Damboa, and Gwoza LGAs</strong>, providing case management, survivor referral pathways,
-community sensitisation, and psychosocial support.
-</p>
-
-<p>
-GEPaDC also implemented the UN Women–supported project
-<strong>“Building Leadership Capacity of IDP Women for Effective COVID-19 and GBV Response”</strong>,
-strengthening women’s leadership and community protection structures in
-Farm Centre, Dalori, and Teachers Village IDP camps.
-</p>                    
-
-  <p>
-Through the Nigeria Humanitarian Fund (NHF) Project, implemented since November 2025, GEPaDC is reducing protection risks among vulnerable populations in Bama and Ngala LGAs of Borno State.
-<strong>The project provides GBV case management, psychosocial support,</strong>,
-and life skills sessions for women and girls through Women and Girls Safe Spaces (WGSS), while Child Friendly Safe Spaces (CFS) offer case management, psychosocial support, and life skills activities for children affected by abuse, exploitation, child labour, child marriage, and other protection risks. The project also strengthens community protection systems through awareness campaigns, positive parenting sessions, and training on disability inclusion for frontline staff.
-Vulnerable women, girls, and children in displacement-affected communities now have safer access to protection services, improved psychosocial wellbeing, and stronger community support systems to prevent and respond to GBV and child protection risks.</p>
-
-<p class="mt-4 italic text-sm font-semibold">
-Impact: Strengthened survivor-centred protection systems and increased community awareness on GBV prevention.
-</p>
-</div>
-
-<!-- Health -->
-<div class="bg-gray-50 p-10 border-l-4 border-black">
-<h3 class="text-2xl font-black uppercase mb-4">Health, WASH & Nutrition</h3>
-
-<p class="mb-4">
-GEPaDC has implemented several community-based health programmes aimed at improving access to essential health services and information in conflict-affected communities.
-</p>
-
-<p class="mb-4">
-In partnership with UNFPA, the organisation expanded Sexual and Reproductive Health (SRH) services in
-<strong>Gubio and Kaga LGAs</strong>, reaching 10 communities with maternal health education,
-nutrition awareness, and HIV/AIDS prevention initiatives.
-</p>
-
-<p>
-Additional programmes supported by the World Bank and NACA focused on HIV prevention among students,
-while COVID-19 awareness campaigns funded by ECW, Global Fund for Women, and Mission Inclusion
-reached vulnerable communities across Maiduguri Metropolitan Council.
-</p>
-
-<p class="mt-4 italic text-sm font-semibold">
-Impact: Improved access to reproductive health information and strengthened disease prevention awareness.
-</p>
-</div>
-
-<!-- Livelihood -->
-<div class="bg-gray-50 p-10 border-l-4 border-[#2D5A27]">
-<h3 class="text-2xl font-black uppercase mb-4">Agriculture, Livelihoods & Economic Empowerment</h3>
-
-<p class="mb-4">
-Since 2017, GEPaDC has implemented livelihoods programmes using the
-<strong>Family Business Scheme (FBS)</strong> model developed by Street Child UK,
-combining cash grants, entrepreneurship training, mentoring, and structured savings groups.
-</p>
-
-<p class="mb-4">
-Through the Right to Care Projects (2017–2020), more than
-<strong>2,000 beneficiaries</strong> received business and asset-creation support while over
-<strong>70 Village Savings and Loan Associations (VSLA)</strong> were established.
-</p>
-
-<p>
-Skills programmes trained hundreds of adolescent girls and women in soap production,
-tailoring, hairdressing, cake baking, bead making, and briquette production for sustainable domestic energy.
-</p>
-
-<p class="mt-4 italic text-sm font-semibold">
-Impact: Increased household income, strengthened women’s financial independence,
-and promoted climate-friendly livelihood solutions.
-</p>
-</div>
-
-<!-- Governance -->
-<div class="bg-gray-50 p-10 border-l-4 border-black">
-<h3 class="text-2xl font-black uppercase mb-4">Governance, Women in Leadership & Peacebuilding</h3>
-
-<p class="mb-4">
-GEPaDC actively advances the Women, Peace and Security (WPS) agenda in Nigeria.
-The organisation contributed to the development of the
-<strong>Borno State Action Plan (BoSAP)</strong> on UNSCR 1325 in partnership with the Nigeria Stability and Reconciliation Programme and the British Council.
-</p>
-
-<p>
-In collaboration with WANEP Nigeria, GEPaDC facilitated training workshops that led to the creation of the
-<strong>Maiduguri Metropolitan Council Action Plan</strong> for implementing the WPS agenda.
-</p>
-
-<p class="mt-4 italic text-sm font-semibold">
-Impact: Strengthened women’s participation in peacebuilding and improved gender-responsive governance frameworks.
-</p>
-</div>
-
-<!-- Education -->
-<div class="bg-gray-50 p-10 border-l-4 border-[#2D5A27] lg:col-span-2">
-<h3 class="text-2xl font-black uppercase mb-4">Education</h3>
-
-<p class="mb-4">
-GEPaDC implements education programmes that expand access to safe and inclusive learning for conflict-affected children.
-Through projects funded by Education Cannot Wait (ECW) and implemented with Save the Children,
-the organisation supports Alternative Education Programmes (AEP), teacher training, school rehabilitation,
-and distribution of learning materials.
-</p>
-
-<p>
-Adolescents above 17 years are also enrolled in vocational mentorship programmes where they receive
-six months of apprenticeship training in practical trades including tailoring, bead-making,
-hairdressing, cake baking, and cap making.
-</p>
-
-<p class="mt-4 italic text-sm font-semibold">
-Impact: Increased school enrolment for out-of-school children and improved economic opportunities for vulnerable adolescents.
-</p>
-</div>
-
-</div>
-</div>
-           
-                <div class="max-w-4xl mb-16" data-aos="fade-up" data-aos-delay="100">
-                <h1 class="text-4xl md:text-6xl font-black italic uppercase font-heading text-black leading-none mb-8">
-                    Training of Teachers & SBMCs on <span class="text-[#2D5A27]">Minimum Standards</span> for School Safety
-                </h1>
-                
-                <div class="flex flex-wrap gap-8 py-8 border-y border-gray-100">
-                    <div>
-                        <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1">Location</p>
-                        <p class="text-sm font-bold">Damboa LGA, Borno State</p>
-                    </div>
-                    <div>
-                        <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1">Date</p>
-                        <p class="text-sm font-bold">19–21 February 2026</p>
-                    </div>
-                    <div>
-                        <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest mb-1">Impact</p>
-                        <p class="text-sm font-bold">46 Participants (SBMCs & Teachers)</p>
-                    </div>
-                </div>
+        <!-- Peace Building -->
+        <div class="bg-white p-10 border-t-8 border-black shadow-lg">
+            <i class="fa fa-dove text-4xl text-black mb-6"></i>
+            <h3 class="text-2xl font-black mb-4 uppercase italic">Peace Building and Conflict Resolution</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Promoting Women, Peace, and Security (WPS) through advocacy and community engagement for social cohesion.
+            </p>
+            <button onclick="toggleDetails('peace-details')" 
+                    class="text-black font-bold uppercase text-sm tracking-wider hover:text-gray-800 transition flex items-center gap-2">
+                Read More <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+            </button>
+            <div id="peace-details" class="hidden mt-6 text-gray-700 leading-relaxed">
+                <h3 class="text-2xl font-black uppercase mb-4">Governance, Women in Leadership & Peacebuilding</h3>
+                <p class="mb-4">
+                    GEPaDC actively advances the Women, Peace and Security (WPS) agenda in Nigeria.
+                    The organisation contributed to the development of the
+                    <strong>Borno State Action Plan (BoSAP)</strong> on UNSCR 1325 in partnership with the Nigeria Stability and Reconciliation Programme and the British Council.
+                </p>
+                <p>
+                    In collaboration with WANEP Nigeria, GEPaDC facilitated training workshops that led to the creation of the
+                    <strong>Maiduguri Metropolitan Council Action Plan</strong> for implementing the WPS agenda.
+                </p>
+                <p class="mt-4 italic text-sm font-semibold">
+                    Impact: Strengthened women’s participation in peacebuilding and improved gender-responsive governance frameworks.
+                </p>
             </div>
+        </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 items-start">
-                
-                <div class="lg:col-span-2 space-y-8 text-gray-600 leading-loose" data-aos="fade-right">
-                    <p class="text-lg text-black font-medium leading-relaxed italic border-l-4 border-[#2D5A27] pl-6">
-                        GEPaDC conducted a three-day training to strengthen the implementation of Nigeria’s Minimum Standards for Safe Schools, focusing on child safeguarding, preparedness, and local collaboration.
-                    </p>
-                    
-                    <p>
-                        A total of 46 participants (28 male, 18 female, including 1 person with disability) took part in the sessions. The training covered school safety standards, child protection, psychosocial support, and case management, using interactive discussions and practical group work. Participants developed draft school-level safety action plans to guide safety implementation within their respective schools.
-                    </p>
-
-                    <div class="bg-gray-50 p-8 rounded-sm">
-                        <h4 class="font-black uppercase text-xs tracking-widest text-black mb-4">Key Conclusion</h4>
-                        <p class="text-sm italic">
-                            The training strengthened the capacity of teachers and SBMC members to promote safe and protective learning environments in Damboa LGA. By enhancing understanding of school safety standards and encouraging coordinated action, the activity contributed to improved protection and resilience for children in crisis-affected communities.
-                        </p>
-                    </div>
-
-                    <div class="pt-8 border-t border-gray-100">
-                        <p class="text-[10px] font-bold text-[#1e3a8a] tracking-wider uppercase">
-                            #SafeSchools #EducationInEmergencies #ChildProtection #SchoolSafety #SBMC #GEPaDC #BornoState
-                        </p>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-1 space-y-8" data-aos="fade-left">
-                    <div class="bg-black p-10 text-white">
-                        <i class="fas fa-users text-3xl mb-6 text-[#2D5A27]"></i>
-                        <h3 class="text-4xl font-black italic font-heading mb-2">46</h3>
-                        <p class="text-[10px] font-black uppercase tracking-widest mb-8 text-gray-400">Total Participants</p>
-                        
-                        <div class="space-y-4 border-t border-white/10 pt-6">
-                            <div class="flex justify-between text-[11px] font-bold uppercase tracking-widest">
-                                <span>Male</span>
-                                <span>28</span>
-                            </div>
-                            <div class="flex justify-between text-[11px] font-bold uppercase tracking-widest">
-                                <span>Female</span>
-                                <span>18</span>
-                            </div>
-                            <div class="flex justify-between text-[11px] font-bold uppercase tracking-widest text-[#2D5A27]">
-                                <span>PWD Inclusion</span>
-                                <span>1</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border border-gray-100 p-8 text-center">
-                        <h4 class="text-sm font-black uppercase mb-4">Support This Work</h4>
-                        <button onclick="toggleModal()" class="w-full py-4 bg-[#2D5A27] text-white font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all">Partner With Us</button>
-                    </div>
-                </div>
-
+        <!-- Education -->
+        <div class="bg-white p-10 border-t-8 border-green-600 shadow-lg">
+            <i class="fa fa-book-reader text-4xl text-green-600 mb-6"></i>
+            <h3 class="text-2xl font-black mb-4 uppercase italic">Education</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Increasing access to quality education for girls and promoting educational rights in marginalized communities.
+            </p>
+            <button onclick="toggleDetails('education-details')" 
+                    class="text-green-600 font-bold uppercase text-sm tracking-wider hover:text-green-800 transition flex items-center gap-2">
+                Read More <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+            </button>
+            <div id="education-details" class="hidden mt-6 text-gray-700 leading-relaxed">
+                <p class="mb-4">
+                    GEPaDC implements education programmes that expand access to safe and inclusive learning for conflict-affected children.
+                    Through projects funded by Education Cannot Wait (ECW) and implemented with Save the Children,
+                    the organisation supports Alternative Education Programmes (AEP), teacher training, school rehabilitation,
+                    and distribution of learning materials.
+                </p>
+                <p>
+                    Adolescents above 17 years are also enrolled in vocational mentorship programmes where they receive
+                    six months of apprenticeship training in practical trades including tailoring, bead-making,
+                    hairdressing, cake baking, and cap making.
+                </p>
+                <p class="mt-4 italic text-sm font-semibold">
+                    Impact: Increased school enrolment for out-of-school children and improved economic opportunities for vulnerable adolescents.
+                </p>
             </div>
-        </section>
-    </main>
-    
+        </div>
+
+        <!-- Food Security & Livelihood -->
+        <div class="bg-white p-10 border-t-8 border-black shadow-lg">
+            <i class="fa fa-chart-line text-4xl text-black mb-6"></i>
+            <h3 class="text-2xl font-black mb-4 uppercase italic">Food security and Livelihood</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Socio-economic empowerment initiatives to help women achieve financial independence and stability.
+            </p>
+            <button onclick="toggleDetails('livelihood-details')" 
+                    class="text-black font-bold uppercase text-sm tracking-wider hover:text-gray-800 transition flex items-center gap-2">
+                Read More <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+            </button>
+            <div id="livelihood-details" class="hidden mt-6 text-gray-700 leading-relaxed">
+                <h3 class="text-2xl font-black uppercase mb-4">Agriculture, Livelihoods & Economic Empowerment</h3>
+                <p class="mb-4">
+                    Since 2017, GEPaDC has implemented livelihoods programmes using the
+                    <strong>Family Business Scheme (FBS)</strong> model developed by Street Child UK,
+                    combining cash grants, entrepreneurship training, mentoring, and structured savings groups.
+                </p>
+                <p class="mb-4">
+                    Through the Right to Care Projects (2017–2020), more than
+                    <strong>2,000 beneficiaries</strong> received business and asset-creation support while over
+                    <strong>70 Village Savings and Loan Associations (VSLA)</strong> were established.
+                </p>
+                <p>
+                    Skills programmes trained hundreds of adolescent girls and women in soap production,
+                    tailoring, hairdressing, cake baking, bead making, and briquette production for sustainable domestic energy.
+                </p>
+                <p class="mt-4 italic text-sm font-semibold">
+                    Impact: Increased household income, strengthened women’s financial independence,
+                    and promoted climate-friendly livelihood solutions.
+                </p>
+            </div>
+        </div>
+
+        <!-- WASH / Health -->
+        <div class="bg-white p-10 border-t-8 border-green-600 shadow-lg lg:col-span-2">
+            <i class="fa fa-tint text-4xl text-green-600 mb-6"></i>
+            <h3 class="text-2xl font-black mb-4 uppercase italic">WASH</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                The term WASH is used as shorthand for a vast array of infrastructure, behavioural and policy interventions implemented to increase the access to and use of water supply and sanitation services.
+            </p>
+            <button onclick="toggleDetails('wash-details')" 
+                    class="text-green-600 font-bold uppercase text-sm tracking-wider hover:text-green-800 transition flex items-center gap-2">
+                Read More <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+            </button>
+            <div id="wash-details" class="hidden mt-6 text-gray-700 leading-relaxed">
+                <h3 class="text-2xl font-black uppercase mb-4">Health, WASH & Nutrition</h3>
+                <p class="mb-4">
+                    GEPaDC has implemented several community-based health programmes aimed at improving access to essential health services and information in conflict-affected communities.
+                </p>
+                <p class="mb-4">
+                    In partnership with UNFPA, the organisation expanded Sexual and Reproductive Health (SRH) services in
+                    <strong>Gubio and Kaga LGAs</strong>, reaching 10 communities with maternal health education,
+                    nutrition awareness, and HIV/AIDS prevention initiatives.
+                </p>
+                <p>
+                    Additional programmes supported by the World Bank and NACA focused on HIV prevention among students,
+                    while COVID-19 awareness campaigns funded by ECW, Global Fund for Women, and Mission Inclusion
+                    reached vulnerable communities across Maiduguri Metropolitan Council.
+                </p>
+                <p class="mt-4 italic text-sm font-semibold">
+                    Impact: Improved access to reproductive health information and strengthened disease prevention awareness.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 <section class="py-24 bg-white text-black">
     <div class="container mx-auto px-6 md:px-10">
         <div class="mb-16">
@@ -348,8 +519,467 @@ Impact: Increased school enrolment for out-of-school children and improved econo
     </div>
 </section>                    
   
-<div id="donate"></div>
-<div id="footer"></div>
+<div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
+        
+        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
+                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
+            </div>
+
+            <div class="relative z-10">
+                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </button>
+                
+                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
+                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
+                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
+                </p>
+
+                <div class="space-y-4 md:space-y-8">
+                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
+                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
+                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
+                        
+                        <div class="flex items-center gap-3">
+                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
+                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                                <i class="fas fa-copy text-xs"></i>
+                            </button>
+                        </div>
+                        
+                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
+                <div class="flex items-center gap-4">
+                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
+            
+            <div id="formContent">
+                <div class="mb-8 md:mb-10">
+                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
+                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
+                </div>
+
+                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
+                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
+                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
+                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                            <option>General Support</option>
+                            <option>Protection Missions (GBV)</option>
+                            <option>WASH Initiatives</option>
+                            <option>Economic Empowerment</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
+                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                            Confirm Support
+                        </button>
+                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="successContent" class="hidden text-center">
+                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-check text-3xl"></i>
+                </div>
+                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
+                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
+                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
+                </p>
+                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
+                    Return to Site
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>                      
+    
+    <section class="py-12 bg-white border-y border-gray-100" id="partners">
+        <h4 class="text-center text-gray-400 font-black text-[9px] uppercase tracking-[0.5em] mb-8">Our Funders & Partners</h4>
+        <div class="marquee-container">
+            <div class="marquee-content">
+
+    <div class="marquee-item">
+        <img src="logo1.jpg" alt="UNICEF" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo2.jpg" alt="World Bank" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo3.jpg" alt="Plan International" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo4.jpg" alt="UNDP" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo6.jpg" alt="UN Women" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo7.jpg" alt="Save the Children" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo8.jpg" alt="GIZ" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo9.jpg" alt="British Council" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo10.jpg" alt="European Union" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo18.png" alt="WPHF" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo20.png" alt="Mission Inclusion" loading="lazy" class="h-12 object-contain">
+    </div>
+
+    <div class="marquee-item">
+        <img src="logo22.png" alt="World Food Programme" loading="lazy" class="h-12 object-contain">
+    </div>
+
+</div>
+        </div>
+    </section>
+
+   
+    
+<section class="py-24 bg-[#f9fafb] border-y border-gray-100">
+    <div class="container mx-auto px-6 md:px-10">
+        
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[10px] mb-4">Tracking Change</h2>
+            <h3 class="text-4xl md:text-5xl font-black uppercase font-heading text-black">Our Successes in Numbers</h3>
+            <div class="w-16 h-1 bg-[#2D5A27] mx-auto mt-6"></div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            
+            <div class="text-center" data-aos="zoom-in">
+                <i class="fas fa-users text-[#2D5A27] text-xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="1000000">0</span>+</h3>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Beneficiaries Reached</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-map-marked-alt text-[#2D5A27] text-xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="56">0</span>+</h3>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Communities Served</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-briefcase text-[#2D5A27] text-xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="47">0</span>+</h3>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Projects Implemented</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-handshake text-[#2D5A27] text-xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="25">0</span>+</h3>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Strategic Partners</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-venus text-[#1e3a8a] text-xl mb-4"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="62">0</span>%</h3>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Women & Girls</p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-mars text-[#2563eb] text-xl mb-3"></i>
+                <h3 class="text-4xl font-black font-heading text-black"><span class="counter" data-target="38">0</span>%</h3>
+                <p class="text-[8px] font-black uppercase text-gray-400 tracking-widest mt-2">Men & Boys</p>
+            </div>
+            
+        </div>
+    </div>
+</section>
+   
+    <section class="py-24 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-[9px] mb-4">Our Methodology</h2>
+                    <h3 class="text-4xl md:text-6xl font-black uppercase font-heading text-black leading-none mb-8">Structural <br> Foundations.</h3>
+                    <p class="text-gray-600 max-w-md text-sm leading-loose">
+                        Our impact spans Humanitarian Relief, Rights Advocacy, Economic Livelihoods, and Climate Action. Each pillar is designed to move from immediate aid to long-term community autonomy.
+                    </p>
+                    <div class="mt-10">
+                        <a href="strategy.html" class="inline-block border-b-2 border-black pb-1 text-[10px] font-black uppercase tracking-widest hover:text-[#2D5A27] transition">View Strategy 2030</a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-100 border border-gray-100 shadow-2xl">
+                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up">
+                        <i class="fas fa-shield-halved text-[#2D5A27] text-3xl mb-6"></i>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Humanitarian Response</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
+                            Emergency GBV response and legal aid for conflict-affected populations in Northeast Nigeria.
+                        </p>
+                        <a href="protection.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
+                    </div>
+
+                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-users-gear text-[#2D5A27] text-3xl mb-6"></i>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Economic Livelihood</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
+                            Food security, vocational training, and early recovery for women and youth.
+                        </p>
+                        <a href="empowerment.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
+                    </div>
+
+                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-scale-balanced text-[#2D5A27] text-3xl mb-6"></i>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Rights & Education</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
+                            Protecting the rights of women and children through policy reform and educational access.
+                        </p>
+                        <a href="rights.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
+                    </div>
+
+                    <div class="pillar-card bg-white p-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-leaf text-[#2D5A27] text-3xl mb-6"></i>
+                        <h4 class="text-black font-black uppercase text-xs tracking-widest mb-4">Climate Action</h4>
+                        <p class="text-gray-500 text-[11px] leading-relaxed mb-6">
+                            Building climate resilience and sustainable agricultural practices in vulnerable communities.
+                        </p>
+                        <a href="climate.html" class="text-[9px] font-black uppercase text-[#2D5A27]">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+   <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
+        
+        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
+                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
+            </div>
+
+            <div class="relative z-10">
+                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </button>
+                
+                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
+                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
+                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
+                </p>
+
+                <div class="space-y-4 md:space-y-8">
+                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
+                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
+                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
+                        
+                        <div class="flex items-center gap-3">
+                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
+                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                                <i class="fas fa-copy text-xs"></i>
+                            </button>
+                        </div>
+                        
+                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
+                <div class="flex items-center gap-4">
+                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
+            
+            <div id="formContent">
+                <div class="mb-8 md:mb-10">
+                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
+                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
+                </div>
+
+                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
+                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
+                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
+                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                            <option>General Support</option>
+                            <option>Protection Missions (GBV)</option>
+                            <option>WASH Initiatives</option>
+                            <option>Economic Empowerment</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
+                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                            Confirm Support
+                        </button>
+                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="successContent" class="hidden text-center">
+                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-check text-3xl"></i>
+                </div>
+                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
+                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
+                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
+                </p>
+                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
+                    Return to Site
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>                      
+  
+
+  <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
+  <div class="container mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+      <!-- Logo & Description -->
+      <div class="space-y-6">
+        <div class="flex items-center gap-4">
+          <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
+          <span class="text-xl sm:text-2xl md:text-3xl font-heading font-black tracking-tighter">GEPaDC</span>
+        </div>
+        <p class="text-gray-300 text-sm sm:text-base md:text-sm font-medium leading-relaxed max-w-xs">
+          Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Operational Office -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Operational Office</h4>
+        <ul class="space-y-4 sm:space-y-5 text-[9px] sm:text-[10px] md:text-[11px] uppercase font-black tracking-widest">
+          <li class="flex gap-4 group">
+            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+            <div>
+              <span class="text-white block">Borno State Office, Northeast Zone</span>
+              <p class="text-gray-500 font-bold lowercase tracking-normal text-[8px] sm:text-[9px] md:text-[10px]">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Direct Contact -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
+        <ul class="space-y-5">
+          <li class="mt-4 p-3 sm:p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-[#2D5A27] tracking-[0.25em] block mb-1">Emergency Toll-Free</span>
+            <div class="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-black italic text-white tracking-tighter">
+              <i class="fas fa-headset text-base sm:text-lg md:text-xl"></i>
+              <span>08000004000</span>
+            </div>
+          </li>
+          <li class="mt-4 p-3 sm:p-4 bg-red-900/10 border-l-4 border-red-700">
+            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-red-700 tracking-[0.25em] block mb-1">Safeguarding Reporting</span>
+            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
+        <form class="relative mb-8">
+          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-3 sm:py-4 px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
+          <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+      <div class="flex gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">
+        <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
+        <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
+        <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
+      </div>
+
+      <div class="flex items-center gap-4 md:gap-5">
+        <div class="text-right">
+          <p class="text-gray-500 text-[7px] sm:text-[8px] md:text-[9px] uppercase font-black tracking-widest">Designed & Managed by</p>
+          <p class="text-white text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+        </div>
+        <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+          <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>                    
+  
 
     <script src="script.js"></script>
 <script>
@@ -377,6 +1007,19 @@ window.addEventListener('scroll', () => {
     });
 });
 
+    <!-- JavaScript for Read More toggle (add this at the end of your <body> or in your existing <script>) -->
+function toggleDetails(id) {
+    const details = document.getElementById(id);
+    if (!details) return;
+    details.classList.toggle('hidden');
+    
+    // Optional: rotate chevron icon
+    const btn = details.previousElementSibling;
+    if (btn && btn.querySelector('i')) {
+        btn.querySelector('i').classList.toggle('fa-chevron-down');
+        btn.querySelector('i').classList.toggle('fa-chevron-up');
+    }
+}    
 
 function loadComponent(id, file){
 fetch(file)
@@ -435,7 +1078,27 @@ else{
 
 }
 
+// Mobile Navigation Controls
+window.openMobileNav = () => {
+  document.getElementById("mobileNavOverlay")?.classList.add("active");
+  document.getElementById("mobileNavPanel")?.classList.add("active");
+  document.body.style.overflow = "hidden";
+};
 
+window.closeMobileNav = () => {
+  document.getElementById("mobileNavOverlay")?.classList.remove("active");
+  document.getElementById("mobileNavPanel")?.classList.remove("active");
+  document.body.style.overflow = "";
+};
+
+window.toggleSubmenu = (id) => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.style.display = el.style.display === "block" ? "none" : "block";
+  }
+};
+
+    
 function copyToClipboard(text){
 
 navigator.clipboard.writeText(text);
@@ -474,15 +1137,12 @@ timeEl.innerHTML = now.toLocaleTimeString();
 }
 
 }
-
-
 setInterval(updateClock,1000);
 updateClock();
-
 </script>
-  
-</body>
+ </body>
 </html>
+
 
 
 
