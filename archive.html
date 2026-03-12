@@ -10,110 +10,276 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <style>
-       @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Syncopate:wght@700&family=Inter:wght@300;400;700;900&display=swap');
-        :root { --brand-green: #2D5A27; --brand-blue: #1e3a8a; }
-        
-        body { 
-font-family: 'Inter', sans-serif; 
-overflow-x: hidden;
-background-color: #ffffff; 
-color: #1a1a1a; 
-scroll-behavior: smooth;
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Syncopate:wght@700&family=Inter:wght@300;400;700;900&display=swap');
+
+:root { 
+    --brand-green: #2D5A27; 
+    --brand-blue: #1e3a8a; 
 }
-                
-        .hero-title { font-size: clamp(3rem, 10vw, 9rem); line-height: 0.9; }
 
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee-container { overflow: hidden; white-space: nowrap; display: flex; padding: 2rem 0; background: #fff; }
-        .marquee-content { display: flex; animation: scroll 30s linear infinite; }
-        
-        .marquee-item { 
-            flex: 0 0 auto; 
-            padding: 0 4rem; 
-            font-size: clamp(1.2rem, 3vw, 2rem); 
-            font-weight: 900; 
-            color: rgba(0,0,0,0.4); 
-            text-transform: uppercase; 
-            font-family: 'Montserrat', sans-serif;
-            transition: color 0.3s ease;
-        }
+body { 
+    font-family: 'Inter', sans-serif; 
+    overflow-x: hidden; 
+    background-color: #ffffff; 
+    color: #1a1a1a; 
+    scroll-behavior: smooth;
+    max-width: 100%;
+    position: relative;
+}
 
-        .marquee-container:hover .marquee-item { color: rgba(45, 90, 39, 0.6); }
-        .text-outline {
-    color: rgba(255, 255, 255, 0.05); /* Very slight fill so it's not 100% empty */
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8); /* Thickens the white line */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* Adds a shadow behind the letters */
+.font-heading { font-family: 'Montserrat', sans-serif; }
+
+.hero-title { 
+    font-size: clamp(3rem, 10vw, 9rem); 
+    line-height: 0.9; 
+}
+
+@keyframes scroll { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-50%); } 
+}
+
+.marquee-container { 
+    overflow: hidden; 
+    white-space: nowrap; 
+    display: flex; 
+    padding: 2rem 0; 
+    background: #fff; 
+}
+
+.marquee-content { 
+    display: flex; 
+    animation: scroll 30s linear infinite; 
+}
+
+.marquee-item { 
+    flex: 0 0 auto; 
+    padding: 0 4rem; 
+    font-size: clamp(1.2rem, 3vw, 2rem); 
+    font-weight: 900; 
+    color: rgba(0,0,0,0.4); 
+    text-transform: uppercase; 
+    font-family: 'Montserrat', sans-serif;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 60px;
+}
+
+.marquee-container:hover .marquee-item { 
+    color: rgba(45, 90, 39, 0.6); 
+}
+
+.text-outline {
+    color: rgba(255, 255, 255, 0.05);
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
     transition: all 0.4s ease;
 }
 
-/* On Mobile, we make it even more solid for readability */
-@media (max-width: 768px) {
-    .text-outline {
-        -webkit-text-stroke: 1px #ffffff;
-        color: rgba(255, 255, 255, 0.15); 
-    }
-}  
-        .nav-logo { height: 40px; width: auto; object-fit: contain; }
+.nav-logo { 
+    height: 40px; 
+    width: auto; 
+    object-fit: contain; 
+}
 
-        .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu { 
-            display: none; position: absolute; top: 100%; left: 0; 
-            background: white; min-width: 260px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
-            border-top: 3px solid var(--brand-green); z-index: 50; 
-        }
-        .dropdown-item { 
-            padding: 14px 20px; display: block; font-size: 10px; color: #1a1a1a; 
-            border-bottom: 1px solid #f3f4f6; transition: all 0.3s; 
-            text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; 
-        }
-        .dropdown-item:hover { background: #f9fafb; color: var(--brand-green); padding-left: 28px; }
+.dropdown-menu {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background: white;
+    min-width: 260px;
+    padding-top: 10px;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+}
 
-        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.5s ease-in-out; background-size: cover; background-position: center; z-index: 5; }
-        .slide.active { opacity: 1; }
-        
-       .hero-overlay {
+.dropdown:hover .dropdown-menu,
+.group:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.group:hover::after,
+.dropdown:hover::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    display: block;
+    z-index: 40;
+}
+
+.dropdown-item { 
+    padding: 14px 22px;
+    display: block;
+    font-size: 11px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+}
+
+.dropdown-item:hover { 
+    background: #f9fafb; 
+    color: var(--brand-green); 
+    padding-left: 28px; 
+}
+
+.slide { 
+    position: absolute; 
+    inset: 0; 
+    opacity: 0; 
+    transition: opacity 1.5s ease-in-out; 
+    background-size: cover; 
+    background-position: center; 
+    z-index: 5; 
+}
+
+.slide.active { 
+    opacity: 1; 
+}
+
+.hero-overlay {
     position: absolute;
     inset: 0;
-    /* This makes the top/center light and the bottom slightly darker for text visibility */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
-    z-index: 10;
-}
-        .pillar-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f3f4f6; }
-        .pillar-card:hover { background-color: #f9fafb; border-color: var(--brand-green); transform: translateY(-5px); }
-
-        #donateModal { backdrop-filter: blur(8px); transition: all 0.4s ease-in-out; }
-        .modal-content-wrapper { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border-radius: 4px; overflow: hidden; }
-        .giving-input { border-color: #e5e7eb; transition: all 0.3s ease; }
-        .giving-input:focus { border-color: #2D5A27; padding-left: 1rem; }
-        .trust-badge { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        /* Optimized Mobile Typography & Spacing */
-@media (max-width: 768px) {
-    .hero-title { 
-        font-size: 3.5rem !important; /* Prevents text from being too small or breaking weirdly */
-        line-height: 1;
-    }
-    
-    section {
-        padding-top: 4rem !important;
-        padding-bottom: 4rem !important; /* Tighter spacing for mobile scrolling */
-    }
-
-    /* Fix for the 5-column grid on mobile */
-    .lg\:grid-cols-5 {
-        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-    }
-    
-    /* Ensure images don't look overly tall on mobile */
-    .h-\[500px\], .h-\[600px\] {
-        height: 350px !important;
-    }
-
-    /* Better padding for the "Core Values" cards on touch screens */
-    .value-card, .group.p-8 {
-        padding: 1.5rem !important;
-    }
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 6;
 }
 
+.pillar-card { 
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+    border: 1px solid #f3f4f6; 
+}
+
+.pillar-card:hover { 
+    background-color: #f9fafb; 
+    border-color: var(--brand-green); 
+    transform: translateY(-5px); 
+}
+
+#donateModal { 
+    backdrop-filter: blur(8px); 
+    transition: all 0.4s ease-in-out; 
+}
+
+.modal-content-wrapper { 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
+    border-radius: 4px; 
+    overflow: hidden; 
+}
+
+.giving-input { 
+    border-color: #e5e7eb; 
+    transition: all 0.3s ease; 
+}
+
+.giving-input:focus { 
+    border-color: #2D5A27; 
+    padding-left: 1rem; 
+}
+
+.trust-badge { 
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(4px); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+}
+
+.timeline-link { 
+    transition: all .3s ease; 
+    transform-origin: center; 
+}
+
+.timeline-link.active { 
+    color: #2D5A27; 
+    transform: scale(1.2); 
+}
+
+.timeline-line { 
+    width: 1px; 
+    background: rgba(0,0,0,0.1); 
+    height: 100%; 
+    position: absolute; 
+    left: 50%; 
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #ffffff; }
+::-webkit-scrollbar-thumb { background: #2D5A27; }
+
+.pdf-container {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    max-height: 650px;
+    border: 1px solid #eee;
+    background: #f9f9f9;
+}
+
+.pdf-container iframe{
+    border: none;
+}
+
+section{
+    scroll-margin-top:120px;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#swipe-gallery {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tab-active {
+    border-color: #2D5A27 !important;
+    color: black !important;
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden { display: none; }
+
+#peace-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#peace-slider {
+    transition: height 0.3s ease-in-out;
+}
+
+.dropdown > a,
+.dropdown > button {
+    cursor: pointer;
+}
+
+/* Responsive Styles */
 @media (max-width: 1024px) {
     #mobileNav.flex {
         display: flex !important;
@@ -126,84 +292,192 @@ scroll-behavior: smooth;
     to { transform: translateX(0); }
 }
 
-/* Prevents body scroll when menu is active */
-.no-scroll {
-    overflow: hidden;
-}
+@media (max-width: 768px) {
+    .hero-title { 
+        font-size: 3.5rem !important;
+        line-height: 1;
+    }
+    
+    section {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
 
-        @media (max-width: 768px) {
-    /* Adjusts the donate button to fit perfectly next to the logo on mobile */
+    .lg\:grid-cols-5 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    
+    .h-\[500px\], .h-\[600px\] {
+        height: 350px !important;
+    }
+
+    .value-card, .group.p-8 {
+        padding: 1.5rem !important;
+    }
+
     header button[onclick="toggleModal()"] {
-        display: block !important; /* Forces it to stay visible if it was hidden */
+        display: block !important;
         padding: 8px 16px !important;
         font-size: 8px !important;
         letter-spacing: 0.1em !important;
     }
 
-    /* Prevents the header from getting too tall on mobile */
     header .container {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
     }
-}
 
-        html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-    position: relative;
-}
-
-/* This targets the specific container to ensure it stays boxed */
-.container {
-max-width: 100%;
-}
-
-
-        footer {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-footer a {
-    letter-spacing: 0.2em;
-}
-   
-        
-            
-        .timeline-link.active { color: #2D5A27; transform: scale(1.2); }
-        .timeline-line { width: 1px; background: rgba(0,0,0,0.1); height: 100%; position: absolute; left: 50%; }
-
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #ffffff; }
-        ::-webkit-scrollbar-thumb { background: #2D5A27; }
-
-        /* PDF Container Responsiveness */
-        .pdf-container {
-            position: relative;
-            width: 100%;
-            height: 70vh;
-            max-height: 650px;
-            border: 1px solid #eee;
-            background: #f9f9f9;
-        }
-        
-        .pdf-container iframe{
-border: none;
-}
-
-section{
-scroll-margin-top:120px;
-}
-
-.timeline-link{
-transition:all .3s ease;
-transform-origin:center;
+    .text-outline {
+        -webkit-text-stroke: 1px #ffffff;
+        color: rgba(255, 255, 255, 0.15);
+    }
 }
     </style>
 </head>
 <body>
-<div id="topbar"></div>
-<div id="header"></div>
+
+    <!-- Header / Navigation -->
+<nav class="sticky top-0 bg-white shadow-sm z-[100] border-b border-gray-100">
+  <div class="container mx-auto flex justify-between items-center py-4 px-6 md:px-10">
+
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <img src="logo.png" alt="Logo" class="h-8 md:h-10 w-auto transition-transform group-hover:scale-105">
+      <div class="text-xl md:text-2xl font-heading text-[#2D5A27] tracking-tighter font-black uppercase">GEPaDC</div>
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="hidden lg:flex items-center space-x-8 font-bold text-[10px] uppercase tracking-widest text-[#1a1a1a]">
+
+      <!-- Home -->
+      <a href="index.html" class="text-[#2D5A27] hover:text-[#2D5A27] transition">Home</a>
+
+      <!-- About Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">About <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="index.html#about-snapshot" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Who We Are</a>
+          <a href="index.html#vision-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Vision</a>
+          <a href="index.html#mission-section" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Mission</a>
+          <a href="index.html#values" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Values</a>
+          <a href="team.html#board" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Our Board</a>
+        </div>
+      </div>
+
+      <!-- Join Us Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Join Us <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="volunteer.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Volunteer</a>
+          <a href="career.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Career Ads</a>
+        </div>
+      </div>
+
+      <!-- Our Work Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Our Work <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-40 rounded-md py-2">
+          <a href="programs.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Thematic Areas</a>
+          <a href="programs.html#impact" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Impact</a>
+        </div>
+      </div>
+
+      <!-- Publications Dropdown -->
+      <div class="dropdown relative">
+        <button class="flex items-center gap-1 hover:text-[#2D5A27] transition uppercase">Publications <i class="fas fa-chevron-down text-[8px]"></i></button>
+        <div class="dropdown-menu absolute hidden bg-white shadow-md mt-2 w-52 rounded-md py-2">
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Annual Report</a>
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Newsletter</a>
+          <a href="archive.html" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Project Impactation</a>
+          <a href="gallery.html#success-stories" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Success Stories</a>
+          <a href="gallery.html#social-media-links" class="dropdown-item block px-4 py-2 hover:bg-[#2D5A27] hover:text-white transition">Social Handles</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <a href="contact.html" class="hover:text-[#2D5A27] transition duration-300">Contact Us</a>
+    </div>
+
+    <!-- Right Side Buttons -->
+    <div class="flex items-center space-x-3 md:space-x-6">
+      <button onclick="toggleModal()" class="bg-black text-white px-5 py-2.5 md:px-8 md:py-3 text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all italic border-2 border-black">
+        Donate
+      </button>
+      <button onclick="toggleMobileNav()" class="lg:hidden text-2xl text-black p-1 focus:outline-none">
+        <i id="navIcon" class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<div id="mobileNav" class="mobile-nav hidden lg:hidden bg-green w-full fixed top-0 left-0 z-50 h-screen overflow-y-auto p-4">
+  <ul class="flex flex-col space-y-4 text-[12px] font-bold uppercase">
+
+    <!-- Home -->
+    <li><a href="index.html" class="block text-white hover:text-[#2D5A27] transition">Home</a></li>
+
+    <!-- About Dropdown -->
+    <li>
+      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('aboutSub')">
+        About <i class="fas fa-chevron-down text-[10px]"></i>
+      </button>
+      <ul id="aboutSub" class="hidden flex-col pl-4 mt-2 space-y-2">
+        <li><a href="index.html#about-snapshot" class="block text-white hover:text-[#2D5A27]">Who We Are</a></li>
+        <li><a href="index.html#vision-section" class="block text-white hover:text-[#2D5A27]">Our Vision</a></li>
+        <li><a href="index.html#mission-section" class="block text-white hover:text-[#2D5A27]">Our Mission</a></li>
+        <li><a href="index.html#values" class="block text-white hover:text-[#2D5A27]">Our Values</a></li>
+        <li><a href="team.html#board" class="block text-white hover:text-[#2D5A27]">Our Board</a></li>
+      </ul>
+    </li>
+
+    <!-- Join Us Dropdown -->
+    <li>
+      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('joinSub')">
+        Join Us <i class="fas fa-chevron-down text-[10px]"></i>
+      </button>
+      <ul id="joinSub" class="hidden flex-col pl-4 mt-2 space-y-2">
+        <li><a href="volunteer.html" class="block text-white hover:text-[#2D5A27]">Volunteer</a></li>
+        <li><a href="career.html" class="block text-white hover:text-[#2D5A27]">Career Ads</a></li>
+      </ul>
+    </li>
+
+    <!-- Our Work Dropdown -->
+    <li>
+      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('workSub')">
+        Our Work <i class="fas fa-chevron-down text-[10px]"></i>
+      </button>
+      <ul id="workSub" class="hidden flex-col pl-4 mt-2 space-y-2">
+        <li><a href="programs.html" class="block text-white hover:text-[#2D5A27]">Thematic Areas</a></li>
+        <li><a href="programs.html#impact" class="block text-white hover:text-[#2D5A27]">Impact</a></li>
+      </ul>
+    </li>
+
+    <!-- Publications Dropdown -->
+    <li>
+      <button class="w-full flex justify-between items-center text-white hover:text-[#2D5A27] transition font-black" onclick="toggleSubmenu('pubSub')">
+        Publications <i class="fas fa-chevron-down text-[10px]"></i>
+      </button>
+      <ul id="pubSub" class="hidden flex-col pl-4 mt-2 space-y-2">
+        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Annual Report</a></li>
+        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Newsletter</a></li>
+        <li><a href="archive.html" class="block text-white hover:text-[#2D5A27]">Project Impactation</a></li>
+        <li><a href="gallery.html#success-stories" class="block text-white hover:text-[#2D5A27]">Success Stories</a></li>
+        <li><a href="gallery.html#social-media-links" class="block text-white hover:text-[#2D5A27]">Social Handles</a></li>
+      </ul>
+    </li>
+
+    <!-- Contact -->
+    <li><a href="contact.html" class="block text-white hover:text-[#2D5A27] transition">Contact Us</a></li>
+
+    <!-- Donate -->
+    <li>
+      <button onclick="toggleModal()" class="w-full bg-black text-white py-2 font-black uppercase hover:bg-[#2D5A27] transition">Donate</button>
+    </li>
+  </ul>
+</div>
+
+
 
     <div class="flex">
         <aside class="hidden md:flex flex-col items-center sticky top-32 h-[60vh] px-10 z-50">
@@ -306,181 +580,480 @@ transform-origin:center;
         </div>
     </section>
     
-   <div id="donate"></div>
-<div id="footer"></div>
+    <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
+        
+        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
+                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
+            </div>
 
+            <div class="relative z-10">
+                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </button>
+                
+                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
+                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
+                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
+                </p>
+
+                <div class="space-y-4 md:space-y-8">
+                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
+                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
+                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
+                        
+                        <div class="flex items-center gap-3">
+                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
+                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                                <i class="fas fa-copy text-xs"></i>
+                            </button>
+                        </div>
+                        
+                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
+                <div class="flex items-center gap-4">
+                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
+            
+            <div id="formContent">
+                <div class="mb-8 md:mb-10">
+                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
+                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
+                </div>
+
+                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
+                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
+                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
+                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                            <option>General Support</option>
+                            <option>Protection Missions (GBV)</option>
+                            <option>WASH Initiatives</option>
+                            <option>Economic Empowerment</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
+                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                            Confirm Support
+                        </button>
+                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="successContent" class="hidden text-center">
+                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-check text-3xl"></i>
+                </div>
+                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
+                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
+                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
+                </p>
+                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
+                    Return to Site
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>                 
+   
+<footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
+  <div class="container mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+      <!-- Logo & Description -->
+      <div class="space-y-6">
+        <div class="flex items-center gap-4">
+          <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200">
+          <span class="text-xl sm:text-2xl md:text-3xl font-heading font-black tracking-tighter">GEPaDC</span>
+        </div>
+        <p class="text-gray-300 text-sm sm:text-base md:text-sm font-medium leading-relaxed max-w-xs">
+          Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Operational Office -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Operational Office</h4>
+        <ul class="space-y-4 sm:space-y-5 text-[9px] sm:text-[10px] md:text-[11px] uppercase font-black tracking-widest">
+          <li class="flex gap-4 group">
+            <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+            <div>
+              <span class="text-white block">Borno State Office, Northeast Zone</span>
+              <p class="text-gray-500 font-bold lowercase tracking-normal text-[8px] sm:text-[9px] md:text-[10px]">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Direct Contact -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
+        <ul class="space-y-5">
+          <li class="mt-4 p-3 sm:p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-[#2D5A27] tracking-[0.25em] block mb-1">Emergency Toll-Free</span>
+            <div class="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-black italic text-white tracking-tighter">
+              <i class="fas fa-headset text-base sm:text-lg md:text-xl"></i>
+              <span>08000004000</span>
+            </div>
+          </li>
+          <li class="mt-4 p-3 sm:p-4 bg-red-900/10 border-l-4 border-red-700">
+            <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-red-700 tracking-[0.25em] block mb-1">Safeguarding Reporting</span>
+            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-widest border-b border-white/20 hover:text-red-700 transition">safeguarding@gepadc.org</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
+        <form class="relative mb-8">
+          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-3 sm:py-4 px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest">
+          <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+      <div class="flex gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">
+        <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
+        <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
+        <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
+      </div>
+
+      <div class="flex items-center gap-4 md:gap-5">
+        <div class="text-right">
+          <p class="text-gray-500 text-[7px] sm:text-[8px] md:text-[9px] uppercase font-black tracking-widest">Designed & Managed by</p>
+          <p class="text-white text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+        </div>
+        <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+          <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain">
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
+// ==============================
+// DOCUMENT READY
+// ==============================
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded", function(){
+    /* ==============================
+    AOS INITIALIZATION
+    ==============================
+    */
+    AOS.init({
+        duration: 1000,
+        once: true,
+        disable: 'mobile'
+    });
 
-/* ==============================
-AOS INITIALIZATION
-============================== */
+    /* ==============================
+    LOAD HTML COMPONENTS
+    ==============================
+    */
+    function loadComponent(id, file) {
+        fetch(file)
+            .then(res => {
+                if (!res.ok) throw new Error("Could not load " + file);
+                return res.text();
+            })
+            .then(data => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = data;
+            })
+            .catch(err => console.error(err));
+    }
+    loadComponent("topbar", "topbar.html");
+    loadComponent("header", "header.html");
+    loadComponent("footer", "footer.html");
+    loadComponent("donate", "donate-modal.html");
 
-AOS.init({
-duration: 1000,
-once: true
+    /* ==============================
+    LIVE DATE & TIME
+    ==============================
+    */
+    function updateClock() {
+        const now = new Date();
+        const dateEl = document.getElementById("liveDate");
+        const timeEl = document.getElementById("liveTime");
+
+        if (dateEl && timeEl) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateEl.innerText = now.toLocaleDateString('en-US', options);
+            timeEl.innerText = now.toLocaleTimeString('en-US', { hour12: false }) + ' WAT';
+        }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    /* ==============================
+    HERO SLIDESHOW
+    ==============================
+    */
+    const slides = [
+        'media/photos/IMG_8641.jpg',
+        'media/photos/IMG_6927.jpg',
+        'media/photos/main 1.jpeg',
+        'media/photos/Mainpics (5).jpeg'
+    ];
+    const container = document.getElementById('hero-slideshow');
+    let currentSlide = 0;
+
+    if (container) {
+        slides.forEach((src, index) => {
+            const div = document.createElement('div');
+            div.className = `slide ${index === 0 ? 'active' : ''}`;
+            div.style.backgroundImage = `url('${src}')`;
+            container.appendChild(div);
+        });
+
+        const slideElements = document.querySelectorAll('.slide');
+        setInterval(() => {
+            slideElements[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slideElements.length;
+            slideElements[currentSlide].classList.add('active');
+        }, 5000);
+    }
+
+    /* ==============================
+    COUNTER ANIMATION
+    ==============================
+    */
+    const startCounters = () => {
+        document.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const totalFrames = 150;
+            const increment = target / totalFrames;
+
+            const update = () => {
+                if (count < target) {
+                    count += increment;
+                    counter.innerText = Math.ceil(count);
+                    setTimeout(update, 35);
+                } else counter.innerText = target;
+            };
+            update();
+        });
+    };
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(c => observer.observe(c));
+
+    /* ==============================
+    MODAL TOGGLE & FORM HANDLING
+    ==============================
+    */
+    window.toggleModal = function () {
+        const modal = document.getElementById('donateModal');
+        const formContent = document.getElementById('formContent');
+        const successContent = document.getElementById('successContent');
+        const donorForm = document.getElementById('donorForm');
+
+        if (!modal) return;
+        modal.classList.toggle('hidden');
+
+        // Reset form when modal is closed
+        if (modal.classList.contains('hidden')) {
+            setTimeout(() => {
+                formContent?.classList.remove('hidden');
+                successContent?.classList.add('hidden');
+                donorForm?.reset();
+            }, 400);
+        }
+    };
+
+    window.handleDonation = function (event) {
+        event.preventDefault();
+        document.getElementById('formContent')?.classList.add('hidden');
+        document.getElementById('successContent')?.classList.remove('hidden');
+    };
+
+    /* ==============================
+    COPY TO CLIPBOARD
+    ==============================
+    */
+    window.copyToClipboard = function (text) {
+        navigator.clipboard.writeText(text);
+        const btn = document.getElementById('copyBtn');
+        if (!btn) return;
+        const originalIcon = btn.innerHTML;
+
+        btn.innerHTML = '<i class="fas fa-check text-white"></i>';
+        btn.classList.replace('text-white/40', 'text-white');
+
+        setTimeout(() => {
+            btn.innerHTML = originalIcon;
+            btn.classList.replace('text-white', 'text-white/40');
+        }, 2000);
+    };
+
+    /* ==============================
+    MOBILE NAVIGATION
+    ==============================
+    */
+    window.toggleMobileNav = function () {
+        const mobileNav = document.getElementById('mobileNav');
+        const navIcon = document.getElementById('navIcon');
+        if (!mobileNav) return;
+
+        mobileNav.classList.toggle('hidden');
+        mobileNav.classList.toggle('flex');
+        navIcon.className = mobileNav.classList.contains('hidden') ? 'fas fa-bars' : 'fas fa-times';
+        document.body.style.overflow = mobileNav.classList.contains('hidden') ? 'auto' : 'hidden';
+    };
+
+    window.toggleSubmenu = function (id) {
+        const submenu = document.getElementById(id);
+        submenu?.classList.toggle('hidden');
+    };
+
+    // Optional desktop hover for dropdowns
+    document.querySelectorAll('.dropdown').forEach(drop => {
+        drop.addEventListener('mouseenter', () => drop.querySelector('.dropdown-menu')?.classList.remove('hidden'));
+        drop.addEventListener('mouseleave', () => drop.querySelector('.dropdown-menu')?.classList.add('hidden'));
+    });
+
+    /* ==============================
+    TABS (Vision, Mission, Values)
+    ==============================
+    */
+    window.openTab = function (evt, tabName) {
+        const tabcontents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].classList.add("hidden");
+            tabcontents[i].classList.remove("block");
+        }
+
+        const tablinks = document.getElementsByClassName("tab-link");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("tab-active", "border-[#2D5A27]", "text-black");
+            tablinks[i].classList.add("border-transparent", "text-gray-400");
+        }
+
+        const activeTab = document.getElementById(tabName);
+        activeTab?.classList.remove("hidden");
+        activeTab?.classList.add("block");
+
+        evt.currentTarget.classList.add("tab-active", "border-[#2D5A27]", "text-black");
+        evt.currentTarget.classList.remove("border-transparent", "text-gray-400");
+    };
+
+    /* ==============================
+    PEACE DAY SLIDER
+    ==============================
+    */
+    const slider = document.getElementById('peace-slider');
+    const dots = document.querySelectorAll('.dot');
+
+    function moveSlider(direction) {
+        if (!slider) return;
+        const slideWidth = slider.clientWidth;
+
+        if (direction === 'next') {
+            if (slider.scrollLeft + slideWidth >= slider.scrollWidth - 5) slider.scrollTo({ left: 0, behavior: 'smooth' });
+            else slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
+        } else {
+            if (slider.scrollLeft <= 5) slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' });
+            else slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+        }
+        setTimeout(updateDots, 500);
+    }
+
+    function updateDots() {
+        if (!slider || dots.length === 0) return;
+        const index = Math.round(slider.scrollLeft / slider.clientWidth);
+        dots.forEach((dot, i) => {
+            if (i === index) {
+                dot.classList.add('w-8', 'bg-[#2D5A27]');
+                dot.classList.remove('w-2', 'bg-gray-300');
+            } else {
+                dot.classList.add('w-2', 'bg-gray-300');
+                dot.classList.remove('w-8', 'bg-[#2D5A27]');
+            }
+        });
+    }
+
+    if (slider) {
+        let autoSlide = setInterval(() => moveSlider('next'), 5000);
+
+        slider.addEventListener('touchstart', () => clearInterval(autoSlide), { passive: true });
+        slider.addEventListener('scroll', () => updateDots(), { passive: true });
+    }
+
+    /* ==============================
+    SCROLL ACTIVE SECTION
+    ==============================
+    */
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('main section[id]');
+        const navLinks = document.querySelectorAll('.timeline-link');
+        let current = "";
+
+        sections.forEach(section => {
+            if (window.pageYOffset >= section.offsetTop - 300) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) link.classList.add('active');
+        });
+    });
+
 });
-
-
-/* ==============================
-LOAD HTML COMPONENTS
-============================== */
-
-function loadComponent(id, file){
-fetch(file)
-.then(res => {
-if(!res.ok){
-throw new Error("Could not load " + file);
-}
-return res.text();
-})
-.then(data => {
-const el = document.getElementById(id);
-if(el){
-el.innerHTML = data;
-}
-})
-.catch(err => console.error(err));
-}
-
-loadComponent("topbar","topbar.html");
-loadComponent("header","header.html");
-loadComponent("footer","footer.html");
-loadComponent("donate","donate-modal.html");
-
-
-/* ==============================
-SCROLL ACTIVE SECTION
-============================== */
-
-window.addEventListener('scroll', () => {
-
-const sections = document.querySelectorAll('main section[id]');
-const navLinks = document.querySelectorAll('.timeline-link');
-
-let current = "";
-
-sections.forEach(section => {
-const sectionTop = section.offsetTop;
-
-if(window.pageYOffset >= sectionTop - 300){
-current = section.getAttribute('id');
-}
-});
-
-navLinks.forEach(link => {
-link.classList.remove('active');
-
-if(link.getAttribute('href').includes(current)){
-link.classList.add('active');
-}
-
-});
-
-});
-
-
-/* ==============================
-DONATION MODAL
-============================== */
-
-window.toggleModal = function(){
-
-const modal = document.getElementById("donateModal");
-
-if(modal){
-modal.classList.toggle("hidden");
-}
-
-}
-
-
-/* ==============================
-MOBILE NAVIGATION
-============================== */
-
-window.toggleMobileNav = function(){
-
-const mobileNav = document.getElementById("mobileNav");
-const navIcon = document.getElementById("navIcon");
-
-if(!mobileNav) return;
-
-mobileNav.classList.toggle("hidden");
-mobileNav.classList.toggle("flex");
-
-if(mobileNav.classList.contains("flex")){
-navIcon.className = "fas fa-times";
-document.body.style.overflow = "hidden";
-}else{
-navIcon.className = "fas fa-bars";
-document.body.style.overflow = "auto";
-}
-
-}
-
-
-/* ==============================
-COPY ACCOUNT NUMBER
-============================== */
-
-window.copyToClipboard = function(text){
-
-navigator.clipboard.writeText(text);
-
-const btn = document.getElementById("copyBtn");
-
-if(btn){
-
-btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
-
-setTimeout(()=>{
-btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
-},2000);
-
-}
-
-}
-
-
-/* ==============================
-LIVE DATE & TIME
-============================== */
-
-function updateClock(){
-
-const now = new Date();
-
-const dateEl = document.getElementById("liveDate");
-const timeEl = document.getElementById("liveTime");
-
-if(dateEl && timeEl){
-
-dateEl.innerHTML = now.toLocaleDateString("en-US",{
-weekday:"long",
-year:"numeric",
-month:"long",
-day:"numeric"
-});
-
-timeEl.innerHTML = now.toLocaleTimeString("en-US",{
-hour:"2-digit",
-minute:"2-digit",
-second:"2-digit"
-}) + " WAT";
-
-}
-
-}
-
-setInterval(updateClock,1000);
-updateClock();
-
-});
-
 </script>
 </body>
 </html>
