@@ -36,6 +36,7 @@ body {
 /* ──────────────────────────────────────────────
    GALLERY GRID (Uniform Frames)
    ────────────────────────────────────────────── */
+/* Premium Uniform Grid */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -46,27 +47,37 @@ body {
 .grid-item {
     position: relative;
     background: #ffffff;
+    /* This creates the uniform square frame */
     aspect-ratio: 1 / 1; 
-    padding: 12px;
+    padding: 12px; /* The "frame" border spacing */
     border: 1px solid #e5e7eb;
     box-shadow: 0 10px 30px -15px rgba(0,0,0,0.1);
     transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    overflow: hidden;
 }
 
 .grid-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* This ensures the image fills the square without stretching */
+    object-fit: cover; 
     filter: grayscale(100%) contrast(1.1);
     transition: all 0.6s ease;
 }
 
-.grid-item:hover img {
-    filter: grayscale(0%) contrast(1);
-    transform: scale(1.02);
+/* Hover Effects for the Uniform Frame */
+.grid-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -20px rgba(45, 90, 39, 0.3);
+    border-color: var(--brand-green);
 }
 
-/* Technical Corner Accents */
+.grid-item:hover img {
+    filter: grayscale(0%) contrast(1);
+    transform: scale(1.05);
+}
+
+/* Technical Corner Accents (Optional) */
 .grid-item::before, .grid-item::after {
     content: '';
     position: absolute;
@@ -80,14 +91,9 @@ body {
 .grid-item::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
 .grid-item::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
 
-.grid-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px -20px rgba(45, 90, 39, 0.3);
-    border-color: var(--brand-green);
-}
 .grid-item:hover::before { opacity: 1; transform: translate(5px, 5px); }
 .grid-item:hover::after { opacity: 1; transform: translate(-5px, -5px); }
-
+  
 /* ──────────────────────────────────────────────
    MOBILE NAVIGATION
    ────────────────────────────────────────────── */
@@ -921,18 +927,19 @@ body {
     });
 
     // 2. Initialize Isotope
-    const grid = document.querySelector(".grid-container");
-    let iso;
-
-    if (grid) {
-        imagesLoaded(grid, function () {
-            iso = new Isotope(grid, {
-                itemSelector: ".grid-item",
-                layoutMode: 'fitRows',
-                percentPosition: true,
-                transitionDuration: '0.6s'
-            });
+    // Ensure this is inside your DOMContentLoaded block
+const grid = document.querySelector('.grid-container');
+if (grid) {
+    imagesLoaded(grid, function () {
+        // Initialize Isotope after images are loaded
+        const iso = new Isotope(grid, {
+            itemSelector: '.grid-item',
+            layoutMode: 'fitRows', // Best for uniform square grids
+            percentPosition: true
         });
+    });
+}                    
+  
 
         // Connect Filters
         const filters = document.querySelector('#filters');
