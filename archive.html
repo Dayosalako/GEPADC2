@@ -6,7 +6,6 @@
   <title>Archive | GEPaDC Institutional Records</title>
   <link rel="icon" type="image/png" href="logo.png"/>
 
-  <!-- Tailwind + CDN fonts + icons + AOS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -35,7 +34,6 @@
     }
 
     .font-heading { font-family: 'Montserrat', sans-serif; }
-    .font-syncopate { font-family: 'Syncopate', sans-serif; }
 
     .hero-title {
       font-size: clamp(3.5rem, 12vw, 10rem);
@@ -43,20 +41,26 @@
       font-weight: 900;
     }
 
-    .text-outline {
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(0,0,0,0.12);
-      text-stroke: 1px rgba(0,0,0,0.12);
+    /* Year numbers - much better mobile handling */
+    .year-bg {
+      font-size: clamp(6rem, 18vw, 18rem);
+      opacity: 0.04;
+      pointer-events: none;
+      user-select: none;
+      line-height: 0.8;
     }
 
-    /* Timeline vertical line */
+    @media (max-width: 640px) {
+      .year-bg { font-size: clamp(4rem, 15vw, 8rem); }
+    }
+
+    /* Timeline */
     .timeline-line {
       width: 2px;
       background: linear-gradient(to bottom, var(--brand-green) 0%, transparent 100%);
       position: absolute;
       left: 50%;
-      top: 0;
-      bottom: 0;
+      top: 0; bottom: 0;
       transform: translateX(-50%);
       z-index: 0;
     }
@@ -86,11 +90,12 @@
       box-shadow: 0 0 0 4px rgba(45,90,39,0.2);
     }
 
-    /* PDF viewer */
+    /* PDF viewer - responsive */
     .pdf-container {
       aspect-ratio: 210 / 297;
       width: 100%;
       max-width: 960px;
+      max-height: 80vh;
       margin: 0 auto 3rem;
       background: white;
       border: 1px solid var(--border-light);
@@ -99,26 +104,13 @@
       box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
     }
 
-    /* Modal */
-    #donateModal {
-      backdrop-filter: blur(12px);
+    @media (max-width: 640px) {
+      .pdf-container { max-height: 60vh; }
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--brand-green);
-      border-radius: 3px;
-    }
-
-    /* Mobile nav */
+    /* Mobile nav panel */
     .mobile-nav-panel {
-      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .mobile-submenu {
@@ -128,14 +120,28 @@
     }
 
     .mobile-submenu.open {
-      max-height: 600px; /* large enough */
+      max-height: 800px;
     }
 
+    /* Top bar compact mobile */
     @media (max-width: 640px) {
-      .hero-title { font-size: clamp(2.8rem, 11vw, 5.5rem); }
-      .text-[10rem] { font-size: 7rem !important; opacity: 0.04; }
-      section { padding-top: 5rem !important; padding-bottom: 5rem !important; }
+      .top-bar-text { font-size: 0.75rem !important; }
+      header .container { padding: 0.75rem 1rem !important; }
+      .donate-btn-mobile { font-size: 0.75rem !important; padding: 0.5rem 1rem !important; }
     }
+
+    /* General mobile improvements */
+    @media (max-width: 640px) {
+      section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+      .text-5xl, .text-6xl { font-size: 2.5rem !important; line-height: 1.1 !important; }
+      img { max-width: 100%; height: auto; }
+      .px-6, .px-10, .px-12 { padding-left: 1rem !important; padding-right: 1rem !important; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -168,6 +174,7 @@
         </div>
       </div>
 
+      <!-- Join Us -->
       <div class="relative group">
         <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
           Join Us <i class="fas fa-chevron-down text-[9px]"></i>
@@ -178,6 +185,7 @@
         </div>
       </div>
 
+      <!-- Our Work -->
       <div class="relative group">
         <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
           Our Work <i class="fas fa-chevron-down text-[9px]"></i>
@@ -188,6 +196,7 @@
         </div>
       </div>
 
+      <!-- Publications -->
       <div class="relative group">
         <button class="flex items-center gap-1.5 hover:text-[var(--brand-green)] transition">
           Publications <i class="fas fa-chevron-down text-[9px]"></i>
@@ -206,7 +215,7 @@
 
     <!-- Actions -->
     <div class="flex items-center gap-4 md:gap-6">
-      <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-6 py-2.5 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition border-2 border-black hover:border-[var(--brand-green)]">
+      <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-6 py-2.5 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition border-2 border-black hover:border-[var(--brand-green)] donate-btn-mobile">
         Donate
       </button>
       <button onclick="openMobileNav()" class="lg:hidden text-2xl text-gray-800">
@@ -218,20 +227,19 @@
 
 <!-- Mobile Nav Overlay + Panel -->
 <div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
-
-<nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-340px] w-[320px] h-full bg-white z-[9999] shadow-2xl p-8 overflow-y-auto transition-all duration-500">
-  <button class="mobile-nav-close text-[var(--brand-green)] font-black uppercase tracking-widest text-sm mb-10" onclick="closeMobileNav()">
-    ✕ Close
+<nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-100%] w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto transition-all duration-500">
+  <button class="mobile-nav-close text-[var(--brand-green)] font-black uppercase tracking-widest text-sm mb-8 flex items-center gap-2" onclick="closeMobileNav()">
+    <i class="fas fa-times text-lg"></i> Close
   </button>
 
-  <ul class="space-y-1">
-    <li><a href="index.html" class="block py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">Home</a></li>
+  <ul class="space-y-1 text-sm font-black uppercase tracking-wider">
+    <li><a href="index.html" class="block py-4 hover:text-[var(--brand-green)] transition">Home</a></li>
 
     <li>
-      <button onclick="toggleSubmenu('aboutSub')" class="w-full flex justify-between items-center py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">
-        About <i class="fas fa-chevron-down text-xs transition-transform"></i>
+      <button onclick="toggleSubmenu('aboutSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        About <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
       </button>
-      <div id="aboutSub" class="mobile-submenu space-y-3 pl-4 text-sm">
+      <div id="aboutSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
         <a href="index.html#about-snapshot" class="block py-2 hover:text-[var(--brand-green)]">Who We Are</a>
         <a href="index.html#vision-section" class="block py-2 hover:text-[var(--brand-green)]">Our Vision</a>
         <a href="index.html#mission-section" class="block py-2 hover:text-[var(--brand-green)]">Our Mission</a>
@@ -241,30 +249,30 @@
     </li>
 
     <li>
-      <button onclick="toggleSubmenu('joinSub')" class="w-full flex justify-between items-center py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">
-        Join Us <i class="fas fa-chevron-down text-xs transition-transform"></i>
+      <button onclick="toggleSubmenu('joinSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Join Us <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
       </button>
-      <div id="joinSub" class="mobile-submenu space-y-3 pl-4 text-sm">
+      <div id="joinSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
         <a href="volunteer.html" class="block py-2 hover:text-[var(--brand-green)]">Volunteer</a>
         <a href="career.html" class="block py-2 hover:text-[var(--brand-green)]">Career Ads</a>
       </div>
     </li>
 
     <li>
-      <button onclick="toggleSubmenu('workSub')" class="w-full flex justify-between items-center py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">
-        Our Work <i class="fas fa-chevron-down text-xs transition-transform"></i>
+      <button onclick="toggleSubmenu('workSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Our Work <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
       </button>
-      <div id="workSub" class="mobile-submenu space-y-3 pl-4 text-sm">
+      <div id="workSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
         <a href="programs.html" class="block py-2 hover:text-[var(--brand-green)]">Thematic Areas</a>
         <a href="programs.html#impact" class="block py-2 hover:text-[var(--brand-green)]">Impact</a>
       </div>
     </li>
 
     <li>
-      <button onclick="toggleSubmenu('pubSub')" class="w-full flex justify-between items-center py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">
-        Publications <i class="fas fa-chevron-down text-xs transition-transform"></i>
+      <button onclick="toggleSubmenu('pubSub')" class="w-full flex justify-between items-center py-4 hover:text-[var(--brand-green)] transition">
+        Publications <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
       </button>
-      <div id="pubSub" class="mobile-submenu space-y-3 pl-4 text-sm">
+      <div id="pubSub" class="mobile-submenu space-y-3 pl-5 text-sm font-medium">
         <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Annual Report</a>
         <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Newsletter</a>
         <a href="archive.html" class="block py-2 hover:text-[var(--brand-green)]">Project Impactation</a>
@@ -273,15 +281,15 @@
       </div>
     </li>
 
-    <li><a href="contact.html" class="block py-4 text-sm font-black uppercase tracking-wider hover:text-[var(--brand-green)]">Contact Us</a></li>
+    <li><a href="contact.html" class="block py-4 hover:text-[var(--brand-green)] transition">Contact Us</a></li>
   </ul>
 </nav>
 
 <!-- ================= MAIN CONTENT ================= -->
 <div class="flex min-h-screen">
-  <!-- Timeline (desktop) -->
-  <aside class="hidden md:flex flex-col items-center sticky top-32 self-start px-8 lg:px-12 z-50">
-    <div class="relative h-[70vh] flex flex-col justify-between py-12">
+  <!-- Timeline - hidden on mobile -->
+  <aside class="hidden md:flex flex-col items-center sticky top-28 self-start px-6 lg:px-10 z-50">
+    <div class="relative h-[65vh] flex flex-col justify-between py-10">
       <div class="timeline-line"></div>
       <a href="#year-2026" class="timeline-link active font-black text-xs uppercase tracking-widest py-3">2026</a>
       <a href="#year-2025" class="timeline-link font-black text-xs uppercase tracking-widest py-3">2025</a>
@@ -290,34 +298,32 @@
     </div>
   </aside>
 
-  <!-- Main -->
-  <main class="flex-1 border-l border-gray-100">
-    <section id="year-2026" class="py-24 px-6 md:px-12 lg:px-20 relative">
-      <h2 class="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-black/4 absolute -top-16 left-4 pointer-events-none select-none">2026</h2>
-      <div class="relative pt-16">
-        <span class="text-[var(--brand-green)] font-black text-[10px] tracking-[0.5em] uppercase block mb-5">Current Edition</span>
-        <h3 class="text-4xl md:text-5xl font-black italic uppercase mb-10 leading-tight">
+  <!-- Main Content - full width on mobile -->
+  <main class="flex-1 border-l border-gray-100 md:border-l-0 w-full">
+    <section id="year-2026" class="py-20 px-5 sm:px-8 md:px-12 lg:px-20 relative">
+      <h2 class="year-bg absolute -top-10 left-2 md:left-6 font-black text-black/5">2026</h2>
+      <div class="relative pt-12 md:pt-16">
+        <span class="text-[var(--brand-green)] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">Current Edition</span>
+        <h3 class="text-3xl sm:text-4xl md:text-5xl font-black italic uppercase mb-8 leading-tight">
           Quarterly <span class="text-[var(--brand-green)]">Publication</span>
         </h3>
-
         <div class="pdf-container" data-aos="fade-up" data-aos-delay="100">
           <iframe src="media/pdf/newsletter-march-2026.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full" frameborder="0" title="GEPaDC Quarterly Newsletter March 2026"></iframe>
         </div>
       </div>
     </section>
 
-    <section id="year-2025" class="py-24 px-6 md:px-12 lg:px-20 bg-gray-50/50">
-      <h2 class="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-black/4 absolute -top-16 left-4 pointer-events-none select-none">2025</h2>
-      <div class="relative pt-16">
-        <span class="text-[var(--brand-green)] font-black text-[10px] tracking-[0.5em] uppercase block mb-5">Field Work</span>
-
-        <div class="group relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 aspect-video" data-aos="fade-up">
+    <section id="year-2025" class="py-20 px-5 sm:px-8 md:px-12 lg:px-20 bg-gray-50/50">
+      <h2 class="year-bg absolute -top-10 left-2 md:left-6 font-black text-black/5">2025</h2>
+      <div class="relative pt-12 md:pt-16">
+        <span class="text-[var(--brand-green)] font-black text-[10px] tracking-[0.5em] uppercase block mb-4">FIELD WORK</span>
+        <div class="group relative rounded-xl overflow-hidden shadow-2xl border border-gray-200 aspect-video" data-aos="fade-up">
           <img src="media/photos/IMG_8631.jpg" alt="Northeastern Nigeria Flood Response – WASH and Protection Services" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" loading="lazy"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-8 md:p-12 flex flex-col justify-end">
-            <h3 class="text-4xl md:text-5xl font-black italic uppercase leading-tight text-white mb-4">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-6 sm:p-10 md:p-12 flex flex-col justify-end">
+            <h3 class="text-3xl sm:text-4xl md:text-5xl font-black italic uppercase leading-tight text-white mb-4">
               Northeastern<br/><span class="text-[var(--brand-green)]">Flood Response</span>
             </h3>
-            <p class="text-gray-200 text-base max-w-2xl">
+            <p class="text-gray-200 text-sm sm:text-base max-w-xl">
               Integrated humanitarian response providing life-saving WASH and Protection services across the Lake Chad Basin.
             </p>
           </div>
@@ -325,70 +331,70 @@
       </div>
     </section>
 
-    <section id="year-2024" class="py-32 px-6 md:px-12 lg:px-20 bg-white">
-      <h2 class="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-black/4 absolute -top-16 left-4 pointer-events-none select-none">2024</h2>
-      <div class="grid md:grid-cols-2 gap-12 pt-16">
+    <section id="year-2024" class="py-24 px-5 sm:px-8 md:px-12 lg:px-20 bg-white">
+      <h2 class="year-bg absolute -top-10 left-2 md:left-6 font-black text-black/5">2024</h2>
+      <div class="grid md:grid-cols-2 gap-8 pt-12">
         <div class="space-y-6" data-aos="fade-right">
-          <div class="aspect-square bg-white border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center p-6 shadow-sm hover:shadow-xl transition-shadow">
+          <div class="aspect-square bg-white border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center p-4 shadow-sm hover:shadow-xl transition-shadow">
             <img src="media/photos/IMG_8641.jpg" alt="Community engagement activity – Protection & Advocacy" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-700" loading="lazy"/>
           </div>
           <div>
             <p class="text-[var(--brand-green)] font-black text-xs uppercase tracking-widest mb-2">Protection & Advocacy</p>
-            <h4 class="text-3xl font-black italic uppercase">Community Engagement</h4>
+            <h4 class="text-2xl md:text-3xl font-black italic uppercase">Community Engagement</h4>
           </div>
         </div>
 
         <div class="space-y-6" data-aos="fade-left">
-          <div class="aspect-square bg-white border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center p-6 shadow-sm hover:shadow-xl transition-shadow">
+          <div class="aspect-square bg-white border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center p-4 shadow-sm hover:shadow-xl transition-shadow">
             <img src="media/photos/IMG_8656.jpg" alt="Women Leadership – WPS Policy Forum" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-700" loading="lazy"/>
           </div>
           <div>
             <p class="text-[var(--brand-green)] font-black text-xs uppercase tracking-widest mb-2">Women Leadership</p>
-            <h4 class="text-3xl font-black italic uppercase">WPS Policy Forum</h4>
+            <h4 class="text-2xl md:text-3xl font-black italic uppercase">WPS Policy Forum</h4>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="year-2023" class="py-32 px-6 md:px-12 lg:px-20">
-      <h2 class="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-black/4 absolute -top-16 left-4 pointer-events-none select-none">2023</h2>
-      <div class="flex flex-wrap gap-8 pt-16">
-        <img src="media/photos/IMG_8893.jpg" alt="GEPaDC activity 2023 – image 1" class="h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
-        <img src="media/photos/IMG_8890.jpg" alt="GEPaDC activity 2023 – image 2" class="h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
-        <img src="media/photos/IMG_8897.jpg" alt="GEPaDC activity 2023 – image 3" class="h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
+    <section id="year-2023" class="py-24 px-5 sm:px-8 md:px-12 lg:px-20">
+      <h2 class="year-bg absolute -top-10 left-2 md:left-6 font-black text-black/5">2023</h2>
+      <div class="flex flex-wrap gap-6 pt-12 justify-center md:justify-start">
+        <img src="media/photos/IMG_8893.jpg" alt="GEPaDC activity 2023 – image 1" class="h-48 sm:h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
+        <img src="media/photos/IMG_8890.jpg" alt="GEPaDC activity 2023 – image 2" class="h-48 sm:h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
+        <img src="media/photos/IMG_8897.jpg" alt="GEPaDC activity 2023 – image 3" class="h-48 sm:h-56 w-auto object-contain border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition grayscale hover:grayscale-0" loading="lazy"/>
       </div>
     </section>
   </main>
 </div>
 
 <!-- ================= RESOURCE CENTER ================= -->
-<section class="py-32 bg-white border-t border-gray-100">
-  <div class="container mx-auto px-6 md:px-12 lg:px-20">
+<section class="py-24 md:py-32 bg-white border-t border-gray-100">
+  <div class="container mx-auto px-5 sm:px-8 md:px-12 lg:px-20">
     <div class="max-w-4xl mx-auto text-center md:text-left">
       <h2 class="text-[var(--brand-green)] font-black tracking-[0.4em] uppercase text-xs mb-5">Resource Center</h2>
-      <h3 class="text-5xl md:text-6xl font-black uppercase font-heading leading-tight mb-16">
+      <h3 class="text-4xl sm:text-5xl md:text-6xl font-black uppercase font-heading leading-tight mb-12 md:mb-16">
         Newsletter<br/>Archive
       </h3>
 
-      <div class="grid md:grid-cols-2 gap-10">
-        <div class="group border border-gray-200 p-8 rounded-2xl hover:border-[var(--brand-green)] hover:shadow-xl transition-all duration-400 bg-gray-50/40">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="group border border-gray-200 p-6 sm:p-8 rounded-2xl hover:border-[var(--brand-green)] hover:shadow-xl transition-all duration-400 bg-gray-50/40">
           <div class="flex justify-between items-start mb-6">
-            <i class="far fa-file-pdf text-5xl text-red-600/80"></i>
-            <span class="text-[10px] font-black uppercase text-gray-500 tracking-widest">Zamfara Project</span>
+            <i class="far fa-file-pdf text-4xl sm:text-5xl text-red-600/80"></i>
+            <span class="text-[9px] sm:text-[10px] font-black uppercase text-gray-500 tracking-widest">Zamfara Project</span>
           </div>
-          <h4 class="text-2xl font-black italic uppercase leading-tight mb-5">
+          <h4 class="text-xl sm:text-2xl font-black italic uppercase leading-tight mb-4 md:mb-5">
             Resilient Futures:<br/>Advancing Gender Equality
           </h4>
-          <p class="text-gray-600 text-sm mb-8 leading-relaxed">
+          <p class="text-gray-600 text-sm mb-6 md:mb-8 leading-relaxed">
             Strengthening gender equality and promoting women's rights for conflict-affected populations in Zamfara State under the French Embassy (FEF-OSC) support.
           </p>
-          <div class="flex gap-8">
+          <div class="flex flex-wrap gap-6">
             <a href="media/pdf/newsletter-march-2026.pdf" target="_blank" class="text-xs font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-[var(--brand-green)] hover:border-[var(--brand-green)] transition">Open Full PDF</a>
             <a href="media/pdf/newsletter-march-2026.pdf" download class="text-xs font-black uppercase tracking-widest text-gray-500 hover:text-black transition">Download</a>
           </div>
         </div>
 
-        <!-- You can duplicate the card block above for more archive items -->
+        <!-- You can add more archive cards here in the same structure -->
       </div>
     </div>
   </div>
@@ -396,29 +402,29 @@
 
 <!-- ================= DONATE MODAL ================= -->
 <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg overflow-y-auto">
-  <div class="bg-white w-full max-w-6xl flex flex-col lg:flex-row rounded-2xl overflow-hidden shadow-2xl my-8 relative">
+  <div class="bg-white w-full max-w-5xl lg:max-w-6xl flex flex-col lg:flex-row rounded-2xl overflow-hidden shadow-2xl my-6 relative">
     <!-- Left - Branding -->
-    <div class="bg-[var(--brand-green)] p-10 lg:p-16 lg:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
-      <div class="absolute -top-20 -right-20 opacity-10 text-[30rem] pointer-events-none">
+    <div class="bg-[var(--brand-green)] p-8 lg:p-16 lg:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+      <div class="absolute -top-20 -right-20 opacity-10 text-[25rem] md:text-[30rem] pointer-events-none">
         <i class="fas fa-hand-holding-heart"></i>
       </div>
       <div class="relative z-10">
-        <button onclick="toggleModal()" class="mb-12 text-white/70 hover:text-white flex items-center gap-3 text-xs font-black uppercase tracking-widest transition">
+        <button onclick="toggleModal()" class="mb-8 lg:mb-12 text-white/70 hover:text-white flex items-center gap-3 text-xs font-black uppercase tracking-widest transition">
           <i class="fas fa-arrow-left"></i> Back to Site
         </button>
 
-        <h2 class="text-5xl lg:text-6xl font-black italic font-heading uppercase leading-tight mb-8">
+        <h2 class="text-4xl lg:text-6xl font-black italic font-heading uppercase leading-tight mb-6 lg:mb-8">
           Secure<br/>Giving
         </h2>
-        <p class="text-white/80 text-base max-w-md leading-relaxed mb-12">
+        <p class="text-white/80 text-sm lg:text-base max-w-md leading-relaxed mb-10 lg:mb-12">
           Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
         </p>
 
-        <div class="bg-white/10 p-8 rounded-xl border border-white/20 backdrop-blur-md">
+        <div class="bg-white/10 p-6 lg:p-8 rounded-xl border border-white/20 backdrop-blur-md">
           <p class="text-xs font-black uppercase tracking-widest mb-3 text-white/70">Direct Bank Transfer</p>
           <p class="text-sm font-bold uppercase mb-2">First Bank Nigeria</p>
           <div class="flex items-center gap-4">
-            <p class="text-4xl font-black italic tracking-tight" id="accNum">2034098418</p>
+            <p class="text-3xl lg:text-4xl font-black italic tracking-tight" id="accNum">2034098418</p>
             <button onclick="copyToClipboard('2034098418')" class="text-white/50 hover:text-white transition">
               <i class="fas fa-copy text-xl"></i>
             </button>
@@ -427,35 +433,35 @@
         </div>
       </div>
 
-      <div class="relative z-10 mt-12 pt-8 border-t border-white/20 flex items-center gap-4 text-sm">
-        <i class="fas fa-shield-check text-2xl text-white/60"></i>
+      <div class="relative z-10 mt-10 lg:mt-12 pt-6 lg:pt-8 border-t border-white/20 flex items-center gap-4 text-sm">
+        <i class="fas fa-shield-check text-xl lg:text-2xl text-white/60"></i>
         <span class="font-black uppercase tracking-widest text-white/70">Encrypted & Verified</span>
       </div>
     </div>
 
     <!-- Right - Form -->
-    <div class="p-10 lg:p-16 lg:w-7/12 flex flex-col justify-center min-h-[500px]">
+    <div class="p-8 lg:p-16 lg:w-7/12 flex flex-col justify-center min-h-[500px]">
       <div id="formContent">
-        <div class="mb-12">
-          <h3 class="text-4xl font-black uppercase italic font-heading leading-tight mb-3">Pledge Support</h3>
+        <div class="mb-10 lg:mb-12">
+          <h3 class="text-3xl lg:text-4xl font-black uppercase italic font-heading leading-tight mb-3">Pledge Support</h3>
           <p class="text-gray-500 text-sm font-bold uppercase tracking-widest">Let us know you've made a difference</p>
         </div>
 
-        <form id="donorForm" class="space-y-8" onsubmit="handleDonation(event)">
+        <form id="donorForm" class="space-y-6 lg:space-y-8" onsubmit="handleDonation(event)">
           <div class="grid md:grid-cols-2 gap-6">
             <div class="space-y-2">
               <label class="text-xs font-black uppercase tracking-widest text-gray-500">Full Name</label>
-              <input type="text" required placeholder="John Doe" class="w-full border-b-2 border-gray-200 py-4 text-base font-semibold focus:border-[var(--brand-green)] outline-none transition"/>
+              <input type="text" required placeholder="John Doe" class="w-full border-b-2 border-gray-200 py-3 lg:py-4 text-sm lg:text-base font-semibold focus:border-[var(--brand-green)] outline-none transition"/>
             </div>
             <div class="space-y-2">
               <label class="text-xs font-black uppercase tracking-widest text-gray-500">Email Address</label>
-              <input type="email" required placeholder="john@example.com" class="w-full border-b-2 border-gray-200 py-4 text-base font-semibold focus:border-[var(--brand-green)] outline-none transition"/>
+              <input type="email" required placeholder="john@example.com" class="w-full border-b-2 border-gray-200 py-3 lg:py-4 text-sm lg:text-base font-semibold focus:border-[var(--brand-green)] outline-none transition"/>
             </div>
           </div>
 
           <div class="space-y-2">
             <label class="text-xs font-black uppercase tracking-widest text-gray-500">Donation Purpose</label>
-            <select class="w-full border-b-2 border-gray-200 py-4 text-base font-semibold bg-transparent focus:border-[var(--brand-green)] outline-none appearance-none">
+            <select class="w-full border-b-2 border-gray-200 py-3 lg:py-4 text-sm lg:text-base font-semibold bg-transparent focus:border-[var(--brand-green)] outline-none appearance-none">
               <option>General Support</option>
               <option>Protection Missions (GBV)</option>
               <option>WASH Initiatives</option>
@@ -463,11 +469,11 @@
             </select>
           </div>
 
-          <div class="pt-8 flex flex-col sm:flex-row gap-6">
-            <button type="submit" class="flex-1 bg-black text-white py-5 text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition shadow-lg active:scale-98">
+          <div class="pt-6 lg:pt-8 flex flex-col sm:flex-row gap-4">
+            <button type="submit" class="flex-1 bg-black text-white py-4 lg:py-5 text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition shadow-lg active:scale-98">
               Confirm Support
             </button>
-            <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-600 py-5 text-xs font-black uppercase tracking-widest hover:bg-gray-200 transition">
+            <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-600 py-4 lg:py-5 text-xs font-black uppercase tracking-widest hover:bg-gray-200 transition">
               Cancel
             </button>
           </div>
@@ -475,14 +481,14 @@
       </div>
 
       <div id="successContent" class="hidden text-center">
-        <div class="w-24 h-24 bg-[var(--brand-green)]/10 text-[var(--brand-green)] rounded-full flex items-center justify-center mx-auto mb-10 text-4xl">
+        <div class="w-20 lg:w-24 h-20 lg:h-24 bg-[var(--brand-green)]/10 text-[var(--brand-green)] rounded-full flex items-center justify-center mx-auto mb-8 lg:mb-10 text-3xl lg:text-4xl">
           <i class="fas fa-check"></i>
         </div>
-        <h3 class="text-4xl font-black uppercase italic font-heading mb-6">Pledge Received</h3>
-        <p class="text-gray-600 text-base leading-relaxed mb-12 max-w-md mx-auto">
+        <h3 class="text-3xl lg:text-4xl font-black uppercase italic font-heading mb-4 lg:mb-6">Pledge Received</h3>
+        <p class="text-gray-600 text-sm lg:text-base leading-relaxed mb-8 lg:mb-12 max-w-md mx-auto">
           Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
         </p>
-        <button onclick="toggleModal()" class="border-2 border-black px-12 py-5 font-black uppercase text-xs tracking-widest hover:bg-black hover:text-white transition">
+        <button onclick="toggleModal()" class="border-2 border-black px-10 lg:px-12 py-4 lg:py-5 font-black uppercase text-xs tracking-widest hover:bg-black hover:text-white transition">
           Return to Site
         </button>
       </div>
@@ -491,88 +497,88 @@
 </div>
 
 <!-- ================= FOOTER ================= -->
-<footer class="bg-[#0a0a0a] pt-20 pb-12 px-6 md:px-12 lg:px-20 text-white border-t-4 border-[var(--brand-green)]">
+<footer class="bg-[#0a0a0a] pt-16 pb-12 px-5 sm:px-8 md:px-12 lg:px-20 text-white border-t-4 border-[var(--brand-green)]">
   <div class="container mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 mb-16">
       <!-- Brand -->
-      <div class="space-y-8">
+      <div class="space-y-6">
         <div class="flex items-center gap-4">
-          <img src="logo.png" alt="GEPaDC Logo" class="h-14 w-auto brightness-150"/>
-          <span class="text-3xl font-heading font-black tracking-tight">GEPaDC</span>
+          <img src="logo.png" alt="GEPaDC Logo" class="h-12 lg:h-14 w-auto brightness-150"/>
+          <span class="text-2xl lg:text-3xl font-heading font-black tracking-tight">GEPaDC</span>
         </div>
-        <p class="text-gray-300 leading-relaxed max-w-xs">
+        <p class="text-gray-300 text-sm lg:text-base leading-relaxed max-w-xs">
           Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
         </p>
         <div class="flex gap-4">
-          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
+          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
+          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
             <i class="fab fa-x-twitter"></i>
           </a>
-          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
+          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
             <i class="fab fa-instagram"></i>
           </a>
-          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
+          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
             <i class="fab fa-linkedin-in"></i>
           </a>
         </div>
       </div>
 
-      <!-- Office -->
+      <!-- Operational Office -->
       <div>
-        <h4 class="font-black text-xs uppercase tracking-[0.35em] mb-8 border-l-4 border-[var(--brand-green)] pl-5">Operational Office</h4>
-        <ul class="space-y-6 text-sm uppercase font-semibold tracking-wider">
-          <li class="flex gap-5 group">
-            <i class="fas fa-map-pin text-[var(--brand-green)] text-xl mt-1 group-hover:scale-125 transition"></i>
+        <h4 class="text-white font-black text-xs lg:text-sm uppercase tracking-[0.35em] mb-6 lg:mb-8 border-l-4 border-[var(--brand-green)] pl-4">Operational Office</h4>
+        <ul class="space-y-4 lg:space-y-6 text-xs lg:text-sm uppercase font-semibold tracking-wider">
+          <li class="flex gap-4 lg:gap-5 group">
+            <i class="fas fa-map-pin text-[var(--brand-green)] text-lg lg:text-xl mt-1 group-hover:scale-125 transition"></i>
             <div>
               <span class="block">Borno State Office, Northeast Zone</span>
-              <p class="text-gray-500 font-medium normal-case text-xs mt-1">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
+              <p class="text-gray-500 font-medium normal-case text-xs lg:text-sm mt-1">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
             </div>
           </li>
         </ul>
       </div>
 
-      <!-- Contact -->
+      <!-- Direct Contact -->
       <div>
-        <h4 class="font-black text-xs uppercase tracking-[0.35em] mb-8 border-l-4 border-[var(--brand-green)] pl-5">Direct Contact</h4>
-        <ul class="space-y-6">
-          <li class="p-5 bg-[var(--brand-green)]/10 border-l-4 border-[var(--brand-green)]">
-            <span class="text-xs font-black uppercase tracking-widest text-[var(--brand-green)] block mb-2">Emergency Toll-Free</span>
-            <div class="flex items-center gap-4 text-2xl font-black italic">
+        <h4 class="text-white font-black text-xs lg:text-sm uppercase tracking-[0.35em] mb-6 lg:mb-8 border-l-4 border-[var(--brand-green)] pl-4">Direct Contact</h4>
+        <ul class="space-y-5 lg:space-y-6">
+          <li class="p-4 lg:p-5 bg-[var(--brand-green)]/10 border-l-4 border-[var(--brand-green)]">
+            <span class="text-xs lg:text-sm font-black uppercase tracking-widest text-[var(--brand-green)] block mb-2">Emergency Toll-Free</span>
+            <div class="flex items-center gap-3 lg:gap-4 text-xl lg:text-2xl font-black italic">
               <i class="fas fa-headset"></i>
               <span>08000004000</span>
             </div>
           </li>
-          <li class="p-5 bg-red-900/10 border-l-4 border-red-700">
-            <span class="text-xs font-black uppercase tracking-widest text-red-700 block mb-2">Safeguarding Reporting</span>
-            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-sm uppercase tracking-wider border-b border-white/30 hover:text-red-400 transition">safeguarding@gepadc.org</a>
+          <li class="p-4 lg:p-5 bg-red-900/10 border-l-4 border-red-700">
+            <span class="text-xs lg:text-sm font-black uppercase tracking-widest text-red-700 block mb-2">Safeguarding Reporting</span>
+            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-xs lg:text-sm uppercase tracking-wider border-b border-white/30 hover:text-red-400 transition">safeguarding@gepadc.org</a>
           </li>
         </ul>
       </div>
 
       <!-- Newsletter -->
       <div>
-        <h4 class="font-black text-xs uppercase tracking-[0.35em] mb-8 border-l-4 border-[var(--brand-green)] pl-5">Newsletter</h4>
+        <h4 class="text-white font-black text-xs lg:text-sm uppercase tracking-[0.35em] mb-6 lg:mb-8 border-l-4 border-[var(--brand-green)] pl-4">Newsletter</h4>
         <form class="relative">
-          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/5 border-2 border-white/10 py-5 px-6 text-sm font-black uppercase tracking-widest text-white focus:outline-none focus:border-[var(--brand-green)] transition"/>
-          <button class="absolute right-2 top-2 bottom-2 bg-[var(--brand-green)] px-8 text-sm font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/5 border-2 border-white/10 py-4 lg:py-5 px-5 lg:px-6 text-xs lg:text-sm font-black uppercase tracking-widest text-white focus:outline-none focus:border-[var(--brand-green)] transition"/>
+          <button class="absolute right-2 top-2 bottom-2 bg-[var(--brand-green)] px-5 lg:px-8 text-xs lg:text-sm font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
         </form>
       </div>
     </div>
 
-    <div class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8 text-sm text-gray-500 font-semibold uppercase tracking-wider">
-      <div class="flex gap-8">
+    <div class="pt-10 lg:pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 lg:gap-8 text-xs lg:text-sm text-gray-500 font-semibold uppercase tracking-wider">
+      <div class="flex gap-6 lg:gap-8">
         <a href="privacy.html" class="hover:text-[var(--brand-green)] transition">Privacy</a>
         <a href="terms.html" class="hover:text-[var(--brand-green)] transition">Terms</a>
         <a href="cookies.html" class="hover:text-[var(--brand-green)] transition">Cookies</a>
       </div>
-      <div class="flex items-center gap-6">
+      <div class="flex items-center gap-4 lg:gap-6">
         <div class="text-right">
-          <p class="text-xs uppercase font-black tracking-widest text-gray-600">Designed & Managed by</p>
-          <p class="text-white text-sm font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+          <p class="text-xs lg:text-sm uppercase font-black tracking-widest text-gray-600">Designed & Managed by</p>
+          <p class="text-white text-xs lg:text-sm font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
         </div>
-        <div class="w-16 h-10 bg-white p-2 rounded shadow-xl group hover:scale-105 transition">
+        <div class="w-14 lg:w-16 h-8 lg:h-10 bg-white p-2 rounded shadow-xl group hover:scale-105 transition">
           <img src="zion.jpg" alt="Zion Netcom Solutions Logo" class="w-full h-full object-contain"/>
         </div>
       </div>
@@ -590,14 +596,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ───── Mobile Navigation ─────
   window.openMobileNav = () => {
-    document.getElementById("mobileNavPanel").classList.add("!right-0");
-    document.getElementById("mobileNavOverlay").classList.add("opacity-100", "pointer-events-auto");
+    document.getElementById("mobileNavPanel")?.classList.add("!right-0");
+    document.getElementById("mobileNavOverlay")?.classList.add("opacity-100", "pointer-events-auto");
     document.body.style.overflow = "hidden";
   };
 
   window.closeMobileNav = () => {
-    document.getElementById("mobileNavPanel").classList.remove("!right-0");
-    document.getElementById("mobileNavOverlay").classList.remove("opacity-100", "pointer-events-auto");
+    document.getElementById("mobileNavPanel")?.classList.remove("!right-0");
+    document.getElementById("mobileNavOverlay")?.classList.remove("opacity-100", "pointer-events-auto");
     document.body.style.overflow = "";
   };
 
@@ -647,7 +653,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     sections.forEach((sec) => {
       const rect = sec.getBoundingClientRect();
-      if (rect.top <= 220 && rect.bottom >= 220) {
+      // Adjusted threshold for better mobile feel
+      if (rect.top <= 180 && rect.bottom >= 180) {
         current = sec.id;
       }
     });
