@@ -659,99 +659,97 @@ X Updates
   </div>
 </footer>
  
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
-    <script>
-        const lightbox = GLightbox({
-    selector: '.glightbox'
-     });
-        // Initialize Isotope after images are loaded
-        const grid = document.querySelector('.grid-container');
-let iso;
-window.addEventListener('load', function() {
-if(!grid) return;
-imagesLoaded(grid, function(){
-iso = new Isotope(grid, {
-itemSelector: '.grid-item',
-percentPosition: true,
-masonry: {
-columnWidth: '.grid-sizer'
-}
-});
-});
-});
-        // Filter Logic
-       const filters = document.querySelector('#filters');
-if(filters){
-filters.addEventListener('click', function(e) {
-if (!e.target.classList.contains('filter-btn')) return;
-var filterValue = e.target.getAttribute('data-filter');
-if(iso){
-iso.arrange({ filter: filterValue });
-}
-document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-e.target.classList.add('active');
-});
-}
-                       
-      // MOBILE NAV TOGGLE
-    document.addEventListener("DOMContentLoaded", function(){
-    // ... your existing AOS, clock, slideshow, counters, tabs, dropdowns ...
+ <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // ─── Lightbox (GLightbox) ───
+    const lightbox = GLightbox({
+        selector: '.glightbox'
+    });
 
-    // Mobile Navigation Functions
-    window.openMobileNav = function(){
+    // ─── Isotope Masonry Grid + Filter ───
+    const grid = document.querySelector('.grid-container');
+    let iso;
+
+    if (grid) {
+        imagesLoaded(grid, function () {
+            iso = new Isotope(grid, {
+                itemSelector: '.grid-item',
+                percentPosition: true,
+                masonry: {
+                    columnWidth: '.grid-sizer'
+                }
+            });
+        });
+    }
+
+    const filters = document.querySelector('#filters');
+    if (filters) {
+        filters.addEventListener('click', function (e) {
+            if (!e.target.classList.contains('filter-btn')) return;
+            const filterValue = e.target.getAttribute('data-filter');
+            if (iso) {
+                iso.arrange({ filter: filterValue });
+            }
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+        });
+    }
+
+    // ─── Mobile Navigation ───
+    window.openMobileNav = function () {
         const overlay = document.getElementById("mobileNavOverlay");
-        const panel   = document.getElementById("mobileNavPanel");
-        if(overlay) overlay.classList.add("active");
-        if(panel)   panel.classList.add("active");
+        const panel = document.getElementById("mobileNavPanel");
+        if (overlay) overlay.classList.add("active");
+        if (panel) panel.classList.add("active");
         document.body.classList.add("no-scroll");
     };
 
-    window.closeMobileNav = function(){
+    window.closeMobileNav = function () {
         const overlay = document.getElementById("mobileNavOverlay");
-        const panel   = document.getElementById("mobileNavPanel");
-        if(overlay) overlay.classList.remove("active");
-        if(panel)   panel.classList.remove("active");
+        const panel = document.getElementById("mobileNavPanel");
+        if (overlay) overlay.classList.remove("active");
+        if (panel) panel.classList.remove("active");
         document.body.classList.remove("no-scroll");
     };
 
-    window.toggleSubmenu = function(id){
+    window.toggleSubmenu = function (id) {
         const menu = document.getElementById(id);
-        if(!menu) return;
+        if (!menu) return;
         menu.style.display = menu.style.display === "block" ? "none" : "block";
     };
 
-    // ... rest of your code (donate modal, copyToClipboard, etc.) ...
+    // ─── Donation Modal ───
+    window.toggleModal = function () {
+        const modal = document.getElementById('donateModal');
+        if (!modal) return;
+        modal.classList.toggle('hidden');
+    };
+
+    window.copyToClipboard = function (text) {
+        navigator.clipboard.writeText(text);
+        const btn = document.getElementById("copyBtn");
+        if (btn) {
+            btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+            }, 2000);
+        }
+    };
+
+    window.handleDonation = function (e) {
+        e.preventDefault();
+        const form = document.getElementById("donorForm");
+        const success = document.getElementById("successContent");
+        const content = document.getElementById("formContent");
+        if (form && success && content) {
+            content.classList.add("hidden");
+            success.classList.remove("hidden");
+        }
+    };
 });
-
-      // DONATION MODAL
-      function toggleModal() {
-          const modal = document.getElementById('donateModal');
-          if (!modal) return;
-          modal.classList.toggle('hidden');
-      }
-
-      function copyToClipboard(text){
-          navigator.clipboard.writeText(text);
-          const btn = document.getElementById("copyBtn");
-          if(btn){
-              btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
-              setTimeout(()=>{
-                  btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
-              },2000);
-          }
-      }
-
-      function handleDonation(e){
-          e.preventDefault();
-          const form = document.getElementById("donorForm");
-          const success = document.getElementById("successContent");
-          const content = document.getElementById("formContent");
-          if(form && success && content){
-              content.classList.add("hidden");
-              success.classList.remove("hidden");
-          }
-      }
-    </script>
+</script>                    
+  
 </body>
 </html>
