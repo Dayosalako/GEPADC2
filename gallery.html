@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     <style>
+        :root { --brand-green: #2D5A27; }
         body { 
             font-family: 'Inter', sans-serif; 
             background: #ffffff; 
@@ -37,56 +38,52 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease;
+            filter: grayscale(100%);
         }
+        .grid-item:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
         @media (max-width: 1024px) { .grid-item { width: 50%; } }
         @media (max-width: 640px) { .grid-item { width: 100%; } }
 
-        /* Navigation Dropdown */
+        /* Desktop Dropdown */
         .dropdown-menu {
-            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 260px;
+            padding-top: 10px;
+            z-index: 50;
             opacity: 0;
+            visibility: hidden;
             transform: translateY(10px);
             transition: all 0.25s ease;
-            pointer-events: none;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
-        .dropdown.active .dropdown-menu {
-            display: block;
+        .dropdown:hover .dropdown-menu {
             opacity: 1;
+            visibility: visible;
             transform: translateY(0);
-            pointer-events: auto;
         }
         .dropdown-item {
-            display: block; 
-            padding: 0.75rem 1.5rem; 
-            font-size: 9px;
-            text-transform: uppercase; 
-            font-weight: 900; 
-            color: #1a1a1a; 
-            transition: all 0.2s;
+            padding: 14px 22px;
+            display: block;
+            font-size: 11px;
+            color: #1a1a1a;
+            border-bottom: 1px solid #f3f4f6;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.15em;
         }
-        .dropdown-item:hover { 
-            background: #f9f9f9; 
-            color: #2D5A27; 
-            padding-left: 2rem; 
-        }
-
-        /* Media Card Styling */
-        .media-container { 
-            position: relative; 
-            overflow: hidden; 
-            background: #f4f4f4; 
-            border: 1px solid rgba(0,0,0,0.05); 
-        }
-        .media-container img { 
-            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), filter 0.5s ease; 
-            filter: grayscale(100%); 
-            width: 100%; 
-            height: auto; 
-            display: block; 
-        }
-        .media-container:hover img { 
-            transform: scale(1.05); 
-            filter: grayscale(0%); 
+        .dropdown-item:hover {
+            background: #f9fafb;
+            color: var(--brand-green);
+            padding-left: 28px;
         }
 
         .filter-btn { 
@@ -96,18 +93,14 @@
             cursor: pointer; 
         }
         .filter-btn.active { 
-            color: #2D5A27; 
-            border-color: #2D5A27; 
+            color: var(--brand-green); 
+            border-color: var(--brand-green); 
         }
 
-        html, body{
-            overflow-x:hidden;
-        }
-        html{
-            scroll-behavior:smooth;
-        }
+        html, body { overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
 
-        /* ─── Mobile Navigation ─── */
+        /* Mobile Navigation */
         .mobile-nav-overlay {
             position: fixed;
             inset: 0;
@@ -137,7 +130,7 @@
             box-shadow: -12px 0 40px rgba(0,0,0,0.25);
         }
         .mobile-nav-panel.active {
-            transform: translateX(0) !important;
+            transform: translateX(0);
         }
         .mobile-nav-panel ul {
             list-style: none;
@@ -203,10 +196,9 @@
         .mobile-nav-close:hover {
             background: #f8f8f8;
         }
-        .mobile-nav-close i {
-            font-size: 1.1rem;
+        .no-scroll {
+            overflow: hidden !important;
         }
-        :root { --brand-green: #2D5A27; }
     </style>
 </head>
 <body>
@@ -233,7 +225,7 @@
               <a href="index.html#vision-section" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Vision</a>
               <a href="index.html#mission-section" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Mission</a>
               <a href="index.html#values" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Values</a>
-              <a href="team.html#board" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">Our Board</a>
+              <a href="team.html#board" class="block px-5 py-2.5 hover:bg-gray-50 hover:text-[var(--brand-green)]">OUR BOARD OF TRUSTEES/SMT</a>
             </div>
           </div>
           <!-- Join Us -->
@@ -276,8 +268,8 @@
           <button onclick="toggleModal()" class="hidden md:inline-flex items-center px-6 py-2.5 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition border-2 border-black hover:border-[var(--brand-green)]">
             Donate
           </button>
-          <button onclick="openMobileNav()" class="lg:hidden text-2xl text-gray-800">
-            <i class="fas fa-bars"></i>
+          <button onclick="openMobileNav()" class="lg:hidden text-2xl text-gray-800 focus:outline-none">
+            <i id="navIcon" class="fas fa-bars"></i>
           </button>
         </div>
       </div>
@@ -300,7 +292,7 @@
             <a href="index.html#vision-section" class="block py-2 hover:text-[var(--brand-green)]">Our Vision</a>
             <a href="index.html#mission-section" class="block py-2 hover:text-[var(--brand-green)]">Our Mission</a>
             <a href="index.html#values" class="block py-2 hover:text-[var(--brand-green)]">Our Values</a>
-            <a href="team.html#board" class="block py-2 hover:text-[var(--brand-green)]">Our Board</a>
+            <a href="team.html#board" class="block py-2 hover:text-[var(--brand-green)]">OUR BOARD OF TRUSTEES/SMT</a>
           </div>
         </li>
         <li>
@@ -697,16 +689,12 @@
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function(){
-        /* -------------------------
-        LIGHTBOX
-        --------------------------*/
+        // GLightbox
         const lightbox = GLightbox({
             selector: '.glightbox'
         });
 
-        /* -------------------------
-        ISOTOPE GRID + FILTER
-        --------------------------*/
+        // Isotope + Filter
         const grid = document.querySelector('.grid-container');
         let iso;
         if(grid){
@@ -734,24 +722,27 @@
             });
         }
 
-        /* -------------------------
-        MOBILE NAVIGATION
-        --------------------------*/
+        // Mobile Navigation
         window.openMobileNav = function(){
-            const overlay = document.getElementById("mobileNavOverlay");
-            const panel = document.getElementById("mobileNavPanel");
-            if(overlay) overlay.classList.add("active");
-            if(panel) panel.classList.add("active");
+            document.getElementById("mobileNavOverlay").classList.add("active");
+            document.getElementById("mobileNavPanel").classList.add("active");
             document.body.classList.add("no-scroll");
+            document.getElementById("navIcon").className = "fas fa-times";
         };
 
         window.closeMobileNav = function(){
-            const overlay = document.getElementById("mobileNavOverlay");
-            const panel = document.getElementById("mobileNavPanel");
-            if(overlay) overlay.classList.remove("active");
-            if(panel) panel.classList.remove("active");
+            document.getElementById("mobileNavOverlay").classList.remove("active");
+            document.getElementById("mobileNavPanel").classList.remove("active");
             document.body.classList.remove("no-scroll");
+            document.getElementById("navIcon").className = "fas fa-bars";
         };
+
+        // Auto-close mobile menu when clicking links
+        document.querySelectorAll('#mobileNavPanel a').forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(closeMobileNav, 100);
+            });
+        });
 
         window.toggleSubmenu = function(id){
             const menu = document.getElementById(id);
@@ -759,9 +750,7 @@
             menu.style.display = menu.style.display === "block" ? "none" : "block";
         };
 
-        /* -------------------------
-        DONATION MODAL
-        --------------------------*/
+        // Donate Modal
         window.toggleModal = function(){
             const modal = document.getElementById('donateModal');
             if(!modal) return;
@@ -772,7 +761,7 @@
             navigator.clipboard.writeText(text);
             const btn = document.getElementById("copyBtn");
             if(btn){
-                btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+                btn.innerHTML = '<i class="fas fa-check text-white"></i>';
                 setTimeout(()=>{
                     btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
                 },2000);
