@@ -1073,48 +1073,44 @@ body {
         });
 
 });
-
-   // Replace the old loadGallery and its surrounding script with this:
-async function loadGallery() {
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
+document.addEventListener("DOMContentLoaded", function () {
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzGCZePEPFf0bV96wcGCJI8bXRz7Eor6wQgIIz3kGGTrDVtVVxr2t39KVwV4XjPTzl/exec";
     const container = document.getElementById('galleryContainer');
-    
-    try {
-        const response = await fetch(SCRIPT_URL);
-        const images = await response.json();
 
-        // Map the data into your premium grid-item format
-        const htmlContent = images.map(img => `
-            <div class="grid-item ${img[4] || 'protection'}">
-                <a href="${img[1]}" class="glightbox media-container block">
-                    <img src="${img[1]}" alt="${img[2]}" loading="lazy" 
-                         onerror="this.src='https://via.placeholder.com/500?text=Image+Not+Found'">
-                </a>
-            </div>
-        `).join('');
-
-        container.innerHTML = htmlContent;
-
-        // Re-initialize Isotope after images are injected
-        imagesLoaded(container, function() {
-            const iso = new Isotope(container, {
-                itemSelector: '.grid-item',
-                layoutMode: 'fitRows'
-            });
+    async function loadGallery() {
+        try {
+            const response = await fetch(SCRIPT_URL);
+            const images = await response.json();
             
-            // Refresh GLightbox for the new images
-            GLightbox({ selector: ".glightbox" });
-        });
+            // Clear the "Synchronizing" text or old items
+            container.innerHTML = '';
 
-    } catch (error) {
-        console.error("Gallery Sync Error:", error);
-        container.innerHTML = `<p class="text-center py-10 text-gray-400 uppercase font-black text-xs">Failed to sync with cloud vault.</p>`;
+            const htmlContent = images.map(img => `
+                <div class="grid-item ${img[4] || 'protection'}">
+                    <a href="${img[1]}" class="glightbox media-container block">
+                        <img src="${img[1]}" alt="${img[2]}" loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/500?text=Check+Drive+Permissions'">
+                    </a>
+                </div>
+            `).join('');
+
+            container.innerHTML = htmlContent;
+
+            // Re-initialize Isotope and GLightbox after images load
+            imagesLoaded(container, function() {
+                const iso = new Isotope(container, {
+                    itemSelector: '.grid-item',
+                    layoutMode: 'fitRows'
+                });
+                GLightbox({ selector: ".glightbox" });
+            });
+        } catch (error) {
+            console.error("Sync Error:", error);
+        }
     }
-}
 
-// Call the function when the page loads
-document.addEventListener("DOMContentLoaded", loadGallery);                    
-  
-    </script>
+    loadGallery(); // Start the sync
+});
+      </script>
   </body>
 </html>
