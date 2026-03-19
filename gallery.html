@@ -606,6 +606,12 @@ body {
             <img src="media/photos/GEPADC 121.jpg" alt="Impact" loading="lazy" />
           </a>
         </div>
+
+        <div class="px-6 max-w-[1800px] mx-auto min-h-screen">
+  <div id="galleryContainer" class="grid-container">
+    </div>
+</div>
+        
       </div>
     </div>
 
@@ -1070,20 +1076,47 @@ body {
 
 });
 
-      async function loadGallery() {
-    const response = await fetch(SCRIPT_URL);
-    const images = await response.json();
+   // Replace the old loadGallery and its surrounding script with this:
+async function loadGallery() {
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw21yht9I7s5DGrDvSlBPMPts0HzJdexPIxgcA7KKe4m1nwfmmOTsHnFG64ZywYzUUv/exec";
     const container = document.getElementById('galleryContainer');
     
-    images.forEach(img => {
-        container.innerHTML += `
-            <div class="gallery-item">
-                <img src="${img[1]}" alt="${img[2]}">
-                <p>${img[2]}</p>
+    try {
+        const response = await fetch(SCRIPT_URL);
+        const images = await response.json();
+
+        // Map the data into your premium grid-item format
+        const htmlContent = images.map(img => `
+            <div class="grid-item ${img[4] || 'protection'}">
+                <a href="${img[1]}" class="glightbox media-container block">
+                    <img src="${img[1]}" alt="${img[2]}" loading="lazy" 
+                         onerror="this.src='https://via.placeholder.com/500?text=Image+Not+Found'">
+                </a>
             </div>
-        `;
-    });
+        `).join('');
+
+        container.innerHTML = htmlContent;
+
+        // Re-initialize Isotope after images are injected
+        imagesLoaded(container, function() {
+            const iso = new Isotope(container, {
+                itemSelector: '.grid-item',
+                layoutMode: 'fitRows'
+            });
+            
+            // Refresh GLightbox for the new images
+            GLightbox({ selector: ".glightbox" });
+        });
+
+    } catch (error) {
+        console.error("Gallery Sync Error:", error);
+        container.innerHTML = `<p class="text-center py-10 text-gray-400 uppercase font-black text-xs">Failed to sync with cloud vault.</p>`;
+    }
 }
+
+// Call the function when the page loads
+document.addEventListener("DOMContentLoaded", loadGallery);                    
+  
     </script>
   </body>
 </html>
