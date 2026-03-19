@@ -3,370 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEPaDC | Admin Portal</title>
+    <title>GEPaDC | Control Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
         .font-heading { font-family: 'Montserrat', sans-serif; }
-        /* Smooth transition for the gatekeeper */
-        #gatekeeper { transition: all 0.5s ease; }
+        .transition-theme { transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease; }
+        #gatekeeper { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
-</head>
-<header class="bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 sticky top-0 z-[100] transition-colors duration-500">
-    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
-        
-        <div class="flex items-center gap-6">
-            <div class="hidden md:block">
-                <h1 class="font-heading font-black italic text-2xl uppercase tracking-tighter leading-none dark:text-white">
-                    GEPaDC <span class="text-[#2D5A27]">Control.</span>
-                </h1>
-            </div>
-            <div class="h-8 w-[1px] bg-gray-200 dark:bg-zinc-800 hidden md:block"></div>
-            <div>
-                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-1">Authenticated Session</p>
-                <h2 class="text-xs font-bold uppercase dark:text-zinc-300">Welcome, Dayo Salako</h2>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-6">
-            <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
-                <div id="modeIcon" class="text-gray-500 dark:text-zinc-400">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.071 16.071l.707.707M7.757 7.757l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
-                </div>
-            </button>
-
-            <button onclick="logout()" class="relative group h-10 px-5 flex items-center justify-center border border-black dark:border-white transition-all">
-                <div class="absolute inset-0 w-0 bg-red-600 transition-all duration-300 ease-out group-hover:w-full"></div>
-                <span class="relative text-[9px] font-black uppercase tracking-widest group-hover:text-white dark:text-white transition-colors">Logout</span>
-            </button>
-        </div>
-    </div>
-</header>  
-    
-<main class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        
-        <section class="group bg-white border border-gray-200 p-8 lg:p-12 shadow-sm hover:shadow-xl hover:border-[#2D5A27] transition-all duration-500 rounded-sm relative overflow-hidden">
-            <span class="absolute -top-4 -right-4 text-9xl font-heading font-black opacity-[0.03] italic group-hover:opacity-[0.07] transition-opacity">01</span>
-            
-            <div class="relative z-10">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-10 h-10 bg-gray-50 flex items-center justify-center border border-gray-200 group-hover:bg-[#2D5A27] group-hover:border-[#2D5A27] transition-colors">
-                        <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 group-hover:text-black transition-colors">Gallery Media Engine</h2>
-                </div>
-
-                <form id="galleryForm" class="space-y-6">
-                    <div class="relative">
-                        <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Master Asset Upload</label>
-                        <input type="file" id="imageInput" accept="image/*" required 
-                            class="w-full text-xs font-bold uppercase border-2 border-dashed border-gray-100 p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-[#2D5A27] transition-all file:hidden">
-                        <p class="text-[10px] text-gray-400 mt-2 italic text-center italic">Drag and drop or click to browse</p>
-                    </div>
-
-                    <div>
-                        <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Contextual Caption</label>
-                        <input type="text" id="imageCaption" placeholder="What happened at this event?" 
-                            class="w-full border-b border-gray-200 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] transition-colors bg-transparent">
-                    </div>
-
-                    <button type="submit" id="galleryBtn" 
-                        class="w-full bg-black text-white py-5 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#2D5A27] transform hover:-translate-y-1 transition-all duration-300 shadow-lg">
-                        Execute Cloud Upload
-                    </button>
-                </form>
-            </div>
-        </section>
-
-        <section class="group bg-white border border-gray-200 p-8 lg:p-12 shadow-sm hover:shadow-xl hover:border-[#2D5A27] transition-all duration-500 rounded-sm relative overflow-hidden">
-             <span class="absolute -top-4 -right-4 text-9xl font-heading font-black opacity-[0.03] italic group-hover:opacity-[0.07] transition-opacity">02</span>
-
-            <div class="relative z-10">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-10 h-10 bg-gray-50 flex items-center justify-center border border-gray-200 group-hover:bg-[#2D5A27] group-hover:border-[#2D5A27] transition-colors">
-                        <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 group-hover:text-black transition-colors">Opportunity Board</h2>
-                </div>
-
-                <form id="jobForm" class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-2 md:col-span-1">
-                            <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Role Designation</label>
-                            <input type="text" id="jobTitle" placeholder="e.g. Field Officer" required 
-                                class="w-full border-b border-gray-200 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] transition-colors bg-transparent">
-                        </div>
-                        <div class="col-span-2 md:col-span-1">
-                            <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Deployment Location</label>
-                            <input type="text" id="jobLoc" placeholder="State/City" 
-                                class="w-full border-b border-gray-200 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] transition-colors bg-transparent">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Role Intelligence (Markdown Supported)</label>
-                        <textarea id="jobDesc" placeholder="Responsibilities & Perks..." required 
-                            class="w-full border border-gray-100 p-4 h-32 text-sm font-medium outline-none focus:border-[#2D5A27] transition-colors bg-gray-50 focus:bg-white"></textarea>
-                    </div>
-
-                    <button type="submit" id="jobBtn" 
-                        class="w-full bg-black text-white py-5 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#2D5A27] transform hover:-translate-y-1 transition-all duration-300 shadow-lg">
-                        Broadcast Opportunity
-                    </button>
-                </form>
-            </div>
-        </section>
-    </div>
-</main>
-        <section class="p-10 bg-white">
-            <div class="flex justify-between items-end mb-12">
-                <div>
-                    <h2 class="text-xs font-black uppercase tracking-[0.4em] text-gray-400 mb-2">03. Content Manager</h2>
-                    <p class="text-[10px] font-bold uppercase tracking-widest">Manage Live Website Data</p>
-                </div>
-                <button onclick="refreshManager()" class="text-[10px] font-black uppercase border-b-2 border-black pb-1 hover:text-[#2D5A27] hover:border-[#2D5A27] transition">Sync Latest Data</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div>
-                    <h3 class="font-heading italic font-black uppercase text-lg mb-6 border-b border-black pb-2">Live Gallery</h3>
-                    <div id="adminGalleryList" class="space-y-4">
-                        <p class="text-[10px] uppercase animate-pulse">Fetching photos...</p>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="font-heading italic font-black uppercase text-lg mb-6 border-b border-black pb-2">Open Jobs</h3>
-                    <div id="adminJobList" class="space-y-4">
-                        <p class="text-[10px] uppercase animate-pulse">Fetching roles...</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-<footer class="max-w-7xl mx-auto px-6 lg:px-10 pb-20">
-    <div class="bg-black text-white p-8 rounded-sm shadow-2xl relative overflow-hidden">
-        <div class="absolute top-0 right-0 p-4 opacity-10">
-            <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1h10v4H5V6zm0 6h10v2H5v-2z" clip-rule="evenodd"></path></svg>
-        </div>
-
-        <div class="relative z-10">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <h2 class="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">Live Activity Terminal</h2>
-            </div>
-            
-            <div id="systemLog" class="font-mono text-[10px] uppercase tracking-widest space-y-2 max-h-32 overflow-y-auto">
-                <p class="text-green-500 text-opacity-50">>> System Initialized...</p>
-                <p class="text-green-500 text-opacity-50">>> Awaiting Command...</p>
-            </div>
-        </div>
-    </div>
-</footer>
     <script>
-        // 1. CONFIGURATION
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
-        const ADMIN_PASSWORD = "1234";
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-zinc-950 text-black dark:text-white transition-theme min-h-screen">
 
-        // Enable dark mode support in Tailwind
-    tailwind.config = {
-        darkMode: 'class',
-    }
+    <div id="gatekeeper" class="fixed inset-0 bg-black z-[999] flex items-center justify-center p-6">
+        <div class="max-w-sm w-full bg-white p-10 shadow-2xl rounded-sm">
+            <h2 class="font-heading uppercase italic text-2xl mb-2 text-black">Security Access</h2>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-8">Identify for Server Entry</p>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">User Identity</label>
+                    <input type="text" id="adminUser" placeholder="Enter Name" class="w-full border-b-2 border-gray-100 p-3 outline-none focus:border-black text-black font-bold uppercase text-sm">
+                </div>
+                <div>
+                    <label class="block text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">Access Key</label>
+                    <input type="password" id="adminPass" placeholder="••••••••" class="w-full border-b-2 border-gray-100 p-3 outline-none focus:border-[#2D5A27] text-black">
+                </div>
+                <button onclick="checkPass()" class="w-full bg-black text-white p-4 font-bold uppercase tracking-widest hover:bg-[#2D5A27] transition-all shadow-xl">Verify & Initialize</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminContent" class="hidden">
         
-        // 2. SECURITY & NAVIGATION
+        <header class="bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 sticky top-0 z-[100] transition-theme">
+            <div class="max-w-7xl mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
+                <div class="flex items-center gap-6">
+                    <div class="hidden md:block">
+                        <h1 class="font-heading font-black italic text-2xl uppercase tracking-tighter leading-none">
+                            GEPaDC <span class="text-[#2D5A27]">Control.</span>
+                        </h1>
+                    </div>
+                    <div class="h-8 w-[1px] bg-gray-200 dark:bg-zinc-800 hidden md:block"></div>
+                    <div>
+                        <p id="accessLevelLabel" class="text-[10px] font-black uppercase tracking-[0.3em] text-[#2D5A27] mb-1">Standard Access</p>
+                        <h2 id="welcomeName" class="text-xs font-bold uppercase tracking-wider">Welcome, Administrator</h2>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
+                        <div id="modeIcon" class="text-gray-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.071 16.071l.707.707M7.757 7.757l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                        </div>
+                    </button>
+                    <button onclick="logout()" class="relative group h-10 px-5 flex items-center justify-center border border-black dark:border-zinc-700 transition-all">
+                        <div class="absolute inset-0 w-0 bg-red-600 transition-all duration-300 ease-out group-hover:w-full"></div>
+                        <span class="relative text-[9px] font-black uppercase tracking-widest group-hover:text-white transition-colors">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
+                
+                <section class="group bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 p-8 lg:p-12 shadow-sm hover:border-[#2D5A27] transition-theme relative overflow-hidden">
+                    <span class="absolute -top-4 -right-4 text-9xl font-heading font-black opacity-[0.03] italic group-hover:opacity-[0.07] dark:text-white transition-opacity">01</span>
+                    <div class="relative z-10">
+                        <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 mb-8">Gallery Media Engine</h2>
+                        <form id="galleryForm" class="space-y-6">
+                            <input type="file" id="imageInput" accept="image/*" required class="w-full text-[10px] font-bold uppercase border-2 border-dashed border-gray-100 dark:border-zinc-800 p-8 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-zinc-800 transition-all file:hidden">
+                            <input type="text" id="imageCaption" placeholder="Event Caption" class="w-full border-b border-gray-200 dark:border-zinc-700 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] bg-transparent">
+                            <button type="submit" id="galleryBtn" class="w-full bg-black dark:bg-white dark:text-black text-white py-5 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#2D5A27] transition-all shadow-lg">Execute Upload</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="group bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 p-8 lg:p-12 shadow-sm hover:border-[#2D5A27] transition-theme relative overflow-hidden">
+                    <span class="absolute -top-4 -right-4 text-9xl font-heading font-black opacity-[0.03] italic group-hover:opacity-[0.07] dark:text-white transition-opacity">02</span>
+                    <div class="relative z-10">
+                        <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 mb-8">Opportunity Board</h2>
+                        <form id="jobForm" class="space-y-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="text" id="jobTitle" placeholder="Role Title" required class="w-full border-b border-gray-200 dark:border-zinc-700 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] bg-transparent">
+                                <input type="text" id="jobLoc" placeholder="Location" class="w-full border-b border-gray-200 dark:border-zinc-700 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] bg-transparent">
+                            </div>
+                            <textarea id="jobDesc" placeholder="Responsibilities..." required class="w-full border border-gray-100 dark:border-zinc-800 p-4 h-32 text-sm font-medium outline-none focus:border-[#2D5A27] bg-gray-50 dark:bg-zinc-800 transition-all"></textarea>
+                            <button type="submit" id="jobBtn" class="w-full bg-black dark:bg-white dark:text-black text-white py-5 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#2D5A27] transition-all shadow-lg">Broadcast Role</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+
+            <section class="mb-20">
+                <div class="flex justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-xs font-black uppercase tracking-[0.4em] text-gray-400">03. Content Manager</h2>
+                        <p class="text-[9px] font-bold uppercase tracking-[0.2em] mt-2">Live Cloud Database Sync</p>
+                    </div>
+                    <button onclick="refreshManager()" class="text-[10px] font-black uppercase border-b-2 border-black dark:border-white pb-1 hover:text-[#2D5A27] transition-all">Manual Sync</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <div id="adminGalleryList" class="space-y-4"></div>
+                    <div id="adminJobList" class="space-y-4"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="max-w-7xl mx-auto px-6 lg:px-10 pb-20">
+            <div class="bg-black dark:bg-zinc-900 text-white p-8 rounded-sm shadow-2xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <h2 class="text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">Live Activity Terminal</h2>
+                    </div>
+                    <div id="systemLog" class="font-mono text-[10px] uppercase tracking-widest space-y-2 max-h-32 overflow-y-auto opacity-80">
+                        <p class="text-green-500">>> Secure Session Initialized.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
+        
+        // AUTH CONFIGURATION
+        const SUPER_ADMIN = { name: "Dayo", pass: "Salako2020" };
+        const ADMIN_PASS = "1234"; 
+
+        function addToLog(msg, isErr = false) {
+            const log = document.getElementById('systemLog');
+            const p = document.createElement('p');
+            p.className = isErr ? 'text-red-500' : 'text-green-500';
+            p.innerHTML = `[${new Date().toLocaleTimeString()}] >> ${msg}`;
+            log.prepend(p);
+        }
+
         function checkPass() {
+            const user = document.getElementById('adminUser').value;
             const pass = document.getElementById('adminPass').value;
-            if (pass === ADMIN_PASSWORD) {
-                document.getElementById('gatekeeper').classList.add('hidden');
-                document.getElementById('adminContent').classList.remove('hidden');
-                refreshManager(); // Load live data immediately
+            
+            let authenticated = false;
+            let role = "Admin";
+
+            if (user.toLowerCase() === SUPER_ADMIN.name.toLowerCase() && pass === SUPER_ADMIN.pass) {
+                authenticated = true;
+                role = "Super Admin";
+            } else if (pass === ADMIN_PASS) {
+                authenticated = true;
+                role = "Staff Admin";
+            }
+
+            if (authenticated) {
+                // Persistent Registration Lock (Session based)
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userName', user || "Administrator");
+                sessionStorage.setItem('userRole', role);
+                
+                initializePortal();
             } else {
-                alert("Unauthorized Access.");
+                alert("ACCESS DENIED: Invalid Credentials.");
+                addToLog("SECURITY ALERT: Failed Login Attempt.", true);
+            }
+        }
+
+        function initializePortal() {
+            const user = sessionStorage.getItem('userName');
+            const role = sessionStorage.getItem('userRole');
+
+            document.getElementById('gatekeeper').classList.add('hidden');
+            document.getElementById('adminContent').classList.remove('hidden');
+            document.getElementById('welcomeName').innerText = `Welcome, ${user}`;
+            document.getElementById('accessLevelLabel').innerText = `${role} Level Access`;
+            
+            addToLog(`SESSION: Authenticated as ${role} (${user}).`);
+            refreshManager();
+            if (localStorage.getItem('theme') === 'dark') applyDarkMode(true);
+        }
+
+        function toggleDarkMode() {
+            const isDark = !document.documentElement.classList.contains('dark');
+            applyDarkMode(isDark);
+        }
+
+        function applyDarkMode(isDark) {
+            const html = document.documentElement;
+            const iconContainer = document.getElementById('modeIcon');
+            
+            if (isDark) {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                iconContainer.innerHTML = `<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>`;
+            } else {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                iconContainer.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.071 16.071l.707.707M7.757 7.757l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>`;
             }
         }
 
         function logout() {
-            if (!confirm("Securely close admin session?")) return;
-            document.getElementById('adminPass').value = "";
-            document.getElementById('adminContent').classList.add('hidden');
-            document.getElementById('gatekeeper').classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-
-        // 3. REFRESH MANAGER (Syncs live data to the admin list)
-        async function refreshManager() {
-            const gList = document.getElementById('adminGalleryList');
-            const jList = document.getElementById('adminJobList');
-            
-            if(gList) gList.innerHTML = '<p class="text-[9px] animate-pulse uppercase">Syncing Gallery...</p>';
-            if(jList) jList.innerHTML = '<p class="text-[9px] animate-pulse uppercase">Syncing Jobs...</p>';
-
-            try {
-                // Fetch Gallery Items
-                const gRes = await fetch(SCRIPT_URL);
-                const images = await gRes.json();
-                gList.innerHTML = images.map(img => `
-                    <div class="flex items-center justify-between bg-gray-50 p-4 border border-black/5 group hover:border-[#2D5A27] transition-colors">
-                        <div class="flex items-center gap-4">
-                            <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition shadow-sm">
-                            <span class="text-[10px] font-bold uppercase truncate w-32">${img[2] || 'No Caption'}</span>
-                        </div>
-                        <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Remove</button>
-                    </div>
-                `).join('') || '<p class="text-[10px] text-gray-400 uppercase tracking-widest">Empty Gallery</p>';
-
-                // Fetch Job Items
-                const jRes = await fetch(SCRIPT_URL + "?type=jobs");
-                const jobs = await jRes.json();
-                jList.innerHTML = jobs.map(job => `
-                    <div class="flex items-center justify-between bg-gray-50 p-4 border border-black/5 hover:border-[#2D5A27] transition-colors">
-                        <span class="text-[10px] font-bold uppercase truncate mr-4">${job[1]}</span>
-                        <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Close Role</button>
-                    </div>
-                `).join('') || '<p class="text-[10px] text-gray-400 uppercase tracking-widest">No Open Roles</p>';
-            } catch (e) { 
-                console.error("Sync Error:", e);
-                gList.innerHTML = jList.innerHTML = '<p class="text-red-500 text-[9px] uppercase">Sync Failed. Check Script URL.</p>';
+            if (confirm("Terminate Session?")) {
+                sessionStorage.clear();
+                window.location.reload();
             }
         }
 
-        // 4. UPLOAD GALLERY ITEM
+        async function refreshManager() {
+            const gList = document.getElementById('adminGalleryList');
+            const jList = document.getElementById('adminJobList');
+            gList.innerHTML = '<p class="text-[9px] uppercase animate-pulse">Syncing Gallery...</p>';
+            jList.innerHTML = '<p class="text-[9px] uppercase animate-pulse">Syncing Jobs...</p>';
+
+            try {
+                const gRes = await fetch(SCRIPT_URL);
+                const images = await gRes.json();
+                gList.innerHTML = images.map(img => `
+                    <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-4 border border-black/5 dark:border-white/5 group">
+                        <div class="flex items-center gap-4">
+                            <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition shadow-sm">
+                            <span class="text-[9px] font-bold uppercase truncate w-32 dark:text-gray-400">${img[2] || 'UNTITLED'}</span>
+                        </div>
+                        <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Purge</button>
+                    </div>
+                `).join('') || '<p class="text-[10px] uppercase text-gray-400">No media found.</p>';
+
+                const jRes = await fetch(SCRIPT_URL + "?type=jobs");
+                const jobs = await jRes.json();
+                jList.innerHTML = jobs.map(job => `
+                    <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-4 border border-black/5 dark:border-white/5">
+                        <span class="text-[9px] font-bold uppercase truncate mr-4 dark:text-gray-400">${job[1]}</span>
+                        <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Close</button>
+                    </div>
+                `).join('') || '<p class="text-[10px] uppercase text-gray-400">No jobs active.</p>';
+                addToLog("SYNC: Cloud mirroring successful.");
+            } catch (e) { addToLog("SYNC ERROR: Connection failed.", true); }
+        }
+
         document.getElementById('galleryForm').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('galleryBtn');
             const file = document.getElementById('imageInput').files[0];
-            if (!file) return;
-
-            btn.innerText = "UPLOADING...";
-            btn.disabled = true;
-
+            btn.innerText = "UPLOADING..."; btn.disabled = true;
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = async () => {
                 try {
-                    const data = {
-                        type: "GALLERY",
-                        image: reader.result.split(',')[1],
-                        mimeType: file.type,
-                        name: file.name,
-                        caption: document.getElementById('imageCaption').value
-                    };
-                    const response = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
-                    if(response.ok) {
-                        alert("Gallery Updated Successfully!");
-                        e.target.reset();
-                        refreshManager(); 
-                    }
-                } catch (err) { alert("Upload failed. Image might be too large."); }
-                finally { btn.innerText = "UPLOAD TO CLOUD"; btn.disabled = false; }
+                    await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({
+                        type: "GALLERY", image: reader.result.split(',')[1], mimeType: file.type, name: file.name, caption: document.getElementById('imageCaption').value
+                    })});
+                    addToLog(`SUCCESS: Asset "${file.name}" uploaded.`);
+                    e.target.reset(); refreshManager();
+                } catch (err) { addToLog("CRITICAL: Upload failed.", true); }
+                finally { btn.innerText = "EXECUTE UPLOAD"; btn.disabled = false; }
             };
         };
 
-        // 5. POST JOB ROLE
         document.getElementById('jobForm').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('jobBtn');
-            btn.innerText = "POSTING...";
-            btn.disabled = true;
-
+            btn.innerText = "BROADCASTING..."; btn.disabled = true;
             try {
-                const data = {
-                    type: "JOB",
-                    title: document.getElementById('jobTitle').value,
-                    description: document.getElementById('jobDesc').value,
-                    location: document.getElementById('jobLoc').value
-                };
-                const response = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
-                if(response.ok) {
-                    alert("Job Board Updated!");
-                    e.target.reset();
-                    refreshManager(); 
-                }
-            } catch (err) { alert("Posting failed."); }
-            finally { btn.innerText = "POST ROLE"; btn.disabled = false; }
+                await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({
+                    type: "JOB", title: document.getElementById('jobTitle').value, description: document.getElementById('jobDesc').value, location: document.getElementById('jobLoc').value
+                })});
+                addToLog(`SUCCESS: New job opportunity broadcast.`);
+                e.target.reset(); refreshManager();
+            } catch (err) { addToLog("POST FAILED: Check connection.", true); }
+            finally { btn.innerText = "BROADCAST ROLE"; btn.disabled = false; }
         };
 
-        // 6. DELETE ITEM
         async function deleteAction(sheet, id) {
-            if (!confirm(`Permanently remove this from ${sheet}?`)) return;
-            
+            if (!confirm(`Permanently purge this from ${sheet}?`)) return;
             try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ type: "DELETE_ITEM", targetSheet: sheet, itemId: id })
-                });
-                if(response.ok) {
-                    alert("Item Removed.");
-                    refreshManager();
-                }
-            } catch (e) { 
-                alert("Delete failed. Check your connection."); 
-            }
+                await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ type: "DELETE_ITEM", targetSheet: sheet, itemId: id })});
+                addToLog(`PURGE: Record ID ${id} removed from ${sheet}.`);
+                refreshManager();
+            } catch (e) { addToLog("DELETE FAILED.", true); }
         }
 
-        // NEW: Helper function to write to the terminal
-function addToLog(message, isError = false) {
-    const log = document.getElementById('systemLog');
-    const time = new Date().toLocaleTimeString();
-    const color = isError ? 'text-red-500' : 'text-green-500';
-    
-    const entry = document.createElement('p');
-    entry.className = `${color} leading-loose`;
-    entry.innerHTML = `[${time}] >> ${message}`;
-    
-    log.prepend(entry); // Adds the newest message to the top
-}
-
-// UPDATE: Add addToLog calls inside your existing functions
-// Example for Gallery Upload:
-async function handleGalleryUpload() {
-    // ... your existing code ...
-    try {
-        await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
-        addToLog(`SUCCESS: Asset "${file.name}" synchronized to cloud.`);
-        // ... rest of your code ...
-    } catch (err) {
-        addToLog(`ERROR: Master Asset Upload Failed.`, true);
-    }
-}
-
-// Example for Deletion:
-async function deleteAction(sheet, id) {
-    if (!confirm(`Permanently remove this from ${sheet}?`)) return;
-    try {
-        await fetch(SCRIPT_URL, { /* ... */ });
-        addToLog(`ACTION: Record ID ${id} purged from ${sheet}.`);
-        refreshManager();
-    } catch (e) { 
-        addToLog(`CRITICAL: Purge Command Failed.`, true);
-    }
-}
-        function toggleDarkMode() {
-    const html = document.documentElement;
-    const iconContainer = document.getElementById('modeIcon');
-    
-    html.classList.toggle('dark');
-    
-    const isDark = html.classList.contains('dark');
-    localStorage.setItem('adminTheme', isDark ? 'dark' : 'light');
-    
-    // Switch Icon Visuals
-    if (isDark) {
-        iconContainer.innerHTML = `<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>`;
-        addToLog("THEME: Night Mode Activated.");
-    } else {
-        iconContainer.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.071 16.071l.707.707M7.757 7.757l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>`;
-        addToLog("THEME: Day Mode Activated.");
-    }
-}
-
-// Check for saved theme on load
-window.onload = () => {
-    if (localStorage.getItem('adminTheme') === 'dark') {
-        toggleDarkMode();
-    }
-};
+        // AUTO-LOAD SESSION
+        window.onload = () => {
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                initializePortal();
+            }
+        };
     </script>
 </body>
 </html>
