@@ -54,8 +54,34 @@
         </main>
     </div>
 
+    <section class="p-10 bg-gray-50 border-t border-black">
+    <div class="flex justify-between items-end mb-12">
+        <div>
+            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-gray-400 mb-2">03. Content Manager</h2>
+            <p class="text-[10px] font-bold uppercase">Manage Live Website Data</p>
+        </div>
+        <button onclick="refreshManager()" class="text-[10px] font-black uppercase border-b-2 border-black pb-1 hover:text-[#2D5A27] hover:border-[#2D5A27] transition">Sync Latest Data</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div>
+            <h3 class="font-heading italic font-black uppercase text-lg mb-6 border-b border-black pb-2">Live Gallery</h3>
+            <div id="adminGalleryList" class="space-y-4">
+                <p class="text-[10px] uppercase animate-pulse">Fetching photos...</p>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="font-heading italic font-black uppercase text-lg mb-6 border-b border-black pb-2">Open Jobs</h3>
+            <div id="adminJobList" class="space-y-4">
+                <p class="text-[10px] uppercase animate-pulse">Fetching roles...</p>
+            </div>
+        </div>
+    </div>
+</section>
+    
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw21yht9I7s5DGrDvSlBPMPts0HzJdexPIxgcA7KKe4m1nwfmmOTsHnFG64ZywYzUUv/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
 
         function checkPass() {
             const pass = document.getElementById('adminPass').value;
@@ -117,6 +143,65 @@
             btn.disabled = false;
             e.target.reset();
         };
+
+        async function refreshManager() {
+    // 1. Fetch Gallery Items
+    const gRes = await fetch(SCRIPT_URL);
+    const images = await gRes.json();
+    const gList = document.getElementById('adminGalleryList');
+    gList.innerHTML = images.map(img => `
+        <div class="flex items-center justify-between bg-white p-4 border border-black/5 group">
+            <div class="flex items-center gap-4">
+                <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition">
+                <span class="text-[10px] font-bold uppercase truncate w-32">${img[2]}</span>
+            </div>
+            <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase tracking-tighter hover:underline">Remove</button>
+        </div>
+    `).join('');
+
+    // 2. Fetch Job Items
+    const jRes = await fetch(SCRIPT_URL + "?type=jobs");
+    const jobs = await jRes.json();
+    const jList = document.getElementById('adminJobList');
+    jList.innerHTML = jobs.map(job => `
+        <div class="flex items-center justify-between bg-white p-4 border border-black/5">
+            <span class="text-[10px] font-bold uppercase truncate mr-4">${job[1]}</span>
+            <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase tracking-tighter hover:underline">Close Role</button>
+        </div>
+    `).join('');
+}
+
+async function deleteAction(sheet, id) {
+    if (!confirm(`Permanently delete this from ${sheet}?`)) return;
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({
+                type: "DELETE_ITEM",
+                targetSheet: sheet,
+                itemId: id
+            })
+        });
+        alert("Deleted successfully.");
+        refreshManager(); // Refresh the list automatically
+    } catch (err) {
+        alert("Error during deletion.");
+    }
+}
+
+// In your checkPass() function, add refreshManager() so it loads on login
+function checkPass() {
+    const pass = document.getElementById('adminPass').value;
+    if(pass === "1234") { 
+        document.getElementById('gatekeeper').classList.add('hidden');
+        document.getElementById('adminContent').classList.remove('hidden');
+        refreshManager(); // <--- LOAD DATA HERE
+    } else {
+        alert("Access Denied");
+    }
+}
+        
     </script>
 </body>
 </html>
