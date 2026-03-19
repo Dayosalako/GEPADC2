@@ -128,169 +128,173 @@
         </footer>
     </div>
 
-    <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzGCZePEPFf0bV96wcGCJI8bXRz7Eor6wQgIIz3kGGTrDVtVVxr2t39KVwV4XjPTzl/exec";
+    
+    // AUTH CONFIGURATION
+    const SUPER_ADMIN = { name: "Dayo", pass: "Salako2020" };
+    const ADMIN_PASS = "1234"; 
+
+    function addToLog(msg, isErr = false) {
+        const log = document.getElementById('systemLog');
+        if (!log) return;
+        const p = document.createElement('p');
+        p.className = isErr ? 'text-red-500' : 'text-green-500';
+        p.innerHTML = `[${new Date().toLocaleTimeString()}] >> ${msg}`;
+        log.prepend(p);
+    }
+
+    function checkPass() {
+        const user = document.getElementById('adminUser').value;
+        const pass = document.getElementById('adminPass').value;
+        let authenticated = false;
+        let role = "Admin";
+
+        if (user.toLowerCase() === SUPER_ADMIN.name.toLowerCase() && pass === SUPER_ADMIN.pass) {
+            authenticated = true;
+            role = "Super Admin";
+        } else if (pass === ADMIN_PASS) {
+            authenticated = true;
+            role = "Staff Admin";
+        }
+
+        if (authenticated) {
+            sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('userName', user || "Administrator");
+            sessionStorage.setItem('userRole', role);
+            initializePortal();
+        } else {
+            alert("ACCESS DENIED: Invalid Credentials.");
+            addToLog("SECURITY ALERT: Failed Login Attempt.", true);
+        }
+    }
+
+    function initializePortal() {
+        const user = sessionStorage.getItem('userName');
+        const role = sessionStorage.getItem('userRole');
+
+        document.getElementById('gatekeeper').classList.add('hidden');
+        document.getElementById('adminContent').classList.remove('hidden');
+        document.getElementById('welcomeName').innerText = `Welcome, ${user}`;
+        document.getElementById('accessLevelLabel').innerText = `${role} Level Access`;
         
-        // AUTH CONFIGURATION
-        const SUPER_ADMIN = { name: "Dayo", pass: "Salako2020" };
-        const ADMIN_PASS = "1234"; 
+        addToLog(`SESSION: Authenticated as ${role} (${user}).`);
+        refreshManager();
+        if (localStorage.getItem('theme') === 'dark') applyDarkMode(true);
+    }
 
-        function addToLog(msg, isErr = false) {
-            const log = document.getElementById('systemLog');
-            const p = document.createElement('p');
-            p.className = isErr ? 'text-red-500' : 'text-green-500';
-            p.innerHTML = `[${new Date().toLocaleTimeString()}] >> ${msg}`;
-            log.prepend(p);
+    function toggleDarkMode() {
+        const isDark = !document.documentElement.classList.contains('dark');
+        applyDarkMode(isDark);
+    }
+
+    function applyDarkMode(isDark) {
+        const html = document.documentElement;
+        const iconContainer = document.getElementById('modeIcon');
+        if (isDark) {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            if(iconContainer) iconContainer.innerHTML = `<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>`;
+        } else {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            if(iconContainer) iconContainer.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.071 16.071l.707.707M7.757 7.757l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>`;
         }
+    }
 
-        function checkPass() {
-            const user = document.getElementById('adminUser').value;
-            const pass = document.getElementById('adminPass').value;
-            
-            let authenticated = false;
-            let role = "Admin";
-
-            if (user.toLowerCase() === SUPER_ADMIN.name.toLowerCase() && pass === SUPER_ADMIN.pass) {
-                authenticated = true;
-                role = "Super Admin";
-            } else if (pass === ADMIN_PASS) {
-                authenticated = true;
-                role = "Staff Admin";
-            }
-
-            if (authenticated) {
-                // Persistent Registration Lock (Session based)
-                sessionStorage.setItem('isLoggedIn', 'true');
-                sessionStorage.setItem('userName', user || "Administrator");
-                sessionStorage.setItem('userRole', role);
-                
-                initializePortal();
-            } else {
-                alert("ACCESS DENIED: Invalid Credentials.");
-                addToLog("SECURITY ALERT: Failed Login Attempt.", true);
-            }
+    function logout() {
+        if (confirm("Terminate Session?")) {
+            sessionStorage.clear();
+            window.location.reload();
         }
+    }
 
-        function initializePortal() {
-            const user = sessionStorage.getItem('userName');
-            const role = sessionStorage.getItem('userRole');
+    async function refreshManager() {
+        const gList = document.getElementById('adminGalleryList');
+        const jList = document.getElementById('adminJobList');
+        gList.innerHTML = '<p class="text-[9px] uppercase animate-pulse">Syncing Gallery...</p>';
+        jList.innerHTML = '<p class="text-[9px] uppercase animate-pulse">Syncing Jobs...</p>';
 
-            document.getElementById('gatekeeper').classList.add('hidden');
-            document.getElementById('adminContent').classList.remove('hidden');
-            document.getElementById('welcomeName').innerText = `Welcome, ${user}`;
-            document.getElementById('accessLevelLabel').innerText = `${role} Level Access`;
-            
-            addToLog(`SESSION: Authenticated as ${role} (${user}).`);
-            refreshManager();
-            if (localStorage.getItem('theme') === 'dark') applyDarkMode(true);
-        }
-
-        function toggleDarkMode() {
-            const isDark = !document.documentElement.classList.contains('dark');
-            applyDarkMode(isDark);
-        }
-
-        function applyDarkMode(isDark) {
-            const html = document.documentElement;
-            const iconContainer = document.getElementById('modeIcon');
-            
-            if (isDark) {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                iconContainer.innerHTML = `<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>`;
-            } else {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                iconContainer.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.071 16.071l.707.707M7.757 7.757l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>`;
-            }
-        }
-
-        function logout() {
-            if (confirm("Terminate Session?")) {
-                sessionStorage.clear();
-                window.location.reload();
-            }
-        }
-
-        async function refreshManager() {
-            const gList = document.getElementById('adminGalleryList');
-            const jList = document.getElementById('adminJobList');
-            gList.innerHTML = '<p class="text-[9px] uppercase animate-pulse">Syncing Gallery...</p>';
-            jList.innerHTML = '<p class="text-[9px] uppercase animate-pulse">Syncing Jobs...</p>';
-
-            try {
-                const gRes = await fetch(SCRIPT_URL);
-                const images = await gRes.json();
-                gList.innerHTML = images.map(img => `
-                    <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-4 border border-black/5 dark:border-white/5 group">
-                        <div class="flex items-center gap-4">
-                            <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition shadow-sm">
-                            <span class="text-[9px] font-bold uppercase truncate w-32 dark:text-gray-400">${img[2] || 'UNTITLED'}</span>
-                        </div>
-                        <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Delete</button>
+        try {
+            const gRes = await fetch(SCRIPT_URL);
+            const images = await gRes.json();
+            gList.innerHTML = images.map(img => `
+                <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-4 border border-black/5 dark:border-white/5 group">
+                    <div class="flex items-center gap-4">
+                        <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition shadow-sm" onerror="this.src='https://via.placeholder.com/40?text=IMG'">
+                        <span class="text-[9px] font-bold uppercase truncate w-32 dark:text-gray-400">${img[2] || 'UNTITLED'}</span>
                     </div>
-                `).join('') || '<p class="text-[10px] uppercase text-gray-400">No media found.</p>';
+                    <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Delete</button>
+                </div>
+            `).join('') || '<p class="text-[10px] uppercase text-gray-400">No media found.</p>';
 
-                const jRes = await fetch(SCRIPT_URL + "?type=jobs");
-                const jobs = await jRes.json();
-                jList.innerHTML = jobs.map(job => `
-                    <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-4 border border-black/5 dark:border-white/5">
-                        <span class="text-[9px] font-bold uppercase truncate mr-4 dark:text-gray-400">${job[1]}</span>
-                        <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Close</button>
-                    </div>
-                `).join('') || '<p class="text-[10px] uppercase text-gray-400">No jobs active.</p>';
-                addToLog("SYNC: Cloud mirroring successful.");
-            } catch (e) { addToLog("SYNC ERROR: Connection failed.", true); }
-        }
+            const jRes = await fetch(SCRIPT_URL + "?type=jobs");
+            const jobs = await jRes.json();
+            jList.innerHTML = jobs.map(job => `
+                <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-4 border border-black/5 dark:border-white/5">
+                    <span class="text-[9px] font-bold uppercase truncate mr-4 dark:text-gray-400">${job[1]}</span>
+                    <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Close</button>
+                </div>
+            `).join('') || '<p class="text-[10px] uppercase text-gray-400">No jobs active.</p>';
+            addToLog("SYNC: Cloud mirroring successful.");
+        } catch (e) { addToLog("SYNC ERROR: Connection failed.", true); }
+    }
 
-        document.getElementById('galleryForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('galleryBtn');
-            const file = document.getElementById('imageInput').files[0];
-            btn.innerText = "UPLOADING..."; btn.disabled = true;
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = async () => {
-                try {
-                    await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({
-                        type: "GALLERY", image: reader.result.split(',')[1], mimeType: file.type, name: file.name, caption: document.getElementById('imageCaption').value
-                    })});
-                    addToLog(`SUCCESS: Asset "${file.name}" uploaded.`);
-                    e.target.reset(); refreshManager();
-                } catch (err) { addToLog("CRITICAL: Upload failed.", true); }
-                finally { btn.innerText = "EXECUTE UPLOAD"; btn.disabled = false; }
-            };
-        };
-
-        document.getElementById('jobForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('jobBtn');
-            btn.innerText = "BROADCASTING..."; btn.disabled = true;
+    document.getElementById('galleryForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('galleryBtn');
+        const file = document.getElementById('imageInput').files[0];
+        btn.innerText = "UPLOADING..."; btn.disabled = true;
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = async () => {
             try {
+                // FIXED: We pass 'protection' as a default category so your gallery filters don't break
                 await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({
-                    type: "JOB", title: document.getElementById('jobTitle').value, description: document.getElementById('jobDesc').value, location: document.getElementById('jobLoc').value
+                    type: "GALLERY", 
+                    image: reader.result.split(',')[1], 
+                    mimeType: file.type, 
+                    name: file.name, 
+                    caption: document.getElementById('imageCaption').value,
+                    category: "protection" 
                 })});
-                addToLog(`SUCCESS: New job opportunity broadcast.`);
+                addToLog(`SUCCESS: Asset "${file.name}" uploaded.`);
                 e.target.reset(); refreshManager();
-            } catch (err) { addToLog("POST FAILED: Check connection.", true); }
-            finally { btn.innerText = "BROADCAST ROLE"; btn.disabled = false; }
+            } catch (err) { addToLog("CRITICAL: Upload failed.", true); }
+            finally { btn.innerText = "EXECUTE UPLOAD"; btn.disabled = false; }
         };
+    };
 
-        async function deleteAction(sheet, id) {
-            if (!confirm(`Permanently purge this from ${sheet}?`)) return;
-            try {
-                await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ type: "DELETE_ITEM", targetSheet: sheet, itemId: id })});
-                addToLog(`PURGE: Record ID ${id} removed from ${sheet}.`);
-                refreshManager();
-            } catch (e) { addToLog("DELETE FAILED.", true); }
+    document.getElementById('jobForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('jobBtn');
+        btn.innerText = "BROADCASTING..."; btn.disabled = true;
+        try {
+            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({
+                type: "JOB", title: document.getElementById('jobTitle').value, description: document.getElementById('jobDesc').value, location: document.getElementById('jobLoc').value
+            })});
+            addToLog(`SUCCESS: New job opportunity broadcast.`);
+            e.target.reset(); refreshManager();
+        } catch (err) { addToLog("POST FAILED: Check connection.", true); }
+        finally { btn.innerText = "BROADCAST ROLE"; btn.disabled = false; }
+    };
+
+    async function deleteAction(sheet, id) {
+        if (!confirm(`Permanently purge this from ${sheet}?`)) return;
+        try {
+            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ type: "DELETE_ITEM", targetSheet: sheet, itemId: id })});
+            addToLog(`PURGE: Record ID ${id} removed from ${sheet}.`);
+            refreshManager();
+        } catch (e) { addToLog("DELETE FAILED.", true); }
+    }
+
+    window.onload = () => {
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
+            initializePortal();
         }
-
-        // AUTO-LOAD SESSION
-        window.onload = () => {
-            if (sessionStorage.getItem('isLoggedIn') === 'true') {
-                initializePortal();
-            }
-        };
-    </script>
+    };
+</script>                                        
+  
+  
 </body>
 </html>
