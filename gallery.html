@@ -1069,6 +1069,21 @@ body {
         });
 
 });
+
+      async function loadGallery() {
+    const response = await fetch(SCRIPT_URL);
+    const images = await response.json();
+    const container = document.getElementById('galleryContainer');
+    
+    images.forEach(img => {
+        container.innerHTML += `
+            <div class="gallery-item">
+                <img src="${img[1]}" alt="${img[2]}">
+                <p>${img[2]}</p>
+            </div>
+        `;
+    });
+}
     </script>
   </body>
 </html>
