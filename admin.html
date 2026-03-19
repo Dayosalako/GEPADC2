@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEPaDC | Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+        .font-heading { font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-black">
+
+    <div id="gatekeeper" class="fixed inset-0 bg-black z-[999] flex items-center justify-center p-6">
+        <div class="max-w-sm w-full bg-white p-10 shadow-2xl">
+            <h2 class="font-heading uppercase italic text-2xl mb-6">Security Access</h2>
+            <input type="password" id="adminPass" placeholder="Enter Admin Key" class="w-full border-b-2 border-black p-4 mb-6 outline-none">
+            <button onclick="checkPass()" class="w-full bg-black text-white p-4 font-bold uppercase tracking-widest hover:bg-[#2D5A27] transition">Verify</button>
+        </div>
+    </div>
+
+    <div id="adminContent" class="hidden">
+        <header class="py-20 px-10 border-b border-black bg-white">
+            <h1 class="text-6xl md:text-8xl font-heading font-black italic uppercase leading-none">Admin <br><span class="text-[#2D5A27]">Portal.</span></h1>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-2 gap-0 border-b border-black">
+            
+            <section class="p-10 border-r border-black">
+                <h2 class="text-xs font-black uppercase tracking-[0.4em] mb-10 text-gray-400">01. Gallery Management</h2>
+                <form id="galleryForm" class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] font-black uppercase mb-2">Select Image</label>
+                        <input type="file" id="imageInput" accept="image/*" required class="w-full border border-gray-200 p-4 bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase mb-2">Caption</label>
+                        <input type="text" id="imageCaption" placeholder="Brief event description" class="w-full border border-gray-200 p-4 outline-none focus:border-[#2D5A27]">
+                    </div>
+                    <button type="submit" id="galleryBtn" class="bg-black text-white px-10 py-5 font-black text-[10px] uppercase tracking-widest hover:bg-[#2D5A27] transition w-full">Upload to Cloud</button>
+                </form>
+            </section>
+
+            <section class="p-10">
+                <h2 class="text-xs font-black uppercase tracking-[0.4em] mb-10 text-gray-400">02. Volunteer Board</h2>
+                <form id="jobForm" class="space-y-6">
+                    <input type="text" id="jobTitle" placeholder="Role Title" required class="w-full border border-gray-200 p-4 outline-none focus:border-[#2D5A27]">
+                    <textarea id="jobDesc" placeholder="Requirements & Responsibilities" required class="w-full border border-gray-200 p-4 h-32 outline-none focus:border-[#2D5A27]"></textarea>
+                    <input type="text" id="jobLoc" placeholder="Location (e.g., Borno State)" class="w-full border border-gray-200 p-4 outline-none focus:border-[#2D5A27]">
+                    <button type="submit" id="jobBtn" class="bg-black text-white px-10 py-5 font-black text-[10px] uppercase tracking-widest hover:bg-[#2D5A27] transition w-full">Post Role</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyb1tPhoK8m8xc8swGIkbv33ZYDGTjxFo7di5Q9nLAnnGXnja3AIZ432ev-pwUdlnjj/exec";
+
+        function checkPass() {
+            const pass = document.getElementById('adminPass').value;
+            if(pass === "1234") { // Change this to your desired password
+                document.getElementById('gatekeeper').classList.add('hidden');
+                document.getElementById('adminContent').classList.remove('hidden');
+            } else {
+                alert("Unauthorized Access.");
+            }
+        }
+
+        // --- CONVERT IMAGE TO BASE64 AND SEND ---
+        document.getElementById('galleryForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('galleryBtn');
+            const file = document.getElementById('imageInput').files[0];
+            const caption = document.getElementById('imageCaption').value;
+
+            btn.innerText = "UPLOADING...";
+            btn.disabled = true;
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async () => {
+                const base64 = reader.result.split(',')[1];
+                const data = {
+                    type: "GALLERY",
+                    image: base64,
+                    mimeType: file.type,
+                    name: file.name,
+                    caption: caption
+                };
+
+                await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
+                alert("Gallery Updated Successfully!");
+                btn.innerText = "UPLOAD TO CLOUD";
+                btn.disabled = false;
+                e.target.reset();
+            };
+        };
+
+        // --- POST JOB ROLE ---
+        document.getElementById('jobForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('jobBtn');
+            btn.innerText = "POSTING...";
+            btn.disabled = true;
+
+            const data = {
+                type: "JOB",
+                title: document.getElementById('jobTitle').value,
+                description: document.getElementById('jobDesc').value,
+                location: document.getElementById('jobLoc').value
+            };
+
+            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
+            alert("Job Posted Successfully!");
+            btn.innerText = "POST ROLE";
+            btn.disabled = false;
+            e.target.reset();
+        };
+    </script>
+</body>
+</html>
