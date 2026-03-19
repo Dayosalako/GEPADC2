@@ -365,6 +365,7 @@
                 </div>
             </div>
         </div>
+     
 
         <!-- Optional Call-to-action / No openings notice -->
         <div class="mt-16 text-center">
@@ -376,6 +377,13 @@
                 </a>
             </p>
         </div>
+    </div>
+</section>
+
+  <section class="py-24 px-10 max-w-7xl mx-auto">
+    <h2 class="text-xs font-black uppercase tracking-[0.4em] mb-12 text-gray-400">Open Opportunities</h2>
+    <div id="jobsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <p class="text-gray-400 italic">Loading opportunities...</p>
     </div>
 </section>
 
@@ -647,6 +655,42 @@ window.closeMobileNav = function() {
     // Restore scrolling
     document.body.style.overflow = "";
 };
+
+ async function loadVolunteerJobs() {
+    try {
+        // We add ?type=jobs to the URL so the script knows which sheet to read
+        const response = await fetch(SCRIPT_URL + "?type=jobs");
+        const jobs = await response.json();
+        const container = document.getElementById('jobsContainer');
+        
+        if (!container) return;
+        
+        if (jobs.length === 0) {
+            container.innerHTML = "<p class='text-gray-500'>No current openings. Check back soon!</p>";
+            return;
+        }
+
+        container.innerHTML = ""; // Clear the loading message
+
+        jobs.forEach(job => {
+            container.innerHTML += `
+                <div class="border border-black p-10 group hover:bg-[#2D5A27] transition-all duration-500">
+                    <span class="text-[9px] font-black uppercase tracking-widest text-[#2D5A27] group-hover:text-white mb-4 block">${job[3]}</span>
+                    <h3 class="text-3xl font-heading font-black uppercase italic mb-6 group-hover:text-white">${job[1]}</h3>
+                    <p class="text-gray-600 group-hover:text-gray-200 text-sm mb-8 leading-relaxed">${job[2]}</p>
+                    <a href="mailto:careers@gepadc.org" class="inline-block border-b-2 border-black group-hover:border-white font-black text-[10px] uppercase tracking-widest group-hover:text-white pb-1">
+                        Apply for this role
+                    </a>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error("Error loading jobs:", error);
+    }
+}
+
+// Run the function when the page loads
+document.addEventListener('DOMContentLoaded', loadVolunteerJobs);
 </script>  
 </body>
 </html>
