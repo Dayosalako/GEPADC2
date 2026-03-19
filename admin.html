@@ -79,33 +79,40 @@
         </div>
     </div>
 </section>
-    
-    <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
+<script>
+    // 1. CONFIGURATION
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
+    const ADMIN_PASSWORD = "1234"; // Change this to your desired password
 
-        function checkPass() {
-            const pass = document.getElementById('adminPass').value;
-            if(pass === "1234") { // Change this to your desired password
-                document.getElementById('gatekeeper').classList.add('hidden');
-                document.getElementById('adminContent').classList.remove('hidden');
-            } else {
-                alert("Unauthorized Access.");
-            }
+    // 2. SECURITY GATEKEEPER
+    function checkPass() {
+        const pass = document.getElementById('adminPass').value;
+        if (pass === ADMIN_PASSWORD) {
+            document.getElementById('gatekeeper').classList.add('hidden');
+            document.getElementById('adminContent').classList.remove('hidden');
+            refreshManager(); // Load live data immediately upon login
+        } else {
+            alert("Unauthorized Access.");
         }
+    }
 
-        // --- CONVERT IMAGE TO BASE64 AND SEND ---
-        document.getElementById('galleryForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('galleryBtn');
-            const file = document.getElementById('imageInput').files[0];
-            const caption = document.getElementById('imageCaption').value;
+    // 3. GALLERY UPLOAD SYSTEM
+    document.getElementById('galleryForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('galleryBtn');
+        const fileInput = document.getElementById('imageInput');
+        const file = fileInput.files[0];
+        const caption = document.getElementById('imageCaption').value;
 
-            btn.innerText = "UPLOADING...";
-            btn.disabled = true;
+        if (!file) return alert("Please select an image first.");
 
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = async () => {
+        btn.innerText = "UPLOADING...";
+        btn.disabled = true;
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = async () => {
+            try {
                 const base64 = reader.result.split(',')[1];
                 const data = {
                     type: "GALLERY",
@@ -116,92 +123,109 @@
                 };
 
                 await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
+                
                 alert("Gallery Updated Successfully!");
+                e.target.reset();
+                refreshManager(); // Sync the manager list
+            } catch (err) {
+                alert("Upload failed. The image might be too large.");
+            } finally {
                 btn.innerText = "UPLOAD TO CLOUD";
                 btn.disabled = false;
-                e.target.reset();
-            };
+            }
+        };
+    };
+
+    // 4. JOB POSTING SYSTEM
+    document.getElementById('jobForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('jobBtn');
+        btn.innerText = "POSTING...";
+        btn.disabled = true;
+
+        const data = {
+            type: "JOB",
+            title: document.getElementById('jobTitle').value,
+            description: document.getElementById('jobDesc').value,
+            location: document.getElementById('jobLoc').value
         };
 
-        // --- POST JOB ROLE ---
-        document.getElementById('jobForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('jobBtn');
-            btn.innerText = "POSTING...";
-            btn.disabled = true;
-
-            const data = {
-                type: "JOB",
-                title: document.getElementById('jobTitle').value,
-                description: document.getElementById('jobDesc').value,
-                location: document.getElementById('jobLoc').value
-            };
-
+        try {
             await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
             alert("Job Posted Successfully!");
+            e.target.reset();
+            refreshManager(); // Sync the manager list
+        } catch (err) {
+            alert("Error posting job.");
+        } finally {
             btn.innerText = "POST ROLE";
             btn.disabled = false;
-            e.target.reset();
-        };
+        }
+    };
 
-        async function refreshManager() {
-    // 1. Fetch Gallery Items
-    const gRes = await fetch(SCRIPT_URL);
-    const images = await gRes.json();
-    const gList = document.getElementById('adminGalleryList');
-    gList.innerHTML = images.map(img => `
-        <div class="flex items-center justify-between bg-white p-4 border border-black/5 group">
-            <div class="flex items-center gap-4">
-                <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition">
-                <span class="text-[10px] font-bold uppercase truncate w-32">${img[2]}</span>
-            </div>
-            <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase tracking-tighter hover:underline">Remove</button>
-        </div>
-    `).join('');
+    // 5. CONTENT MANAGER (LIST FETCHING)
+    async function refreshManager() {
+        const galleryList = document.getElementById('adminGalleryList');
+        const jobList = document.getElementById('adminJobList');
 
-    // 2. Fetch Job Items
-    const jRes = await fetch(SCRIPT_URL + "?type=jobs");
-    const jobs = await jRes.json();
-    const jList = document.getElementById('adminJobList');
-    jList.innerHTML = jobs.map(job => `
-        <div class="flex items-center justify-between bg-white p-4 border border-black/5">
-            <span class="text-[10px] font-bold uppercase truncate mr-4">${job[1]}</span>
-            <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase tracking-tighter hover:underline">Close Role</button>
-        </div>
-    `).join('');
-}
+        if (galleryList) galleryList.innerHTML = '<p class="text-[10px] animate-pulse">SYNCING GALLERY...</p>';
+        if (jobList) jobList.innerHTML = '<p class="text-[10px] animate-pulse">SYNCING JOBS...</p>';
 
-async function deleteAction(sheet, id) {
-    if (!confirm(`Permanently delete this from ${sheet}?`)) return;
+        try {
+            // Fetch Gallery Items
+            const gRes = await fetch(SCRIPT_URL);
+            const images = await gRes.json();
+            galleryList.innerHTML = images.map(img => `
+                <div class="flex items-center justify-between bg-white p-4 border border-black/5 group">
+                    <div class="flex items-center gap-4">
+                        <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition">
+                        <span class="text-[10px] font-bold uppercase truncate w-32">${img[2]}</span>
+                    </div>
+                    <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase tracking-tighter hover:underline">Remove</button>
+                </div>
+            `).join('') || '<p class="text-xs text-gray-400">No images found.</p>';
 
-    try {
-        await fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify({
-                type: "DELETE_ITEM",
-                targetSheet: sheet,
-                itemId: id
-            })
-        });
-        alert("Deleted successfully.");
-        refreshManager(); // Refresh the list automatically
-    } catch (err) {
-        alert("Error during deletion.");
+            // Fetch Job Items
+            const jRes = await fetch(SCRIPT_URL + "?type=jobs");
+            const jobs = await jRes.json();
+            jobList.innerHTML = jobs.map(job => `
+                <div class="flex items-center justify-between bg-white p-4 border border-black/5">
+                    <span class="text-[10px] font-bold uppercase truncate mr-4">${job[1]}</span>
+                    <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase tracking-tighter hover:underline">Close Role</button>
+                </div>
+            `).join('') || '<p class="text-xs text-gray-400">No active jobs.</p>';
+
+        } catch (err) {
+            console.error("Sync Error:", err);
+        }
     }
-}
 
-// In your checkPass() function, add refreshManager() so it loads on login
-function checkPass() {
-    const pass = document.getElementById('adminPass').value;
-    if(pass === "1234") { 
-        document.getElementById('gatekeeper').classList.add('hidden');
-        document.getElementById('adminContent').classList.remove('hidden');
-        refreshManager(); // <--- LOAD DATA HERE
-    } else {
-        alert("Access Denied");
+    // 6. DELETE ACTION
+    async function deleteAction(sheet, id) {
+        if (!confirm(`Permanently delete this from ${sheet}?`)) return;
+
+        // Visual feedback
+        const targetBtn = event.target;
+        targetBtn.innerText = "DELETING...";
+        targetBtn.disabled = true;
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    type: "DELETE_ITEM",
+                    targetSheet: sheet,
+                    itemId: id
+                })
+            });
+            alert("Deleted successfully.");
+            refreshManager(); 
+        } catch (err) {
+            alert("Error during deletion.");
+            targetBtn.innerText = "REMOVE";
+            targetBtn.disabled = false;
+        }
     }
-}
-        
-    </script>
+</script>
 </body>
 </html>
