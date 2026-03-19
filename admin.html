@@ -8,224 +8,277 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
         .font-heading { font-family: 'Montserrat', sans-serif; }
+        /* Smooth transition for the gatekeeper */
+        #gatekeeper { transition: all 0.5s ease; }
     </style>
 </head>
-<body class="bg-gray-50 text-black">
+<header class="bg-white border-b border-gray-200 sticky top-0 z-[100]">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
+        
+        <div class="flex flex-col">
+            <div class="flex items-center gap-2 mb-1">
+                <span class="w-2 h-2 rounded-full bg-[#2D5A27] animate-pulse"></span>
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">System Live</span>
+            </div>
+            <h1 class="font-heading font-black italic text-2xl uppercase tracking-tighter leading-none">
+                GEPaDC <span class="text-[#2D5A27]">Control.</span>
+            </h1>
+        </div>
 
-    <div id="gatekeeper" class="fixed inset-0 bg-black z-[999] flex items-center justify-center p-6">
-        <div class="max-w-sm w-full bg-white p-10 shadow-2xl">
-            <h2 class="font-heading uppercase italic text-2xl mb-6">Security Access</h2>
-            <input type="password" id="adminPass" placeholder="Enter Admin Key" class="w-full border-b-2 border-black p-4 mb-6 outline-none">
-            <button onclick="checkPass()" class="w-full bg-black text-white p-4 font-bold uppercase tracking-widest hover:bg-[#2D5A27] transition">Verify</button>
+        <div class="flex items-center gap-8">
+            <a href="index.html" target="_blank" class="hidden md:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                View Website
+            </a>
+
+            <button onclick="logout()" class="relative group h-12 px-6 flex items-center justify-center overflow-hidden border border-black transition-all">
+                <div class="absolute inset-0 w-0 bg-red-600 transition-all duration-300 ease-out group-hover:w-full"></div>
+                <span class="relative text-[10px] font-black uppercase tracking-widest group-hover:text-white transition-colors duration-300">
+                    Secure Logout
+                </span>
+            </button>
         </div>
     </div>
-
-    <div id="adminContent" class="hidden">
-        <header class="py-20 px-10 border-b border-black bg-white">
-            <h1 class="text-6xl md:text-8xl font-heading font-black italic uppercase leading-none">Admin <br><span class="text-[#2D5A27]">Portal.</span></h1>
-        </header>
-
-        <main class="grid grid-cols-1 lg:grid-cols-2 gap-0 border-b border-black">
+</header>  
+    
+<main class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        
+        <section class="group bg-white border border-gray-200 p-8 lg:p-12 shadow-sm hover:shadow-xl hover:border-[#2D5A27] transition-all duration-500 rounded-sm relative overflow-hidden">
+            <span class="absolute -top-4 -right-4 text-9xl font-heading font-black opacity-[0.03] italic group-hover:opacity-[0.07] transition-opacity">01</span>
             
-            <section class="p-10 border-r border-black">
-                <h2 class="text-xs font-black uppercase tracking-[0.4em] mb-10 text-gray-400">01. Gallery Management</h2>
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 bg-gray-50 flex items-center justify-center border border-gray-200 group-hover:bg-[#2D5A27] group-hover:border-[#2D5A27] transition-colors">
+                        <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 group-hover:text-black transition-colors">Gallery Media Engine</h2>
+                </div>
+
                 <form id="galleryForm" class="space-y-6">
-                    <div>
-                        <label class="block text-[10px] font-black uppercase mb-2">Select Image</label>
-                        <input type="file" id="imageInput" accept="image/*" required class="w-full border border-gray-200 p-4 bg-white">
+                    <div class="relative">
+                        <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Master Asset Upload</label>
+                        <input type="file" id="imageInput" accept="image/*" required 
+                            class="w-full text-xs font-bold uppercase border-2 border-dashed border-gray-100 p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-[#2D5A27] transition-all file:hidden">
+                        <p class="text-[10px] text-gray-400 mt-2 italic text-center italic">Drag and drop or click to browse</p>
                     </div>
-                    <div>
-                        <label class="block text-[10px] font-black uppercase mb-2">Caption</label>
-                        <input type="text" id="imageCaption" placeholder="Brief event description" class="w-full border border-gray-200 p-4 outline-none focus:border-[#2D5A27]">
-                    </div>
-                    <button type="submit" id="galleryBtn" class="bg-black text-white px-10 py-5 font-black text-[10px] uppercase tracking-widest hover:bg-[#2D5A27] transition w-full">Upload to Cloud</button>
-                </form>
-            </section>
 
-            <section class="p-10">
-                <h2 class="text-xs font-black uppercase tracking-[0.4em] mb-10 text-gray-400">02. Volunteer Board</h2>
+                    <div>
+                        <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Contextual Caption</label>
+                        <input type="text" id="imageCaption" placeholder="What happened at this event?" 
+                            class="w-full border-b border-gray-200 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] transition-colors bg-transparent">
+                    </div>
+
+                    <button type="submit" id="galleryBtn" 
+                        class="w-full bg-black text-white py-5 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#2D5A27] transform hover:-translate-y-1 transition-all duration-300 shadow-lg">
+                        Execute Cloud Upload
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="group bg-white border border-gray-200 p-8 lg:p-12 shadow-sm hover:shadow-xl hover:border-[#2D5A27] transition-all duration-500 rounded-sm relative overflow-hidden">
+             <span class="absolute -top-4 -right-4 text-9xl font-heading font-black opacity-[0.03] italic group-hover:opacity-[0.07] transition-opacity">02</span>
+
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 bg-gray-50 flex items-center justify-center border border-gray-200 group-hover:bg-[#2D5A27] group-hover:border-[#2D5A27] transition-colors">
+                        <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 group-hover:text-black transition-colors">Opportunity Board</h2>
+                </div>
+
                 <form id="jobForm" class="space-y-6">
-                    <input type="text" id="jobTitle" placeholder="Role Title" required class="w-full border border-gray-200 p-4 outline-none focus:border-[#2D5A27]">
-                    <textarea id="jobDesc" placeholder="Requirements & Responsibilities" required class="w-full border border-gray-200 p-4 h-32 outline-none focus:border-[#2D5A27]"></textarea>
-                    <input type="text" id="jobLoc" placeholder="Location (e.g., Borno State)" class="w-full border border-gray-200 p-4 outline-none focus:border-[#2D5A27]">
-                    <button type="submit" id="jobBtn" class="bg-black text-white px-10 py-5 font-black text-[10px] uppercase tracking-widest hover:bg-[#2D5A27] transition w-full">Post Role</button>
-                </form>
-            </section>
-        </main>
-    </div>
-
-    <section class="p-10 bg-gray-50 border-t border-black">
-    <div class="flex justify-between items-end mb-12">
-        <div>
-            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-gray-400 mb-2">03. Content Manager</h2>
-            <p class="text-[10px] font-bold uppercase">Manage Live Website Data</p>
-        </div>
-        <button onclick="refreshManager()" class="text-[10px] font-black uppercase border-b-2 border-black pb-1 hover:text-[#2D5A27] hover:border-[#2D5A27] transition">Sync Latest Data</button>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-        <div>
-            <h3 class="font-heading italic font-black uppercase text-lg mb-6 border-b border-black pb-2">Live Gallery</h3>
-            <div id="adminGalleryList" class="space-y-4">
-                <p class="text-[10px] uppercase animate-pulse">Fetching photos...</p>
-            </div>
-        </div>
-
-        <div>
-            <h3 class="font-heading italic font-black uppercase text-lg mb-6 border-b border-black pb-2">Open Jobs</h3>
-            <div id="adminJobList" class="space-y-4">
-                <p class="text-[10px] uppercase animate-pulse">Fetching roles...</p>
-            </div>
-        </div>
-    </div>
-</section>
-<script>
-    // 1. CONFIGURATION
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
-    const ADMIN_PASSWORD = "1234"; // Change this to your desired password
-
-    // 2. SECURITY GATEKEEPER
-    function checkPass() {
-        const pass = document.getElementById('adminPass').value;
-        if (pass === ADMIN_PASSWORD) {
-            document.getElementById('gatekeeper').classList.add('hidden');
-            document.getElementById('adminContent').classList.remove('hidden');
-            refreshManager(); // Load live data immediately upon login
-        } else {
-            alert("Unauthorized Access.");
-        }
-    }
-
-    // 3. GALLERY UPLOAD SYSTEM
-    document.getElementById('galleryForm').onsubmit = async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('galleryBtn');
-        const fileInput = document.getElementById('imageInput');
-        const file = fileInput.files[0];
-        const caption = document.getElementById('imageCaption').value;
-
-        if (!file) return alert("Please select an image first.");
-
-        btn.innerText = "UPLOADING...";
-        btn.disabled = true;
-
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = async () => {
-            try {
-                const base64 = reader.result.split(',')[1];
-                const data = {
-                    type: "GALLERY",
-                    image: base64,
-                    mimeType: file.type,
-                    name: file.name,
-                    caption: caption
-                };
-
-                await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
-                
-                alert("Gallery Updated Successfully!");
-                e.target.reset();
-                refreshManager(); // Sync the manager list
-            } catch (err) {
-                alert("Upload failed. The image might be too large.");
-            } finally {
-                btn.innerText = "UPLOAD TO CLOUD";
-                btn.disabled = false;
-            }
-        };
-    };
-
-    // 4. JOB POSTING SYSTEM
-    document.getElementById('jobForm').onsubmit = async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('jobBtn');
-        btn.innerText = "POSTING...";
-        btn.disabled = true;
-
-        const data = {
-            type: "JOB",
-            title: document.getElementById('jobTitle').value,
-            description: document.getElementById('jobDesc').value,
-            location: document.getElementById('jobLoc').value
-        };
-
-        try {
-            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
-            alert("Job Posted Successfully!");
-            e.target.reset();
-            refreshManager(); // Sync the manager list
-        } catch (err) {
-            alert("Error posting job.");
-        } finally {
-            btn.innerText = "POST ROLE";
-            btn.disabled = false;
-        }
-    };
-
-    // 5. CONTENT MANAGER (LIST FETCHING)
-    async function refreshManager() {
-        const galleryList = document.getElementById('adminGalleryList');
-        const jobList = document.getElementById('adminJobList');
-
-        if (galleryList) galleryList.innerHTML = '<p class="text-[10px] animate-pulse">SYNCING GALLERY...</p>';
-        if (jobList) jobList.innerHTML = '<p class="text-[10px] animate-pulse">SYNCING JOBS...</p>';
-
-        try {
-            // Fetch Gallery Items
-            const gRes = await fetch(SCRIPT_URL);
-            const images = await gRes.json();
-            galleryList.innerHTML = images.map(img => `
-                <div class="flex items-center justify-between bg-white p-4 border border-black/5 group">
-                    <div class="flex items-center gap-4">
-                        <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition">
-                        <span class="text-[10px] font-bold uppercase truncate w-32">${img[2]}</span>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2 md:col-span-1">
+                            <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Role Designation</label>
+                            <input type="text" id="jobTitle" placeholder="e.g. Field Officer" required 
+                                class="w-full border-b border-gray-200 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] transition-colors bg-transparent">
+                        </div>
+                        <div class="col-span-2 md:col-span-1">
+                            <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Deployment Location</label>
+                            <input type="text" id="jobLoc" placeholder="State/City" 
+                                class="w-full border-b border-gray-200 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] transition-colors bg-transparent">
+                        </div>
                     </div>
-                    <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase tracking-tighter hover:underline">Remove</button>
+
+                    <div>
+                        <label class="block text-[9px] font-black uppercase mb-2 tracking-widest text-gray-400">Role Intelligence (Markdown Supported)</label>
+                        <textarea id="jobDesc" placeholder="Responsibilities & Perks..." required 
+                            class="w-full border border-gray-100 p-4 h-32 text-sm font-medium outline-none focus:border-[#2D5A27] transition-colors bg-gray-50 focus:bg-white"></textarea>
+                    </div>
+
+                    <button type="submit" id="jobBtn" 
+                        class="w-full bg-black text-white py-5 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#2D5A27] transform hover:-translate-y-1 transition-all duration-300 shadow-lg">
+                        Broadcast Opportunity
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+        <section class="p-10 bg-white">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-xs font-black uppercase tracking-[0.4em] text-gray-400 mb-2">03. Content Manager</h2>
+                    <p class="text-[10px] font-bold uppercase tracking-widest">Manage Live Website Data</p>
                 </div>
-            `).join('') || '<p class="text-xs text-gray-400">No images found.</p>';
+                <button onclick="refreshManager()" class="text-[10px] font-black uppercase border-b-2 border-black pb-1 hover:text-[#2D5A27] hover:border-[#2D5A27] transition">Sync Latest Data</button>
+            </div>
 
-            // Fetch Job Items
-            const jRes = await fetch(SCRIPT_URL + "?type=jobs");
-            const jobs = await jRes.json();
-            jobList.innerHTML = jobs.map(job => `
-                <div class="flex items-center justify-between bg-white p-4 border border-black/5">
-                    <span class="text-[10px] font-bold uppercase truncate mr-4">${job[1]}</span>
-                    <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase tracking-tighter hover:underline">Close Role</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="font-heading italic font-black uppercase text-lg mb-6 border-b border-black pb-2">Live Gallery</h3>
+                    <div id="adminGalleryList" class="space-y-4">
+                        <p class="text-[10px] uppercase animate-pulse">Fetching photos...</p>
+                    </div>
                 </div>
-            `).join('') || '<p class="text-xs text-gray-400">No active jobs.</p>';
 
-        } catch (err) {
-            console.error("Sync Error:", err);
+                <div>
+                    <h3 class="font-heading italic font-black uppercase text-lg mb-6 border-b border-black pb-2">Open Jobs</h3>
+                    <div id="adminJobList" class="space-y-4">
+                        <p class="text-[10px] uppercase animate-pulse">Fetching roles...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 1. CONFIGURATION
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxYo3ImrkPWwUgxpdULG3ggLh_1Ahl-Dradlp8yMMdIZC43qavIdicuUfYn2_pkDan/exec";
+        const ADMIN_PASSWORD = "1234";
+
+        // 2. SECURITY & NAVIGATION
+        function checkPass() {
+            const pass = document.getElementById('adminPass').value;
+            if (pass === ADMIN_PASSWORD) {
+                document.getElementById('gatekeeper').classList.add('hidden');
+                document.getElementById('adminContent').classList.remove('hidden');
+                refreshManager(); // Load live data immediately
+            } else {
+                alert("Unauthorized Access.");
+            }
         }
-    }
 
-    // 6. DELETE ACTION
-    async function deleteAction(sheet, id) {
-        if (!confirm(`Permanently delete this from ${sheet}?`)) return;
-
-        // Visual feedback
-        const targetBtn = event.target;
-        targetBtn.innerText = "DELETING...";
-        targetBtn.disabled = true;
-
-        try {
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify({
-                    type: "DELETE_ITEM",
-                    targetSheet: sheet,
-                    itemId: id
-                })
-            });
-            alert("Deleted successfully.");
-            refreshManager(); 
-        } catch (err) {
-            alert("Error during deletion.");
-            targetBtn.innerText = "REMOVE";
-            targetBtn.disabled = false;
+        function logout() {
+            if (!confirm("Securely close admin session?")) return;
+            document.getElementById('adminPass').value = "";
+            document.getElementById('adminContent').classList.add('hidden');
+            document.getElementById('gatekeeper').classList.remove('hidden');
+            window.scrollTo(0, 0);
         }
-    }
-</script>
+
+        // 3. REFRESH MANAGER (Syncs live data to the admin list)
+        async function refreshManager() {
+            const gList = document.getElementById('adminGalleryList');
+            const jList = document.getElementById('adminJobList');
+            
+            if(gList) gList.innerHTML = '<p class="text-[9px] animate-pulse uppercase">Syncing Gallery...</p>';
+            if(jList) jList.innerHTML = '<p class="text-[9px] animate-pulse uppercase">Syncing Jobs...</p>';
+
+            try {
+                // Fetch Gallery Items
+                const gRes = await fetch(SCRIPT_URL);
+                const images = await gRes.json();
+                gList.innerHTML = images.map(img => `
+                    <div class="flex items-center justify-between bg-gray-50 p-4 border border-black/5 group hover:border-[#2D5A27] transition-colors">
+                        <div class="flex items-center gap-4">
+                            <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition shadow-sm">
+                            <span class="text-[10px] font-bold uppercase truncate w-32">${img[2] || 'No Caption'}</span>
+                        </div>
+                        <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Remove</button>
+                    </div>
+                `).join('') || '<p class="text-[10px] text-gray-400 uppercase tracking-widest">Empty Gallery</p>';
+
+                // Fetch Job Items
+                const jRes = await fetch(SCRIPT_URL + "?type=jobs");
+                const jobs = await jRes.json();
+                jList.innerHTML = jobs.map(job => `
+                    <div class="flex items-center justify-between bg-gray-50 p-4 border border-black/5 hover:border-[#2D5A27] transition-colors">
+                        <span class="text-[10px] font-bold uppercase truncate mr-4">${job[1]}</span>
+                        <button onclick="deleteAction('Jobs', '${job[4]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Close Role</button>
+                    </div>
+                `).join('') || '<p class="text-[10px] text-gray-400 uppercase tracking-widest">No Open Roles</p>';
+            } catch (e) { 
+                console.error("Sync Error:", e);
+                gList.innerHTML = jList.innerHTML = '<p class="text-red-500 text-[9px] uppercase">Sync Failed. Check Script URL.</p>';
+            }
+        }
+
+        // 4. UPLOAD GALLERY ITEM
+        document.getElementById('galleryForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('galleryBtn');
+            const file = document.getElementById('imageInput').files[0];
+            if (!file) return;
+
+            btn.innerText = "UPLOADING...";
+            btn.disabled = true;
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async () => {
+                try {
+                    const data = {
+                        type: "GALLERY",
+                        image: reader.result.split(',')[1],
+                        mimeType: file.type,
+                        name: file.name,
+                        caption: document.getElementById('imageCaption').value
+                    };
+                    const response = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
+                    if(response.ok) {
+                        alert("Gallery Updated Successfully!");
+                        e.target.reset();
+                        refreshManager(); 
+                    }
+                } catch (err) { alert("Upload failed. Image might be too large."); }
+                finally { btn.innerText = "UPLOAD TO CLOUD"; btn.disabled = false; }
+            };
+        };
+
+        // 5. POST JOB ROLE
+        document.getElementById('jobForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('jobBtn');
+            btn.innerText = "POSTING...";
+            btn.disabled = true;
+
+            try {
+                const data = {
+                    type: "JOB",
+                    title: document.getElementById('jobTitle').value,
+                    description: document.getElementById('jobDesc').value,
+                    location: document.getElementById('jobLoc').value
+                };
+                const response = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
+                if(response.ok) {
+                    alert("Job Board Updated!");
+                    e.target.reset();
+                    refreshManager(); 
+                }
+            } catch (err) { alert("Posting failed."); }
+            finally { btn.innerText = "POST ROLE"; btn.disabled = false; }
+        };
+
+        // 6. DELETE ITEM
+        async function deleteAction(sheet, id) {
+            if (!confirm(`Permanently remove this from ${sheet}?`)) return;
+            
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ type: "DELETE_ITEM", targetSheet: sheet, itemId: id })
+                });
+                if(response.ok) {
+                    alert("Item Removed.");
+                    refreshManager();
+                }
+            } catch (e) { 
+                alert("Delete failed. Check your connection."); 
+            }
+        }
+    </script>
 </body>
 </html>
