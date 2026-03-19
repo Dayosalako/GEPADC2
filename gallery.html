@@ -1073,44 +1073,51 @@ body {
         });
 
 });
+  
 document.addEventListener("DOMContentLoaded", function () {
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzGCZePEPFf0bV96wcGCJI8bXRz7Eor6wQgIIz3kGGTrDVtVVxr2t39KVwV4XjPTzl/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0yukCY7Ayd_mxnYtiUFQMOHDLvc1r9MTnn1bmFe24x-4Qk8gCLEh0tbm5p80rQMcT/exec";
     const container = document.getElementById('galleryContainer');
 
     async function loadGallery() {
+        if (!container) return; // Safety check
+        
         try {
             const response = await fetch(SCRIPT_URL);
             const images = await response.json();
             
-            // Clear the "Synchronizing" text or old items
-            container.innerHTML = '';
-
+            // Map the images into the correct grid format
             const htmlContent = images.map(img => `
                 <div class="grid-item ${img[4] || 'protection'}">
                     <a href="${img[1]}" class="glightbox media-container block">
-                        <img src="${img[1]}" alt="${img[2]}" loading="lazy" 
-                             onerror="this.src='https://via.placeholder.com/500?text=Check+Drive+Permissions'">
+                        <img src="${img[1]}" alt="${img[2]}" class="w-full h-full object-cover" 
+                             onload="this.style.opacity='1'" style="opacity:0; transition:opacity 0.5s;">
                     </a>
                 </div>
             `).join('');
 
             container.innerHTML = htmlContent;
 
-            // Re-initialize Isotope and GLightbox after images load
+            // CRITICAL: Initialize Isotope ONLY after images are loaded
+            // Ensure imagesLoaded.js is included in your HTML <head>
             imagesLoaded(container, function() {
-                const iso = new Isotope(container, {
+                new Isotope(container, {
                     itemSelector: '.grid-item',
                     layoutMode: 'fitRows'
                 });
+                
+                // Refresh GLightbox for the new dynamic items
                 GLightbox({ selector: ".glightbox" });
             });
-        } catch (error) {
-            console.error("Sync Error:", error);
+
+        } catch (err) {
+            console.error("Sync Error:", err);
+            container.innerHTML = `<p class="text-center py-10 text-gray-500 uppercase text-[10px] font-black tracking-widest">Failed to retrieve media vault.</p>`;
         }
     }
 
-    loadGallery(); // Start the sync
+    loadGallery(); 
 });
+      
       </script>
   </body>
 </html>
