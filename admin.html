@@ -18,18 +18,17 @@
 <body class="bg-gray-50 dark:bg-zinc-950 text-black dark:text-white transition-theme min-h-screen">
 
     <div id="gatekeeper" class="fixed inset-0 bg-black z-[999] flex items-center justify-center p-6">
-        <div class="max-w-sm w-full bg-white p-10 shadow-2xl rounded-sm">
+        <div class="max-w-sm w-full bg-white p-10 shadow-2xl rounded-sm text-center">
             <h2 class="font-heading uppercase italic text-2xl mb-2 text-black">Security Access</h2>
             <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-8">Identify for Server Entry</p>
-            
-            <div class="space-y-6">
+            <div class="space-y-6 text-left">
                 <div>
                     <label class="block text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">User Identity</label>
-                    <input type="text" id="adminUser" placeholder="Enter Name" class="w-full border-b-2 border-gray-100 p-3 outline-none focus:border-black text-black font-bold uppercase text-sm">
+                    <input type="text" id="adminUser" placeholder="Enter Name" class="w-full border-b-2 border-gray-100 p-3 outline-none focus:border-black text-black font-bold uppercase text-sm bg-white">
                 </div>
                 <div>
                     <label class="block text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">Access Key</label>
-                    <input type="password" id="adminPass" placeholder="••••••••" class="w-full border-b-2 border-gray-100 p-3 outline-none focus:border-[#2D5A27] text-black">
+                    <input type="password" id="adminPass" placeholder="••••••••" class="w-full border-b-2 border-gray-100 p-3 outline-none focus:border-[#2D5A27] text-black bg-white">
                 </div>
                 <button onclick="checkPass()" class="w-full bg-black text-white p-4 font-bold uppercase tracking-widest hover:bg-[#2D5A27] transition-all shadow-xl">Verify & Initialize</button>
             </div>
@@ -37,15 +36,12 @@
     </div>
 
     <div id="adminContent" class="hidden">
-        
         <header class="bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 sticky top-0 z-[100] transition-theme">
             <div class="max-w-7xl mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
                 <div class="flex items-center gap-6">
-                    <div class="hidden md:block">
-                        <h1 class="font-heading font-black italic text-2xl uppercase tracking-tighter leading-none">
-                            GEPaDC <span class="text-[#2D5A27]">Control.</span>
-                        </h1>
-                    </div>
+                    <h1 class="font-heading font-black italic text-2xl uppercase tracking-tighter leading-none hidden md:block">
+                        GEPaDC <span class="text-[#2D5A27]">Control.</span>
+                    </h1>
                     <div class="h-8 w-[1px] bg-gray-200 dark:bg-zinc-800 hidden md:block"></div>
                     <div>
                         <p id="accessLevelLabel" class="text-[10px] font-black uppercase tracking-[0.3em] text-[#2D5A27] mb-1">Standard Access</p>
@@ -76,7 +72,19 @@
                         <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 mb-8">Gallery Media Engine</h2>
                         <form id="galleryForm" class="space-y-6">
                             <input type="file" id="imageInput" accept="image/*" required class="w-full text-[10px] font-bold uppercase border-2 border-dashed border-gray-100 dark:border-zinc-800 p-8 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-zinc-800 transition-all file:hidden">
-                            <input type="text" id="imageCaption" placeholder="Event Caption" class="w-full border-b border-gray-200 dark:border-zinc-700 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] bg-transparent">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="imageCaption" placeholder="Event Caption" required class="w-full border-b border-gray-200 dark:border-zinc-700 py-4 text-sm font-medium outline-none focus:border-[#2D5A27] bg-transparent">
+                                
+                                <select id="imageCategory" required class="w-full border-b border-gray-200 dark:border-zinc-700 py-4 text-sm font-bold uppercase outline-none focus:border-[#2D5A27] bg-transparent dark:text-white">
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option value="protection" class="bg-white dark:bg-zinc-900">Protection</option>
+                                    <option value="wash" class="bg-white dark:bg-zinc-900">WASH</option>
+                                    <option value="peace" class="bg-white dark:bg-zinc-900">Peacebuilding</option>
+                                    <option value="empowerment" class="bg-white dark:bg-zinc-900">Empowerment</option>
+                                </select>
+                            </div>
+
                             <button type="submit" id="galleryBtn" class="w-full bg-black dark:bg-white dark:text-black text-white py-5 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-[#2D5A27] transition-all shadow-lg">Execute Upload</button>
                         </form>
                     </div>
@@ -107,8 +115,14 @@
                     <button onclick="refreshManager()" class="text-[10px] font-black uppercase border-b-2 border-black dark:border-white pb-1 hover:text-[#2D5A27] transition-all">Manual Sync</button>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                    <div id="adminGalleryList" class="space-y-4"></div>
-                    <div id="adminJobList" class="space-y-4"></div>
+                    <div>
+                        <h3 class="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-6">Media Records</h3>
+                        <div id="adminGalleryList" class="space-y-4"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-6">Active Vacancies</h3>
+                        <div id="adminJobList" class="space-y-4"></div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -128,10 +142,9 @@
         </footer>
     </div>
 
-  <script>
+<script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0yukCY7Ayd_mxnYtiUFQMOHDLvc1r9MTnn1bmFe24x-4Qk8gCLEh0tbm5p80rQMcT/exec";
     
-    // AUTH CONFIGURATION
     const SUPER_ADMIN = { name: "Dayo", pass: "Salako2020" };
     const ADMIN_PASS = "1234"; 
 
@@ -218,11 +231,15 @@
         try {
             const gRes = await fetch(SCRIPT_URL);
             const images = await gRes.json();
+            // Added category label display in the management list
             gList.innerHTML = images.map(img => `
                 <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-4 border border-black/5 dark:border-white/5 group">
                     <div class="flex items-center gap-4">
                         <img src="${img[1]}" class="w-10 h-10 object-cover grayscale group-hover:grayscale-0 transition shadow-sm" onerror="this.src='https://via.placeholder.com/40?text=IMG'">
-                        <span class="text-[9px] font-bold uppercase truncate w-32 dark:text-gray-400">${img[2] || 'UNTITLED'}</span>
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-bold uppercase truncate w-32 dark:text-gray-400 leading-tight">${img[2] || 'UNTITLED'}</span>
+                            <span class="text-[7px] font-black uppercase tracking-widest text-[#2D5A27] mt-1">${img[4] || 'General'}</span>
+                        </div>
                     </div>
                     <button onclick="deleteAction('Gallery', '${img[3]}')" class="text-red-600 font-black text-[9px] uppercase hover:underline">Delete</button>
                 </div>
@@ -244,21 +261,23 @@
         e.preventDefault();
         const btn = document.getElementById('galleryBtn');
         const file = document.getElementById('imageInput').files[0];
+        const category = document.getElementById('imageCategory').value;
+        const caption = document.getElementById('imageCaption').value;
+
         btn.innerText = "UPLOADING..."; btn.disabled = true;
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = async () => {
             try {
-                // FIXED: We pass 'protection' as a default category so your gallery filters don't break
                 await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({
                     type: "GALLERY", 
                     image: reader.result.split(',')[1], 
                     mimeType: file.type, 
                     name: file.name, 
-                    caption: document.getElementById('imageCaption').value,
-                    category: "protection" 
+                    caption: caption,
+                    category: category
                 })});
-                addToLog(`SUCCESS: Asset "${file.name}" uploaded.`);
+                addToLog(`SUCCESS: Asset "${file.name}" uploaded to ${category}.`);
                 e.target.reset(); refreshManager();
             } catch (err) { addToLog("CRITICAL: Upload failed.", true); }
             finally { btn.innerText = "EXECUTE UPLOAD"; btn.disabled = false; }
@@ -294,7 +313,5 @@
         }
     };
 </script>                                        
-  
-  
 </body>
 </html>
