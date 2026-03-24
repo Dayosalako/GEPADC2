@@ -368,37 +368,58 @@
 </div>
 
 <!-- ================= RESOURCE CENTER ================= -->
-<section class="py-24 md:py-32 bg-white border-t border-gray-100">
-  <div class="container mx-auto px-5 sm:px-8 md:px-12 lg:px-20">
-    <div class="max-w-4xl mx-auto text-center md:text-left">
-      <h2 class="text-[var(--brand-green)] font-black tracking-[0.4em] uppercase text-xs mb-5">Resource Center</h2>
-      <h3 class="text-4xl sm:text-5xl md:text-6xl font-black uppercase font-heading leading-tight mb-12 md:mb-16">
-        Newsletter<br/>Archive
-      </h3>
+                    
+ <section class="py-24 md:py-32 bg-white border-t border-gray-100 overflow-hidden">
+    <div class="container mx-auto px-5 sm:px-8 md:px-12 lg:px-20">
+        
+        <div class="max-w-6xl mx-auto mb-20">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-10">
+                <div class="text-center md:text-left" data-aos="fade-right">
+                    <h2 class="text-[#2D5A27] font-black tracking-[0.4em] uppercase text-xs mb-5">Resource Center</h2>
+                    <h3 class="text-5xl sm:text-6xl md:text-7xl font-black uppercase font-heading leading-tight">
+                        Newsletter<br/><span class="text-gray-300">Archive</span>
+                    </h3>
+                </div>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="group border border-gray-200 p-6 sm:p-8 rounded-2xl hover:border-[var(--brand-green)] hover:shadow-xl transition-all duration-400 bg-gray-50/40">
-          <div class="flex justify-between items-start mb-6">
-            <i class="far fa-file-pdf text-4xl sm:text-5xl text-red-600/80"></i>
-            <span class="text-[9px] sm:text-[10px] font-black uppercase text-gray-500 tracking-widest">Zamfara Project</span>
-          </div>
-          <h4 class="text-xl sm:text-2xl font-black italic uppercase leading-tight mb-4 md:mb-5">
-            Resilient Futures:<br/>Advancing Gender Equality
-          </h4>
-          <p class="text-gray-600 text-sm mb-6 md:mb-8 leading-relaxed">
-            Strengthening gender equality and promoting women's rights for conflict-affected populations in Zamfara State under the French Embassy (FEF-OSC) support.
-          </p>
-          <div class="flex flex-wrap gap-6">
-            <a href="media/pdf/newsletter-march-2026.pdf" target="_blank" class="text-xs font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-[var(--brand-green)] hover:border-[var(--brand-green)] transition">Open Full PDF</a>
-            <a href="media/pdf/newsletter-march-2026.pdf" download class="text-xs font-black uppercase tracking-widest text-gray-500 hover:text-black transition">Download</a>
-          </div>
+                <div class="w-full md:w-80" data-aos="fade-left">
+                    <label class="block text-[10px] font-black uppercase mb-2 tracking-widest text-gray-400">Search Records</label>
+                    <div class="relative">
+                        <input type="text" id="archiveSearch" onkeyup="filterArchives()" 
+                               placeholder="Keywords: Zamfara, NHF..." 
+                               class="w-full border-b-4 border-black p-4 outline-none focus:border-[#2D5A27] font-bold uppercase text-sm transition-all bg-gray-50/50">
+                        <i class="fas fa-search absolute right-4 top-5 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- You can add more archive cards here in the same structure -->
-      </div>
+        <div id="archive-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="col-span-full py-20 text-center">
+                <div class="inline-block w-12 h-12 border-4 border-gray-200 border-t-[#2D5A27] rounded-full animate-spin mb-4"></div>
+                <p class="font-black uppercase tracking-widest text-gray-400 text-xs">Accessing Database...</p>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
+
+<div id="newsModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-10">
+    <div onclick="closeNews()" class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
+    <div class="relative bg-white w-full max-w-6xl max-h-[90vh] overflow-y-auto border-2 border-black shadow-2xl rounded-2xl overflow-hidden">
+        <button onclick="closeNews()" class="absolute top-4 right-4 z-20 bg-black text-white w-12 h-12 rounded-full font-black hover:bg-[#2D5A27] transition-all">✕</button>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+            <div class="bg-gray-100 h-72 lg:h-auto">
+                <img id="modalImg" src="" class="w-full h-full object-cover">
+            </div>
+            <div class="p-8 md:p-16">
+                <p id="modalDate" class="text-[10px] font-black uppercase tracking-[0.3em] text-[#2D5A27] mb-6"></p>
+                <h3 id="modalTopic" class="text-4xl md:text-5xl font-black uppercase leading-none mb-4"></h3>
+                <h4 id="modalSubtopic" class="text-xl font-bold italic text-gray-500 mb-10 border-b pb-6"></h4>
+                <div id="modalText" class="text-gray-700 leading-relaxed space-y-4 whitespace-pre-wrap font-medium"></div>
+            </div>
+        </div>
+    </div>
+</div> 
 
 <!-- ================= DONATE MODAL ================= -->
 <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg overflow-y-auto">
@@ -664,6 +685,90 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxarbp414MUwgHzbYzq0NzQZuf6v_-PvGQyTEJDxM1YA0w3s2JYPIJfTNi2UXP4PP1w/exec"; 
+    let archiveData = []; 
+
+    async function fetchArchives() {
+        try {
+            const response = await fetch(`${SCRIPT_URL}?type=newsletter`);
+            const data = await response.json();
+            // Data format from sheet: [Date, Topic, Subtopic, Content, ImageURL, FileID]
+            archiveData = data.reverse(); 
+            renderArchives(archiveData);
+        } catch (err) {
+            document.getElementById('archive-grid').innerHTML = "<p class='font-black uppercase text-red-600'>Server Connection Error.</p>";
+        }
+    }
+
+    function filterArchives() {
+        const query = document.getElementById('archiveSearch').value.toLowerCase();
+        const filtered = archiveData.filter(item => {
+            return item[1].toLowerCase().includes(query) || 
+                   item[2].toLowerCase().includes(query) || 
+                   item[3].toLowerCase().includes(query);
+        });
+        renderArchives(filtered);
+    }
+
+    function renderArchives(dataToRender) {
+        const grid = document.getElementById('archive-grid');
+        grid.innerHTML = "";
+
+        if (dataToRender.length === 0) {
+            grid.innerHTML = "<div class='col-span-full py-12 text-center'><p class='uppercase font-black text-gray-400'>No records found.</p></div>";
+            return;
+        }
+
+        dataToRender.forEach((item) => {
+            const card = `
+            <div class="group border border-gray-200 p-8 rounded-2xl hover:border-[#2D5A27] hover:shadow-2xl transition-all duration-400 bg-gray-50/40 flex flex-col h-full" data-aos="fade-up">
+                <div class="flex justify-between items-start mb-8">
+                    <div class="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center shadow-sm">
+                        <i class="far fa-file-alt text-2xl text-[#2D5A27]"></i>
+                    </div>
+                    <span class="text-[10px] font-black uppercase text-gray-400 tracking-widest">${new Date(item[0]).toLocaleDateString('en-GB')}</span>
+                </div>
+                
+                <h4 class="text-2xl font-black italic uppercase leading-tight mb-5 group-hover:text-[#2D5A27] transition-colors">
+                    ${item[1]}
+                </h4>
+                
+                <p class="text-gray-600 text-sm mb-8 leading-relaxed line-clamp-3">
+                    ${item[2]}
+                </p>
+                
+                <div class="mt-auto pt-6 border-t border-gray-100">
+                    <button onclick="viewEntry('${item[5]}')" class="text-xs font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                        View Full Records +
+                    </button>
+                </div>
+            </div>
+            `;
+            grid.innerHTML += card;
+        });
+    }
+
+    function viewEntry(fileId) {
+        const item = archiveData.find(i => i[5] === fileId);
+        if(!item) return;
+
+        document.getElementById('modalImg').src = item[4] || '';
+        document.getElementById('modalDate').innerText = new Date(item[0]).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+        document.getElementById('modalTopic').innerText = item[1];
+        document.getElementById('modalSubtopic').innerText = item[2];
+        document.getElementById('modalText').innerText = item[3];
+        
+        document.getElementById('newsModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeNews() {
+        document.getElementById('newsModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    window.onload = fetchArchives;
 </script>
 </body>
 </html>
