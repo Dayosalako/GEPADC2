@@ -534,7 +534,7 @@ body {
                         
                         <div class="flex items-center gap-3">
                             <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">1222236330</p>
-                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                            <button onclick="copyToClipboard('1222236330')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
                                 <i class="fas fa-copy text-xs"></i>
                             </button>
                         </div>
@@ -564,26 +564,26 @@ body {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
-                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                            <input type="text" id="donorName" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
                         </div>
                         <div class="space-y-2">
                             <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
-                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                            <input type="email" id="donorEmail" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
                         </div>
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
-                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
-                            <option>General Support</option>
-                            <option>Protection Missions (GBV)</option>
-                            <option>WASH Initiatives</option>
-                            <option>Economic Empowerment</option>
+                        <select id="donorPurpose" class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                            <option value="General Support">General Support</option>
+                            <option value="Protection Missions (GBV)">Protection Missions (GBV)</option>
+                            <option value="WASH Initiatives">WASH Initiatives</option>
+                            <option value="Economic Empowerment">Economic Empowerment</option>
                         </select>
                     </div>
 
                     <div class="pt-6 flex flex-col sm:flex-row gap-4">
-                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                        <button type="submit" id="donateSubmitBtn" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
                             Confirm Support
                         </button>
                         <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
@@ -608,8 +608,7 @@ body {
 
         </div>
     </div>
-</div>                                                                                                                                                                                  
-  
+</div>
   
   
 <!-- ================= FOOTER ================= -->
@@ -668,7 +667,7 @@ body {
           </li>
           <li class="p-4 lg:p-5 bg-red-900/10 border-l-4 border-red-700">
             <span class="text-xs lg:text-sm font-black uppercase tracking-widest text-red-700 block mb-2">Safeguarding Reporting</span>
-            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-xs lg:text-sm uppercase tracking-wider border-b border-white/30 hover:text-red-400 transition">safeguarding@gepadcentre.org</a>
+            <a href="mailto:safeguarding@gepadcentre.org" class="text-white font-black text-xs lg:text-sm uppercase tracking-wider border-b border-white/30 hover:text-red-400 transition">safeguarding@gepadcentre.org</a>
           </li>
         </ul>
       </div>
@@ -756,41 +755,59 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // 3. Donate Modal Logic
-    window.toggleModal = () => {
-        const modal = document.getElementById("donateModal");
-        if (!modal) return;
+  async function handleDonation(event) {
+    event.preventDefault();
 
-        const isHidden = modal.classList.toggle("hidden");
+    const SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL"; // Update this!
+    const btn = document.getElementById('donateSubmitBtn');
+    const formContent = document.getElementById('formContent');
+    const successContent = document.getElementById('successContent');
 
-        if (isHidden) {
-            // Reset to form view when closing
-            setTimeout(() => {
-                document.getElementById("formContent")?.classList.remove("hidden");
-                document.getElementById("successContent")?.classList.add("hidden");
-                document.getElementById("donorForm")?.reset();
-            }, 400);
-        }
+    btn.innerText = "RECORDING...";
+    btn.disabled = true;
+
+    // Mapping modal data to the Apps Script payload
+    const payload = {
+        type: "DONATE",
+        name: document.getElementById('donorName').value,
+        email: document.getElementById('donorEmail').value,
+        project: document.getElementById('donorPurpose').value,
+        amount: "PLEDGE",
+        message: "Bank Transfer Pledge Notification"
     };
 
-    window.handleDonation = (e) => {
-        e.preventDefault();
-        document.getElementById("formContent")?.classList.add("hidden");
-        document.getElementById("successContent")?.classList.remove("hidden");
-    };
-
-    // 4. Clipboard Utility
-    window.copyToClipboard = (text) => {
-        navigator.clipboard.writeText(text).then(() => {
-            const btnIcon = document.querySelector("#copyBtn i") || 
-                           document.querySelector("[onclick*='copyToClipboard'] i");
-            if (btnIcon) {
-                const originalClass = btnIcon.className;
-                btnIcon.className = "fas fa-check text-white";
-                setTimeout(() => btnIcon.className = originalClass, 2000);
-            }
+    try {
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            body: JSON.stringify(payload)
         });
-    };
 
+        // Toggle Views inside modal
+        formContent.classList.add('hidden');
+        successContent.classList.remove('hidden');
+        document.getElementById('donorForm').reset();
+
+    } catch (error) {
+        console.error('Submission Error:', error);
+        alert("We couldn't record your pledge. Please try again.");
+    } finally {
+        btn.innerText = "Confirm Support";
+        btn.disabled = false;
+    }
+}
+
+// Copy Account Number Helper
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        const copyBtn = document.getElementById('copyBtn');
+        copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+        }, 2000);
+    });
+}
+    
     // 5. Timeline Active Scroll Observer
     window.addEventListener("scroll", () => {
         const sections = document.querySelectorAll("section[id^='year-']");
