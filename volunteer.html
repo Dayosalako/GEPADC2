@@ -412,7 +412,7 @@
                         
                         <div class="flex items-center gap-3">
                             <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">1222236330</p>
-                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                            <button onclick="copyToClipboard('1222236330')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
                                 <i class="fas fa-copy text-xs"></i>
                             </button>
                         </div>
@@ -442,26 +442,26 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
-                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                            <input type="text" id="donorName" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
                         </div>
                         <div class="space-y-2">
                             <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
-                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                            <input type="email" id="donorEmail" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
                         </div>
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
-                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
-                            <option>General Support</option>
-                            <option>Protection Missions (GBV)</option>
-                            <option>WASH Initiatives</option>
-                            <option>Economic Empowerment</option>
+                        <select id="donorPurpose" class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                            <option value="General Support">General Support</option>
+                            <option value="Protection Missions (GBV)">Protection Missions (GBV)</option>
+                            <option value="WASH Initiatives">WASH Initiatives</option>
+                            <option value="Economic Empowerment">Economic Empowerment</option>
                         </select>
                     </div>
 
                     <div class="pt-6 flex flex-col sm:flex-row gap-4">
-                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                        <button type="submit" id="donateSubmitBtn" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
                             Confirm Support
                         </button>
                         <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
@@ -486,7 +486,7 @@
 
         </div>
     </div>
-</div>   
+</div>
 
    <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
   <div class="container mx-auto">
@@ -613,27 +613,119 @@
       .catch(err => console.error('Copy failed', err));
   }
 
-  // --- Volunteer Form Submission ---
-  const volunteerForm = document.getElementById('volunteerForm');
-  if (volunteerForm) {
-    volunteerForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const volMsg = document.getElementById('volMsg');
-      if (volMsg) volMsg.classList.remove('hidden');
-      volunteerForm.reset();
-    });
-  }
+  // --- Volunteer Form Submission ---                    
+  
+ const volunteerForm = document.getElementById('volunteerForm');
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzRlrXKB3KM7qz6O9NvyzVLUzH3CVNRCzEu4Tay4JGsrhxizslfcJqhfMs4Pu_Rz5Gg/exec"; // Replace with your actual script URL
 
-  // --- Donation Form Handling ---
-  function handleDonation(e) {
-    e.preventDefault();
+if (volunteerForm) {
+    volunteerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btn = document.getElementById('volSubmitBtn');
+        const volMsg = document.getElementById('volMsg');
+        
+        // Show loading state
+        btn.innerText = "SENDING...";
+        btn.disabled = true;
+
+        // Collect data from the form fields
+        const payload = {
+            type: "VOLUNTEER",
+            name: document.getElementById('vName').value,
+            email: document.getElementById('vEmail').value,
+            phone: "N/A", // You can add a phone field to HTML if needed
+            message: `Interest: ${document.getElementById('vInterest').value} | Details: ${document.getElementById('vMsg').value}`
+        };
+
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Essential for Google Apps Script cross-domain
+                body: JSON.stringify(payload)
+            });
+
+            // Success feedback
+            if (volMsg) {
+                volMsg.classList.remove('hidden');
+                volMsg.innerText = "Application Sent Successfully!";
+            }
+            volunteerForm.reset();
+
+        } catch (error) {
+            console.error('Error!', error.message);
+            if (volMsg) {
+                volMsg.classList.remove('hidden');
+                volMsg.classList.replace('text-green-600', 'text-red-600');
+                volMsg.innerText = "Something went wrong. Please try again.";
+            }
+        } finally {
+            // Reset button state
+            btn.innerText = "SUBMIT APPLICATION";
+            btn.disabled = false;
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                if (volMsg) volMsg.classList.add('hidden');
+            }, 5000);
+        }
+    });
+}                    
+  
+
+ async function handleDonation(event) {
+    event.preventDefault();
+
+    const SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL"; // Update this!
+    const btn = document.getElementById('donateSubmitBtn');
     const formContent = document.getElementById('formContent');
     const successContent = document.getElementById('successContent');
-    if (formContent && successContent) {
-      formContent.classList.add('hidden');
-      successContent.classList.remove('hidden');
+
+    btn.innerText = "RECORDING...";
+    btn.disabled = true;
+
+    // Mapping modal data to the Apps Script payload
+    const payload = {
+        type: "DONATE",
+        name: document.getElementById('donorName').value,
+        email: document.getElementById('donorEmail').value,
+        project: document.getElementById('donorPurpose').value,
+        amount: "PLEDGE",
+        message: "Bank Transfer Pledge Notification"
+    };
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            body: JSON.stringify(payload)
+        });
+
+        // Toggle Views inside modal
+        formContent.classList.add('hidden');
+        successContent.classList.remove('hidden');
+        document.getElementById('donorForm').reset();
+
+    } catch (error) {
+        console.error('Submission Error:', error);
+        alert("We couldn't record your pledge. Please try again.");
+    } finally {
+        btn.innerText = "Confirm Support";
+        btn.disabled = false;
     }
-  }
+}
+
+// Copy Account Number Helper
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        const copyBtn = document.getElementById('copyBtn');
+        copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+        }, 2000);
+    });
+}                    
+  
 
   // --- Modal Toggle ---
   function toggleModal() {
