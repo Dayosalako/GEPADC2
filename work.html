@@ -1344,6 +1344,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     AOS.init({ duration: 800, once: true, easing: 'ease-out-quad' });
 
+   // --- Dropdown Hover Functionality ---
+  document.querySelectorAll('.dropdown').forEach(drop => {
+    const menu = drop.querySelector('.dropdown-menu');
+    if (menu) {
+      drop.addEventListener('mouseenter', () => menu.classList.remove('hidden'));
+      drop.addEventListener('mouseleave', () => menu.classList.add('hidden'));
+    }
+  });
+
+  // --- Mobile Navigation Toggle ---
+  function toggleMobileNav() {
+    const nav = document.querySelector('.mobile-nav');
+    if (nav) nav.classList.toggle('hidden');
+  }
+  
 /* Animated counters */
 const counterObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
