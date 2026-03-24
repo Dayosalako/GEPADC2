@@ -422,99 +422,105 @@
 </div> 
 
 <!-- ================= DONATE MODAL ================= -->
-<div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg overflow-y-auto">
-  <div class="bg-white w-full max-w-5xl lg:max-w-6xl flex flex-col lg:flex-row rounded-2xl overflow-hidden shadow-2xl my-6 relative">
-    <!-- Left - Branding -->
-    <div class="bg-[var(--brand-green)] p-8 lg:p-16 lg:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
-      <div class="absolute -top-20 -right-20 opacity-10 text-[25rem] md:text-[30rem] pointer-events-none">
-        <i class="fas fa-hand-holding-heart"></i>
-      </div>
-      <div class="relative z-10">
-        <button onclick="toggleModal()" class="mb-8 lg:mb-12 text-white/70 hover:text-white flex items-center gap-3 text-xs font-black uppercase tracking-widest transition">
-          <i class="fas fa-arrow-left"></i> Back to Site
-        </button>
-
-        <h2 class="text-4xl lg:text-6xl font-black italic font-heading uppercase leading-tight mb-6 lg:mb-8">
-          Secure<br/>Giving
-        </h2>
-        <p class="text-white/80 text-sm lg:text-base max-w-md leading-relaxed mb-10 lg:mb-12">
-          Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
-        </p>
-
-        <div class="bg-white/10 p-6 lg:p-8 rounded-xl border border-white/20 backdrop-blur-md">
-          <p class="text-xs font-black uppercase tracking-widest mb-3 text-white/70">Direct Bank Transfer</p>
-          <p class="text-sm font-bold uppercase mb-2">First Bank Nigeria</p>
-          <div class="flex items-center gap-4">
-            <p class="text-3xl lg:text-4xl font-black italic tracking-tight" id="accNum">2034098418</p>
-            <button onclick="copyToClipboard('2034098418')" class="text-white/50 hover:text-white transition">
-              <i class="fas fa-copy text-xl"></i>
-            </button>
-          </div>
-          <p class="text-sm mt-4 font-medium">Gender Equality Peace and Development Centre</p>
-        </div>
-      </div>
-
-      <div class="relative z-10 mt-10 lg:mt-12 pt-6 lg:pt-8 border-t border-white/20 flex items-center gap-4 text-sm">
-        <i class="fas fa-shield-check text-xl lg:text-2xl text-white/60"></i>
-        <span class="font-black uppercase tracking-widest text-white/70">Encrypted & Verified</span>
-      </div>
-    </div>
-
-    <!-- Right - Form -->
-    <div class="p-8 lg:p-16 lg:w-7/12 flex flex-col justify-center min-h-[500px]">
-      <div id="formContent">
-        <div class="mb-10 lg:mb-12">
-          <h3 class="text-3xl lg:text-4xl font-black uppercase italic font-heading leading-tight mb-3">Pledge Support</h3>
-          <p class="text-gray-500 text-sm font-bold uppercase tracking-widest">Let us know you've made a difference</p>
-        </div>
-
-        <form id="donorForm" class="space-y-6 lg:space-y-8" onsubmit="handleDonation(event)">
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <label class="text-xs font-black uppercase tracking-widest text-gray-500">Full Name</label>
-              <input type="text" required placeholder="John Doe" class="w-full border-b-2 border-gray-200 py-3 lg:py-4 text-sm lg:text-base font-semibold focus:border-[var(--brand-green)] outline-none transition"/>
+<div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
+        
+        <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
+            <div class="absolute top-0 right-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block">
+                <i class="fas fa-hand-holding-heart text-[20rem]"></i>
             </div>
-            <div class="space-y-2">
-              <label class="text-xs font-black uppercase tracking-widest text-gray-500">Email Address</label>
-              <input type="email" required placeholder="john@example.com" class="w-full border-b-2 border-gray-200 py-3 lg:py-4 text-sm lg:text-base font-semibold focus:border-[var(--brand-green)] outline-none transition"/>
+
+            <div class="relative z-10">
+                <button onclick="toggleModal()" class="mb-8 md:mb-12 text-white/60 hover:text-white transition flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </button>
+                
+                <h2 class="text-4xl md:text-5xl font-black italic font-heading mb-4 md:mb-6 uppercase leading-tight">Secure <br>Giving.</h2>
+                <p class="text-white/80 text-xs leading-relaxed mb-8 md:mb-10 max-w-xs">
+                    Your contribution directly funds protection missions and empowerment programs across conflict-affected regions.
+                </p>
+
+                <div class="space-y-4 md:space-y-8">
+                    <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
+                        <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
+                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">Access Bank</p>
+                        
+                        <div class="flex items-center gap-3">
+                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">1222236330</p>
+                            <button onclick="copyToClipboard('1222236330')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                                <i class="fas fa-copy text-xs"></i>
+                            </button>
+                        </div>
+                        
+                        <p class="text-[10px] md:text-[11px] font-medium mt-2">GEPaDC Pooled Resources</p>
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <div class="space-y-2">
-            <label class="text-xs font-black uppercase tracking-widest text-gray-500">Donation Purpose</label>
-            <select class="w-full border-b-2 border-gray-200 py-3 lg:py-4 text-sm lg:text-base font-semibold bg-transparent focus:border-[var(--brand-green)] outline-none appearance-none">
-              <option>General Support</option>
-              <option>Protection Missions (GBV)</option>
-              <option>WASH Initiatives</option>
-              <option>Economic Empowerment</option>
-            </select>
-          </div>
-
-          <div class="pt-6 lg:pt-8 flex flex-col sm:flex-row gap-4">
-            <button type="submit" class="flex-1 bg-black text-white py-4 lg:py-5 text-xs font-black uppercase tracking-widest hover:bg-[var(--brand-green)] transition shadow-lg active:scale-98">
-              Confirm Support
-            </button>
-            <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-600 py-4 lg:py-5 text-xs font-black uppercase tracking-widest hover:bg-gray-200 transition">
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div id="successContent" class="hidden text-center">
-        <div class="w-20 lg:w-24 h-20 lg:h-24 bg-[var(--brand-green)]/10 text-[var(--brand-green)] rounded-full flex items-center justify-center mx-auto mb-8 lg:mb-10 text-3xl lg:text-4xl">
-          <i class="fas fa-check"></i>
+            <div class="relative z-10 pt-8 md:pt-10 mt-6 border-t border-white/10">
+                <div class="flex items-center gap-4">
+                    <i class="fas fa-shield-check text-xl md:text-2xl text-white/50"></i>
+                    <p class="text-[9px] font-black uppercase tracking-widest text-white/50 uppercase">Encrypted & Verified</p>
+                </div>
+            </div>
         </div>
-        <h3 class="text-3xl lg:text-4xl font-black uppercase italic font-heading mb-4 lg:mb-6">Pledge Received</h3>
-        <p class="text-gray-600 text-sm lg:text-base leading-relaxed mb-8 lg:mb-12 max-w-md mx-auto">
-          Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
-        </p>
-        <button onclick="toggleModal()" class="border-2 border-black px-10 lg:px-12 py-4 lg:py-5 font-black uppercase text-xs tracking-widest hover:bg-black hover:text-white transition">
-          Return to Site
-        </button>
-      </div>
+
+        <div class="p-8 md:p-16 md:w-7/12 flex flex-col justify-center bg-white min-h-[400px]">
+            
+            <div id="formContent">
+                <div class="mb-8 md:mb-10">
+                    <h3 class="text-2xl font-black uppercase italic font-heading text-black leading-none">Pledge Support</h3>
+                    <p class="text-gray-400 text-[9px] font-bold uppercase tracking-widest mt-2">Let us know you've made a difference</p>
+                </div>
+
+                <form id="donorForm" class="space-y-6" onsubmit="handleDonation(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
+                            <input type="text" id="donorName" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
+                            <input type="email" id="donorEmail" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
+                        <select id="donorPurpose" class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                            <option value="General Support">General Support</option>
+                            <option value="Protection Missions (GBV)">Protection Missions (GBV)</option>
+                            <option value="WASH Initiatives">WASH Initiatives</option>
+                            <option value="Economic Empowerment">Economic Empowerment</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-6 flex flex-col sm:flex-row gap-4">
+                        <button type="submit" id="donateSubmitBtn" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                            Confirm Support
+                        </button>
+                        <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="successContent" class="hidden text-center">
+                <div class="w-20 h-20 bg-[#2D5A27]/10 text-[#2D5A27] rounded-full flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-check text-3xl"></i>
+                </div>
+                <h3 class="text-3xl font-black uppercase italic font-heading text-black mb-4 leading-none">Pledge Received</h3>
+                <p class="text-gray-500 text-xs leading-relaxed mb-10 max-w-sm mx-auto">
+                    Thank you for your commitment. Your pledge has been recorded. Our team will verify the transfer and update our impact metrics.
+                </p>
+                <button onclick="toggleModal()" class="border-2 border-black px-10 py-4 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all">
+                    Return to Site
+                </button>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- ================= FOOTER ================= -->
@@ -573,7 +579,7 @@
           </li>
           <li class="p-4 lg:p-5 bg-red-900/10 border-l-4 border-red-700">
             <span class="text-xs lg:text-sm font-black uppercase tracking-widest text-red-700 block mb-2">Safeguarding Reporting</span>
-            <a href="mailto:safeguarding@gepadc.org" class="text-white font-black text-xs lg:text-sm uppercase tracking-wider border-b border-white/30 hover:text-red-400 transition">safeguarding@gepadc.org</a>
+            <a href="mailto:safeguarding@gepadcentre.org" class="text-white font-black text-xs lg:text-sm uppercase tracking-wider border-b border-white/30 hover:text-red-400 transition">safeguarding@gepadcentre.org</a>
           </li>
         </ul>
       </div>
@@ -634,37 +640,59 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // ───── Donate Modal ─────
-  window.toggleModal = () => {
-    const modal = document.getElementById("donateModal");
-    const form = document.getElementById("formContent");
-    const success = document.getElementById("successContent");
-    modal?.classList.toggle("hidden");
+ async function handleDonation(event) {
+    event.preventDefault();
 
-    if (modal?.classList.contains("hidden")) {
-      setTimeout(() => {
-        form?.classList.remove("hidden");
-        success?.classList.add("hidden");
-        document.getElementById("donorForm")?.reset();
-      }, 400);
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxllqXTd8VlAP5j5MPp_UbIQRHswO68A056DTXKjFGiz9VDLT33gJ73P8OczK2HGqyk/exec"; // Update this!
+    const btn = document.getElementById('donateSubmitBtn');
+    const formContent = document.getElementById('formContent');
+    const successContent = document.getElementById('successContent');
+
+    btn.innerText = "RECORDING...";
+    btn.disabled = true;
+
+    // Mapping modal data to the Apps Script payload
+    const payload = {
+        type: "DONATE",
+        name: document.getElementById('donorName').value,
+        email: document.getElementById('donorEmail').value,
+        project: document.getElementById('donorPurpose').value,
+        amount: "PLEDGE",
+        message: "Bank Transfer Pledge Notification"
+    };
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            body: JSON.stringify(payload)
+        });
+
+        // Toggle Views inside modal
+        formContent.classList.add('hidden');
+        successContent.classList.remove('hidden');
+        document.getElementById('donorForm').reset();
+
+    } catch (error) {
+        console.error('Submission Error:', error);
+        alert("We couldn't record your pledge. Please try again.");
+    } finally {
+        btn.innerText = "Confirm Support";
+        btn.disabled = false;
     }
-  };
+}
 
-  window.handleDonation = (e) => {
-    e.preventDefault();
-    document.getElementById("formContent")?.classList.add("hidden");
-    document.getElementById("successContent")?.classList.remove("hidden");
-  };
-
-  window.copyToClipboard = (text) => {
+// Copy Account Number Helper
+function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
-      const btn = document.querySelector("#copyBtn i") || document.querySelector("[onclick*='copyToClipboard'] i");
-      if (btn) {
-        const original = btn.className;
-        btn.className = "fas fa-check text-white";
-        setTimeout(() => btn.className = original, 2200);
-      }
+        const copyBtn = document.getElementById('copyBtn');
+        copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+        }, 2000);
     });
-  };
+}                    
+  
 
   // ───── Timeline Active Link ─────
   window.addEventListener("scroll", () => {
@@ -686,7 +714,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxarbp414MUwgHzbYzq0NzQZuf6v_-PvGQyTEJDxM1YA0w3s2JYPIJfTNi2UXP4PP1w/exec"; 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxllqXTd8VlAP5j5MPp_UbIQRHswO68A056DTXKjFGiz9VDLT33gJ73P8OczK2HGqyk/exec"; 
     let archiveData = []; 
 
     async function fetchArchives() {
