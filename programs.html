@@ -639,7 +639,7 @@ structures and publication of the Decade of Impact research paper.
     </div>
 </div>   
   
-   <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+ <div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
     <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
         
         <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
@@ -660,16 +660,16 @@ structures and publication of the Decade of Impact research paper.
                 <div class="space-y-4 md:space-y-8">
                     <div class="bg-white/5 p-5 md:p-6 rounded border border-white/10 backdrop-blur-md">
                         <p class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 text-white/60">Direct Bank Transfer</p>
-                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">First Bank Nigeria</p>
+                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">Access Bank</p>
                         
                         <div class="flex items-center gap-3">
-                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">2034098418</p>
-                            <button onclick="copyToClipboard('2034098418')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
+                            <p class="text-2xl md:text-3xl font-black italic font-heading tracking-tighter" id="accNum">1222236330</p>
+                            <button onclick="copyToClipboard('1222236330')" id="copyBtn" class="text-white/40 hover:text-white transition-all active:scale-90">
                                 <i class="fas fa-copy text-xs"></i>
                             </button>
                         </div>
                         
-                        <p class="text-[10px] md:text-[11px] font-medium mt-2">Gender Equality Peace and Development Centre</p>
+                        <p class="text-[10px] md:text-[11px] font-medium mt-2">GEPaDC Pooled Resources</p>
                     </div>
                 </div>
             </div>
@@ -694,26 +694,26 @@ structures and publication of the Decade of Impact research paper.
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
-                            <input type="text" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                            <input type="text" id="donorName" placeholder="John Doe" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
                         </div>
                         <div class="space-y-2">
                             <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
-                            <input type="email" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
+                            <input type="email" id="donorEmail" placeholder="john@example.com" required class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold focus:border-[#2D5A27] transition-colors">
                         </div>
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-[9px] font-black uppercase tracking-widest text-gray-400">Donation Purpose</label>
-                        <select class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
-                            <option>General Support</option>
-                            <option>Protection Missions (GBV)</option>
-                            <option>WASH Initiatives</option>
-                            <option>Economic Empowerment</option>
+                        <select id="donorPurpose" class="w-full border-b-2 border-gray-100 py-3 outline-none text-sm font-bold bg-transparent focus:border-[#2D5A27] transition-colors appearance-none">
+                            <option value="General Support">General Support</option>
+                            <option value="Protection Missions (GBV)">Protection Missions (GBV)</option>
+                            <option value="WASH Initiatives">WASH Initiatives</option>
+                            <option value="Economic Empowerment">Economic Empowerment</option>
                         </select>
                     </div>
 
                     <div class="pt-6 flex flex-col sm:flex-row gap-4">
-                        <button type="submit" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
+                        <button type="submit" id="donateSubmitBtn" class="flex-1 bg-black text-white py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-[#2D5A27] transition-all shadow-lg active:scale-[0.98]">
                             Confirm Support
                         </button>
                         <button type="button" onclick="toggleModal()" class="flex-1 bg-gray-100 text-gray-500 py-4 px-6 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-gray-200 hover:text-black transition-all">
@@ -738,7 +738,7 @@ structures and publication of the Decade of Impact research paper.
 
         </div>
     </div>
-</div>                      
+</div> 
   
 
   <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
@@ -893,7 +893,58 @@ el.innerHTML = data;
 .catch(err => console.error(err));
 }
 
+async function handleDonation(event) {
+    event.preventDefault();
 
+    const SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL"; // Update this!
+    const btn = document.getElementById('donateSubmitBtn');
+    const formContent = document.getElementById('formContent');
+    const successContent = document.getElementById('successContent');
+
+    btn.innerText = "RECORDING...";
+    btn.disabled = true;
+
+    // Mapping modal data to the Apps Script payload
+    const payload = {
+        type: "DONATE",
+        name: document.getElementById('donorName').value,
+        email: document.getElementById('donorEmail').value,
+        project: document.getElementById('donorPurpose').value,
+        amount: "PLEDGE",
+        message: "Bank Transfer Pledge Notification"
+    };
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            body: JSON.stringify(payload)
+        });
+
+        // Toggle Views inside modal
+        formContent.classList.add('hidden');
+        successContent.classList.remove('hidden');
+        document.getElementById('donorForm').reset();
+
+    } catch (error) {
+        console.error('Submission Error:', error);
+        alert("We couldn't record your pledge. Please try again.");
+    } finally {
+        btn.innerText = "Confirm Support";
+        btn.disabled = false;
+    }
+}
+
+// Copy Account Number Helper
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        const copyBtn = document.getElementById('copyBtn');
+        copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+        }, 2000);
+    });
+}
 
 function toggleModal(){
 const modal = document.getElementById("donateModal");
@@ -951,21 +1002,7 @@ el.classList.toggle("hidden");
 
 }
     
-function copyToClipboard(text){
 
-navigator.clipboard.writeText(text);
-
-const btn = document.getElementById("copyBtn");
-
-if(btn){
-btn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
-
-setTimeout(()=>{
-btn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
-},2000);
-}
-
-}
 
 
 function updateClock(){
