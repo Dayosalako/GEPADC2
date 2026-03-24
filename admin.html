@@ -130,6 +130,36 @@
             </section>
         </main>
 
+      <div class="bg-white border border-black p-8 shadow-xl mt-10">
+    <h3 class="text-2xl font-black uppercase mb-6 border-l-4 border-[#2D5A27] pl-4">Archive New Newsletter</h3>
+    
+    <form id="newsletterForm" class="space-y-4">
+        <div>
+            <label class="block text-[10px] font-black uppercase mb-1">Newsletter Topic (Main Title)</label>
+            <input type="text" id="newsTopic" class="w-full border border-gray-300 p-3 outline-none focus:border-black" placeholder="e.g., Monthly Progress Report" required>
+        </div>
+        
+        <div>
+            <label class="block text-[10px] font-black uppercase mb-1">Sub-topic</label>
+            <input type="text" id="newsSubtopic" class="w-full border border-gray-300 p-3 outline-none focus:border-black" placeholder="e.g., Education Initiatives in Borno">
+        </div>
+
+        <div>
+            <label class="block text-[10px] font-black uppercase mb-1">Text Content</label>
+            <textarea id="newsContent" rows="5" class="w-full border border-gray-300 p-3 outline-none focus:border-black" placeholder="Write the main body of the newsletter here..." required></textarea>
+        </div>
+
+        <div>
+            <label class="block text-[10px] font-black uppercase mb-1">Newsletter Feature Image</label>
+            <input type="file" id="newsImage" accept="image/*" class="w-full text-xs">
+        </div>
+
+        <button type="submit" id="newsBtn" class="bg-black text-white w-full py-4 font-black uppercase tracking-widest hover:bg-[#2D5A27] transition-all">
+            Publish to Archive
+        </button>
+    </form>
+</div>
+
         <footer class="max-w-7xl mx-auto px-6 lg:px-10 pb-20">
             <div class="bg-black dark:bg-zinc-900 text-white p-8 rounded-sm shadow-2xl relative overflow-hidden">
                 <div class="relative z-10">
@@ -315,6 +345,50 @@
             initializePortal();
         }
     };
+
+  // Logic for Newsletter Upload
+document.getElementById('newsletterForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('newsBtn');
+    btn.innerText = "UPLOADING...";
+    btn.disabled = true;
+
+    const fileInput = document.getElementById('newsImage');
+    let base64Image = "";
+    let mimeType = "";
+
+    if (fileInput.files[0]) {
+        const file = fileInput.files[0];
+        base64Image = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.readAsDataURL(file);
+        });
+        mimeType = file.type;
+    }
+
+    const payload = {
+        type: "ARCHIVE",
+        topic: document.getElementById('newsTopic').value,
+        subtopic: document.getElementById('newsSubtopic').value,
+        textContent: document.getElementById('newsContent').value,
+        image: base64Image,
+        mimeType: mimeType
+    };
+
+    try {
+        const response = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+        alert("Newsletter successfully archived!");
+        location.reload();
+    } catch (err) {
+        alert("Upload failed. Check console.");
+        console.error(err);
+    }
+});
+  
 </script>                                        
 </body>
 </html>
