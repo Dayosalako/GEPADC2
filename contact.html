@@ -8,9 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>                                        
-  
-  /* ──────────────────────────────────────────────
+    <style>
+
+/* ──────────────────────────────────────────────
    VARIABLES & RESET
    ────────────────────────────────────────────── */
 :root {
@@ -51,34 +51,102 @@ body {
 }
 
 /* ──────────────────────────────────────────────
-   NAVIGATION COMPONENTS
+   MOBILE NAV — Ported from corrected index.html
    ────────────────────────────────────────────── */
-.mobile-nav-panel {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 300px;
-  max-width: 85vw;
-  height: 100vh;
-  background: white;
-  z-index: 9999;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
+.no-scroll { overflow: hidden; }
 
-/* Logic for opening panel via JS class */
-.mobile-nav-panel.open-active {
-  transform: translateX(-100%);
+.mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
 }
+.mobile-nav-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.mobile-nav-panel {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: 320px;
+    max-width: 90vw;
+    height: 100vh;
+    background: white;
+    color: #1a1a1a;
+    z-index: 9999;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    box-shadow: -12px 0 40px rgba(0,0,0,0.25);
+}
+.mobile-nav-panel.active {
+    transform: translateX(0);
+}
+.mobile-nav-panel ul {
+    list-style: none;
+    padding: 1.5rem 1rem;
+    margin: 0;
+}
+.mobile-nav-panel li {
+    border-bottom: 1px solid #eee;
+}
+.mobile-nav-panel a,
+.mobile-nav-panel button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 14px 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #1a1a1a;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+.mobile-nav-panel a:hover,
+.mobile-nav-panel button:hover { color: var(--brand-green); }
 
 .mobile-submenu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
+    display: none;
+    flex-direction: column;
+    padding-left: 1.25rem;
+    padding-bottom: 0.5rem;
 }
+.mobile-submenu a {
+    font-size: 12px;
+    padding: 10px 0;
+    font-weight: 600;
+    text-transform: none;
+    color: #333;
+}
+.mobile-submenu a:hover { color: var(--brand-green); }
 
-.mobile-submenu.open {
-  max-height: 800px;
+.mobile-nav-close {
+    padding: 1.25rem 1rem;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--brand-green);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
+.mobile-nav-close:hover { background: #f8f8f8; }
+.mobile-nav-close i { font-size: 1.1rem; }
 
 /* ──────────────────────────────────────────────
    TICKER ANIMATION
@@ -99,9 +167,7 @@ body {
   color: #ffffff;
 }
 
-.ticker:hover {
-  animation-play-state: paused;
-}
+.ticker:hover { animation-play-state: paused; }
 
 @keyframes ticker-move {
   0% { transform: translateX(0); }
@@ -176,8 +242,9 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
 ::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 3px; }
-    </style>                                                                                                                                                                
- </head>
+
+    </style>
+</head>
 <body>
 
 <!-- ================= HEADER ================= -->
@@ -259,13 +326,12 @@ body {
   </div>
 </header>
 
-<!-- Mobile Nav Overlay + Panel -->
-<div id="mobileNavOverlay" class="mobile-nav-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMobileNav()"></div>
-<nav id="mobileNavPanel" class="mobile-nav-panel fixed top-0 right-[-100%] w-full max-w-[340px] h-full bg-white z-[9999] shadow-2xl p-6 overflow-y-auto transition-all duration-500">
-  <button class="mobile-nav-close text-[var(--brand-green)] font-black uppercase tracking-widest text-sm mb-8 flex items-center gap-2" onclick="closeMobileNav()">
+<!-- Mobile Nav Overlay + Panel — Ported from corrected index.html -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
+<nav id="mobileNavPanel" class="mobile-nav-panel">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">
     <i class="fas fa-times text-lg"></i> Close
   </button>
-
   <ul class="space-y-1 text-sm font-black uppercase tracking-wider">
     <li><a href="index.html" class="block py-4 hover:text-[var(--brand-green)] transition">Home</a></li>
 
@@ -441,7 +507,7 @@ body {
             <div class="lg:w-7/12 flex flex-col gap-8">
                 <div class="w-full h-64 md:h-80 bg-gray-100 grayscale hover:grayscale-0 transition-all duration-700 shadow-lg overflow-hidden border border-gray-100">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.66442654321!2d7.4093863!3d9.1171822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e757a3e6a0d3b%3A0x67347a46869403d!2s1%20Cardinal%20Ekandem%20St%2C%20Gwarinpa%2C%20Abuja%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1710260000000!5m2!1sen!2sng" 
+                        src="https://www.google.com/maps?q=No+7+Nguru+Street+Polo+Close,+Old+GRA,+Maiduguri,+Borno+State,+Nigeria&output=embed" 
                         width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
@@ -509,7 +575,8 @@ body {
         </div>
     </div>
 
-<div id="donateModal" class="fixed inset-0 z-[300] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
+<!-- FIX: removed conflicting "flex" from initial class — toggleModal adds it when opening -->
+<div id="donateModal" class="fixed inset-0 z-[300] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-sm overflow-y-auto">
     <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row relative shadow-2xl rounded-sm my-auto overflow-hidden">
         
         <div class="bg-[#2D5A27] p-8 md:p-12 md:w-5/12 text-white flex flex-col justify-between relative overflow-hidden shrink-0">
@@ -609,249 +676,269 @@ body {
         </div>
     </div>
 </div>
-  
-  
-<!-- ================= FOOTER ================= -->
-<footer class="bg-[#0a0a0a] pt-16 pb-12 px-5 sm:px-8 md:px-12 lg:px-20 text-white border-t-4 border-[var(--brand-green)]">
-  <div class="container mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 mb-16">
-      <!-- Brand -->
-      <div class="space-y-6">
-        <div class="flex items-center gap-4">
-          <img src="logo.png" alt="GEPaDC Logo" class="h-12 lg:h-14 w-auto brightness-150"/>
-          <span class="text-2xl lg:text-3xl font-heading font-black tracking-tight">GEPaDC</span>
-        </div>
-        <p class="text-gray-300 text-sm lg:text-base leading-relaxed max-w-xs">
-          Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
-        </p>
-        <div class="flex gap-4">
-          <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
-            <i class="fab fa-x-twitter"></i>
-          </a>
-          <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center hover:bg-[var(--brand-green)] hover:border-[var(--brand-green)] transition">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-        </div>
-      </div>
 
-      <!-- Operational Office -->
-      <div>
-        <h4 class="text-white font-black text-xs lg:text-sm uppercase tracking-[0.35em] mb-6 lg:mb-8 border-l-4 border-[var(--brand-green)] pl-4">Operational Office</h4>
-        <ul class="space-y-4 lg:space-y-6 text-xs lg:text-sm uppercase font-semibold tracking-wider">
-          <li class="flex gap-4 lg:gap-5 group">
-            <i class="fas fa-map-pin text-[var(--brand-green)] text-lg lg:text-xl mt-1 group-hover:scale-125 transition"></i>
-            <div>
-              <span class="block">Borno State Office, Northeast Zone</span>
-              <p class="text-gray-500 font-medium normal-case text-xs lg:text-sm mt-1">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-[#0a0a0a] pt-16 pb-8 px-6 md:px-10 border-t-2 border-[#2D5A27] font-sans text-white">
+      <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+          <!-- Logo & Description -->
+          <div class="space-y-6">
+            <div class="flex items-center gap-4">
+              <img src="logo.png" alt="GEPaDC Logo" class="h-12 w-auto brightness-200" />
+              <span class="text-xl sm:text-2xl md:text-3xl font-heading font-black tracking-tighter">GEPaDC</span>
             </div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Direct Contact -->
-      <div>
-        <h4 class="text-white font-black text-xs lg:text-sm uppercase tracking-[0.35em] mb-6 lg:mb-8 border-l-4 border-[var(--brand-green)] pl-4">Direct Contact</h4>
-        <ul class="space-y-5 lg:space-y-6">
-          <li class="p-4 lg:p-5 bg-[var(--brand-green)]/10 border-l-4 border-[var(--brand-green)]">
-            <span class="text-xs lg:text-sm font-black uppercase tracking-widest text-[var(--brand-green)] block mb-2">Emergency Toll-Free</span>
-            <div class="flex items-center gap-3 lg:gap-4 text-xl lg:text-2xl font-black italic">
-              <i class="fas fa-headset"></i>
-              <span>08000004000</span>
+            <p class="text-gray-300 text-sm sm:text-base md:text-sm font-medium leading-relaxed max-w-xs">
+              Leading the frontier of gender-based justice and humanitarian protection in Western Africa. Built on equity, dignity, and sustainable peace.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <a href="https://web.facebook.com/GEPaDC.Nig" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://twitter.com/GEPaDC" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                <i class="fab fa-x-twitter"></i>
+              </a>
+              <a href="https://www.instagram.com/gepadc/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.linkedin.com/company/gepadcnig/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 border border-white/20 flex items-center justify-center text-white hover:bg-[#2D5A27] hover:border-[#2D5A27] transition-all">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
             </div>
-          </li>
-          <li class="p-4 lg:p-5 bg-red-900/10 border-l-4 border-red-700">
-            <span class="text-xs lg:text-sm font-black uppercase tracking-widest text-red-700 block mb-2">Safeguarding Reporting</span>
-            <a href="mailto:safeguarding@gepadcentre.org" class="text-white font-black text-xs lg:text-sm uppercase tracking-wider border-b border-white/30 hover:text-red-400 transition">safeguarding@gepadcentre.org</a>
-          </li>
-        </ul>
-      </div>
+          </div>
 
-      <!-- Newsletter -->
-      <div>
-        <h4 class="text-white font-black text-xs lg:text-sm uppercase tracking-[0.35em] mb-6 lg:mb-8 border-l-4 border-[var(--brand-green)] pl-4">Newsletter</h4>
-        <form class="relative">
-          <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/5 border-2 border-white/10 py-4 lg:py-5 px-5 lg:px-6 text-xs lg:text-sm font-black uppercase tracking-widest text-white focus:outline-none focus:border-[var(--brand-green)] transition"/>
-          <button class="absolute right-2 top-2 bottom-2 bg-[var(--brand-green)] px-5 lg:px-8 text-xs lg:text-sm font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
-        </form>
-      </div>
-    </div>
+          <!-- Operational Office -->
+          <div>
+            <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Operational Office</h4>
+            <ul class="space-y-4 sm:space-y-5 text-[9px] sm:text-[10px] md:text-[11px] uppercase font-black tracking-widest">
+              <li class="flex gap-4 group">
+                <i class="fas fa-map-pin text-[#2D5A27] text-sm mt-1 group-hover:scale-125 transition"></i>
+                <div>
+                  <span class="text-white block">Borno State Office, Northeast Zone</span>
+                  <p class="text-gray-500 font-bold lowercase tracking-normal text-[8px] sm:text-[9px] md:text-[10px]">No 7 Nguru Street Polo close, Old GRA Maiduguri Borno State</p>
+                </div>
+              </li>
+            </ul>
+          </div>
 
-    <div class="pt-10 lg:pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 lg:gap-8 text-xs lg:text-sm text-gray-500 font-semibold uppercase tracking-wider">
-      <div class="flex gap-6 lg:gap-8">
-        <a href="privacy.html" class="hover:text-[var(--brand-green)] transition">Privacy</a>
-        <a href="terms.html" class="hover:text-[var(--brand-green)] transition">Terms</a>
-        <a href="cookies.html" class="hover:text-[var(--brand-green)] transition">Cookies</a>
-      </div>
-      <div class="flex items-center gap-4 lg:gap-6">
-        <div class="text-right">
-          <p class="text-xs lg:text-sm uppercase font-black tracking-widest text-gray-600">Designed & Managed by</p>
-          <p class="text-white text-xs lg:text-sm font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+          <!-- Direct Contact -->
+          <div>
+            <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Direct Contact</h4>
+            <ul class="space-y-5">
+              <li class="mt-4 p-3 sm:p-4 bg-[#2D5A27]/10 border-l-4 border-[#2D5A27]">
+                <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-[#2D5A27] tracking-[0.25em] block mb-1">Emergency Toll-Free</span>
+                <div class="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-black italic text-white tracking-tighter">
+                  <i class="fas fa-headset text-base sm:text-lg md:text-xl"></i>
+                  <span>08000004000</span>
+                </div>
+              </li>
+              <li class="mt-4 p-3 sm:p-4 bg-red-900/10 border-l-4 border-red-700">
+                <span class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase text-red-700 tracking-[0.25em] block mb-1">Safeguarding Reporting</span>
+                <a href="mailto:safeguarding@gepadcentre.org" class="text-white font-black text-[9px] sm:text-[10px] md:text-[11px] tracking-widest border-b border-white/20 hover:text-red-700 transition">
+                  safeguarding@gepadcentre.org
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Newsletter -->
+          <div>
+            <h4 class="text-white font-black text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.35em] mb-6 md:mb-8 border-l-4 border-[#2D5A27] pl-4">Newsletter</h4>
+            <form class="relative mb-8">
+              <input type="email" placeholder="ENTER EMAIL" class="w-full bg-white/10 border-2 border-white/10 py-3 sm:py-4 px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black text-white focus:outline-none focus:border-[#2D5A27] transition uppercase tracking-widest" />
+              <button class="absolute right-2 top-2 bottom-2 bg-[#2D5A27] px-4 sm:px-6 text-[10px] sm:text-[11px] md:text-[11px] font-black uppercase hover:bg-white hover:text-black transition">Submit</button>
+            </form>
+          </div>
+
         </div>
-        <div class="w-14 lg:w-16 h-8 lg:h-10 bg-white p-2 rounded shadow-xl group hover:scale-105 transition">
-          <img src="zion.jpg" alt="Zion Netcom Solutions Logo" class="w-full h-full object-contain"/>
+
+        <!-- Footer Bottom -->
+        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+          <div class="flex gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">
+            <a href="privacy.html" class="hover:text-[#2D5A27] transition">Privacy</a>
+            <a href="terms.html" class="hover:text-[#2D5A27] transition">Terms</a>
+            <a href="cookies.html" class="hover:text-[#2D5A27] transition">Cookies</a>
+          </div>
+          <div class="flex items-center gap-4 md:gap-5">
+            <div class="text-right">
+              <p class="text-gray-500 text-[7px] sm:text-[8px] md:text-[9px] uppercase font-black tracking-widest">Designed &amp; Managed by</p>
+              <p class="text-white text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-widest">Zion Netcom Solutions Ltd</p>
+            </div>
+            <div class="w-12 h-7 bg-white p-2 shadow-2xl rounded-sm group hover:scale-110 transition">
+              <img src="zion.jpg" alt="Zion Logo" class="w-full h-full object-contain" />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</footer>
-                    
-  
-  
+    </footer>
+
+
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-// ──────────────────────────────────────────────
-//  Initialization
-// ──────────────────────────────────────────────
-// ──────────────────────────────────────────────
-//  Global Logic & Initialization
-// ──────────────────────────────────────────────
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // 1. Initialize AOS (Once)
-    AOS.init({ 
-        duration: 900, 
-        once: true, 
-        disable: 'mobile' 
-    });
 
-    // 2. Mobile Navigation
-    window.openMobileNav = () => {
-        const panel = document.getElementById("mobileNavPanel");
-        const overlay = document.getElementById("mobileNavOverlay");
-        
-        if (panel) panel.classList.add("open-active"); // Custom class for smooth slide
-        if (overlay) {
-            overlay.classList.remove("hidden");
-            // Small timeout to allow the 'hidden' removal to trigger transition
-            setTimeout(() => {
-                overlay.classList.add("opacity-100", "pointer-events-auto");
-            }, 10);
+    /* ─────────────────────────────────────────────────
+       FIX 1 — toggleModal (was missing entirely)
+    ───────────────────────────────────────────────── */
+    window.toggleModal = function () {
+        const modal = document.getElementById('donateModal');
+        if (!modal) return;
+
+        const isHidden = modal.classList.contains('hidden');
+
+        if (isHidden) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('no-scroll');
+        } else {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.classList.remove('no-scroll');
+
+            // Reset modal back to form view when closed
+            const formContent    = document.getElementById('formContent');
+            const successContent = document.getElementById('successContent');
+            if (formContent)    formContent.classList.remove('hidden');
+            if (successContent) successContent.classList.add('hidden');
         }
-        document.body.style.overflow = "hidden";
     };
 
-    window.closeMobileNav = () => {
-        const panel = document.getElementById("mobileNavPanel");
-        const overlay = document.getElementById("mobileNavOverlay");
-        
-        if (panel) panel.classList.remove("open-active");
-        if (overlay) {
-            overlay.classList.remove("opacity-100", "pointer-events-auto");
-            overlay.classList.add("opacity-0");
-            setTimeout(() => overlay.classList.add("hidden"), 400);
-        }
-        document.body.style.overflow = "";
-    };
-
-    window.toggleSubmenu = (id) => {
-        const el = document.getElementById(id);
-        if (el) el.classList.toggle("open");
-    };
-
-    // 3. Donate Modal Logic
-  async function handleDonation(event) {
-    event.preventDefault();
-
-    const SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL"; // Update this!
-    const btn = document.getElementById('donateSubmitBtn');
-    const formContent = document.getElementById('formContent');
-    const successContent = document.getElementById('successContent');
-
-    btn.innerText = "RECORDING...";
-    btn.disabled = true;
-
-    // Mapping modal data to the Apps Script payload
-    const payload = {
-        type: "DONATE",
-        name: document.getElementById('donorName').value,
-        email: document.getElementById('donorEmail').value,
-        project: document.getElementById('donorPurpose').value,
-        amount: "PLEDGE",
-        message: "Bank Transfer Pledge Notification"
-    };
-
-    try {
-        await fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors', 
-            body: JSON.stringify(payload)
+    /* ─────────────────────────────────────────────────
+       FIX 2 — copyToClipboard (was trapped inside
+       DOMContentLoaded — inline onclick couldn't reach it)
+    ───────────────────────────────────────────────── */
+    window.copyToClipboard = function (text) {
+        navigator.clipboard.writeText(text).then(function () {
+            const copyBtn = document.getElementById('copyBtn');
+            if (copyBtn) {
+                copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
+                setTimeout(function () {
+                    copyBtn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
+                }, 2000);
+            }
         });
+    };
 
-        // Toggle Views inside modal
-        formContent.classList.add('hidden');
-        successContent.classList.remove('hidden');
-        document.getElementById('donorForm').reset();
+    /* ─────────────────────────────────────────────────
+       FIX 3 — handleDonation (was trapped inside
+       DOMContentLoaded — inline onsubmit couldn't reach it)
+    ───────────────────────────────────────────────── */
+    window.handleDonation = async function (event) {
+        event.preventDefault();
 
-    } catch (error) {
-        console.error('Submission Error:', error);
-        alert("We couldn't record your pledge. Please try again.");
-    } finally {
-        btn.innerText = "Confirm Support";
-        btn.disabled = false;
-    }
-}
+        const SCRIPT_URL     = "YOUR_DEPLOYED_WEB_APP_URL"; // Update this!
+        const btn            = document.getElementById('donateSubmitBtn');
+        const formContent    = document.getElementById('formContent');
+        const successContent = document.getElementById('successContent');
 
-// Copy Account Number Helper
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        const copyBtn = document.getElementById('copyBtn');
-        copyBtn.innerHTML = '<i class="fas fa-check text-white"></i>';
-        setTimeout(() => {
-            copyBtn.innerHTML = '<i class="fas fa-copy text-xs"></i>';
-        }, 2000);
+        btn.innerText = "RECORDING...";
+        btn.disabled  = true;
+
+        const payload = {
+            type:    "DONATE",
+            name:    document.getElementById('donorName').value,
+            email:   document.getElementById('donorEmail').value,
+            project: document.getElementById('donorPurpose').value,
+            amount:  "PLEDGE",
+            message: "Bank Transfer Pledge Notification"
+        };
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode:   'no-cors',
+                body:   JSON.stringify(payload)
+            });
+
+            formContent.classList.add('hidden');
+            successContent.classList.remove('hidden');
+            document.getElementById('donorForm').reset();
+
+        } catch (error) {
+            console.error('Submission Error:', error);
+            alert("We couldn't record your pledge. Please try again.");
+        } finally {
+            btn.innerText = "Confirm Support";
+            btn.disabled  = false;
+        }
+    };
+
+    /* ─────────────────────────────────────────────────
+       FIX 4 — Mobile Nav (ported from corrected index.html)
+       openMobileNav / closeMobileNav / toggleSubmenu
+       must be global so inline onclick attributes work
+    ───────────────────────────────────────────────── */
+    window.openMobileNav = function () {
+        const overlay = document.getElementById("mobileNavOverlay");
+        const panel   = document.getElementById("mobileNavPanel");
+        if (overlay) overlay.classList.add("active");
+        if (panel)   panel.classList.add("active");
+        document.body.classList.add("no-scroll");
+    };
+
+    window.closeMobileNav = function () {
+        const overlay = document.getElementById("mobileNavOverlay");
+        const panel   = document.getElementById("mobileNavPanel");
+        if (overlay) overlay.classList.remove("active");
+        if (panel)   panel.classList.remove("active");
+        document.body.classList.remove("no-scroll");
+    };
+
+    window.toggleSubmenu = function (id) {
+        const menu = document.getElementById(id);
+        if (!menu) return;
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    };
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* ─────────────────────────────────────────────────
+       AOS INITIALIZATION
+    ───────────────────────────────────────────────── */
+    AOS.init({
+        duration: 900,
+        once: true,
+        disable: 'mobile'
     });
-}
-    
-    // 5. Timeline Active Scroll Observer
-    window.addEventListener("scroll", () => {
-        const sections = document.querySelectorAll("section[id^='year-']");
-        const links = document.querySelectorAll(".timeline-link");
-        let current = "";
 
-        sections.forEach((sec) => {
+    /* ─────────────────────────────────────────────────
+       TIMELINE ACTIVE SCROLL OBSERVER
+    ───────────────────────────────────────────────── */
+    window.addEventListener("scroll", function () {
+        const sections = document.querySelectorAll("section[id^='year-']");
+        const links    = document.querySelectorAll(".timeline-link");
+        let current    = "";
+
+        sections.forEach(function (sec) {
             const rect = sec.getBoundingClientRect();
-            // 200px threshold works best for mobile/desktop headers
             if (rect.top <= 200 && rect.bottom >= 200) {
                 current = sec.id;
             }
         });
 
-        links.forEach((link) => {
-            link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+        links.forEach(function (link) {
+            link.classList.toggle("active", link.getAttribute("href") === "#" + current);
         });
     }, { passive: true });
+
 });
 
-/**
- * Component Loader 
- * Kept outside DOMContentLoaded to be accessible globally if needed immediately
- */
+/* ─────────────────────────────────────────────────
+   COMPONENT LOADER (kept global as originally written)
+───────────────────────────────────────────────── */
 function loadComponent(id, file) {
     fetch(file)
-        .then(res => {
+        .then(function (res) {
             if (!res.ok) throw new Error("Component failed to load: " + file);
             return res.text();
         })
-        .then(data => {
+        .then(function (data) {
             const el = document.getElementById(id);
             if (el) el.innerHTML = data;
         })
-        .catch(err => console.error(err));
+        .catch(function (err) { console.error(err); });
 }
-  
+
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
